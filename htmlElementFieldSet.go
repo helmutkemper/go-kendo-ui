@@ -9,7 +9,7 @@ type HtmlElementFormFieldSet struct{
   /*
   Content inside html tag
   */
-  Content                     string
+  Content                     Content
 
   /*
   The form element that the input element is associated with (its form owner). The value of the attribute must be an id
@@ -30,5 +30,5 @@ type HtmlElementFormFieldSet struct{
   Global                      HtmlGlobalAttributes
 }
 func(el *HtmlElementFormFieldSet)String() string {
-  return `<fieldset ` + el.Global.String() + el.Name.ToAttr("name") + el.Form.ToAttr("form") + el.Disabled.ToAttrSet("disabled") + `>` + el.Content + `</fieldset>`
+  return `<fieldset ` + el.Global.String() + el.Name.ToAttr("name") + el.Form.ToAttr("form") + el.Disabled.ToAttrSet("disabled") + `>` + el.Content.String() + `</fieldset>`
 }

@@ -4,7 +4,7 @@ type HtmlElementFormOptGroup struct{
   /*
   Content inside html tag
   */
-  Content                     string
+  Content                     Content
 
   /*
   The name of the group of options, which the browser can use when labeling the options in the user interface. This
@@ -23,5 +23,5 @@ type HtmlElementFormOptGroup struct{
   Global                      HtmlGlobalAttributes
 }
 func(el *HtmlElementFormOptGroup)String() string {
-  return `<label ` + el.Global.String() + el.Label.ToAttr("label") + el.Disabled.ToAttrSet("disabled") + `>` + el.Content + `</label>`
+  return `<label ` + el.Global.String() + el.Label.ToAttr("label") + el.Disabled.ToAttrSet("disabled") + `>` + el.Content.String() + `</label>`
 }

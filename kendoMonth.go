@@ -17,7 +17,7 @@ type KendoMonth struct{
    });
    </script>
   */
-  Content                                 string
+  Content                                 String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/datetimepicker#configuration-month.weekNumber  The template to be used for rendering the cells in "week" column. By default, the widget renders the calculated week of the year. The properties available in the data object are:

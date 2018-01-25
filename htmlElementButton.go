@@ -9,7 +9,7 @@ type HtmlElementFormButton struct{
   /*
   Content inside html tag
   */
-  Content                     string
+  Content                     Content
 
   /*
   The form element that the input element is associated with (its form owner). The value of the attribute must be an id
@@ -62,7 +62,7 @@ type HtmlElementFormButton struct{
   > _top: Load the response into the top-level browsing context (that is, the browsing context that is an ancestor of
   the current one, and has no parent). If there is no parent, this option behaves the same way as _self.
   */
-  FormTarget                  FormTarget
+  FormTarget                  String
 
   /*
   This Boolean attribute indicates that the form control is not available for interaction. In particular, the click
@@ -75,5 +75,5 @@ type HtmlElementFormButton struct{
   Global                      HtmlGlobalAttributes
 }
 func(el *HtmlElementFormButton)String() string {
-  return `<button ` + el.Global.String() + el.Name.ToAttr("name") + el.Form.ToAttr("form") + el.FormAction.ToAttr("formaction") + el.FormEncType.ToAttr("formenctype") + el.FormMethod.ToAttr("formmethod") + el.FormTarget.ToAttr("formtarget") + el.Disabled.ToAttrSet("disabled") + el.FormNoValidate.ToAttrSet("formnovalidate") + `>` + el.Content + `</button>`
+  return `<button ` + el.Global.String() + el.Name.ToAttr("name") + el.Form.ToAttr("form") + el.FormAction.ToAttr("formaction") + el.FormEncType.ToAttr("formenctype") + el.FormMethod.ToAttr("formmethod") + el.FormTarget.ToAttr("formtarget") + el.Disabled.ToAttrSet("disabled") + el.FormNoValidate.ToAttrSet("formnovalidate") + `>` + el.Content.String() + `</button>`
 }

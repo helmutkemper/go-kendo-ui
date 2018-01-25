@@ -9,7 +9,7 @@ type HtmlElementFormOutput struct{
   /*
   Content inside html tag
   */
-  Content                     string
+  Content                     Content
 
   /*
   The form element that the input element is associated with (its form owner). The value of the attribute must be an id
@@ -30,5 +30,5 @@ type HtmlElementFormOutput struct{
   Global                      HtmlGlobalAttributes
 }
 func(el *HtmlElementFormOutput)String() string {
-  return `<output ` + el.Global.String() + el.Name.ToAttr("name") + el.Form.ToAttr("form") + el.For.ToAttr("for") + `>` + el.Content + `</output>`
+  return `<output ` + el.Global.String() + el.Name.ToAttr("name") + el.Form.ToAttr("form") + el.For.ToAttr("for") + `>` + el.Content.String() + `</output>`
 }

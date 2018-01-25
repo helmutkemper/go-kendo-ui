@@ -5,10 +5,10 @@ type HtmlElementDiv struct{
   /*
   Content inside html tag
   */
-  Content                     string
+  Content                     Content
 
   Global                      HtmlGlobalAttributes
 }
 func(el *HtmlElementDiv)String() string {
-  return `<div ` + el.Global.String() + `>` + el.Content + `</div>`
+  return `<div ` + el.Global.String() + `>` + el.Content.String() + `</div>`
 }

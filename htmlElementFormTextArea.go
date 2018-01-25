@@ -11,7 +11,7 @@ type HtmlElementFormTextArea struct{
   /*
   Content inside html tag
   */
-  Content                     string
+  Content                     Content
 
   /*
   The form element that the input element is associated with (its form owner). The value of the attribute must be an id
@@ -115,5 +115,5 @@ type HtmlElementFormTextArea struct{
   Global                      HtmlGlobalAttributes
 }
 func(el *HtmlElementFormTextArea)String() string {
-  return `<textarea ` + el.Global.String() + el.Name.ToAttr("name") + el.Form.ToAttr("form") + el.AutoCapitalize.ToAttr("autocapitalize") + el.AutoComplete.ToAttr("autocomplete") + el.Cols.ToAttr("cols") + el.MaxLength.ToAttr("maxlength") + el.MinLength.ToAttr("minlength") + el.PlaceHolder.ToAttr("placeholder") + el.Rows.ToAttr("rows") + el.SpellCheck.ToAttr("spellcheck") + el.Wrap.ToAttr("warp") + el.Disabled.ToAttrSet("disabled") + `>` + el.Content + `</textarea>`
+  return `<textarea ` + el.Global.String() + el.Name.ToAttr("name") + el.Form.ToAttr("form") + el.AutoCapitalize.ToAttr("autocapitalize") + el.AutoComplete.ToAttr("autocomplete") + el.Cols.ToAttr("cols") + el.MaxLength.ToAttr("maxlength") + el.MinLength.ToAttr("minlength") + el.PlaceHolder.ToAttr("placeholder") + el.Rows.ToAttr("rows") + el.SpellCheck.ToAttr("spellcheck") + el.Wrap.ToAttr("warp") + el.Disabled.ToAttrSet("disabled") + `>` + el.Content.String() + `</textarea>`
 }

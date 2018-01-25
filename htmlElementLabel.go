@@ -20,10 +20,10 @@ type HtmlElementFormLabel struct{
   /*
   Content inside html tag
   */
-  Content                     string
+  Content                     Content
 
   Global                      HtmlGlobalAttributes
 }
 func(el *HtmlElementFormLabel)String() string {
-  return `<label ` + el.Global.String() + el.For.ToAttr("for") + el.Form.ToAttr("form") + `>` + el.Content + `</label>`
+  return `<label ` + el.Global.String() + el.For.ToAttr("for") + el.Form.ToAttr("form") + `>` + el.Content.String() + `</label>`
 }

@@ -4,7 +4,7 @@ type HtmlElementFormMeter struct{
   /*
   Content inside html tag
   */
-  Content                     string
+  Content                     Content
 
   /*
   The form element that the input element is associated with (its form owner). The value of the attribute must be an id
@@ -44,5 +44,5 @@ type HtmlElementFormMeter struct{
   Global                      HtmlGlobalAttributes
 }
 func(el *HtmlElementFormMeter)String() string {
-  return `<meter ` + el.Global.String() + el.Form.ToAttr("form") + el.Min.ToAttr("min") + el.Max.ToAttr("max") + el.High.ToAttr("high") + el.Optimum.ToAttr("optimum") + `>` + el.Content + `</meter>`
+  return `<meter ` + el.Global.String() + el.Form.ToAttr("form") + el.Min.ToAttr("min") + el.Max.ToAttr("max") + el.High.ToAttr("high") + el.Optimum.ToAttr("optimum") + `>` + el.Content.String() + `</meter>`
 }

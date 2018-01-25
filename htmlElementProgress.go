@@ -17,10 +17,10 @@ type HtmlElementFormProgress struct{
   /*
   Content inside html tag
   */
-  Content                     string
+  Content                     String
 
   Global                      HtmlGlobalAttributes
 }
 func(el *HtmlElementFormProgress)String() string {
-  return `<progress ` + el.Global.String() + el.Value.ToAttr("value") + el.Max.ToAttr("max") + `>` + el.Content + `</progress>`
+  return `<progress ` + el.Global.String() + el.Value.ToAttr("value") + el.Max.ToAttr("max") + `>` + el.Content.String() + `</progress>`
 }

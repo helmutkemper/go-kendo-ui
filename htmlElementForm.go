@@ -9,7 +9,7 @@ type HtmlElementForm struct{
   /*
   Content inside html tag
   */
-  Content                     string
+  Content                     Content
 
   /*
   The form element that the input element is associated with (its form owner). The value of the attribute must be an id
@@ -125,5 +125,5 @@ type HtmlElementForm struct{
   Global                      HtmlGlobalAttributes
 }
 func(el *HtmlElementForm)String() string {
-  return `<form ` + el.Global.String() + el.Name.ToAttr("name") + el.Form.ToAttr("form") + el.Accept.ToAttr("accept") + el.AcceptCharset.ToAttr("acceptcharset") + el.Action.ToAttr("action") + el.AutoCapitalize.ToAttr("autocapitalize") + el.AutoComplete.ToAttr("autocomplete") + el.EncType.ToAttr("enctype") + el.Method.ToAttr("method") + el.Disabled.ToAttrSet("disabled") + el.NoValidate.ToAttrSet("novalidate") + el.Target.ToAttr("target") + `>` + el.Content + `</form>`
+  return `<form ` + el.Global.String() + el.Name.ToAttr("name") + el.Form.ToAttr("form") + el.Accept.ToAttr("accept") + el.AcceptCharset.ToAttr("acceptcharset") + el.Action.ToAttr("action") + el.AutoCapitalize.ToAttr("autocapitalize") + el.AutoComplete.ToAttr("autocomplete") + el.EncType.ToAttr("enctype") + el.Method.ToAttr("method") + el.Disabled.ToAttrSet("disabled") + el.NoValidate.ToAttrSet("novalidate") + el.Target.ToAttr("target") + `>` + el.Content.String() + `</form>`
 }

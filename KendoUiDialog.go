@@ -94,7 +94,7 @@ type KendoUiDialog struct{
    </script>
   */
 
-  Content                                 string
+  Content                                 String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog#configuration-height
