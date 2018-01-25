@@ -24,4 +24,7 @@ type KendoUiAlert struct{
 func(el *KendoUiAlert) IsSet() bool {
   return el != nil
 }
+func(el *KendoUiAlert) ToHtml(content ...string) string {
+  return `<div id="` + el.HtmlId + `">` + content[0] + `</div>`
+}
 
