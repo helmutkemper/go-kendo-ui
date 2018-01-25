@@ -1,4 +1,7 @@
 # telerik
+
+[![Build Status](https://travis-ci.org/helmutkemper/KendoUI.svg?branch=master)](https://travis-ci.org/helmutkemper/KendoUI)
+
 telerik kendo ui for golang
 
 ```
