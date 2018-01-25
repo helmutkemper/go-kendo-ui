@@ -93,7 +93,7 @@ type HtmlInputImage struct{
   > _top: Load the response into the top-level browsing context (that is, the browsing context that is an ancestor of
   the current one, and has no parent). If there is no parent, this option behaves the same as _self.
   */
-  FormTarget                  String
+  FormTarget                  FormTarget
 
   /*
   This Boolean attribute indicates that the form control is not available for interaction. In particular, the click
