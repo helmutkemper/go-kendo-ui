@@ -1,5 +1,13 @@
 package telerik
 
+// <input> elements of type "email" are used to let the user enter and edit an email address, or, if the multiple
+// attribute is specified, a list of email addresses. The input value is automatically validated to ensure that it's
+// either empty or a properly-formatted email address (or list of addresses) before the form can be submitted. The
+// :valid and :invalid CSS pseudo-classes are automatically applied as appropriate.
+//
+// Note: Browsers that don't support type "email" fall back to being a standard "text" input.
+//
+// <input id="emailAddress" type="email">
 type HtmlInputEmail struct{
   /*
   The name of the control, which is submitted with the form data.

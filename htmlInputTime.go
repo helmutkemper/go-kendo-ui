@@ -1,5 +1,13 @@
 package telerik
 
+// <input> elements of type time create input fields designed to let the user easily enter a time (hours and minutes,
+// and optionally seconds).
+//
+// The control's user interface will vary from browser to browser. Support is good in modern browsers, with Safari being
+// the sole major browser not yet implementing it; in Safari, and any other browsers that don't support <time>, it
+// degrades gracefully to <input type="text">.
+//
+// <input id="time" type="time">
 type HtmlInputTime struct{
   /*
   The name of the control, which is submitted with the form data.

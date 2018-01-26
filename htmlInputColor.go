@@ -1,5 +1,14 @@
 package telerik
 
+// <input> elements of type "color" provide a user interface element that lets a user specify a color, either by using a
+// visual color picker interface or by entering the color into a text field in "#rrggbb" hexadecimal format. Only simple
+// colors (with no alpha channel) are allowed.
+//
+// The element's presentation may vary substantially from one browser and/or platform to another — it might be a simple
+// textual input that automatically validates to ensure that the color information is entered in the proper format, or a
+// platform-standard color picker, or some kind of custom color picker window.
+//
+// <input type="color">
 type HtmlInputColor struct{
   /*
   The name of the control, which is submitted with the form data.

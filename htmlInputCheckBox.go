@@ -1,5 +1,10 @@
 package telerik
 
+// <input> elements of type checkbox are rendered by default as square boxes that are checked (ticked) when activated,
+// like you might see in an official government paper form. They allow you to select single values for submission in a
+// form (or not).
+//
+// <input id="checkBox" type="checkbox">
 type HtmlInputCheckBox struct{
   /*
   The name of the control, which is submitted with the form data.

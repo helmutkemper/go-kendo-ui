@@ -1,5 +1,22 @@
 package telerik
 
+// <input> elements of type datetime-local create input controls that let the user easily enter both a date and a time,
+// including the year, month, and day as well as the time in hours and minutes. The user's local time zone is used. The
+// control's UI varies in general from browser to browser; at the moment support is patchy, with only Chrome/Opera and
+// Edge on desktop and most modern versions of mobile browsers having usable implementations. In other browsers, these
+// degrade gracefully to simple <input type="text"> controls.
+//
+// It's worth noting that seconds are not supported.
+//
+// Because of the limited browser support for datetime-local, and the variations in how the inputs work, it may
+// currently still be best to use a framework or library to present these, or to use a custom input of your own. Another
+// option is to use separate date and time inputs, each of which is more widely supported than datetime-local.
+//
+// Some browsers may resort to a text-only input element that validates that the results are legitimate date/time values
+// before letting them be delivered to the server, as well, but you shouldn't rely on this behavior since you can't
+// easily predict it.
+//
+// <input id="datetime" type="datetime-local">
 type HtmlInputDateTimeLocal struct{
   /*
   The name of the control, which is submitted with the form data.

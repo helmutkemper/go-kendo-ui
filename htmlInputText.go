@@ -1,5 +1,8 @@
 package telerik
 
+// <input> elements of type "text" create basic single-line text fields.
+//
+// <input type="text">
 type HtmlInputText struct{
   /*
   The name of the control, which is submitted with the form data.

@@ -1,5 +1,9 @@
 package telerik
 
+// <input> elements of type "submit" are rendered as buttons. When the click event occurs (typically because the user
+// clicked the button), the user agent attempts to submit the form to the server.
+//
+// <input type="submit" value="Send Request">
 type HtmlInputSubmit struct{
   /*
   The name of the control, which is submitted with the form data.

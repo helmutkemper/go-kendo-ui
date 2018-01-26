@@ -1,5 +1,9 @@
 package telerik
 
+// <input> elements of type "reset"  are rendered as buttons, with a default click event handler that resets all of the
+// inputs in the form to their initial values.
+//
+// <input type="reset" value="Reset the form">
 type HtmlInputReset struct{
   /*
   The name of the control, which is submitted with the form data.

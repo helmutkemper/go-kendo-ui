@@ -1,5 +1,9 @@
 package telerik
 
+// <input> elements with type="file" let the user choose one or more files from their device storage. Once chosen, the
+// files can be uploaded to a server using form submission, or manipulated using JavaScript code and the File API.
+//
+// <input name="myFile" type="file">
 type HtmlInputFile struct{
   /*
   The name of the control, which is submitted with the form data.
