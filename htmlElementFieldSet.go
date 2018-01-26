@@ -1,6 +1,5 @@
 package telerik
 
-// The HTML <fieldset> element is used to group several controls as well as labels (<label>) within a web form.
 type HtmlElementFormFieldSet struct{
   /*
   The name of the control, which is submitted with the form data.

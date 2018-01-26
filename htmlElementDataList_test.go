@@ -2,7 +2,7 @@ package telerik
 
 import "fmt"
 
-func ExampleHtmlElementFormDataList_String() {//
+func ExampleHtmlElementFormDataList_String() {
   el := HtmlElementFormDataList{
     Global: HtmlGlobalAttributes{
       Id: "dataListId",
