@@ -1,5 +1,6 @@
 package telerik
 
+// The HTML <legend> element represents a caption for the content of its parent <fieldset>.
 type HtmlElementFormLegend struct{
   /*
   The name of the control, which is submitted with the form data.

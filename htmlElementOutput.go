@@ -1,5 +1,7 @@
 package telerik
 
+// The HTML Output element (<output>) is a container element into which a site or app can inject the results of a
+// calculation or the outcome of a user action.
 type HtmlElementFormOutput struct{
   /*
   The name of the control, which is submitted with the form data.

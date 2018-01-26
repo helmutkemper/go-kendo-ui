@@ -1,5 +1,6 @@
 package telerik
 
+// The HTML <textarea> element represents a multi-line plain-text editing control.
 type HtmlElementFormTextArea struct{
   /*
   The name of the control, which is submitted with the form data.

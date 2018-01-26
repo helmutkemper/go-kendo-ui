@@ -1,5 +1,6 @@
 package telerik
 
+// The HTML <label> element represents a caption for an item in a user interface.
 type HtmlElementFormLabel struct{
   /*
   The form element that the input element is associated with (its form owner). The value of the attribute must be an id

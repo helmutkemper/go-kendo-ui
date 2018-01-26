@@ -1,5 +1,6 @@
 package telerik
 
+// The HTML <meter> element represents either a scalar value within a known range or a fractional value.
 type HtmlElementFormMeter struct{
   /*
   Content inside html tag

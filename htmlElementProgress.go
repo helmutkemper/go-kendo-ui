@@ -1,5 +1,9 @@
 package telerik
 
+// Introduced in HTML5
+//
+// The HTML <progress> element displays an indicator showing the completion progress of a task, typically displayed as
+// a progress bar.
 type HtmlElementFormProgress struct{
   /*
   The initial value of the control. This attribute is optional except when the value of the type attribute is radio or

@@ -1,5 +1,9 @@
 package telerik
 
+// The HTML <form> element represents a document section that contains interactive controls to submit information to a
+// web server.
+//
+// It is possible to use the :valid and :invalid CSS pseudo-classes to style a <form> element.
 type HtmlElementForm struct{
   /*
   The name of the control, which is submitted with the form data.

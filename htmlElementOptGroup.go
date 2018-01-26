@@ -1,5 +1,6 @@
 package telerik
 
+// The HTML <optgroup> element creates a grouping of options within a <select> element.
 type HtmlElementFormOptGroup struct{
   /*
   Content inside html tag

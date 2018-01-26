@@ -5,6 +5,13 @@ import (
   "strconv"
 )
 
+// Global attributes are attributes common to all HTML elements; they can be used on all elements, though they may have
+// no effect on some elements.
+//
+// Global attributes may be specified on all HTML elements, even those not specified in the standard. That means that
+// any non-standard elements must still permit these attributes, even though using those elements means that the
+// document is no longer HTML5-compliant. For example, HTML5-compliant browsers hide content marked as <foo hidden>...
+// <foo>, even though <foo> is not a valid HTML element.
 type HtmlGlobalAttributes struct{
   /*
   Provides a hint for generating a keyboard shortcut for the current element. This attribute consists of a

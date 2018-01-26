@@ -1,5 +1,6 @@
 package telerik
 
+// The HTML <select> element represents a control that provides a menu
 type HtmlElementFormSelect struct{
   /*
   The name of the control, which is submitted with the form data.

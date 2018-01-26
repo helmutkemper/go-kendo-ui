@@ -1,5 +1,7 @@
 package telerik
 
+// The HTML <datalist> element contains a set of <option> elements that represent the values available for other
+// controls.
 type HtmlElementFormDataList struct{
   /*
   The name of the control, which is submitted with the form data.
