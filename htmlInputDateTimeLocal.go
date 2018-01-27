@@ -15,8 +15,9 @@ package telerik
 // Some browsers may resort to a text-only input element that validates that the results are legitimate date/time values
 // before letting them be delivered to the server, as well, but you shouldn't rely on this behavior since you can't
 // easily predict it.
-//
-// <input id="datetime" type="datetime-local">
+/*
+ <input id="datetime" type="datetime-local">
+*/
 type HtmlInputDateTimeLocal struct{
   /*
   The name of the control, which is submitted with the form data.
