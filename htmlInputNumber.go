@@ -5,8 +5,9 @@ package telerik
 // using their mouse or by simply tapping with a fingertip.
 //
 // Note: Browsers that don't support type "number" fall back to using a standard "text" input.
-//
-// <input id="number" type="number">
+/*
+ <input id="number" type="number">
+*/
 type HtmlInputNumber struct{
   /*
   The name of the control, which is submitted with the form data.

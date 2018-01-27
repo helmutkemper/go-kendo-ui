@@ -2,8 +2,9 @@ package telerik
 
 // <input> elements of type "image" are used to create graphical submit buttons, i.e. submit buttons that take the form
 // of an image rather than text.
-//
-// <input id="image" type="image" alt="Login" src="./login.png">
+/*
+ <input id="image" type="image" alt="Login" src="./login.png">
+*/
 type HtmlInputImage struct{
   /*
   The name of the control, which is submitted with the form data.

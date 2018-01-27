@@ -10,8 +10,9 @@ package telerik
 // makes adding custom validation and handling of phone numbers more convenient.
 //
 // Browsers that don't support type "tel" fall back to being a standard "text" input.
-//
-// <input id="telNo" type="tel">
+/*
+ <input id="telNo" type="tel">
+*/
 type HtmlInputTel struct{
   /*
   The name of the control, which is submitted with the form data.

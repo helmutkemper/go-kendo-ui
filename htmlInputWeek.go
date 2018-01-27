@@ -6,8 +6,9 @@ package telerik
 // The control's user interface varies from browser to browser; cross-browser support is currently a bit limited, with
 // only Chrome/Opera and Microsoft Edge supporting it at this time. In non-supporting browsers, the control degrades
 // gracefully to function identically to <input type="text">.
-//
-//<input id="week" type="week">
+/*
+ <input id="week" type="week">
+*/
 type HtmlInputWeek struct{
   /*
   The name of the control, which is submitted with the form data.

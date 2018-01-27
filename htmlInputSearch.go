@@ -2,8 +2,9 @@ package telerik
 
 // <input> elements of type "search" are text fields designed for the user to enter search queries into. These are
 // functionally identical to text inputs, but may be styled differently by the user agent.
-//
-// <input type="search">
+/*
+ <input type="search">
+*/
 type HtmlInputSearch struct{
   /*
   The name of the control, which is submitted with the form data.
