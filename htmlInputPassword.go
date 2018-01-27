@@ -12,9 +12,8 @@ package telerik
 //
 // Any forms involving sensitive information like passwords (e.g. login forms) should be served over HTTPS; Many
 // browsers now implement mechanisms to warn against insecure login forms; see Insecure passwords.
-/*
- <input id="userPassword" type="password">
-*/
+//
+// <input id="userPassword" type="password">
 type HtmlInputPassword struct{
   /*
   The name of the control, which is submitted with the form data.

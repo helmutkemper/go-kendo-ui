@@ -8,9 +8,8 @@ package telerik
 // and Edge on desktop — and most modern mobile browser versions — having usable implementations. In browsers that don't
 // support month inputs, the control degrades gracefully to a simple <input type="text">, although there may be
 // automatic validation of the entered text to ensure it's formatted as expected.
-/*
- <input id="month" type="month">
-*/
+//
+// <input id="month" type="month">
 type HtmlInputMonth struct{
   /*
   The name of the control, which is submitted with the form data.

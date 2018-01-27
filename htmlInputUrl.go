@@ -6,9 +6,8 @@ package telerik
 // of the field is a valid URL or not.
 //
 // Browsers that don't support type "url" fall back to being a standard "text" input.
-/*
- <input id="myURL" type="url">
-*/
+//
+// <input id="myURL" type="url">
 type HtmlInputUrl struct{
   /*
   The name of the control, which is submitted with the form data.

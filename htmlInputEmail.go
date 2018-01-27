@@ -6,9 +6,8 @@ package telerik
 // :valid and :invalid CSS pseudo-classes are automatically applied as appropriate.
 //
 // Note: Browsers that don't support type "email" fall back to being a standard "text" input.
-/*
- <input id="emailAddress" type="email">
-*/
+//
+// <input id="emailAddress" type="email">
 type HtmlInputEmail struct{
   /*
   The name of the control, which is submitted with the form data.

@@ -7,9 +7,8 @@ package telerik
 // The control's UI varies in general from browser to browser; at the moment support is patchy, see Browser
 // compatibility for further details. In unsupported browsers, the control degrades gracefully to a simple
 // <input type="text">.
-/*
- <input id="date" type="date">
-*/
+//
+// <input id="date" type="date">
 type HtmlInputDate struct{
   /*
   The name of the control, which is submitted with the form data.

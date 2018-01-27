@@ -6,9 +6,8 @@ package telerik
 // page's content.
 //
 // Note: There is a live example below the following line of code — if it is working correctly, you should see nothing!
-/*
- <input id="prodId" name="prodId" type="hidden" value="xm234jq">
-*/
+//
+// <input id="prodId" name="prodId" type="hidden" value="xm234jq">
 type HtmlInputHidden struct{
   /*
   The name of the control, which is submitted with the form data.
