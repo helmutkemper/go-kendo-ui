@@ -1,7 +1,13 @@
 package telerik
 
+import (
+  "fmt"
+  "html/template"
+  "bytes"
+)
+
 type KendoUiAutoComplete struct{
-  HtmlId                                  string
+  HtmlId                                  String
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-animation
@@ -95,7 +101,7 @@ type KendoUiAutoComplete struct{
    </script>
   */
 
-  DataTextField                           string
+  DataTextField                           String
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-delay
@@ -111,7 +117,7 @@ type KendoUiAutoComplete struct{
    </script>
   */
 
-  Delay                                   int
+  Delay                                   Int
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-enable
@@ -173,7 +179,7 @@ type KendoUiAutoComplete struct{
    </script>
   */
 
-  Filter                                  string
+  Filter                                  String
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-fixedGroupTemplate
@@ -183,7 +189,7 @@ type KendoUiAutoComplete struct{
   
   */
 
-  FixedGroupTemplate                      string
+  FixedGroupTemplate                      String
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-footerTemplate
@@ -205,7 +211,7 @@ type KendoUiAutoComplete struct{
    </script>
   */
 
-  FooterTemplate                          string
+  FooterTemplate                          String
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-groupTemplate
@@ -215,7 +221,7 @@ type KendoUiAutoComplete struct{
   
   */
 
-  GroupTemplate                           string
+  GroupTemplate                           String
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-height
@@ -234,7 +240,7 @@ type KendoUiAutoComplete struct{
    </script>
   */
 
-  Height                                  int
+  Height                                  Int
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-highlightFirst
@@ -293,7 +299,7 @@ type KendoUiAutoComplete struct{
    </script>
   */
 
-  MinLength                               int
+  MinLength                               Int
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-noDataTemplate
@@ -315,7 +321,7 @@ type KendoUiAutoComplete struct{
    </script>
   */
 
-  NoDataTemplate                          string
+  NoDataTemplate                          String
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-placeholder
@@ -332,7 +338,7 @@ type KendoUiAutoComplete struct{
    </script>
   */
 
-  Placeholder                             string
+  Placeholder                             String
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-popup
@@ -378,7 +384,7 @@ type KendoUiAutoComplete struct{
    </script>
   */
 
-  Separator                               string
+  Separator                               String
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-suggest
@@ -420,7 +426,7 @@ type KendoUiAutoComplete struct{
    </script>
   */
 
-  HeaderTemplate                          string
+  HeaderTemplate                          String
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-template
@@ -447,7 +453,7 @@ type KendoUiAutoComplete struct{
    </script>
   */
 
-  Template                                string
+  Template                                String
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-value
@@ -468,7 +474,7 @@ type KendoUiAutoComplete struct{
    </script>
   */
 
-  Value                                   string
+  Value                                   String
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-valuePrimitive
@@ -542,5 +548,19 @@ type KendoUiAutoComplete struct{
 }
 func(el *KendoUiAutoComplete) IsSet() bool {
   return el != nil
+}
+func(el *KendoUiAutoComplete) String() string {
+  var buffer bytes.Buffer
+  tmpl := template.Must(template.New("").Funcs(template.FuncMap{
+    "safeHTML": func(s interface{}) template.HTML {
+      return template.HTML(fmt.Sprint(s))
+    },
+  }).Parse(GetTemplate()))
+  err := tmpl.ExecuteTemplate(&buffer, "KendoUiAutoComplete", *(el))
+  if err != nil {
+    fmt.Println(err.Error())
+  }
+  
+  return buffer.String()
 }
 

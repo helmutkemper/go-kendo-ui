@@ -1,7 +1,13 @@
 package telerik
 
+import (
+  "fmt"
+  "html/template"
+  "bytes"
+)
+
 type KendoUiDropDownList struct{
-  HtmlId                                  string
+  HtmlId                                  String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-animation
@@ -91,7 +97,7 @@ type KendoUiDropDownList struct{
    </script>
   */
 
-  CascadeFrom                             string
+  CascadeFrom                             String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-cascadeFromField
@@ -126,7 +132,7 @@ type KendoUiDropDownList struct{
    </script>
   */
 
-  CascadeFromField                        string
+  CascadeFromField                        String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-dataSource
@@ -168,7 +174,7 @@ type KendoUiDropDownList struct{
    </script>
   */
 
-  DataTextField                           string
+  DataTextField                           String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-dataValueField
@@ -190,7 +196,7 @@ type KendoUiDropDownList struct{
    </script>
   */
 
-  DataValueField                          string
+  DataValueField                          String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-delay
@@ -206,7 +212,7 @@ type KendoUiDropDownList struct{
    </script>
   */
 
-  Delay                                   int
+  Delay                                   Int
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-enable
@@ -269,7 +275,7 @@ type KendoUiDropDownList struct{
    </script>
   */
 
-  Filter                                  string
+  Filter                                  String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-fixedGroupTemplate
@@ -279,7 +285,7 @@ type KendoUiDropDownList struct{
   
   */
 
-  FixedGroupTemplate                      string
+  FixedGroupTemplate                      String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-footerTemplate
@@ -302,7 +308,7 @@ type KendoUiDropDownList struct{
    </script>
   */
 
-  FooterTemplate                          string
+  FooterTemplate                          String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-groupTemplate
@@ -312,7 +318,7 @@ type KendoUiDropDownList struct{
   
   */
 
-  GroupTemplate                           string
+  GroupTemplate                           String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-height
@@ -338,7 +344,7 @@ type KendoUiDropDownList struct{
    </script>
   */
 
-  Height                                  int
+  Height                                  Int
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-ignoreCase
@@ -374,7 +380,7 @@ type KendoUiDropDownList struct{
    </script>
   */
 
-  Index                                   int
+  Index                                   Int
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-minLength
@@ -393,7 +399,7 @@ type KendoUiDropDownList struct{
    </script>
   */
 
-  MinLength                               int
+  MinLength                               Int
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-noDataTemplate
@@ -413,7 +419,7 @@ type KendoUiDropDownList struct{
    </script>
   */
 
-  NoDataTemplate                          string
+  NoDataTemplate                          String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-popup
@@ -456,7 +462,7 @@ type KendoUiDropDownList struct{
    </script>
   */
 
-  OptionLabel                             string
+  OptionLabel                             String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-optionLabelTemplate
@@ -467,7 +473,7 @@ type KendoUiDropDownList struct{
   
   */
 
-  OptionLabelTemplate                     string
+  OptionLabelTemplate                     String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-headerTemplate
@@ -489,7 +495,7 @@ type KendoUiDropDownList struct{
    </script>
   */
 
-  HeaderTemplate                          string
+  HeaderTemplate                          String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-template
@@ -517,7 +523,7 @@ type KendoUiDropDownList struct{
    </script>
   */
 
-  Template                                string
+  Template                                String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-valueTemplate
@@ -543,7 +549,7 @@ type KendoUiDropDownList struct{
    </script>
   */
 
-  ValueTemplate                           string
+  ValueTemplate                           String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-text
@@ -560,7 +566,7 @@ type KendoUiDropDownList struct{
    </script>
   */
 
-  Text                                    string
+  Text                                    String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-value
@@ -577,7 +583,7 @@ type KendoUiDropDownList struct{
    </script>
   */
 
-  Value                                   string
+  Value                                   String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-valuePrimitive
@@ -623,5 +629,19 @@ type KendoUiDropDownList struct{
 }
 func(el *KendoUiDropDownList) IsSet() bool {
   return el != nil
+}
+func(el *KendoUiDropDownList) String() string {
+  var buffer bytes.Buffer
+  tmpl := template.Must(template.New("").Funcs(template.FuncMap{
+    "safeHTML": func(s interface{}) template.HTML {
+      return template.HTML(fmt.Sprint(s))
+    },
+  }).Parse(GetTemplate()))
+  err := tmpl.ExecuteTemplate(&buffer, "KendoUiDropDownList", *(el))
+  if err != nil {
+    fmt.Println(err.Error())
+  }
+  
+  return buffer.String()
 }
 

@@ -1,11 +1,14 @@
 package telerik
 
-import "time"
-
-
+import (
+  "fmt"
+  "html/template"
+  "bytes"
+  "time"
+)
 
 type KendoUiCalendar struct{
-  HtmlId                                  string
+  HtmlId                                  String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/calendar#configuration-culture
@@ -21,7 +24,7 @@ type KendoUiCalendar struct{
    </script>
   */
 
-  Culture                                 string
+  Culture                                 String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/calendar#configuration-dates
@@ -41,7 +44,7 @@ type KendoUiCalendar struct{
    </script>
   */
 
-  Dates                                   interface{}
+  Dates                                   []time.Time
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/calendar#configuration-depth
@@ -58,7 +61,7 @@ type KendoUiCalendar struct{
    </script>
   */
 
-  Depth                                   string
+  Depth                                   String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/calendar#configuration-disableDates
@@ -78,7 +81,7 @@ type KendoUiCalendar struct{
    </script>
   */
 
-  DisableDates                            interface{}
+  DisableDates                            []string
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/calendar#configuration-footer
@@ -97,7 +100,7 @@ type KendoUiCalendar struct{
    </script>
   */
 
-  Footer                                  string
+  Footer                                  String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/calendar#configuration-format
@@ -113,7 +116,7 @@ type KendoUiCalendar struct{
    </script>
   */
 
-  Format                                  string
+  Format                                  String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/calendar#configuration-max
@@ -192,7 +195,7 @@ type KendoUiCalendar struct{
    </script>
   */
 
-  Selectable                              string
+  Selectable                              String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/calendar#configuration-selectDates
@@ -242,7 +245,7 @@ type KendoUiCalendar struct{
    </script>
   */
 
-  Start                                   string
+  Start                                   String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/calendar#configuration-value
@@ -262,5 +265,22 @@ type KendoUiCalendar struct{
 }
 func(el *KendoUiCalendar) IsSet() bool {
   return el != nil
+}
+func(el *KendoUiCalendar) String() string {
+  var buffer bytes.Buffer
+
+
+
+  tmpl := template.Must(template.New("").Funcs(template.FuncMap{
+    "safeHTML": func(s interface{}) template.HTML {
+      return template.HTML(fmt.Sprint(s))
+    },
+  }).Parse(GetTemplate()))
+  err := tmpl.ExecuteTemplate(&buffer, "KendoUiCalendar", *(el))
+  if err != nil {
+    fmt.Println(err.Error())
+  }
+  
+  return buffer.String()
 }
 

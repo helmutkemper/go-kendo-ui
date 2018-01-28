@@ -1,5 +1,11 @@
 package telerik
 
+import (
+  "fmt"
+  "html/template"
+  "bytes"
+)
+
 type KendoMonth struct{
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/datetimepicker#configuration-month.content  Template to be used for rendering the cells in the calendar "month" view, which are in range.
@@ -44,7 +50,7 @@ type KendoMonth struct{
      });
    </script>
   */
-  WeekNumber                              string
+  WeekNumber                              String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/datetimepicker#configuration-month.empty  The template used for rendering cells in the calendar "month" view, which are outside the min/max range.
@@ -58,10 +64,24 @@ type KendoMonth struct{
    });
    </script>
   */
-  Empty                                   string
+  Empty                                   String
 
 }
 func(el *KendoMonth) IsSet() bool {
   return el != nil
+}
+func(el *KendoMonth) String() string {
+  var buffer bytes.Buffer
+  tmpl := template.Must(template.New("").Funcs(template.FuncMap{
+    "safeHTML": func(s interface{}) template.HTML {
+      return template.HTML(fmt.Sprint(s))
+    },
+  }).Parse(GetTemplate()))
+  err := tmpl.ExecuteTemplate(&buffer, "Month", *(el))
+  if err != nil {
+    fmt.Println(err.Error())
+  }
+  
+  return buffer.String()
 }
 

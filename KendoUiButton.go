@@ -1,7 +1,13 @@
 package telerik
 
+import (
+  "fmt"
+  "html/template"
+  "bytes"
+)
+
 type KendoUiButton struct{
-  HtmlId                                  string
+  HtmlId                                  String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/button#configuration-enable
@@ -33,7 +39,7 @@ type KendoUiButton struct{
    </script>
   */
 
-  Icon                                    string
+  Icon                                    String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/button#configuration-imageUrl
@@ -50,7 +56,7 @@ type KendoUiButton struct{
    </script>
   */
 
-  ImageUrl                                string
+  ImageUrl                                String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/button#configuration-spriteCssClass
@@ -67,9 +73,23 @@ type KendoUiButton struct{
    </script>
   */
 
-  SpriteCssClass                          string
+  SpriteCssClass                          String
 }
 func(el *KendoUiButton) IsSet() bool {
   return el != nil
+}
+func(el *KendoUiButton) String() string {
+  var buffer bytes.Buffer
+  tmpl := template.Must(template.New("").Funcs(template.FuncMap{
+    "safeHTML": func(s interface{}) template.HTML {
+      return template.HTML(fmt.Sprint(s))
+    },
+  }).Parse(GetTemplate()))
+  err := tmpl.ExecuteTemplate(&buffer, "KendoUiButton", *(el))
+  if err != nil {
+    fmt.Println(err.Error())
+  }
+  
+  return buffer.String()
 }
 

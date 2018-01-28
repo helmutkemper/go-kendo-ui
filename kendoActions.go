@@ -1,5 +1,11 @@
 package telerik
 
+import (
+  "fmt"
+  "html/template"
+  "bytes"
+)
+
 type KendoActions struct{
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog#configuration-actions.text  The text to be shown in the action's button.
@@ -13,7 +19,7 @@ type KendoActions struct{
        });
    </script>
   */
-  Text                                    string
+  Text                                    String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog#configuration-actions.action  The callback function to be called after pressing the action button.
@@ -33,7 +39,7 @@ type KendoActions struct{
        });
    </script>
   */
-  Action                                  string
+  Action                                  String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog#configuration-actions.primary  A boolean property indicating whether the action button will be decorated as primary button or not.
@@ -53,5 +59,19 @@ type KendoActions struct{
 }
 func(el *KendoActions) IsSet() bool {
   return el != nil
+}
+func(el *KendoActions) String() string {
+  var buffer bytes.Buffer
+  tmpl := template.Must(template.New("").Funcs(template.FuncMap{
+    "safeHTML": func(s interface{}) template.HTML {
+      return template.HTML(fmt.Sprint(s))
+    },
+  }).Parse(GetTemplate()))
+  err := tmpl.ExecuteTemplate(&buffer, "Actions", *(el))
+  if err != nil {
+    fmt.Println(err.Error())
+  }
+  
+  return buffer.String()
 }
 

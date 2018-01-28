@@ -1,7 +1,13 @@
 package telerik
 
+import (
+  "fmt"
+  "html/template"
+  "bytes"
+)
+
 type KendoUiDraggable struct{
-  HtmlId                                  string
+  HtmlId                                  String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/draggable#configuration-axis
@@ -29,7 +35,7 @@ type KendoUiDraggable struct{
    </style>
   */
 
-  Axis                                    string
+  Axis                                    String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/draggable#configuration-autoScroll
@@ -92,7 +98,7 @@ type KendoUiDraggable struct{
    </style>
   */
 
-  Container                               string
+  Container                               String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/draggable#configuration-cursorOffset
@@ -148,7 +154,7 @@ type KendoUiDraggable struct{
    </style>
   */
 
-  Distance                                int
+  Distance                                Int
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/draggable#configuration-filter
@@ -183,7 +189,7 @@ type KendoUiDraggable struct{
    </style>
   */
 
-  Filter                                  string
+  Filter                                  String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/draggable#configuration-group
@@ -239,7 +245,7 @@ type KendoUiDraggable struct{
    </style>
   */
 
-  Group                                   string
+  Group                                   String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/draggable#configuration-hint
@@ -272,7 +278,7 @@ type KendoUiDraggable struct{
    </style>
   */
 
-  Hint                                    string
+  Hint                                    String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/draggable#configuration-holdToDrag
@@ -349,9 +355,23 @@ type KendoUiDraggable struct{
    </style>
   */
 
-  Ignore                                  string
+  Ignore                                  String
 }
 func(el *KendoUiDraggable) IsSet() bool {
   return el != nil
+}
+func(el *KendoUiDraggable) String() string {
+  var buffer bytes.Buffer
+  tmpl := template.Must(template.New("").Funcs(template.FuncMap{
+    "safeHTML": func(s interface{}) template.HTML {
+      return template.HTML(fmt.Sprint(s))
+    },
+  }).Parse(GetTemplate()))
+  err := tmpl.ExecuteTemplate(&buffer, "KendoUiDraggable", *(el))
+  if err != nil {
+    fmt.Println(err.Error())
+  }
+  
+  return buffer.String()
 }
 

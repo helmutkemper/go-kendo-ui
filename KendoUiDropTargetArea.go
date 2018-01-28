@@ -1,7 +1,13 @@
 package telerik
 
+import (
+  "fmt"
+  "html/template"
+  "bytes"
+)
+
 type KendoUiDropTargetArea struct{
-  HtmlId                                  string
+  HtmlId                                  String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/droptargetarea#configuration-group
@@ -72,7 +78,7 @@ type KendoUiDropTargetArea struct{
    </style>
   */
 
-  Group                                   string
+  Group                                   String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/droptargetarea#configuration-filter
@@ -130,9 +136,23 @@ type KendoUiDropTargetArea struct{
    </style>
   */
 
-  Filter                                  string
+  Filter                                  String
 }
 func(el *KendoUiDropTargetArea) IsSet() bool {
   return el != nil
+}
+func(el *KendoUiDropTargetArea) String() string {
+  var buffer bytes.Buffer
+  tmpl := template.Must(template.New("").Funcs(template.FuncMap{
+    "safeHTML": func(s interface{}) template.HTML {
+      return template.HTML(fmt.Sprint(s))
+    },
+  }).Parse(GetTemplate()))
+  err := tmpl.ExecuteTemplate(&buffer, "KendoUiDropTargetArea", *(el))
+  if err != nil {
+    fmt.Println(err.Error())
+  }
+  
+  return buffer.String()
 }
 

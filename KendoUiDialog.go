@@ -1,7 +1,13 @@
 package telerik
 
+import (
+  "fmt"
+  "html/template"
+  "bytes"
+)
+
 type KendoUiDialog struct{
-  HtmlId                                  string
+  HtmlId                                  String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog#configuration-actions
@@ -28,7 +34,7 @@ type KendoUiDialog struct{
    </script>
   */
 
-  Actions                                 *KendoActions
+  Actions                                 *[]KendoActions
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog#configuration-animation
@@ -62,7 +68,7 @@ type KendoUiDialog struct{
    </script>
   */
 
-  ButtonLayout                            string
+  ButtonLayout                            String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog#configuration-closable
@@ -110,7 +116,7 @@ type KendoUiDialog struct{
    </script>
   */
 
-  Height                                  int
+  Height                                  Int
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog#configuration-maxHeight
@@ -126,7 +132,7 @@ type KendoUiDialog struct{
    </script>
   */
 
-  MaxHeight                               int
+  MaxHeight                               Int
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog#configuration-maxWidth
@@ -142,7 +148,7 @@ type KendoUiDialog struct{
    </script>
   */
 
-  MaxWidth                                int
+  MaxWidth                                Int
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog#configuration-messages
@@ -176,7 +182,7 @@ type KendoUiDialog struct{
    </script>
   */
 
-  MinHeight                               int
+  MinHeight                               Int
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog#configuration-minWidth
@@ -192,7 +198,7 @@ type KendoUiDialog struct{
    </script>
   */
 
-  MinWidth                                int
+  MinWidth                                Int
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog#configuration-modal
@@ -224,7 +230,7 @@ type KendoUiDialog struct{
    </script>
   */
 
-  Title                                   string
+  Title                                   String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog#configuration-visible
@@ -259,9 +265,23 @@ type KendoUiDialog struct{
    </script>
   */
 
-  Width                                   int
+  Width                                   Int
 }
 func(el *KendoUiDialog) IsSet() bool {
   return el != nil
+}
+func(el *KendoUiDialog) String() string {
+  var buffer bytes.Buffer
+  tmpl := template.Must(template.New("").Funcs(template.FuncMap{
+    "safeHTML": func(s interface{}) template.HTML {
+      return template.HTML(fmt.Sprint(s))
+    },
+  }).Parse(GetTemplate()))
+  err := tmpl.ExecuteTemplate(&buffer, "KendoUiDialog", *(el))
+  if err != nil {
+    fmt.Println(err.Error())
+  }
+  
+  return buffer.String()
 }
 

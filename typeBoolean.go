@@ -10,8 +10,10 @@ func (el Boolean) IsSet() bool {
 }
 
 func (el Boolean) String() string {
-  if el == 1 {
-    return "true"
+  switch el {
+  case -1: return "false"
+  case  0: return ""
+  case  1: return "true"
   }
 
   return "false"

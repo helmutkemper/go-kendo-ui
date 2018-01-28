@@ -1,9 +1,14 @@
 package telerik
 
-import "time"
+import (
+  "fmt"
+  "html/template"
+  "bytes"
+  "time"
+)
 
 type KendoUiDatePicker struct{
-  HtmlId                                  string
+  HtmlId                                  String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/datepicker#configuration-animation
@@ -36,7 +41,7 @@ type KendoUiDatePicker struct{
    </script>
   */
 
-  ARIATemplate                            string
+  ARIATemplate                            String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/datepicker#configuration-culture
@@ -52,7 +57,7 @@ type KendoUiDatePicker struct{
    </script>
   */
 
-  Culture                                 string
+  Culture                                 String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/datepicker#configuration-dateInput
@@ -132,7 +137,7 @@ type KendoUiDatePicker struct{
    </script>
   */
 
-  Depth                                   string
+  Depth                                   String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/datepicker#configuration-disableDates
@@ -171,7 +176,7 @@ type KendoUiDatePicker struct{
    </script>
   */
 
-  Footer                                  string
+  Footer                                  String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/datepicker#configuration-format
@@ -187,7 +192,7 @@ type KendoUiDatePicker struct{
    </script>
   */
 
-  Format                                  string
+  Format                                  String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/datepicker#configuration-max
@@ -279,7 +284,7 @@ type KendoUiDatePicker struct{
    </script>
   */
 
-  Start                                   string
+  Start                                   String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/datepicker#configuration-value
@@ -299,5 +304,19 @@ type KendoUiDatePicker struct{
 }
 func(el *KendoUiDatePicker) IsSet() bool {
   return el != nil
+}
+func(el *KendoUiDatePicker) String() string {
+  var buffer bytes.Buffer
+  tmpl := template.Must(template.New("").Funcs(template.FuncMap{
+    "safeHTML": func(s interface{}) template.HTML {
+      return template.HTML(fmt.Sprint(s))
+    },
+  }).Parse(GetTemplate()))
+  err := tmpl.ExecuteTemplate(&buffer, "KendoUiDatePicker", *(el))
+  if err != nil {
+    fmt.Println(err.Error())
+  }
+  
+  return buffer.String()
 }
 

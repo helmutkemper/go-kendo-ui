@@ -1,5 +1,11 @@
 package telerik
 
+import (
+  "fmt"
+  "html/template"
+  "bytes"
+)
+
 type KendoVirtual struct{
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-virtual.itemHeight  Specifies the height of the virtual item. All items in the virtualized list <strong>must</strong> have the same height. If the developer does not specify one, the framework will automatically set <b><u>itemHeight</u></b> based on the current theme and font size.
@@ -68,7 +74,7 @@ type KendoVirtual struct{
        }
    </script>
   */
-  ItemHeight                              int
+  ItemHeight                              Int
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-virtual.mapValueTo  The changes introduced with the Kendo UI R3 2016 release enable you to determine if the <b><u>valueMapper</u></b> must resolve a <em>value to an <b><u>index</u></b></em> or a <em>value to a <b><u>dataItem</u></b></em>. This is configured through the <b><u>mapValueTo</u></b> option that accepts two possible values - <b><u>"index"</u></b> or <b><u>"dataItem"</u></b>. By default, the <b><u>mapValueTo</u></b> is set to <b><u>"index"</u></b>, which does not affect the current behavior of the virtualization process.
@@ -141,7 +147,7 @@ type KendoVirtual struct{
        }
    </script>
   */
-  MapValueTo                              string
+  MapValueTo                              String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-virtual.valueMapper  The widget calls the <b><u>valueMapper</u></b> function when the widget receives a value, that is not fetched from the remote server yet. The widget will pass the selected value(s) in the <b><u>valueMapper</u></b> function. In turn, the valueMapper implementation should return the <strong>respective data item(s) index/indices</strong>.
@@ -149,10 +155,24 @@ type KendoVirtual struct{
   As of the Kendo UI R3 2016 release, the implementation of the <b><u>valueMapper</u></b> function is optional. It is required only if the widget contains an initial value or if the <b><u>value</u></b> method is used.
   
   */
-  ValueMapper                             string
+  ValueMapper                             String
 
 }
 func(el *KendoVirtual) IsSet() bool {
   return el != nil
+}
+func(el *KendoVirtual) String() string {
+  var buffer bytes.Buffer
+  tmpl := template.Must(template.New("").Funcs(template.FuncMap{
+    "safeHTML": func(s interface{}) template.HTML {
+      return template.HTML(fmt.Sprint(s))
+    },
+  }).Parse(GetTemplate()))
+  err := tmpl.ExecuteTemplate(&buffer, "Virtual", *(el))
+  if err != nil {
+    fmt.Println(err.Error())
+  }
+  
+  return buffer.String()
 }
 

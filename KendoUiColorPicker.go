@@ -1,7 +1,13 @@
 package telerik
 
+import (
+  "fmt"
+  "html/template"
+  "bytes"
+)
+
 type KendoUiColorPicker struct{
-  HtmlId                                  string
+  HtmlId                                  String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/colorpicker#configuration-buttons
@@ -52,7 +58,7 @@ type KendoUiColorPicker struct{
    </script>
   */
 
-  Columns                                 int
+  Columns                                 Int
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/colorpicker#configuration-tileSize
@@ -108,7 +114,7 @@ type KendoUiColorPicker struct{
    </script>
   */
 
-  Palette                                 string
+  Palette                                 String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/colorpicker#configuration-opacity
@@ -157,7 +163,7 @@ type KendoUiColorPicker struct{
    </script>
   */
 
-  ToolIcon                                string
+  ToolIcon                                String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/colorpicker#configuration-value
@@ -173,9 +179,23 @@ type KendoUiColorPicker struct{
    </script>
   */
 
-  Value                                   string
+  Value                                   String
 }
 func(el *KendoUiColorPicker) IsSet() bool {
   return el != nil
+}
+func(el *KendoUiColorPicker) String() string {
+  var buffer bytes.Buffer
+  tmpl := template.Must(template.New("").Funcs(template.FuncMap{
+    "safeHTML": func(s interface{}) template.HTML {
+      return template.HTML(fmt.Sprint(s))
+    },
+  }).Parse(GetTemplate()))
+  err := tmpl.ExecuteTemplate(&buffer, "KendoUiColorPicker", *(el))
+  if err != nil {
+    fmt.Println(err.Error())
+  }
+  
+  return buffer.String()
 }
 

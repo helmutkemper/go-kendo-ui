@@ -1,7 +1,13 @@
 package telerik
 
+import (
+  "fmt"
+  "html/template"
+  "bytes"
+)
+
 type KendoUiColorPalette struct{
-  HtmlId                                  string
+  HtmlId                                  String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/colorpalette#configuration-palette
@@ -17,7 +23,7 @@ type KendoUiColorPalette struct{
    </script>
   */
 
-  Palette                                 string
+  Palette                                 String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/colorpalette#configuration-columns
@@ -34,7 +40,7 @@ type KendoUiColorPalette struct{
    </script>
   */
 
-  Columns                                 int
+  Columns                                 Int
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/colorpalette#configuration-tileSize
@@ -68,9 +74,23 @@ type KendoUiColorPalette struct{
    </script>
   */
 
-  Value                                   string
+  Value                                   String
 }
 func(el *KendoUiColorPalette) IsSet() bool {
   return el != nil
+}
+func(el *KendoUiColorPalette) String() string {
+  var buffer bytes.Buffer
+  tmpl := template.Must(template.New("").Funcs(template.FuncMap{
+    "safeHTML": func(s interface{}) template.HTML {
+      return template.HTML(fmt.Sprint(s))
+    },
+  }).Parse(GetTemplate()))
+  err := tmpl.ExecuteTemplate(&buffer, "KendoUiColorPalette", *(el))
+  if err != nil {
+    fmt.Println(err.Error())
+  }
+  
+  return buffer.String()
 }
 

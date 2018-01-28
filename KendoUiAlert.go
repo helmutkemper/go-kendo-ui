@@ -1,7 +1,13 @@
 package telerik
 
+import (
+  "fmt"
+  "html/template"
+  "bytes"
+)
+
 type KendoUiAlert struct{
-  HtmlId                                  string
+  HtmlId                                  String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/alert#configuration-messages
@@ -24,7 +30,18 @@ type KendoUiAlert struct{
 func(el *KendoUiAlert) IsSet() bool {
   return el != nil
 }
-func(el *KendoUiAlert) ToHtml(content ...string) string {
-  return `<div id="` + el.HtmlId + `">` + content[0] + `</div>`
+func(el *KendoUiAlert) String() string {
+  var buffer bytes.Buffer
+  tmpl := template.Must(template.New("").Funcs(template.FuncMap{
+    "safeHTML": func(s interface{}) template.HTML {
+      return template.HTML(fmt.Sprint(s))
+    },
+  }).Parse(GetTemplate()))
+  err := tmpl.ExecuteTemplate(&buffer, "KendoUiAlert : KendoUiDialog", *(el))
+  if err != nil {
+    fmt.Println(err.Error())
+  }
+  
+  return buffer.String()
 }
 

@@ -1,7 +1,13 @@
 package telerik
 
+import (
+  "fmt"
+  "html/template"
+  "bytes"
+)
+
 type KendoUiContextMenu struct{
-  HtmlId                                  string
+  HtmlId                                  String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/contextmenu#configuration-alignToAnchor
@@ -108,7 +114,7 @@ type KendoUiContextMenu struct{
    </script>
   */
 
-  AppendTo                                string
+  AppendTo                                String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/contextmenu#configuration-closeOnClick
@@ -268,7 +274,7 @@ type KendoUiContextMenu struct{
    </script>
   */
 
-  Direction                               string
+  Direction                               String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/contextmenu#configuration-filter
@@ -305,7 +311,7 @@ type KendoUiContextMenu struct{
    </script>
   */
 
-  Filter                                  string
+  Filter                                  String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/contextmenu#configuration-hoverDelay
@@ -338,7 +344,7 @@ type KendoUiContextMenu struct{
    </script>
   */
 
-  HoverDelay                              int
+  HoverDelay                              Int
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/contextmenu#configuration-orientation
@@ -371,7 +377,7 @@ type KendoUiContextMenu struct{
    </script>
   */
 
-  Orientation                             string
+  Orientation                             String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/contextmenu#configuration-popupCollision
@@ -404,7 +410,7 @@ type KendoUiContextMenu struct{
    </script>
   */
 
-  PopupCollision                          string
+  PopupCollision                          String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/contextmenu#configuration-showOn
@@ -437,7 +443,7 @@ type KendoUiContextMenu struct{
    </script>
   */
 
-  ShowOn                                  string
+  ShowOn                                  String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/contextmenu#configuration-target
@@ -469,9 +475,23 @@ type KendoUiContextMenu struct{
    </script>
   */
 
-  Target                                  string
+  Target                                  String
 }
 func(el *KendoUiContextMenu) IsSet() bool {
   return el != nil
+}
+func(el *KendoUiContextMenu) String() string {
+  var buffer bytes.Buffer
+  tmpl := template.Must(template.New("").Funcs(template.FuncMap{
+    "safeHTML": func(s interface{}) template.HTML {
+      return template.HTML(fmt.Sprint(s))
+    },
+  }).Parse(GetTemplate()))
+  err := tmpl.ExecuteTemplate(&buffer, "KendoUiContextMenu", *(el))
+  if err != nil {
+    fmt.Println(err.Error())
+  }
+  
+  return buffer.String()
 }
 

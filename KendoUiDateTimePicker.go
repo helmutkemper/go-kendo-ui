@@ -1,9 +1,14 @@
 package telerik
 
-import "time"
+import (
+  "fmt"
+  "html/template"
+  "bytes"
+  "time"
+)
 
 type KendoUiDateTimePicker struct{
-  HtmlId                                  string
+  HtmlId                                  String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/datetimepicker#configuration-animation
@@ -36,7 +41,7 @@ type KendoUiDateTimePicker struct{
    </script>
   */
 
-  ARIATemplate                            string
+  ARIATemplate                            String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/datetimepicker#configuration-culture
@@ -52,7 +57,7 @@ type KendoUiDateTimePicker struct{
    </script>
   */
 
-  Culture                                 string
+  Culture                                 String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/datetimepicker#configuration-dateInput
@@ -131,7 +136,7 @@ type KendoUiDateTimePicker struct{
    </script>
   */
 
-  Depth                                   string
+  Depth                                   String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/datetimepicker#configuration-disableDates
@@ -170,7 +175,7 @@ type KendoUiDateTimePicker struct{
    </script>
   */
 
-  Footer                                  string
+  Footer                                  String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/datetimepicker#configuration-format
@@ -186,7 +191,7 @@ type KendoUiDateTimePicker struct{
    </script>
   */
 
-  Format                                  string
+  Format                                  String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/datetimepicker#configuration-interval
@@ -202,7 +207,7 @@ type KendoUiDateTimePicker struct{
    </script>
   */
 
-  Interval                                int
+  Interval                                Int
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/datetimepicker#configuration-max
@@ -294,7 +299,7 @@ type KendoUiDateTimePicker struct{
    </script>
   */
 
-  Start                                   string
+  Start                                   String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/datetimepicker#configuration-timeFormat
@@ -310,7 +315,7 @@ type KendoUiDateTimePicker struct{
    </script>
   */
 
-  TimeFormat                              string
+  TimeFormat                              String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/datetimepicker#configuration-value
@@ -330,5 +335,19 @@ type KendoUiDateTimePicker struct{
 }
 func(el *KendoUiDateTimePicker) IsSet() bool {
   return el != nil
+}
+func(el *KendoUiDateTimePicker) String() string {
+  var buffer bytes.Buffer
+  tmpl := template.Must(template.New("").Funcs(template.FuncMap{
+    "safeHTML": func(s interface{}) template.HTML {
+      return template.HTML(fmt.Sprint(s))
+    },
+  }).Parse(GetTemplate()))
+  err := tmpl.ExecuteTemplate(&buffer, "KendoUiDateTimePicker", *(el))
+  if err != nil {
+    fmt.Println(err.Error())
+  }
+  
+  return buffer.String()
 }
 

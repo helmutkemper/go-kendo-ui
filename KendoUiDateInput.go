@@ -1,9 +1,14 @@
 package telerik
 
-import "time"
+import (
+  "fmt"
+  "html/template"
+  "bytes"
+  "time"
+)
 
 type KendoUiDateInput struct{
-  HtmlId                                  string
+  HtmlId                                  String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dateinput#configuration-format
@@ -19,7 +24,7 @@ type KendoUiDateInput struct{
    </script>
   */
 
-  Format                                  string
+  Format                                  String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dateinput#configuration-max
@@ -96,5 +101,19 @@ type KendoUiDateInput struct{
 }
 func(el *KendoUiDateInput) IsSet() bool {
   return el != nil
+}
+func(el *KendoUiDateInput) String() string {
+  var buffer bytes.Buffer
+  tmpl := template.Must(template.New("").Funcs(template.FuncMap{
+    "safeHTML": func(s interface{}) template.HTML {
+      return template.HTML(fmt.Sprint(s))
+    },
+  }).Parse(GetTemplate()))
+  err := tmpl.ExecuteTemplate(&buffer, "KendoUiDateInput", *(el))
+  if err != nil {
+    fmt.Println(err.Error())
+  }
+  
+  return buffer.String()
 }
 

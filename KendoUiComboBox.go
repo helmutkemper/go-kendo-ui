@@ -1,7 +1,13 @@
 package telerik
 
+import (
+  "fmt"
+  "html/template"
+  "bytes"
+)
+
 type KendoUiComboBox struct{
-  HtmlId                                  string
+  HtmlId                                  String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-animation
@@ -87,7 +93,7 @@ type KendoUiComboBox struct{
    </script>
   */
 
-  CascadeFrom                             string
+  CascadeFrom                             String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-cascadeFromField
@@ -122,7 +128,7 @@ type KendoUiComboBox struct{
    </script>
   */
 
-  CascadeFromField                        string
+  CascadeFromField                        String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-clearButton
@@ -180,7 +186,7 @@ type KendoUiComboBox struct{
    </script>
   */
 
-  DataTextField                           string
+  DataTextField                           String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-dataValueField
@@ -202,7 +208,7 @@ type KendoUiComboBox struct{
    </script>
   */
 
-  DataValueField                          string
+  DataValueField                          String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-delay
@@ -218,7 +224,7 @@ type KendoUiComboBox struct{
    </script>
   */
 
-  Delay                                   int
+  Delay                                   Int
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-enable
@@ -281,7 +287,7 @@ type KendoUiComboBox struct{
    </script>
   */
 
-  Filter                                  string
+  Filter                                  String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-fixedGroupTemplate
@@ -291,7 +297,7 @@ type KendoUiComboBox struct{
   
   */
 
-  FixedGroupTemplate                      string
+  FixedGroupTemplate                      String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-footerTemplate
@@ -314,7 +320,7 @@ type KendoUiComboBox struct{
    </script>
   */
 
-  FooterTemplate                          string
+  FooterTemplate                          String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-groupTemplate
@@ -324,7 +330,7 @@ type KendoUiComboBox struct{
   
   */
 
-  GroupTemplate                           string
+  GroupTemplate                           String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-height
@@ -340,7 +346,7 @@ type KendoUiComboBox struct{
    </script>
   */
 
-  Height                                  int
+  Height                                  Int
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-highlightFirst
@@ -392,7 +398,7 @@ type KendoUiComboBox struct{
    </script>
   */
 
-  Index                                   int
+  Index                                   Int
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-minLength
@@ -409,7 +415,7 @@ type KendoUiComboBox struct{
    </script>
   */
 
-  MinLength                               int
+  MinLength                               Int
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-noDataTemplate
@@ -429,7 +435,7 @@ type KendoUiComboBox struct{
    </script>
   */
 
-  NoDataTemplate                          string
+  NoDataTemplate                          String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-placeholder
@@ -445,7 +451,7 @@ type KendoUiComboBox struct{
    </script>
   */
 
-  Placeholder                             string
+  Placeholder                             String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-popup
@@ -527,7 +533,7 @@ type KendoUiComboBox struct{
    </script>
   */
 
-  HeaderTemplate                          string
+  HeaderTemplate                          String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-template
@@ -555,7 +561,7 @@ type KendoUiComboBox struct{
    </script>
   */
 
-  Template                                string
+  Template                                String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-text
@@ -572,7 +578,7 @@ type KendoUiComboBox struct{
    </script>
   */
 
-  Text                                    string
+  Text                                    String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-value
@@ -589,7 +595,7 @@ type KendoUiComboBox struct{
    </script>
   */
 
-  Value                                   string
+  Value                                   String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-valuePrimitive
@@ -633,5 +639,19 @@ type KendoUiComboBox struct{
 }
 func(el *KendoUiComboBox) IsSet() bool {
   return el != nil
+}
+func(el *KendoUiComboBox) String() string {
+  var buffer bytes.Buffer
+  tmpl := template.Must(template.New("").Funcs(template.FuncMap{
+    "safeHTML": func(s interface{}) template.HTML {
+      return template.HTML(fmt.Sprint(s))
+    },
+  }).Parse(GetTemplate()))
+  err := tmpl.ExecuteTemplate(&buffer, "KendoUiComboBox", *(el))
+  if err != nil {
+    fmt.Println(err.Error())
+  }
+  
+  return buffer.String()
 }
 

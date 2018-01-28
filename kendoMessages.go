@@ -1,5 +1,11 @@
 package telerik
 
+import (
+  "fmt"
+  "html/template"
+  "bytes"
+)
+
 type KendoMessages struct{
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog#configuration-messages.close  The title of the close button.
@@ -13,7 +19,7 @@ type KendoMessages struct{
    });
    </script>
   */
-  Close                                   string
+  Close                                   String
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog#configuration-messages.promptInput  The title of the prompt input.
@@ -27,10 +33,24 @@ type KendoMessages struct{
    });
    </script>
   */
-  PromptInput                             string
+  PromptInput                             String
 
 }
 func(el *KendoMessages) IsSet() bool {
   return el != nil
+}
+func(el *KendoMessages) String() string {
+  var buffer bytes.Buffer
+  tmpl := template.Must(template.New("").Funcs(template.FuncMap{
+    "safeHTML": func(s interface{}) template.HTML {
+      return template.HTML(fmt.Sprint(s))
+    },
+  }).Parse(GetTemplate()))
+  err := tmpl.ExecuteTemplate(&buffer, "Messages", *(el))
+  if err != nil {
+    fmt.Println(err.Error())
+  }
+  
+  return buffer.String()
 }
 
