@@ -4,6 +4,8 @@ package telerik
 // or layout until styled using CSS. As a "pure" container, the <div> element does not inherently represent anything.
 // Instead, it's used to group content so it can be easily styled using the class or id attributes, marking a section of
 // a document as being written in a different language (using the lang attribute), and so on.
+//
+// @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div
 type HtmlElementDiv struct{
 
   /*

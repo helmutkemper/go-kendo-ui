@@ -26,5 +26,5 @@ func ExampleHtmlElementFormFieldSet_String() {
   fmt.Printf( "%v", el.String() )
 
   // Output:
-  // <fieldset Id="fieldSetId" ><label  form="name" >label_1</label><input Id="name"  type="text"  name="name" ></fieldset>
+  // <fieldset  id="fieldSetId" ><label  form="name" >label_1</label><input  id="name"  type="text"  name="name" ></fieldset>
 }

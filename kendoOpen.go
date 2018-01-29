@@ -28,7 +28,7 @@ func(el *KendoOpen) String() string {
   var buffer bytes.Buffer
   tmpl := template.Must(template.New("").Funcs(template.FuncMap{
     "safeHTML": func(s interface{}) template.HTML {
-      return template.HTML(fmt.Sprint(s))
+      return template.HTML(s.(string))
     },
   }).Parse(GetTemplate()))
   err := tmpl.ExecuteTemplate(&buffer, "Open", *(el))

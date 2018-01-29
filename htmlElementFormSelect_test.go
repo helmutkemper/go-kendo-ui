@@ -15,5 +15,5 @@ func ExampleHtmlElementFormSelect_String() {
   fmt.Printf( "%v\n", el.String() )
 
   // Output:
-  // <select  name="selectName" ><option value="key_1">key_1</option><option value="key_2">key_2</option><option value="key_3">key_3</option></select>
+  // <select  name="selectName" ><option value="key_2">key_2</option><option value="key_3">key_3</option><option value="key_1">key_1</option></select>
 }

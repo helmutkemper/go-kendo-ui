@@ -107,3 +107,6 @@ type HtmlInputText struct{
 func(el *HtmlInputText)String() string {
   return `<input ` + el.Global.String() + ` type="text" ` + el.Name.ToAttr("name") + el.Value.ToAttr("value") + el.Form.ToAttr("form") + el.AutoComplete.ToAttr("autocomplete") + el.List.ToAttr("list") + el.MaxLength.ToAttr("maxlength") + el.MinLength.ToAttr("minlength") + el.Pattern.ToAttr("pattern") + el.PlaceHolder.ToAttr("placeholder") + el.Size.ToAttr("size") + el.Required.ToAttrSet("required") + el.Disabled.ToAttrSet("disabled") + `>`
 }
+func(el *HtmlInputText)Script() string {
+  return ``
+}

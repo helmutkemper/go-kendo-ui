@@ -19,5 +19,5 @@ func ExampleHtmlElementFormTextArea_String() {
   fmt.Printf("%v\n", el.String())
 
   // Output:
-  // <textarea Class="className" Id="textAreaId"  name="organization"  cols=40  rows=20 >company name</textarea>
+  // <textarea  class="className"  id="textAreaId"  name="organization"  cols=40  rows=20 >company name</textarea>
 }

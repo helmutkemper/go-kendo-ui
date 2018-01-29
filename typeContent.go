@@ -12,6 +12,8 @@ func(el Content) String() string {
     switch outConverted := v.(type) {
     case string:
       out += v.(string)
+    case String:
+      out += v.(String).String()
     case HtmlElementFormLegend:
       out += outConverted.String()
     case HtmlElementDiv:

@@ -17,5 +17,5 @@ func ExampleHtmlElementFormButton_String() {
   fmt.Printf( "%v", el.String() )
 
   // Output:
-  // <button Id="button"  name="button"  disabled >click-me</button>
+  // <button  id="button"  name="button"  disabled >click-me</button>
 }

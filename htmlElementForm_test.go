@@ -26,5 +26,5 @@ func ExampleHtmlElementForm_String() {
   fmt.Printf( "%v\n", el.String() )
 
   // Output:
-  // <form  name="form"  action="./index.cpp"  method="get" ><label  form="name" >label_1</label><input Id="name"  type="text"  name="name" ></form>
+  // <form  name="form"  action="./index.cpp"  method="get" ><label  form="name" >label_1</label><input  id="name"  type="text"  name="name" ></form>
 }

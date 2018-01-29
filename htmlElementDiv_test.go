@@ -27,5 +27,5 @@ func ExampleHtmlElementDiv_String() {
   fmt.Printf( "%v", el.String() )
 
   // Output:
-  // <div Class="test" Id="divId" ><label  form="name" >label_1</label><input Id="name"  type="text"  name="name" ></div>
+  // <div  class="test"  id="divId" ><label  form="name" >label_1</label><input  id="name"  type="text"  name="name" ></div>
 }

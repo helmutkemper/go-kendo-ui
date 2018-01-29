@@ -27,6 +27,6 @@ func ExampleKendoUiDialog_String(){
   fmt.Printf("<script>%v</script>\n", javaScript.String() )
 
   // Output:
-  // <div Id="dialog" ></div>
+  // <div  id="dialog" ></div>
   // <script>$("#dialog").kendoDialog({ actions: [{ Text: "Cancel",Action: function(el){ return false; },Primary: true, },{ Text: "OK",Primary: false, },], });</script>
 }

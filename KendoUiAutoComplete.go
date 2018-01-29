@@ -4,6 +4,7 @@ import (
   "fmt"
   "html/template"
   "bytes"
+  "strings"
 )
 
 type KendoUiAutoComplete struct{
@@ -551,6 +552,12 @@ func(el *KendoUiAutoComplete) IsSet() bool {
 }
 func(el *KendoUiAutoComplete) String() string {
   var buffer bytes.Buffer
+
+  switch data := el.DataSource.(type) {
+  case []string:
+    el.DataSource = `["` + strings.Join(data, `","`) + `"]`
+  }
+
   tmpl := template.Must(template.New("").Funcs(template.FuncMap{
     "safeHTML": func(s interface{}) template.HTML {
       return template.HTML(fmt.Sprint(s))

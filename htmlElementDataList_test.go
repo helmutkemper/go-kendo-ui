@@ -19,5 +19,5 @@ func ExampleHtmlElementFormDataList_String() {
   fmt.Printf( "%v", el.String() )
 
   // Output:
-  // <input Id="dataListId"  list="dataListName"  value="key_2" ><datalist id="dataListName"><option value="key_1">value_1</option><option value="key_2">value_2</option><option value="key_3">value_3</option></datalist>
+  // <input  id="dataListId"  list="dataListName"  value="key_2" ><datalist id="dataListName"><option value="key_1">value_1</option><option value="key_2">value_2</option><option value="key_3">value_3</option></datalist>
 }
