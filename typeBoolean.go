@@ -56,6 +56,6 @@ func(el Boolean) ToAttrSet(name string) string {
 
 const (
   FALSE Boolean = -1
-  NOT_SET = 0
+  BOOLEAN_NOT_SET = 0
   TRUE = 1
 )
