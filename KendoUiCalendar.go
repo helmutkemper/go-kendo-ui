@@ -303,6 +303,5 @@ func(el *KendoUiCalendar) ToJavaScript() []byte {
   ret.Write( data )
   ret.Write( []byte(`});`) )
 
-
   return ret.Bytes()
 }

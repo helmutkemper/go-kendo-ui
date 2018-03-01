@@ -5,10 +5,12 @@ import (
   "html/template"
   "bytes"
   "strings"
+  log "github.com/helmutkemper/seelog"
+  "reflect"
 )
 
 type KendoUiAutoComplete struct{
-  HtmlId                                  String
+  HtmlId                                  String                                  `jsObject:"htmlId"`
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-animation
@@ -24,8 +26,7 @@ type KendoUiAutoComplete struct{
    });
    </script>
   */
-
-  Animation                               *KendoAnimation
+  Animation                               *KendoAnimation                         `jsObject:"animation"`
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-autoWidth
@@ -44,8 +45,7 @@ type KendoUiAutoComplete struct{
    });
    </script>
   */
-
-  AutoWidth                               Boolean
+  AutoWidth                               Boolean                                 `jsObject:"autoWidth"`
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-dataSource
@@ -64,8 +64,7 @@ type KendoUiAutoComplete struct{
    });
    </script>
   */
-
-  DataSource                              interface{}
+  DataSource                              KendoDataSource                         `jsObject:"dataSource"`
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-clearButton
@@ -80,8 +79,7 @@ type KendoUiAutoComplete struct{
    });
    </script>
   */
-
-  ClearButton                             Boolean
+  ClearButton                             Boolean                                 `jsObject:"clearButton"`
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-dataTextField
@@ -101,8 +99,7 @@ type KendoUiAutoComplete struct{
    });
    </script>
   */
-
-  DataTextField                           String
+  DataTextField                           String                                  `jsObject:"dataTextField"`
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-delay
@@ -117,8 +114,7 @@ type KendoUiAutoComplete struct{
    });
    </script>
   */
-
-  Delay                                   Int
+  Delay                                   Int                                     `jsObject:"delay"`
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-enable
@@ -133,8 +129,7 @@ type KendoUiAutoComplete struct{
    });
    </script>
   */
-
-  Enable                                  Boolean
+  Enable                                  Boolean                                 `jsObject:"enable"`
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-enforceMinLength
@@ -160,8 +155,7 @@ type KendoUiAutoComplete struct{
    });
    </script>
   */
-
-  EnforceMinLength                        Boolean
+  EnforceMinLength                        Boolean                                 `jsObject:"enforceMinLength"`
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-filter
@@ -179,18 +173,33 @@ type KendoUiAutoComplete struct{
    });
    </script>
   */
-
-  Filter                                  String
+  Filter                                  String                                  `jsObject:"filter"`
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-fixedGroupTemplate
 
   The <a href="/kendo-ui/api/javascript/kendo#methods-template">template</a> used to render the fixed header group. By default the widget displays only the value of the current group.
 
-  
+  Example
+  <input id="customers" style="width: 400px" />
+  <script>
+      $(document).ready(function() {
+          $("#customers").kendoAutoComplete({
+              dataTextField: "ContactName",
+              fixedGroupTemplate: "Fixed group: #:data#",
+              height: 400,
+              dataSource: {
+                  type: "odata",
+                  transport: {
+                      read: "https://demos.telerik.com/kendo-ui/service/Northwind.svc/Customers"
+                  },
+                  group: { field: "Country" }
+              }
+          });
+      });
+  </script>
   */
-
-  FixedGroupTemplate                      String
+  FixedGroupTemplate                      interface{}                             `jsObject:"fixedGroupTemplate"`
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-footerTemplate
@@ -211,18 +220,33 @@ type KendoUiAutoComplete struct{
    });
    </script>
   */
-
-  FooterTemplate                          String
+  FooterTemplate                          interface{}                             `jsObject:"footerTemplate"`
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-groupTemplate
 
   The <a href="/kendo-ui/api/javascript/kendo#methods-template">template</a> used to render the groups. By default the widget displays only the value of the group.
 
-  
+  Example
+  <input id="customers" style="width: 400px" />
+  <script>
+      $(document).ready(function() {
+          $("#customers").kendoAutoComplete({
+              dataTextField: "ContactName",
+              groupTemplate: "Group: #:data#",
+              height: 400,
+              dataSource: {
+                  type: "odata",
+                  transport: {
+                      read: "https://demos.telerik.com/kendo-ui/service/Northwind.svc/Customers"
+                  },
+                  group: { field: "Country" }
+              }
+          });
+      });
+  </script>
   */
-
-  GroupTemplate                           String
+  GroupTemplate                           interface{}                             `jsObject:"groupTemplate"`
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-height
@@ -240,8 +264,7 @@ type KendoUiAutoComplete struct{
    });
    </script>
   */
-
-  Height                                  Int
+  Height                                  Int                                     `jsObject:"height"`
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-highlightFirst
@@ -259,8 +282,7 @@ type KendoUiAutoComplete struct{
    });
    </script>
   */
-
-  HighlightFirst                          Boolean
+  HighlightFirst                          Boolean                                 `jsObject:"highlightFirst"`
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-ignoreCase
@@ -278,8 +300,7 @@ type KendoUiAutoComplete struct{
    });
    </script>
   */
-
-  IgnoreCase                              Boolean
+  IgnoreCase                              Boolean                                 `jsObject:"ignoreCase"`
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-minLength
@@ -299,8 +320,7 @@ type KendoUiAutoComplete struct{
    });
    </script>
   */
-
-  MinLength                               Int
+  MinLength                               Int                                     `jsObject:"minLength"`
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-noDataTemplate
@@ -321,8 +341,7 @@ type KendoUiAutoComplete struct{
    });
    </script>
   */
-
-  NoDataTemplate                          String
+  NoDataTemplate                          interface{}                             `jsObject:"noDataTemplate"`
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-placeholder
@@ -338,8 +357,7 @@ type KendoUiAutoComplete struct{
    });
    </script>
   */
-
-  Placeholder                             String
+  Placeholder                             String                                  `jsObject:"placeholder"`
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-popup
@@ -363,8 +381,7 @@ type KendoUiAutoComplete struct{
    });
    </script>
   */
-
-  Popup                                   interface{}
+  Popup                                   interface{}                             `jsObject:"popup"`
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-separator
@@ -384,8 +401,7 @@ type KendoUiAutoComplete struct{
    });
    </script>
   */
-
-  Separator                               String
+  Separator                               String                                  `jsObject:"separator"`
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-suggest
@@ -403,8 +419,7 @@ type KendoUiAutoComplete struct{
    });
    </script>
   */
-
-  Suggest                                 Boolean
+  Suggest                                 Boolean                                 `jsObject:"suggest"`
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-headerTemplate
@@ -426,8 +441,7 @@ type KendoUiAutoComplete struct{
    });
    </script>
   */
-
-  HeaderTemplate                          String
+  HeaderTemplate                          interface{}                             `jsObject:"headerTemplate"`
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-template
@@ -453,8 +467,7 @@ type KendoUiAutoComplete struct{
    });
    </script>
   */
-
-  Template                                String
+  Template                                interface{}                             `jsObject:"template"`
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-value
@@ -474,8 +487,7 @@ type KendoUiAutoComplete struct{
    });
    </script>
   */
-
-  Value                                   String
+  Value                                   String                                  `jsObject:"value"`
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-valuePrimitive
@@ -502,8 +514,7 @@ type KendoUiAutoComplete struct{
    kendo.bind($("#autocomplete"), viewModel);
    </script>
   */
-
-  ValuePrimitive                          Boolean
+  ValuePrimitive                          Boolean                                 `jsObject:"valuePrimitive"`
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-virtual
@@ -544,8 +555,9 @@ type KendoUiAutoComplete struct{
        });
    </script>
   */
+  Virtual                                 *KendoVirtual                           `jsObject:"virtual"`
 
-  Virtual                                 *KendoVirtual
+  *ToJavaScriptConverter
 }
 func(el *KendoUiAutoComplete) IsSet() bool {
   return el != nil
@@ -555,7 +567,7 @@ func(el *KendoUiAutoComplete) String() string {
 
   switch data := el.DataSource.(type) {
   case []string:
-    el.DataSource = `["` + strings.Join(data, `","`) + `"]`
+    //el.DataSource = `["` + strings.Join(data.([]string), `","`) + `"]`
   }
 
   tmpl := template.Must(template.New("").Funcs(template.FuncMap{
@@ -570,4 +582,23 @@ func(el *KendoUiAutoComplete) String() string {
   
   return buffer.String()
 }
+func(el *KendoUiAutoComplete) ToJavaScript() []byte {
+  var ret bytes.Buffer
+  if el.HtmlId == "" {
+    log.Critical("kendoUiAutoComplete not have a html id for mount JavaScript code.")
+    return []byte{}
+  }
 
+  element := reflect.ValueOf(el).Elem()
+  data, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
+  if err != nil {
+    log.Criticalf( "kendoAutoComplete.Error: %v", err.Error() )
+    return []byte{}
+  }
+
+  ret.Write( []byte(`$("` + el.HtmlId + `")kendoAutoComplete({`) )
+  ret.Write( data )
+  ret.Write( []byte(`});`) )
+
+  return ret.Bytes()
+}

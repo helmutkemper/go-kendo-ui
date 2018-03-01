@@ -2,7 +2,7 @@ package telerik
 
 import "fmt"
 
-func ExampleKendoDataSource_ToJavaScript_1() {
+func ExampleKendoDataSource_ToJavaScript_OfflineStorage_1() {
   javaScript := KendoDataSource{
     VarName: "dataSource",
     Aggregate: &[]KendoAggregate{
@@ -41,7 +41,7 @@ func ExampleKendoDataSource_ToJavaScript_1() {
   //
 }
 
-func ExampleKendoDataSource_ToJavaScript_2() {
+func ExampleKendoDataSource_ToJavaScript_OfflineStorage_2() {
   javaScript := KendoDataSource{
     VarName: "dataSource",
     Aggregate: &[]KendoAggregate{
@@ -83,7 +83,7 @@ func ExampleKendoDataSource_ToJavaScript_2() {
   //
 }
 
-func ExampleKendoDataSource_ToJavaScript_3() {
+func ExampleKendoDataSource_ToJavaScript_OfflineStorage_3() {
   javaScript := KendoDataSource{
     VarName: "dataSource",
     Aggregate: &[]KendoAggregate{
