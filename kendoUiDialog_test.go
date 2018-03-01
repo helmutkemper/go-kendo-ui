@@ -10,14 +10,15 @@ func ExampleKendoUiDialog_String(){
   }
   javaScript := KendoUiDialog{
     HtmlId: "dialog",
+    Modal: TRUE,
+    Visible: TRUE,
+    Title: "Configuration error",
+    Content: "Please, set a valid environment var.",
+    Width: 400,
     Actions: &[]KendoActions{
       {
-        Action:  "function(el){ return false; }",
+        Action:  "function(){ setTimeout( function(){ containerConfigurationEnvVarNameRef.focus(); }, 1000); }",
         Primary: TRUE,
-        Text:    "Cancel",
-      },
-      {
-        Primary: FALSE,
         Text:    "OK",
       },
     },
@@ -28,5 +29,5 @@ func ExampleKendoUiDialog_String(){
 
   // Output:
   // <div  id="dialog" ></div>
-  // <script>$("#dialog").kendoDialog({ actions: [{ Text: "Cancel",Action: function(el){ return false; },Primary: true, },{ Text: "OK",Primary: false, },], });</script>
+  // <script>$("#dialog").kendoDialog({ actions: [{ text: "OK",action: function(){ setTimeout( function(){ containerConfigurationEnvVarNameRef.focus(); }, 1000); },primary: true, },],content: "Please, set a valid environment var.",modal: true,title: "Configuration error",visible: true,width: 400, });</script>
 }

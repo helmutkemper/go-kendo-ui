@@ -30,8 +30,8 @@ var autoCapitalizes = [...]string{
 }
 
 const (
-  AUTO_CAPTALIZE_NONE AutoCapitalize = 1
-  AUTO_CAPTALIZE_SENTENCES
-  AUTO_CAPTALIZE_WORDS
-  AUTO_CAPTALIZE_CHARACTERS
+  NONE AutoCapitalize = 1
+  SENTENCES
+  WORDS
+  CHARACTERS
 )
