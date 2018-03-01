@@ -4,6 +4,8 @@ import (
   "fmt"
   "html/template"
   "bytes"
+  "reflect"
+  log "github.com/helmutkemper/seelog"
 )
 
 type KendoMonth struct{
@@ -23,7 +25,7 @@ type KendoMonth struct{
    });
    </script>
   */
-  Content                                 String
+  Content                                 String                  `jsObject:"content"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/datetimepicker#configuration-month.weekNumber  The template to be used for rendering the cells in "week" column. By default, the widget renders the calculated week of the year. The properties available in the data object are:
@@ -50,7 +52,7 @@ type KendoMonth struct{
      });
    </script>
   */
-  WeekNumber                              String
+  WeekNumber                              String                  `jsObject:"weekNumber"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/datetimepicker#configuration-month.empty  The template used for rendering cells in the calendar "month" view, which are outside the min/max range.
@@ -64,7 +66,9 @@ type KendoMonth struct{
    });
    </script>
   */
-  Empty                                   String
+  Empty                                   String                  `jsObject:"empty"`
+
+  *ToJavaScriptConverter
 
 }
 func(el *KendoMonth) IsSet() bool {
@@ -84,4 +88,13 @@ func(el *KendoMonth) String() string {
   
   return buffer.String()
 }
+func(el *KendoMonth) ToJavaScript() ([]byte) {
+  element := reflect.ValueOf(el).Elem()
+  ret, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element, "")
+  if err != nil {
+    log.Criticalf( "KendoMonth.Error: %v", err.Error() )
+    return []byte{}
+  }
 
+  return ret
+}

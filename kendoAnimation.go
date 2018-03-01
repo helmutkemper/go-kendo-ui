@@ -4,6 +4,8 @@ import (
   "fmt"
   "html/template"
   "bytes"
+  log "github.com/helmutkemper/seelog"
+  "reflect"
 )
 
 type KendoAnimation struct{
@@ -23,7 +25,7 @@ type KendoAnimation struct{
    });
    </script>
   */
-  Close                                   *KendoClose
+  Close                                   *KendoClose                 `jsObject:"close"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-animation.open  The animation played when the suggestion popup is opened.
@@ -40,8 +42,9 @@ type KendoAnimation struct{
    });
    </script>
   */
-  Open                                    *KendoOpen
+  Open                                    *KendoOpen                  `jsObject:"open"`
 
+  *ToJavaScriptConverter
 }
 func(el *KendoAnimation) IsSet() bool {
   return el != nil
@@ -60,4 +63,13 @@ func(el *KendoAnimation) String() string {
   
   return buffer.String()
 }
+func(el *KendoAnimation) ToJavaScript() ([]byte) {
+  element := reflect.ValueOf(el).Elem()
+  ret, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element, "")
+  if err != nil {
+    log.Criticalf( "KendoAnimation.Error: %v", err.Error() )
+    return []byte{}
+  }
 
+  return ret
+}

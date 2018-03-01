@@ -4,6 +4,8 @@ import (
   "fmt"
   "html/template"
   "bytes"
+  "reflect"
+  log "github.com/helmutkemper/seelog"
 )
 
 type KendoClose struct{
@@ -12,14 +14,15 @@ type KendoClose struct{
   <a href="/kendo-ui/api/javascript/effects/common">Complete list of available animations</a>
   
   */
-  Effects                                 String
+  Effects                                 String                  `jsObject:"effects"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-animation.close.duration  The duration of the close animation in milliseconds.
   
   */
-  Duration                                Int
+  Duration                                Int                     `jsObject:"duration"`
 
+  *ToJavaScriptConverter
 }
 func(el *KendoClose) IsSet() bool {
   return el != nil
@@ -38,4 +41,13 @@ func(el *KendoClose) String() string {
   
   return buffer.String()
 }
+func(el *KendoClose) ToJavaScript() []byte {
+  element := reflect.ValueOf(el).Elem()
+  ret, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element, "")
+  if err != nil {
+    log.Criticalf( "KendoClose.Error: %v", err.Error() )
+    return []byte{}
+  }
 
+  return ret
+}

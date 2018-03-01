@@ -152,7 +152,7 @@ type HtmlGlobalAttributes struct{
   order in which the elements are focused is the increasing value of the tabindex. If several elements share the same
   tabindex, their relative order follows their relative positions in the document.
   */
-  TabIndex                    Int
+  TabIndex                    Int   
 
   /*
   Contains a text representing advisory information related to the element it belongs to. Such information can

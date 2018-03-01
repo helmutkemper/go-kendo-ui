@@ -36,5 +36,5 @@ type KendoDataSource struct {
   </script>
   */
 
-  Aggregate                               interface{}
+  Aggregate                               *KendoAggregate
 }

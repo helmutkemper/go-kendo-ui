@@ -4,6 +4,8 @@ import (
   "fmt"
   "html/template"
   "bytes"
+  log "github.com/helmutkemper/seelog"
+  "reflect"
 )
 
 type KendoMessages struct{
@@ -19,7 +21,7 @@ type KendoMessages struct{
    });
    </script>
   */
-  Close                                   String
+  Close                                   String                  `jsObject:"close"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog#configuration-messages.promptInput  The title of the prompt input.
@@ -33,8 +35,9 @@ type KendoMessages struct{
    });
    </script>
   */
-  PromptInput                             String
+  PromptInput                             String                  `jsObject:"promptinput"`
 
+  *ToJavaScriptConverter
 }
 func(el *KendoMessages) IsSet() bool {
   return el != nil
@@ -53,4 +56,13 @@ func(el *KendoMessages) String() string {
   
   return buffer.String()
 }
+func(el *KendoMessages) ToJavaScript() ([]byte) {
+  element := reflect.ValueOf(el).Elem()
+  ret, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element, "")
+  if err != nil {
+    log.Criticalf( "KendoMessages.Error: %v", err.Error() )
+    return []byte{}
+  }
 
+  return ret
+}

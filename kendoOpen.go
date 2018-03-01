@@ -4,6 +4,8 @@ import (
   "fmt"
   "html/template"
   "bytes"
+  log "github.com/helmutkemper/seelog"
+  "reflect"
 )
 
 type KendoOpen struct{
@@ -20,6 +22,7 @@ type KendoOpen struct{
   */
   Duration                                Int
 
+  *ToJavaScriptConverter
 }
 func(el *KendoOpen) IsSet() bool {
   return el != nil
@@ -38,4 +41,13 @@ func(el *KendoOpen) String() string {
   
   return buffer.String()
 }
+func(el *KendoOpen) ToJavaScript() []byte {
+  element := reflect.ValueOf(el).Elem()
+  ret, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element, "")
+  if err != nil {
+    log.Criticalf( "KendoOpen.Error: %v", err.Error() )
+    return []byte{}
+  }
 
+  return ret
+}

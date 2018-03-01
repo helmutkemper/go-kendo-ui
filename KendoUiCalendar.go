@@ -6,10 +6,11 @@ import (
   "bytes"
   "time"
   "reflect"
+  log "github.com/helmutkemper/seelog"
 )
 
 type KendoUiCalendar struct{
-  HtmlId                                  String              `template:"htmlId"`
+  HtmlId                                  String              `jsObject:"htmlId"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/calendar#configuration-culture
@@ -25,7 +26,7 @@ type KendoUiCalendar struct{
    </script>
   */
 
-  Culture                                 String              `template:"culture"`
+  Culture                                 String              `jsObject:"culture"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/calendar#configuration-dates
@@ -45,7 +46,7 @@ type KendoUiCalendar struct{
    </script>
   */
 
-  Dates                                   []time.Time         `template:"dates"`
+  Dates                                   []time.Time         `jsObject:"dates"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/calendar#configuration-depth
@@ -62,7 +63,7 @@ type KendoUiCalendar struct{
    </script>
   */
 
-  Depth                                   String              `template:"depth"`
+  Depth                                   String              `jsObject:"depth"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/calendar#configuration-disableDates
@@ -82,7 +83,7 @@ type KendoUiCalendar struct{
    </script>
   */
 
-  DisableDates                            []string            `template:"disableDates"`
+  DisableDates                            StringArr           `jsObject:"disableDates"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/calendar#configuration-footer
@@ -101,7 +102,7 @@ type KendoUiCalendar struct{
    </script>
   */
 
-  Footer                                  String              `template:"footer"`
+  Footer                                  String              `jsObject:"footer"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/calendar#configuration-format
@@ -117,7 +118,7 @@ type KendoUiCalendar struct{
    </script>
   */
 
-  Format                                  String              `template:"format"`
+  Format                                  String              `jsObject:"format"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/calendar#configuration-max
@@ -133,7 +134,7 @@ type KendoUiCalendar struct{
    </script>
   */
 
-  Max                                     time.Time           `template:"max"`
+  Max                                     time.Time           `jsObject:"max"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/calendar#configuration-messages
@@ -152,7 +153,7 @@ type KendoUiCalendar struct{
    </script>
   */
 
-  Messages                                *KendoMessages      `template:"messages"`
+  Messages                                *KendoCalendarMessages      `jsObject:"messages"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/calendar#configuration-min
@@ -169,7 +170,7 @@ type KendoUiCalendar struct{
    </script>
   */
 
-  Min                                     time.Time           `template:"min"`
+  Min                                     time.Time           `jsObject:"min"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/calendar#configuration-month
@@ -179,7 +180,7 @@ type KendoUiCalendar struct{
   
   */
 
-  Month                                   *KendoMonth         `template:"month"`
+  Month                                   *KendoMonth         `jsObject:"month"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/calendar#configuration-selectable
@@ -196,7 +197,7 @@ type KendoUiCalendar struct{
    </script>
   */
 
-  Selectable                              String              `template:"selectable"`
+  Selectable                              String              `jsObject:"selectable"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/calendar#configuration-selectDates
@@ -214,7 +215,7 @@ type KendoUiCalendar struct{
    </script>
   */
 
-  SelectDates                             interface{}         `template:"selectDates"`
+  SelectDates                             []time.Time         `jsObject:"selectDates"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/calendar#configuration-weekNumber
@@ -230,7 +231,7 @@ type KendoUiCalendar struct{
    </script>
   */
 
-  WeekNumber                              Boolean             `template:"weekNumber"`
+  WeekNumber                              Boolean             `jsObject:"weekNumber"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/calendar#configuration-start
@@ -246,7 +247,7 @@ type KendoUiCalendar struct{
    </script>
   */
 
-  Start                                   String              `template:"start"`
+  Start                                   String              `jsObject:"start"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/calendar#configuration-value
@@ -262,7 +263,7 @@ type KendoUiCalendar struct{
    </script>
   */
 
-  Value                                   time.Time           `template:"value"`
+  Value                                   time.Time           `jsObject:"value"`
 
   *ToJavaScriptConverter
 }
@@ -284,7 +285,13 @@ func(el *KendoUiCalendar) String() string {
   
   return buffer.String()
 }
-func(el *KendoUiCalendar) ToJavaScript() {
+func(el *KendoUiCalendar) ToJavaScript() []byte {
   element := reflect.ValueOf(el).Elem()
-  el.ToJavaScriptConverter.ToTelerikJavaScript(element, "kendoCalendar")
+  ret, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element, "kendoCalendar")
+  if err != nil {
+    log.Criticalf( "KendoUiCalendar.Error: %v", err.Error() )
+    return []byte{}
+  }
+
+  return ret
 }
