@@ -90,7 +90,7 @@ func(el *KendoMonth) String() string {
 }
 func(el *KendoMonth) ToJavaScript() ([]byte) {
   element := reflect.ValueOf(el).Elem()
-  ret, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element, "")
+  ret, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
   if err != nil {
     log.Criticalf( "KendoMonth.Error: %v", err.Error() )
     return []byte{}

@@ -3,7 +3,6 @@ package telerik
 import (
   "reflect"
   "fmt"
-  "errors"
   "time"
   "bytes"
   "strconv"
@@ -11,13 +10,13 @@ import (
 
 type ToJavaScriptConverter struct {}
 
-func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value, kendoElement string ) ([]byte, error) {
-  var passHtmlId bool
+func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]byte, error) {
+  //var passHtmlId bool
   var buffer bytes.Buffer
 
   typeOfT := element.Type()
 
-  if kendoElement == "" {
+  /*if kendoElement == "" {
     passHtmlId = true
   } else {
     passHtmlId = false
@@ -35,7 +34,7 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value, kend
         break
       }
     }
-  }
+  }*/
 
   for i := 0; i < element.NumField(); i += 1 {
     field := element.Field(i)
@@ -51,12 +50,93 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value, kend
     }
 
     switch field.Type().String() {
+    case "interface {}":
+
+      if field.Interface() == nil {
+        continue
+      }
+
+      switch field.Interface().(type) {
+      case JavaScript:
+        if field.Interface().(JavaScript).Code == "" {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: ` + field.Interface().(JavaScript).Code + `,`)
+
+      case string:
+        if field.Interface().(string) == "" {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: "` + field.Interface().(string) + `",`)
+
+      case OfflineStorage:
+        if field.Interface().(OfflineStorage).SetItem == "" && field.Interface().(OfflineStorage).GetItem == "" {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: ` + field.Interface().(OfflineStorage).String() + `,`)
+
+      default:
+        fmt.Printf("\n\n\n\n%d: %s %s = %v  template: ''%v''\n\n\n\n\n", i, typeOfT.Field(i).Name, field.Type(), field.Interface(), tag.Get("jsObject"))
+      }
+
+    case "telerik.TypeAggregate":
+      if field.Interface().(TypeAggregate) == 0 {
+        continue
+      }
+
+      buffer.WriteString(tag.Get("jsObject") + `: "` + field.Interface().(TypeAggregate).String() + `",`)
+
+    case "*[]telerik.KendoAggregate":
+      if field.Interface().(*[]KendoAggregate) == nil {
+        continue
+      }
+
+      buffer.WriteString(tag.Get("jsObject") + `: [`)
+      for _, v := range *field.Interface().(*[]KendoAggregate) {
+        buffer.WriteString(`{`)
+        buffer.Write( v.ToJavaScript() )
+        buffer.WriteString(`},`)
+      }
+      buffer.WriteString(`],`)
+
     case "telerik.String":
       if field.Interface().(String) == "" {
         continue
       }
 
       buffer.WriteString(tag.Get("jsObject") + `: "` + field.Interface().(String).String() + `",`)
+
+    case "[]telerik.MapStringArr":
+      if len( field.Interface().([]MapStringArr) ) == 0 {
+        continue
+      }
+
+      buffer.WriteString(tag.Get("jsObject") + `: [`)
+
+      for _, mapData := range field.Interface().([]MapStringArr) {
+
+        buffer.WriteString(`{`)
+        for k, v := range mapData {
+          switch v.(type) {
+          case string:
+            buffer.WriteString( `"` + k + `": "` + v.(string) + `",` )
+          case int:
+            buffer.WriteString( `"` + k + `": "` + strconv.Itoa(v.(int)) + `",` )
+          case int64:
+            buffer.WriteString( `"` + k + `": "` + strconv.FormatInt(v.(int64), 64) + `",` )
+          case float64:
+            buffer.WriteString( `"` + k + `": "` + strconv.FormatFloat(v.(float64), 'E', -1, 64) + `",` )
+          case float32:
+            buffer.WriteString( `"` + k + `": "` + strconv.FormatFloat(float64(v.(float32)), 'E', -1, 32) + `",` )
+          }
+        }
+        buffer.WriteString(`},`)
+      }
+
+      buffer.WriteString(`],`)
 
     case "telerik.StringArr":
       length := len( field.Interface().(StringArr) )
@@ -162,18 +242,18 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value, kend
     }
   }
 
-  if kendoElement != "" {
+  /*if kendoElement != "" {
     buffer.WriteString("});")
   }
 
   if passHtmlId == false && kendoElement != "" {
     return []byte{}, errors.New("no html element id found")
-  }
+  }*/
 
   // fixme: remover isto - inicio
-  if kendoElement != "" {
+  //if kendoElement != "" {
     fmt.Print("\n\n\n\n\n\n\n")
-  }
+  //}
   // fixme: remover isto - fim
 
   for i := 0; i < element.NumField(); i += 1 {
@@ -182,6 +262,10 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value, kend
     tag := typeField.Tag
 
     switch field.Type().String() {
+      case "interface {}": continue
+      case "[]telerik.MapStringArr": continue
+      case "telerik.TypeAggregate": continue
+      case "*[]telerik.KendoAggregate": continue
       case "*telerik.KendoCalendarMessages": continue
       case "[]time.Time": continue
       case "time.Time": continue

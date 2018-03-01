@@ -24,7 +24,7 @@ var typeAggregates = [...]string{
 
 const (
   //Only for Number.
-  AGGREGATE_AVERAGE TypeAggregate = 1
+  AGGREGATE_AVERAGE TypeAggregate = iota + 1
   //String, Number and Date.
   AGGREGATE_COUNT
   //Number and Date.

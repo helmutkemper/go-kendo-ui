@@ -43,7 +43,7 @@ func(el *KendoClose) String() string {
 }
 func(el *KendoClose) ToJavaScript() []byte {
   element := reflect.ValueOf(el).Elem()
-  ret, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element, "")
+  ret, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
   if err != nil {
     log.Criticalf( "KendoClose.Error: %v", err.Error() )
     return []byte{}

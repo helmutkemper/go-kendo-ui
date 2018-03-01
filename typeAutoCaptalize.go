@@ -30,7 +30,7 @@ var autoCapitalizes = [...]string{
 }
 
 const (
-  NONE AutoCapitalize = 1
+  NONE AutoCapitalize = iota + 1
   SENTENCES
   WORDS
   CHARACTERS

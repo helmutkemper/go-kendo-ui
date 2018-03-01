@@ -30,7 +30,7 @@ var warps = [...]string{
 }
 
 const (
-  HARD Warp = 1
+  HARD Warp = iota + 1
   SOFT
   OFF
 )

@@ -43,7 +43,7 @@ func(el *KendoOpen) String() string {
 }
 func(el *KendoOpen) ToJavaScript() []byte {
   element := reflect.ValueOf(el).Elem()
-  ret, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element, "")
+  ret, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
   if err != nil {
     log.Criticalf( "KendoOpen.Error: %v", err.Error() )
     return []byte{}

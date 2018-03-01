@@ -31,7 +31,7 @@ var formTargets = [...]string{
 }
 
 const (
-  FORM_TARGET_SELF FormTarget = 1
+  FORM_TARGET_SELF FormTarget = iota + 1
   FORM_TARGET_BLANK
   FORM_TARGET_PARENT
   FORM_TARGET_TOP

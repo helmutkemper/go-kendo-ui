@@ -286,12 +286,23 @@ func(el *KendoUiCalendar) String() string {
   return buffer.String()
 }
 func(el *KendoUiCalendar) ToJavaScript() []byte {
+  var ret bytes.Buffer
+  if el.HtmlId == "" {
+    log.Critical("KendoUiCalendar not have a html id for mount JavaScript code.")
+    return []byte{}
+  }
+
   element := reflect.ValueOf(el).Elem()
-  ret, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element, "kendoCalendar")
+  data, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
   if err != nil {
     log.Criticalf( "KendoUiCalendar.Error: %v", err.Error() )
     return []byte{}
   }
 
-  return ret
+  ret.Write( []byte(`$("` + el.HtmlId + `")kendoCalendar({`) )
+  ret.Write( data )
+  ret.Write( []byte(`});`) )
+
+
+  return ret.Bytes()
 }

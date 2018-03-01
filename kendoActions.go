@@ -79,7 +79,7 @@ func(el *KendoActions) String() string {
 }
 func(el *KendoActions) ToJavaScript() ([]byte) {
   element := reflect.ValueOf(el).Elem()
-  ret, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element, "")
+  ret, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
   if err != nil {
     log.Criticalf( "KendoActions.Error: %v", err.Error() )
     return []byte{}

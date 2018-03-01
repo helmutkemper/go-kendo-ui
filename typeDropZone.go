@@ -13,7 +13,7 @@ func (el TypeHtmlDropZone) String() string {
 }
 
 const (
-  COPY TypeHtmlDropZone = 1
+  COPY TypeHtmlDropZone = iota + 1
   MOVE
   LINK
 )
