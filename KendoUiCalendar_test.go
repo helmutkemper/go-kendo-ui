@@ -31,6 +31,7 @@ func ExampleKendoUiCalendar_ToTelerikTemplate() {
     Dates: []time.Time{
       time.Date(2018, 2, 28, 0, 0, 0, 0, time.UTC),
       time.Date(2019, 2, 28, 23, 59, 0, 0, time.UTC),
+      time.Date(2019, 2, 28, 23, 59, 59, 0, time.UTC),
     },
   }
   javaScript.ToJavaScript()

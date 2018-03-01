@@ -32,7 +32,6 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value, kend
       }
 
       fmt.Printf(`%v: "%v",`, tag.Get("template"), field.Interface())
-      //fmt.Printf(`{{if (.%v) ne "" }}%v: {{.%v}},{{end}}`, typeOfT.Field(i).Name, tag.Get("template"), typeOfT.Field(i).Name)
 
     case "[]time.Time":
       length := len( field.Interface().([]time.Time) )
@@ -40,7 +39,20 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value, kend
         fmt.Printf("%v: [", tag.Get("template"))
       }
       for k, v := range field.Interface().([]time.Time) {
-        fmt.Printf("new Date(%v, %v, %v, %v, %v, %v, 0)", v.Year(), int( v.Month() ), v.Day(), v.Hour(), v.Minute(), v.Second())
+        if int( v.Month() ) == 0 && v.Day() == 0 && v.Hour() == 0 && v.Minute() == 0 && v.Second() == 0 {
+          fmt.Printf("new Date(%v)", v.Year())
+          //fmt.Printf("new Date(%v, %v, %v, %v, %v, %v, 0)", v.Year(), int( v.Month() ), v.Day(), v.Hour(), v.Minute(), v.Second())
+        } else if v.Day() == 0 && v.Hour() == 0 && v.Minute() == 0 && v.Second() == 0 {
+          fmt.Printf("new Date(%v, %v)", v.Year(), int( v.Month() ))
+        } else if v.Hour() == 0 && v.Minute() == 0 && v.Second() == 0 {
+          fmt.Printf("new Date(%v, %v, %v)", v.Year(), int( v.Month() ), v.Day())
+        } else if v.Minute() == 0 && v.Second() == 0 {
+          fmt.Printf("new Date(%v, %v, %v, %v)", v.Year(), int( v.Month() ), v.Day(), v.Hour())
+        } else if v.Second() == 0 {
+          fmt.Printf("new Date(%v, %v, %v, %v, %v)", v.Year(), int( v.Month() ), v.Day(), v.Hour(), v.Minute())
+        } else {
+          fmt.Printf("new Date(%v, %v, %v, %v, %v, %v)", v.Year(), int( v.Month() ), v.Day(), v.Hour(), v.Minute(), v.Second())
+        }
 
         if k != length -1 {
           fmt.Printf(",")
