@@ -4,7 +4,6 @@ import (
   "fmt"
   "html/template"
   "bytes"
-  "strings"
   log "github.com/helmutkemper/seelog"
   "reflect"
 )
@@ -565,10 +564,10 @@ func(el *KendoUiAutoComplete) IsSet() bool {
 func(el *KendoUiAutoComplete) String() string {
   var buffer bytes.Buffer
 
-  switch data := el.DataSource.(type) {
-  case []string:
+  //switch data := el.DataSource.(type) {
+  //case []string:
     //el.DataSource = `["` + strings.Join(data.([]string), `","`) + `"]`
-  }
+  //}
 
   tmpl := template.Must(template.New("").Funcs(template.FuncMap{
     "safeHTML": func(s interface{}) template.HTML {
