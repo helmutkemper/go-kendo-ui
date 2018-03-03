@@ -2,9 +2,6 @@ package telerik
 
 import (
   "bytes"
-  "strings"
-  "fmt"
-  "html/template"
   "reflect"
   log "github.com/helmutkemper/seelog"
 )
@@ -886,7 +883,7 @@ type KendoUiMultiSelect struct {
 
   *ToJavaScriptConverter
 }
-func(el *KendoUiMultiSelect) IsSet() bool {
+/*func(el *KendoUiMultiSelect) IsSet() bool {
   return el != nil
 }
 func(el *KendoUiMultiSelect) string() string {
@@ -908,7 +905,7 @@ func(el *KendoUiMultiSelect) string() string {
   }
 
   return buffer.String()
-}
+}*/
 func(el *KendoUiMultiSelect) ToJavaScript() []byte {
   var ret bytes.Buffer
   if el.HtmlId == "" {

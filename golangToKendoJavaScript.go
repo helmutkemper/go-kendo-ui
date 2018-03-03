@@ -72,6 +72,34 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
 
         buffer.WriteString(tag.Get("jsObject") + `: "` + field.Interface().(string) + `",`)
 
+      case int:
+        if field.Interface().(int) == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: ` + strconv.Itoa( field.Interface().(int) ) + `,`)
+
+      case int64:
+        if field.Interface().(int64) == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: ` + strconv.FormatInt( field.Interface().(int64), 64 ) + `,`)
+
+      case float32:
+        if field.Interface().(float32) == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: ` + strconv.FormatFloat( float64( field.Interface().(float32) ), 'E', -1, 32) + `,`)
+
+      case float64:
+        if field.Interface().(float64) == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: ` + strconv.FormatFloat( field.Interface().(float64), 'E', -1, 64) + `,`)
+
       case *OfflineStorage:
         if field.Interface().(*OfflineStorage) == nil {
           continue
@@ -271,6 +299,13 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
       }
 
       buffer.WriteString(tag.Get("jsObject") + `: "` + field.Interface().(KendoEffect).String() + `",` )
+
+    case "telerik.KendoOperator":
+      if field.Interface().(KendoOperator) == 0 {
+        continue
+      }
+
+      buffer.WriteString(tag.Get("jsObject") + `: "` + field.Interface().(KendoOperator).String() + `",` )
 
     case "telerik.KendoFilter":
       if field.Interface().(KendoFilter) == 0 {

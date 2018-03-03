@@ -1,9 +1,6 @@
 package telerik
 
 import (
-  "fmt"
-  "html/template"
-  "bytes"
   "reflect"
   log "github.com/helmutkemper/seelog"
 )
@@ -24,7 +21,7 @@ type KendoClose struct{
 
   *ToJavaScriptConverter
 }
-func(el *KendoClose) IsSet() bool {
+/*func(el *KendoClose) IsSet() bool {
   return el != nil
 }
 func(el *KendoClose) String() string {
@@ -40,7 +37,7 @@ func(el *KendoClose) String() string {
   }
   
   return buffer.String()
-}
+}*/
 func(el *KendoClose) ToJavaScript() []byte {
   element := reflect.ValueOf(el).Elem()
   ret, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)

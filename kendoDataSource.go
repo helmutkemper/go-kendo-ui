@@ -7,7 +7,7 @@ import (
 )
 
 type KendoDataSource struct {
-  VarName                                 String              `jsObject:"htmlId"`
+  VarName                                 string              `jsObject:"varName"`
 
   /*
   @sse https://docs.telerik.com/kendo-ui/api/javascript/data/datasource#configuration-aggregate
@@ -17,7 +17,7 @@ type KendoDataSource struct {
   The supported aggregates are:
 
   > "average" - Only for Number.
-  > "count" - String, Number and Date.
+  > "count" - string, Number and Date.
   > "max" - Number and Date.
   > "min" - Number and Date.
   > "sum" - Only for Number.
@@ -132,7 +132,77 @@ type KendoDataSource struct {
   </script>
   */
   //fixme: data pode ser um xml
-  Data                                    []MapStringArr                    `jsObject:"data"`
+  Data                                    []map[string]interface{}          `jsObject:"data"`
+
+  /*
+  @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/filter#filter
+
+  The filters which are applied over the data items. By default, no filter is applied.
+  The data source filters the data items client-side unless the serverFiltering option is set to <b>true</b>.
+
+  Example - set a single filter
+  <script>
+  var dataSource = new kendo.data.DataSource({
+    data: [
+      { name: "Jane Doe" },
+      { name: "John Doe" }
+    ],
+    filter: { field: "name", operator: "startswith", value: "Jane" }
+  });
+  dataSource.fetch(function(){
+    var view = dataSource.view();
+    console.log(view.length); // displays "1"
+    console.log(view[0].name); // displays "Jane Doe"
+  });
+  </script>
+
+  Example - set filter as conjunction (and)
+  <script>
+  var dataSource = new kendo.data.DataSource({
+    data: [
+      { name: "Tea", category: "Beverages" },
+      { name: "Coffee", category: "Beverages" },
+      { name: "Ham", category: "Food" }
+    ],
+    filter: [
+      // leave data items which are "Beverage" and not "Coffee"
+      { field: "category", operator: "eq", value: "Beverages" },
+      { field: "name", operator: "neq", value: "Coffee" }
+    ]
+  });
+  dataSource.fetch(function(){
+    var view = dataSource.view();
+    console.log(view.length); // displays "1"
+    console.log(view[0].name); // displays "Tea"
+  });
+  </script>
+
+  Example - set filter as disjunction (or)
+  <script>
+  var dataSource = new kendo.data.DataSource({
+    data: [
+      { name: "Tea", category: "Beverages" },
+      { name: "Coffee", category: "Beverages" },
+      { name: "Ham", category: "Food" }
+    ],
+    filter: {
+      // leave data items which are "Food" or "Tea"
+      logic: "or",
+      filters: [
+        { field: "category", operator: "eq", value: "Food" },
+        { field: "name", operator: "eq", value: "Tea" }
+      ]
+    }
+  });
+  dataSource.fetch(function(){
+    var view = dataSource.view();
+    console.log(view.length); // displays "2"
+    console.log(view[0].name); // displays "Tea"
+    console.log(view[1].name); // displays "Ham"
+  });
+  </script>
+  */
+  Filter                                  interface{}                       `jsObject:"filter" jsType:"*KendoComplexFilter,*[]KendoComplexFilter"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/inplacesort#inPlaceSort
@@ -157,7 +227,7 @@ type KendoDataSource struct {
   });
   </script>
   */
-  OfflineStorage                          interface{}                       `jsObject:"offlineStorage"`
+  OfflineStorage                          interface{}                       `jsObject:"offlineStorage" jsType:"*OfflineStorage,string"`//fixme
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/page#page
@@ -184,7 +254,7 @@ type KendoDataSource struct {
   });
   </script>
   */
-  Page                                    Int                               `jsObject:"page"`
+  Page                                    int                               `jsObject:"page"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/pagesize#pageSize
@@ -212,7 +282,7 @@ type KendoDataSource struct {
   });
   </script>
   */
-  PageSize                                Int                               `jsObject:"pageSize"`
+  PageSize                                int                               `jsObject:"pageSize"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/serveraggregates#serverAggregates
@@ -356,6 +426,7 @@ type KendoDataSource struct {
   });
   </script>
   */
+  //fixme:??
 
   *ToJavaScriptConverter
 }
@@ -373,10 +444,15 @@ func(el *KendoDataSource) ToJavaScript() []byte {
     return []byte{}
   }
 
-  ret.Write( []byte(`var ` + el.VarName + ` = new kendo.data.DataSource({`) )
-  ret.Write( data )
-  ret.Write( []byte(`});`) )
-
+  if el.VarName == "" {
+    ret.Write( []byte(` new kendo.data.DataSource({`) )
+    ret.Write( data )
+    ret.Write( []byte(`});`) )
+  } else {
+    ret.Write( []byte(`var ` + el.VarName + ` = new kendo.data.DataSource({`) )
+    ret.Write( data )
+    ret.Write( []byte(`});`) )
+  }
 
   return ret.Bytes()
 }

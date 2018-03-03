@@ -21,7 +21,7 @@ func ExampleKendoDataSource_ToJavaScript_OfflineStorage_1() {
     },
     AutoSync: TRUE,
     Batch: TRUE,
-    Data: []MapStringArr{
+    Data: []map[string]interface{}{
       {
         "name": "Jane Doe",
         "age": 30,
@@ -60,7 +60,7 @@ func ExampleKendoDataSource_ToJavaScript_OfflineStorage_2() {
     },
     AutoSync: TRUE,
     Batch: TRUE,
-    Data: []MapStringArr{
+    Data: []map[string]interface{}{
       {
         "name": "Jane Doe",
         "age": 30,
@@ -71,7 +71,7 @@ func ExampleKendoDataSource_ToJavaScript_OfflineStorage_2() {
       },
     },
     InPlaceSort: FALSE,
-    OfflineStorage: OfflineStorage{
+    OfflineStorage: &OfflineStorage{
       GetItem: "products-key",
       SetItem: "products-key",
     },
@@ -102,7 +102,7 @@ func ExampleKendoDataSource_ToJavaScript_OfflineStorage_3() {
     },
     AutoSync: TRUE,
     Batch: TRUE,
-    Data: []MapStringArr{
+    Data: []map[string]interface{}{
       {
         "name": "Jane Doe",
         "age": 30,
