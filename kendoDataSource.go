@@ -290,7 +290,7 @@ type KendoDataSource struct {
   });
   </script>
   */
-  OfflineStorage                          interface{}                       `jsObject:"offlineStorage" jsType:"*OfflineStorage,string"`//fixme
+  OfflineStorage                          interface{}                       `jsObject:"offlineStorage" jsType:"*OfflineStorage,string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/page#page
@@ -491,6 +491,105 @@ type KendoDataSource struct {
   </script>
   */
   ServerPaging                            Boolean                           `jsObject:"serverPaging"`
+
+  /*
+  @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/serversorting#serverSorting
+
+  If set to true, the data source will leave the data item sorting implementation to the remote service. By default, the data source performs sorting client-side. (default: false)
+
+  By default, the sort is sent to the server following jQuery's conventions.
+
+  For example, the sort { field: "age", dir: "desc" } is sent as:
+
+  sort[0][field]: age
+  sort[0][dir]: desc
+  Use the parameterMap option to send the paging options in a different format.
+
+  For more information and tips about client and server data operations, refer to the introductory article on the DataSource.
+  https://docs.telerik.com/kendo-ui/framework/datasource/overview#mixed-data-operations-mode
+
+  Example - enable server sorting
+  <script>
+  var dataSource = new kendo.data.DataSource({
+    transport: {
+      / * transport configuration * /
+    },
+    serverSorting: true,
+    sort: { field: "age", dir: "desc" }
+  });
+  </script>
+  */
+  ServerSorting                           Boolean                           `jsObject:"serverSorting"`
+
+  /*
+  @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/sort#sort
+
+  The sort order which will be applied over the data items. By default the data items are not sorted.
+  The data source sorts the data items client-side unless the serverSorting option is set to true.
+
+  Example - sort the data items
+  <script>
+  var dataSource = new kendo.data.DataSource({
+    data: [
+      { name: "Jane Doe", age: 30 },
+      { name: "John Doe", age: 33 }
+    ],
+    sort: { field: "age", dir: "desc" }
+  });
+  dataSource.fetch(function(){
+    var data = dataSource.view();
+    console.log(data[0].age); // displays "33"
+  });
+  </script>
+
+  Example - sort the data items by multiple fields
+  <script>
+  var dataSource = new kendo.data.DataSource({
+    data: [
+      { name: "Tea", category: "Beverages" },
+      { name: "Coffee", category: "Beverages" },
+      { name: "Ham", category: "Food" }
+    ],
+    sort: [
+      // sort by "category" in descending order and then by "name" in ascending order
+      { field: "category", dir: "desc" },
+      { field: "name", dir: "asc" }
+    ]
+  });
+  dataSource.fetch(function(){
+    var data = dataSource.view();
+    console.log(data[1].name); // displays "Coffee"
+  });
+  </script>
+  */
+  Sort                                    *KendoSort                        `jsObject:"sort"`
+
+  /*
+  @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/transport#transport
+
+  The configuration used to load and save the data items. A data source is remote or local based on the way of it retrieves data items.
+
+  Remote data sources load and save data items from and to a remote end-point (also known as remote service or server). The transport option describes the remote service configuration - URL, HTTP verb, HTTP headers, and others. The transport option can also be used to implement custom data loading and saving.
+
+  Local data sources are bound to a JavaScript array via the data option.
+
+  Example - specify the remote service configuration
+  <script>
+  var dataSource = new kendo.data.DataSource({
+    transport: {
+      read: {
+        url: "https://demos.telerik.com/kendo-ui/service/products",
+        dataType: "jsonp" // "jsonp" is required for cross-domain requests; use "json" for same-domain requests
+      }
+    }
+  });
+  dataSource.fetch(function() {
+    var products = dataSource.data();
+    console.log(products[0].ProductName); // displays "Chai"
+  });
+  </script>
+  */
+  Transport                               *KendoTransport                   `jsObject:"transport"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/type#type
