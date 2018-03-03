@@ -30,7 +30,7 @@ var kendoTypes = [...]string{
 }
 
 const (
-  KENDO_TYPE_ODATA FormTarget = iota + 1
+  KENDO_TYPE_ODATA KendoType = iota + 1
   KENDO_TYPE_ODATA_V4
   KENDO_TYPE_SIGNALR
 )

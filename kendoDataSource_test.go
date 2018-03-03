@@ -5,7 +5,7 @@ import "fmt"
 func ExampleKendoDataSource_ToJavaScript_OfflineStorage_1() {
   javaScript := KendoDataSource{
     VarName: "dataSource",
-    Aggregate: &[]KendoAggregate{
+    Aggregate: &[]KendoAggregates{
       {
         Aggregate: AGGREGATE_SUM,
         Field: "age",
@@ -44,7 +44,7 @@ func ExampleKendoDataSource_ToJavaScript_OfflineStorage_1() {
 func ExampleKendoDataSource_ToJavaScript_OfflineStorage_2() {
   javaScript := KendoDataSource{
     VarName: "dataSource",
-    Aggregate: &[]KendoAggregate{
+    Aggregate: &[]KendoAggregates{
       {
         Aggregate: AGGREGATE_SUM,
         Field: "age",
@@ -86,7 +86,7 @@ func ExampleKendoDataSource_ToJavaScript_OfflineStorage_2() {
 func ExampleKendoDataSource_ToJavaScript_OfflineStorage_3() {
   javaScript := KendoDataSource{
     VarName: "dataSource",
-    Aggregate: &[]KendoAggregate{
+    Aggregate: &[]KendoAggregates{
       {
         Aggregate: AGGREGATE_SUM,
         Field: "age",

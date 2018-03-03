@@ -118,20 +118,33 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
         fmt.Printf("\n\n\n\ninterface{}: %d: %s %s = %v  template: ''%v''\n\n\n\n\n", i, typeOfT.Field(i).Name, field.Type(), field.Interface(), tag.Get("jsObject"))
       }
 
-    case "telerik.TypeAggregate":
-      if field.Interface().(TypeAggregate) == 0 {
+    case "telerik.KendoAggregate":
+      if field.Interface().(KendoAggregate) == 0 {
         continue
       }
 
-      buffer.WriteString(tag.Get("jsObject") + `: "` + field.Interface().(TypeAggregate).String() + `",`)
+      buffer.WriteString(tag.Get("jsObject") + `: "` + field.Interface().(KendoAggregate).String() + `",`)
 
-    case "*[]telerik.KendoAggregate":
-      if field.Interface().(*[]KendoAggregate) == nil {
+    case "*[]telerik.KendoGroup":
+      if field.Interface().(*[]KendoGroup) == nil {
         continue
       }
 
       buffer.WriteString(tag.Get("jsObject") + `: [`)
-      for _, v := range *field.Interface().(*[]KendoAggregate) {
+      for _, v := range *field.Interface().(*[]KendoGroup) {
+        buffer.WriteString(`{`)
+        buffer.Write( v.ToJavaScript() )
+        buffer.WriteString(`},`)
+      }
+      buffer.WriteString(`],`)
+
+    case "*[]telerik.KendoAggregates":
+      if field.Interface().(*[]KendoAggregates) == nil {
+        continue
+      }
+
+      buffer.WriteString(tag.Get("jsObject") + `: [`)
+      for _, v := range *field.Interface().(*[]KendoAggregates) {
         buffer.WriteString(`{`)
         buffer.Write( v.ToJavaScript() )
         buffer.WriteString(`},`)
@@ -206,6 +219,17 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
       }
 
       buffer.WriteString(`],`)
+
+    case "*telerik.KendoGroup":
+      if field.Interface().(*KendoGroup) == nil {
+        continue
+      }
+
+      buffer.WriteString(tag.Get("jsObject") + `: { `)
+
+      buffer.Write( field.Interface().(*KendoGroup).ToJavaScript() )
+
+      buffer.WriteString(`},`)
 
     case "*telerik.KendoAnimation":
       if field.Interface().(*KendoAnimation) == nil {
@@ -433,6 +457,7 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
       case "telerik.KendoTagMode": continue
       case "telerik.KendoMapValueTo": continue
       case "int": continue
+      case "*[]telerik.KendoGroup": continue
     }
 
     fmt.Printf("\n\n\n\n%d: %s %s = %v  template: ''%v''\n\n\n\n\n", i, typeOfT.Field(i).Name, field.Type(), field.Interface(), tag.Get("jsObject"))

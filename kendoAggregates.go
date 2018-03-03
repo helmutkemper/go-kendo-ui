@@ -1,14 +1,11 @@
 package telerik
 
 import (
-  "fmt"
-  "html/template"
-  "bytes"
   "reflect"
   log "github.com/helmutkemper/seelog"
 )
 
-type KendoAggregate struct{
+type KendoAggregates struct{
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/aggregate#aggregate
 
@@ -59,7 +56,7 @@ type KendoAggregate struct{
   });
   </script>
   */
-  Aggregate                                    TypeAggregate            `jsObject:"aggregate"`
+  Aggregate                                    KendoAggregate                             `jsObject:"aggregate"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/aggregate#aggregate.field
@@ -83,32 +80,15 @@ type KendoAggregate struct{
   });
   </script>
   */
-  Field                                        String                   `jsObject:"field"`
+  Field                                        string                                     `jsObject:"field"`
 
   *ToJavaScriptConverter
 }
-func(el *KendoAggregate) IsSet() bool {
-  return el != nil
-}
-func(el *KendoAggregate) String() string {
-  var buffer bytes.Buffer
-  tmpl := template.Must(template.New("").Funcs(template.FuncMap{
-    "safeHTML": func(s interface{}) template.HTML {
-      return template.HTML(s.(string))
-    },
-  }).Parse(GetTemplate()))
-  err := tmpl.ExecuteTemplate(&buffer, "Actions", *(el))
-  if err != nil {
-    fmt.Println(err.Error())
-  }
-
-  return buffer.String()
-}
-func(el *KendoAggregate) ToJavaScript() ([]byte) {
+func(el *KendoAggregates) ToJavaScript() ([]byte) {
   element := reflect.ValueOf(el).Elem()
   ret, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
   if err != nil {
-    log.Criticalf( "KendoAggregate.Error: %v", err.Error() )
+    log.Criticalf( "KendoAggregates.Error: %v", err.Error() )
     return []byte{}
   }
 

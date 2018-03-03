@@ -44,7 +44,7 @@ type KendoDataSource struct {
   </script>
   */
 
-  Aggregate                               *[]KendoAggregate                   `jsObject:"aggregate"`
+  Aggregate                               *[]KendoAggregates                  `jsObject:"aggregate"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/autosync#autoSync
@@ -205,6 +205,69 @@ type KendoDataSource struct {
   Filter                                  interface{}                       `jsObject:"filter" jsType:"*KendoComplexFilter,*[]KendoComplexFilter"`
 
   /*
+  @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/group#group
+
+  The grouping configuration of the data source. If set, the data items will be grouped when the data source is populated. By default, grouping is not applied.
+  The data source groups the data items client-side unless the serverGrouping option is set to true.
+
+  Example - set a group as an object
+  <script>
+  var dataSource = new kendo.data.DataSource({
+    data: [
+      { name: "Tea", category: "Beverages" },
+      { name: "Coffee", category: "Beverages" },
+      { name: "Ham", category: "Food" }
+    ],
+    // group by the "category" field
+    group: { field: "category" }
+  });
+  dataSource.fetch(function(){
+    var view = dataSource.view();
+    console.log(view.length); // displays "2"
+    var beverages = view[0];
+    console.log(beverages.value); // displays "Beverages"
+    console.log(beverages.items[0].name); // displays "Tea"
+    console.log(beverages.items[1].name); // displays "Coffee"
+    var food = view[1];
+    console.log(food.value); // displays "Food"
+    console.log(food.items[0].name); // displays "Ham"
+  });
+  </script>
+
+  Example - set a group as an array (subgroups)
+  <script>
+  var dataSource = new kendo.data.DataSource({
+    data: [
+      { name: "Pork", category: "Food", subcategory: "Meat" },
+      { name: "Pepper", category: "Food", subcategory: "Vegetables" },
+      { name: "Beef", category: "Food", subcategory: "Meat" }
+    ],
+    group: [
+      // group by "category" and then by "subcategory"
+      { field: "category" },
+      { field: "subcategory" },
+    ]
+  });
+  dataSource.fetch(function(){
+    var view = dataSource.view();
+    console.log(view.length); // displays "1"
+    var food = view[0];
+    console.log(food.value); // displays "Food"
+    var meat = food.items[0];
+    console.log(meat.value); // displays "Meat"
+    console.log(meat.items.length); // displays "2"
+    console.log(meat.items[0].name); // displays "Pork"
+    console.log(meat.items[1].name); // displays "Beef"
+    var vegetables = food.items[1];
+    console.log(vegetables.value); // displays "Vegetables"
+    console.log(vegetables.items.length); // displays "1"
+    console.log(vegetables.items[0].name); // displays "Pepper"
+  });
+  </script>
+  */
+  Group                                   interface{}                       `jsObject:"filter" jsType:"*KendoGroup,*[]KendoGroup"`
+
+  /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/inplacesort#inPlaceSort
 
   If set to <b>true</b> the original <b>Array</b> used as data will be sorted when sorting operation is performed. This setting supported only with local data, bound to a JavaScript array via the data option. (default: false)
@@ -283,6 +346,35 @@ type KendoDataSource struct {
   </script>
   */
   PageSize                                int                               `jsObject:"pageSize"`
+
+  /*
+  https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/schema#schema
+
+  The configuration used to parse the remote service response.
+
+  Example - specify the schema of the remote service
+  <script>
+  var dataSource = new kendo.data.DataSource({
+    transport: {
+      read: {
+        url: "https://demos.telerik.com/kendo-ui/service/twitter/search",
+        dataType: "jsonp", // "jsonp" is required for cross-domain requests; use "json" for same-domain requests
+        data: { q: "html5" } // search for tweets that contain "html5"
+      }
+    },
+    schema: {
+      data: function(response) {
+        return response.statuses; // twitter's response is { "statuses": [ / * results * / ] }
+      }
+    }
+  });
+  dataSource.fetch(function(){
+    var data = this.data();
+    console.log(data.length);
+  });
+  </script>
+  */
+  Schema                                  KendoSchema                       `jsObject:"schema"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/serveraggregates#serverAggregates
