@@ -14,13 +14,13 @@ type KendoClose struct{
   <a href="/kendo-ui/api/javascript/effects/common">Complete list of available animations</a>
   
   */
-  Effects                                 String                  `jsObject:"effects"`
+  Effects                                 KendoEffect             `jsObject:"effects"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-animation.close.duration  The duration of the close animation in milliseconds.
   
   */
-  Duration                                Int                     `jsObject:"duration"`
+  Duration                                int                     `jsObject:"duration"`
 
   *ToJavaScriptConverter
 }

@@ -4,6 +4,8 @@ import (
   "fmt"
   "html/template"
   "bytes"
+  "reflect"
+  log "github.com/helmutkemper/seelog"
 )
 
 type KendoPopup struct{
@@ -27,7 +29,7 @@ type KendoPopup struct{
    });
    </script>
   */
-  AppendTo                                String
+  AppendTo                               *JavaScript                              `jsObject:"appendTo"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-popup.origin  Specifies how to position the popup element based on anchor point. The value is space separated "y" plus "x" position.
@@ -51,7 +53,7 @@ type KendoPopup struct{
    });
    </script>
   */
-  Origin                                  String
+  Origin                                  KendoOrigin                             `jsObject:"origin"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-popup.position  Specifies which point of the popup element to attach to the anchor's origin point. The value is space separated "y" plus "x" position.
@@ -75,8 +77,9 @@ type KendoPopup struct{
    });
    </script>
   */
-  Position                                String
+  Position                                KendoPosition                           `jsObject:"position"`
 
+  *ToJavaScriptConverter
 }
 func(el *KendoPopup) IsSet() bool {
   return el != nil
@@ -95,4 +98,13 @@ func(el *KendoPopup) String() string {
   
   return buffer.String()
 }
+func(el *KendoPopup) ToJavaScript() []byte {
+  element := reflect.ValueOf(el).Elem()
+  ret, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
+  if err != nil {
+    log.Criticalf( "KendoPopup.Error: %v", err.Error() )
+    return []byte{}
+  }
 
+  return ret
+}

@@ -3,6 +3,7 @@ package telerik
 type TypeHtmlDropZone int
 
 var TypeHtmlDropZones = [...]string {
+  "",
   "copy",
   "move",
   "link",

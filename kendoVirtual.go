@@ -4,6 +4,8 @@ import (
   "fmt"
   "html/template"
   "bytes"
+  "reflect"
+  log "github.com/helmutkemper/seelog"
 )
 
 type KendoVirtual struct{
@@ -74,7 +76,7 @@ type KendoVirtual struct{
        }
    </script>
   */
-  ItemHeight                              Int
+  ItemHeight                              int                                     `jsObject:"itemHeight"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-virtual.mapValueTo  The changes introduced with the Kendo UI R3 2016 release enable you to determine if the <b><u>valueMapper</u></b> must resolve a <em>value to an <b><u>index</u></b></em> or a <em>value to a <b><u>dataItem</u></b></em>. This is configured through the <b><u>mapValueTo</u></b> option that accepts two possible values - <b><u>"index"</u></b> or <b><u>"dataItem"</u></b>. By default, the <b><u>mapValueTo</u></b> is set to <b><u>"index"</u></b>, which does not affect the current behavior of the virtualization process.
@@ -147,7 +149,7 @@ type KendoVirtual struct{
        }
    </script>
   */
-  MapValueTo                              String
+  MapValueTo                              KendoMapValueTo                         `jsObject:"mapValueTo"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-virtual.valueMapper  The widget calls the <b><u>valueMapper</u></b> function when the widget receives a value, that is not fetched from the remote server yet. The widget will pass the selected value(s) in the <b><u>valueMapper</u></b> function. In turn, the valueMapper implementation should return the <strong>respective data item(s) index/indices</strong>.
@@ -155,8 +157,9 @@ type KendoVirtual struct{
   As of the Kendo UI R3 2016 release, the implementation of the <b><u>valueMapper</u></b> function is optional. It is required only if the widget contains an initial value or if the <b><u>value</u></b> method is used.
   
   */
-  ValueMapper                             String
+  ValueMapper                             *JavaScript                             `jsObject:"valueMapper"`
 
+  *ToJavaScriptConverter
 }
 func(el *KendoVirtual) IsSet() bool {
   return el != nil
@@ -175,4 +178,13 @@ func(el *KendoVirtual) String() string {
   
   return buffer.String()
 }
+func(el *KendoVirtual) ToJavaScript() []byte {
+  element := reflect.ValueOf(el).Elem()
+  ret, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
+  if err != nil {
+    log.Criticalf( "KendoVirtual.Error: %v", err.Error() )
+    return []byte{}
+  }
 
+  return ret
+}

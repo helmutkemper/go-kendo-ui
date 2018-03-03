@@ -5,10 +5,12 @@ import (
   "strings"
   "fmt"
   "html/template"
+  "reflect"
+  log "github.com/helmutkemper/seelog"
 )
 
 type KendoUiMultiSelect struct {
-  HtmlId                                  String
+  HtmlId                                  string                                  `jsObject:"htmlId"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/animation
@@ -24,8 +26,7 @@ type KendoUiMultiSelect struct {
    });
    </script>
   */
-
-  Animation                               *KendoAnimation
+  Animation                               interface{}                             `jsObject:"animation" jsType:"*KendoAnimation,Boolean"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/autobind
@@ -43,7 +44,7 @@ type KendoUiMultiSelect struct {
   });
   </script>
   */
-  AutoBind                                Boolean
+  AutoBind                                Boolean                                 `jsObject:"autoBind"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/autoclose
@@ -61,7 +62,7 @@ type KendoUiMultiSelect struct {
   });
   </script>
   */
-  AutoClose                               Boolean
+  AutoClose                               Boolean                                 `jsObject:"autoClose"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/autowidth
@@ -80,7 +81,7 @@ type KendoUiMultiSelect struct {
   });
   </script>
   */
-  AutoWidth                               Boolean
+  AutoWidth                               Boolean                                 `jsObject:"autoWidth"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/clearbutton
@@ -98,7 +99,7 @@ type KendoUiMultiSelect struct {
   });
   </script>
   */
-  ClearButton                             Boolean
+  ClearButton                             Boolean                                 `jsObject:"clearButton"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/datasource
@@ -144,8 +145,7 @@ type KendoUiMultiSelect struct {
   });
   </script>
   */
-
-  DataSource                              interface{}
+  DataSource                              interface{}                             `jsObject:"dataSource" jsType:"*KendoDataSource,string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/datatextfield
@@ -169,7 +169,7 @@ type KendoUiMultiSelect struct {
   });
   </script>
   */
-  DataTextField                           String
+  DataTextField                           string                                  `jsObject:"dataTextField"`
 
   /*
   @sse https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/datavaluefield
@@ -193,7 +193,7 @@ type KendoUiMultiSelect struct {
   });
   </script>
   */
-  dataValueField                          String
+  DataValueField                          string                                  `jsObject:"dataValueField"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/delay
@@ -211,7 +211,7 @@ type KendoUiMultiSelect struct {
   });
   </script>
   */
-  Delay                                   Int
+  Delay                                   int                                     `jsObject:"delay"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/enable
@@ -229,7 +229,7 @@ type KendoUiMultiSelect struct {
   });
   </script>
   */
-  Enable                                  Boolean
+  Enable                                  Boolean                                 `jsObject:"enable"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/enforceminlength
@@ -262,7 +262,7 @@ type KendoUiMultiSelect struct {
   });
   </script>
   */
-  EnforceMinLength                        Boolean
+  EnforceMinLength                        Boolean                                 `jsObject:"enforceMinLength"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/filter
@@ -280,7 +280,7 @@ type KendoUiMultiSelect struct {
   });
   </script>
   */
-  Filter                                  String
+  Filter                                  KendoFilter                             `jsObject:"filter"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/fixedgrouptemplate
@@ -308,7 +308,7 @@ type KendoUiMultiSelect struct {
       });
   </script>
   */
-  FixedGroupTemplate                      String
+  FixedGroupTemplate                      string                                  `jsObject:"fixedGroupTemplate"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/footertemplate
@@ -332,7 +332,7 @@ type KendoUiMultiSelect struct {
   });
   </script>
   */
-  FooterTemplate                          String
+  FooterTemplate                          string                                  `jsObject:"footerTemplate"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/grouptemplate
@@ -360,7 +360,7 @@ type KendoUiMultiSelect struct {
       });
   </script>
   */
-  GroupTemplate                           String
+  GroupTemplate                           string                                  `jsObject:"groupTemplate"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/height
@@ -378,7 +378,7 @@ type KendoUiMultiSelect struct {
   });
   </script>
   */
-  Height                                  Int
+  Height                                  int                                     `jsObject:"height"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/highlightfirst
@@ -396,7 +396,7 @@ type KendoUiMultiSelect struct {
   });
   </script>
   */
-  HighlightFirst                          Boolean
+  HighlightFirst                          Boolean                                 `jsObject:"highlightFirst"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/ignorecase
@@ -414,7 +414,7 @@ type KendoUiMultiSelect struct {
   });
   </script>
   */
-  IgnoreCase                              Boolean
+  IgnoreCase                              Boolean                                 `jsObject:"ignoreCase"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/minlength
@@ -433,7 +433,7 @@ type KendoUiMultiSelect struct {
   });
   </script>
   */
-  MinLength                               Int
+  MinLength                               int                                     `jsObject:"minLength"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/maxselecteditems
@@ -453,7 +453,7 @@ type KendoUiMultiSelect struct {
   });
   </script>
   */
-  MaxSelectedItems                        Int
+  MaxSelectedItems                        int                                     `jsObject:"maxSelectedItems"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/nodatatemplate
@@ -475,7 +475,7 @@ type KendoUiMultiSelect struct {
   });
   </script>
   */
-  NoDataTemplate                          String
+  NoDataTemplate                          string                                  `jsObject:"noDataTemplate"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/placeholder
@@ -503,7 +503,7 @@ type KendoUiMultiSelect struct {
   $("#multiselect").kendoMultiSelect();
   </script>
   */
-  Placeholder                             String
+  Placeholder                             string                                  `jsObject:"placeholder"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/popup
@@ -528,7 +528,7 @@ type KendoUiMultiSelect struct {
   });
   </script>
   */
-  Popup                                   KendoPopup
+  Popup                                  *KendoPopup                              `jsObject:"popup"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/headertemplate
@@ -552,7 +552,7 @@ type KendoUiMultiSelect struct {
   });
   </script>
   */
-  HeaderTemplate                          String
+  HeaderTemplate                          string                                  `jsObject:"headerTemplate"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/itemtemplate
@@ -593,7 +593,7 @@ type KendoUiMultiSelect struct {
   });
   </script>
   */
-  ItemTemplate                            String
+  ItemTemplate                            string                                  `jsObject:"itemTemplate"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/tagtemplate
@@ -677,7 +677,7 @@ type KendoUiMultiSelect struct {
   });
   </script>
   */
-  TagTemplate                             String
+  TagTemplate                            *JavaScript                              `jsObject:"tagTemplate"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/tagmode
@@ -689,7 +689,7 @@ type KendoUiMultiSelect struct {
 
   Every tagMode has a specific tagTemplate value. If you would like to control the content of the rendered tags, set a custom a tagTemplate value.
   */
-  TagMode                                 String
+  TagMode                                 KendoTagMode                            `jsObject:"tagMode"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/value
@@ -718,7 +718,7 @@ type KendoUiMultiSelect struct {
   });
   </script>
   */
-  Value                                   StringArr
+  Value                                   []map[string]interface{}                            `jsObject:"value"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/valueprimitive
@@ -745,7 +745,7 @@ type KendoUiMultiSelect struct {
   kendo.bind($("#multiselect"), viewModel);
   </script>
   */
-  ValuePrimitive                          Boolean
+  ValuePrimitive                          Boolean                                 `jsObject:"valuePrimitive"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/virtual
@@ -882,12 +882,14 @@ type KendoUiMultiSelect struct {
       }
   </script>
   */
-  Virtual                                 KendoVirtual
+  Virtual                                interface{}                              `jsObject:"virtual" jsType:"*KendoVirtual,Boolean"`
+
+  *ToJavaScriptConverter
 }
 func(el *KendoUiMultiSelect) IsSet() bool {
   return el != nil
 }
-func(el *KendoUiMultiSelect) String() string {
+func(el *KendoUiMultiSelect) string() string {
   var buffer bytes.Buffer
 
   switch data := el.DataSource.(type) {
@@ -906,4 +908,24 @@ func(el *KendoUiMultiSelect) String() string {
   }
 
   return buffer.String()
+}
+func(el *KendoUiMultiSelect) ToJavaScript() []byte {
+  var ret bytes.Buffer
+  if el.HtmlId == "" {
+    log.Critical("kendoMultiSelect not have a html id for mount JavaScript code.")
+    return []byte{}
+  }
+
+  element := reflect.ValueOf(el).Elem()
+  data, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
+  if err != nil {
+    log.Criticalf( "kendoMultiSelect.Error: %v", err.Error() )
+    return []byte{}
+  }
+
+  ret.Write( []byte(`$("` + el.HtmlId + `")kendoMultiSelect({`) )
+  ret.Write( data )
+  ret.Write( []byte(`});`) )
+
+  return ret.Bytes()
 }

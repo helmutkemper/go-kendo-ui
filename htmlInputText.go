@@ -111,7 +111,7 @@ func(el *HtmlInputText)String() string {
 }
 func(el *HtmlInputText)Script() string {
   return ``
-}
+}/*
 func(el *HtmlInputText)ToJavaScriptCheck() string {
   return `if( $("` + el.Global.Id + `").val() == ""){ ` + el.CheckCode.String() + ` }`
-}
+}*/
