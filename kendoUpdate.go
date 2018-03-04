@@ -5,9 +5,9 @@ import (
   log "github.com/helmutkemper/seelog"
 )
 
-type KendoDestroy struct {
+type KendoUpdate struct{
   /*
-  @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/transport.destroy#transport.destroy.cache
+  @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/transport.update#transport.update.cache
 
   If set to false, the request result will not be cached by the browser. Setting cache to false will only work correctly with HEAD and GET requests. It works by appending "_={timestamp}" to the GET parameters. By default, "jsonp" requests are not cached.
 
@@ -17,7 +17,7 @@ type KendoDestroy struct {
   <script>
   var dataSource = new kendo.data.DataSource({
     transport: {
-      destroy: {
+      update: {
         / * omitted for brevity * /
         cache: true
       }
@@ -25,18 +25,18 @@ type KendoDestroy struct {
   });
   </script>
   */
-  Cache                                            Boolean                                  `jsObject:"cache"`
+  Cache                                           Boolean                                       `jsObject:"cache"`
 
   /*
-  @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/transport.destroy#transport.destroy.contentType
+  @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/transport.update#transport.update.contentType
 
-  The content-type HTTP header sent to the server. The default is "application/x-www-form-urlencoded". Use "application/json" if the content is JSON. Refer to the jQuery.ajax documentation for further information.
+  The content-type HTTP header sent to the server. Default is "application/x-www-form-urlencoded". Use "application/json" if the content is JSON. Refer to the jQuery.ajax documentation for further information.
 
-  Example - set the content type
+  Example - set content type
   <script>
   var dataSource = new kendo.data.DataSource({
     transport: {
-      destroy: {
+      update: {
         / * omitted for brevity * /
         contentType: "application/json"
       }
@@ -44,10 +44,10 @@ type KendoDestroy struct {
   });
   </script>
   */
-  ContentType                                     string                                    `jsObject:"contentType"`
+  ContentType                                     string                                        `jsObject:"contentType"`
 
   /*
-  @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/transport.destroy#transport.destroy.data
+  @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/transport.update#transport.update.data
 
   Additional parameters which are sent to the remote service. The parameter names must not match reserved words, which are used by the Kendo UI DataSource for sorting, filtering, paging, and grouping.
 
@@ -57,7 +57,7 @@ type KendoDestroy struct {
   <script>
   var dataSource = new kendo.data.DataSource({
     transport: {
-      destroy: {
+      update: {
         / * omitted for brevity * /
         data: {
           name: "Jane Doe",
@@ -72,7 +72,7 @@ type KendoDestroy struct {
   <script>
   var dataSource = new kendo.data.DataSource({
     transport: {
-      destroy: {
+      update: {
         / * omitted for brevity * /
         data: function() {
           return {
@@ -85,10 +85,10 @@ type KendoDestroy struct {
   });
   </script>
   */
-  Data                                            interface{}                               `jsObject:"contentType" jsType:"*JavaScript,[]map[string]interface{}"`
+  Data                                            interface{}                                   `jsObject:"data" jsType:"[]map[string]interface{},*JavaScript"`
 
   /*
-  @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/transport.destroy#transport.destroy.dataType
+  @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/transport.create#transport.create.dataType
 
   The type of result expected from the server. Commonly used values are "json" and "jsonp".
 
@@ -98,7 +98,7 @@ type KendoDestroy struct {
   <script>
   var dataSource = new kendo.data.DataSource({
     transport: {
-      destroy: {
+      update: {
         / * omitted for brevity * /
         dataType: "json"
       }
@@ -106,21 +106,21 @@ type KendoDestroy struct {
   });
   </script>
   */
-  DataType                                        KendoTypeDataJSon                         `jsObject:"dataType"`
+  DataType                                        KendoTypeDataJSon                             `jsObject:"dataType"`
 
   /*
-  @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/transport.destroy#transport.destroy.type
+  @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/transport.update#transport.update.type
 
   The type of request to make ("POST", "GET", "PUT" or "DELETE"). The default request is "GET".
   The type option is ignored if dataType is set to "jsonp". JSONP always uses GET requests.
 
   Refer to the jQuery.ajax documentation for further information.
 
-  Example
+  Example - set the HTTP verb of the request
   <script>
   var dataSource = new kendo.data.DataSource({
     transport: {
-      destroy: {
+      update: {
         / * omitted for brevity * /
         type: "POST"
       }
@@ -128,86 +128,74 @@ type KendoDestroy struct {
   });
   </script>
   */
-  Type                                            HtmlMethod                                `jsObject:"type"`
+  Type                                            HtmlMethod                                    `jsObject:"type"`
 
   /*
-  @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/transport.destroy#transport.destroy.url
+  @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/transport.update#transport.update.url
 
   The URL to which the request is sent.
 
   If set to function, the data source will invoke it and use the result as the URL.
 
-  Example - specify the URL as a string
+  Example - specify URL as a string
   <script>
   var dataSource = new kendo.data.DataSource({
     transport: {
-      read: {
+      read:  {
         url: "https://demos.telerik.com/kendo-ui/service/products",
-        dataType: "jsonp"
-      },
-      destroy: {
-        url: "https://demos.telerik.com/kendo-ui/service/products/destroy",
         dataType: "jsonp" // "jsonp" is required for cross-domain requests; use "json" for same-domain requests
       },
-      parameterMap: function(data, type) {
-        if (type == "destroy") {
-          return { models: kendo.stringify(data.models) }
-        }
+      update: {
+        url: "https://demos.telerik.com/kendo-ui/service/products/update",
+        dataType: "jsonp" // "jsonp" is required for cross-domain requests; use "json" for same-domain requests
       }
     },
-    batch: true,
     schema: {
       model: { id: "ProductID" }
     }
   });
   dataSource.fetch(function() {
-    var products = dataSource.data();
-    dataSource.remove(products[0]);
+    var product = dataSource.at(0);
+    product.set("UnitPrice", 20);
     dataSource.sync();
   });
   </script>
 
-  Example - specify the URL as a function
+  Example - specify URL as a function
   <script>
   var dataSource = new kendo.data.DataSource({
     transport: {
-      read: {
+      read:  {
         url: "https://demos.telerik.com/kendo-ui/service/products",
-        dataType: "jsonp"
-      },
-      destroy: {
-        url: function (options) {
-          return "https://demos.telerik.com/kendo-ui/service/products/destroy"
-        },
         dataType: "jsonp" // "jsonp" is required for cross-domain requests; use "json" for same-domain requests
       },
-      parameterMap: function(data, type) {
-        if (type == "destroy") {
-          return { models: kendo.stringify(data.models) }
-        }
+      update: {
+        url: function(options) {
+          return "https://demos.telerik.com/kendo-ui/service/products/update"
+        },
+        dataType: "jsonp" // "jsonp" is required for cross-domain requests; use "json" for same-domain requests
       }
     },
-    batch: true,
     schema: {
       model: { id: "ProductID" }
     }
   });
   dataSource.fetch(function() {
-    var products = dataSource.data();
-    dataSource.remove(products[0]);
+    var product = dataSource.at(0);
+    product.set("UnitPrice", 20);
     dataSource.sync();
   });
   </script>
   */
-  Url                                             interface{}                               `jsObject:"type" jsType:"*JavaScript,string"`
+  Url                                             interface{}                                   `jsObject:"url" jsType:"*JavaScript,string"`
 
   *ToJavaScriptConverter
 }
-func(el *KendoDestroy) ToJavaScript() []byte {
+func(el *KendoUpdate) ToJavaScript() []byte {
   element := reflect.ValueOf(el).Elem()
   ret, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
   if err != nil {
-    log.Criticalf( "KendoDestroy.Error: %v", err.Error() )
+    log.Criticalf( "KendoUpdate.Error: %v", err.Error() )
     return []byte{}
   }
 

@@ -30,7 +30,7 @@ type KendoSort struct{
   });
   </script>
   */
-  Dir                                           *KendoDirection                                     `jsObject:"dir"`
+  Dir                                            KendoDirection                                     `jsObject:"dir"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/sort#sort.field

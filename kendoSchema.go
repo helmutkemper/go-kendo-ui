@@ -293,8 +293,8 @@ type KendoSchema struct{
     }
   });
   </script>
-  *///fixme: fazer
-  //Model                                       KendoDataModel                                      `jsObject:"groups"`
+  */
+  Model                                      *KendoDataModel                                      `jsObject:"model"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/schema#schema.parse

@@ -290,7 +290,7 @@ type KendoDataSource struct {
   });
   </script>
   */
-  OfflineStorage                          interface{}                       `jsObject:"offlineStorage" jsType:"*OfflineStorage,string"`
+  OfflineStorage                          interface{}                       `jsObject:"offlineStorage" jsType:"*OfflineStorage,string"` //fixme: OfflineStorage é KendoOfflineStorage
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/page#page
@@ -374,7 +374,7 @@ type KendoDataSource struct {
   });
   </script>
   */
-  Schema                                  KendoSchema                       `jsObject:"schema"`
+  Schema                                 *KendoSchema                       `jsObject:"schema"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/serveraggregates#serverAggregates
@@ -617,7 +617,7 @@ type KendoDataSource struct {
   });
   </script>
   */
-  //fixme:??
+  Type                                    KendoType                         `jsObject:"type"`
 
   *ToJavaScriptConverter
 }
