@@ -174,7 +174,7 @@ func ExampleKendoDataSource_ToJavaScript_Filter_Array() {
       },
     },
     InPlaceSort: FALSE,
-    OfflineStorage: JavaScript{
+    OfflineStorage: &JavaScript{
       Code: `{ getItem: function() { return JSON.parse(sessionStorage.getItem("products-key")); }, setItem: function(item) { sessionStorage.setItem("products-key", JSON.stringify(item)); } }`,
     },
     Page: 1,

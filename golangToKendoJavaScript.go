@@ -29,6 +29,7 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
     }
 
     switch field.Type().String() {
+    //------------------------------------------------------------------------------------------------------------------
     case "interface {}":
 
       if field.Interface() == nil {
@@ -107,6 +108,41 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
 
         buffer.WriteString(tag.Get("jsObject") + `: ` + field.Interface().(*OfflineStorage).String() + `,`)
 
+      case *KendoComplexFilter:
+        if field.Interface().(*KendoComplexFilter) == nil {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: { `)
+        buffer.Write( field.Interface().(*KendoComplexFilter).ToJavaScript() )
+        buffer.WriteString(`},`)
+
+      case *[]KendoComplexFilter:
+        if field.Interface().(*[]KendoComplexFilter) == nil {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: [`)
+        for _, v := range *field.Interface().(*[]KendoComplexFilter) {
+          buffer.WriteString(`{`)
+          buffer.Write( v.ToJavaScript() )
+          buffer.WriteString(`},`)
+        }
+        buffer.WriteString(`],`)
+
+      case *[]KendoGroup:
+        if field.Interface().(*[]KendoGroup) == nil {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: [`)
+        for _, v := range *field.Interface().(*[]KendoGroup) {
+          buffer.WriteString(`{`)
+          buffer.Write( v.ToJavaScript() )
+          buffer.WriteString(`},`)
+        }
+        buffer.WriteString(`],`)
+
       case Boolean:
         if field.Interface().(Boolean) == 0 {
           continue
@@ -117,6 +153,64 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
       default:
         fmt.Printf("\n\n\n\ninterface{}: %d: %s %s = %v  template: ''%v''\n\n\n\n\n", i, typeOfT.Field(i).Name, field.Type(), field.Interface(), tag.Get("jsObject"))
       }
+    //---------------------------------------------------------------------------------------------------------------
+
+    case "*telerik.KendoCreate":
+      if field.Interface().(*KendoCreate) == nil {
+        continue
+      }
+
+      buffer.WriteString(tag.Get("jsObject") + `: { `)
+      buffer.Write( field.Interface().(*KendoCreate).ToJavaScript() )
+      buffer.WriteString(`},`)
+
+    case "*telerik.KendoRead":
+      if field.Interface().(*KendoRead) == nil {
+        continue
+      }
+
+      buffer.WriteString(tag.Get("jsObject") + `: { `)
+      buffer.Write( field.Interface().(*KendoRead).ToJavaScript() )
+      buffer.WriteString(`},`)
+
+    case "*telerik.KendoDestroy":
+      if field.Interface().(*KendoDestroy) == nil {
+        continue
+      }
+
+      buffer.WriteString(tag.Get("jsObject") + `: { `)
+      buffer.Write( field.Interface().(*KendoDestroy).ToJavaScript() )
+      buffer.WriteString(`},`)
+
+    case "*telerik.KendoUpdate":
+      if field.Interface().(*KendoUpdate) == nil {
+        continue
+      }
+
+      buffer.WriteString(tag.Get("jsObject") + `: { `)
+      buffer.Write( field.Interface().(*KendoUpdate).ToJavaScript() )
+      buffer.WriteString(`},`)
+
+    case "telerik.HtmlMethod":
+      if field.Interface().(HtmlMethod) == 0 {
+        continue
+      }
+
+      buffer.WriteString(tag.Get("jsObject") + `: "` + field.Interface().(HtmlMethod).String() + `",`)
+
+    case "telerik.KendoTypeDataJSon":
+      if field.Interface().(KendoTypeDataJSon) == 0 {
+        continue
+      }
+
+      buffer.WriteString(tag.Get("jsObject") + `: "` + field.Interface().(KendoTypeDataJSon).String() + `",`)
+
+    case "telerik.KendoTypeData":
+      if field.Interface().(KendoTypeData) == 0 {
+        continue
+      }
+
+      buffer.WriteString(tag.Get("jsObject") + `: "` + field.Interface().(KendoTypeData).String() + `",`)
 
     case "telerik.KendoAggregate":
       if field.Interface().(KendoAggregate) == 0 {
@@ -132,6 +226,19 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
 
       buffer.WriteString(tag.Get("jsObject") + `: [`)
       for _, v := range *field.Interface().(*[]KendoGroup) {
+        buffer.WriteString(`{`)
+        buffer.Write( v.ToJavaScript() )
+        buffer.WriteString(`},`)
+      }
+      buffer.WriteString(`],`)
+
+    case "*[]telerik.KendoFilters":
+      if field.Interface().(*[]KendoFilters) == nil {
+        continue
+      }
+
+      buffer.WriteString(tag.Get("jsObject") + `: [`)
+      for _, v := range *field.Interface().(*[]KendoFilters) {
         buffer.WriteString(`{`)
         buffer.Write( v.ToJavaScript() )
         buffer.WriteString(`},`)
@@ -226,9 +333,16 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
       }
 
       buffer.WriteString(tag.Get("jsObject") + `: { `)
-
       buffer.Write( field.Interface().(*KendoGroup).ToJavaScript() )
+      buffer.WriteString(`},`)
 
+    case "*telerik.KendoSort":
+      if field.Interface().(*KendoSort) == nil {
+        continue
+      }
+
+      buffer.WriteString(tag.Get("jsObject") + `: { `)
+      buffer.Write( field.Interface().(*KendoSort).ToJavaScript() )
       buffer.WriteString(`},`)
 
     case "*telerik.KendoAnimation":
@@ -237,9 +351,7 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
       }
 
       buffer.WriteString(tag.Get("jsObject") + `: { `)
-
       buffer.Write( field.Interface().(*KendoAnimation).ToJavaScript() )
-
       buffer.WriteString(`},`)
 
     case "*telerik.KendoClose":
@@ -270,9 +382,7 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
       }
 
       buffer.WriteString(tag.Get("jsObject") + `: { `)
-
       buffer.Write( field.Interface().(*KendoPopup).ToJavaScript() )
-
       buffer.WriteString(`},`)
 
     case "*telerik.KendoVirtual":
@@ -281,9 +391,16 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
       }
 
       buffer.WriteString(tag.Get("jsObject") + `: { `)
-
       buffer.Write( field.Interface().(*KendoVirtual).ToJavaScript() )
+      buffer.WriteString(`},`)
 
+    case "*telerik.KendoTransport":
+      if field.Interface().(*KendoTransport) == nil {
+        continue
+      }
+
+      buffer.WriteString(tag.Get("jsObject") + `: { `)
+      buffer.Write( field.Interface().(*KendoTransport).ToJavaScript() )
       buffer.WriteString(`},`)
 
     case "*telerik.KendoMonth":
@@ -292,9 +409,7 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
       }
 
       buffer.WriteString(tag.Get("jsObject") + `: { `)
-
       buffer.Write( field.Interface().(*KendoMonth).ToJavaScript() )
-
       buffer.WriteString(`},`)
 
     case "*telerik.KendoCalendarMessages":
@@ -304,6 +419,24 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
 
       buffer.WriteString(tag.Get("jsObject") + `: {`)
       buffer.Write( field.Interface().(*KendoCalendarMessages).ToJavaScript() )
+      buffer.WriteString(`},`)
+
+    case "*telerik.KendoSchema":
+      if field.Interface().(*KendoSchema) == nil {
+        continue
+      }
+
+      buffer.WriteString(tag.Get("jsObject") + `: {`)
+      buffer.Write( field.Interface().(*KendoSchema).ToJavaScript() )
+      buffer.WriteString(`},`)
+
+    case "*telerik.KendoDataModel":
+      if field.Interface().(*KendoDataModel) == nil {
+        continue
+      }
+
+      buffer.WriteString(tag.Get("jsObject") + `: {`)
+      buffer.Write( field.Interface().(*KendoDataModel).ToJavaScript() )
       buffer.WriteString(`},`)
 
     case "telerik.Boolean":
@@ -365,6 +498,27 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
       }
 
       buffer.WriteString(tag.Get("jsObject") + `: "` + field.Interface().(KendoMapValueTo).String() + `",` )
+
+    case "telerik.KendoLogic":
+      if field.Interface().(KendoLogic) == 0 {
+        continue
+      }
+
+      buffer.WriteString(tag.Get("jsObject") + `: "` + field.Interface().(KendoLogic).String() + `",` )
+
+    case "telerik.KendoType":
+      if field.Interface().(KendoType) == 0 {
+        continue
+      }
+
+      buffer.WriteString(tag.Get("jsObject") + `: "` + field.Interface().(KendoType).String() + `",` )
+
+    case "telerik.KendoDirection":
+      if field.Interface().(KendoDirection) == 0 {
+        continue
+      }
+
+      buffer.WriteString(tag.Get("jsObject") + `: "` + field.Interface().(KendoDirection).String() + `",` )
 
     case "time.Time":
       if field.Interface().(time.Time).String() == `0001-01-01 00:00:00 +0000 UTC` {
@@ -433,6 +587,7 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
     tag := typeField.Tag
 
     switch field.Type().String() {
+      case "telerik.KendoAggregate": continue
       case "interface {}": continue
       case "telerik.TypeAggregate": continue
       case "*[]telerik.KendoAggregate": continue
@@ -458,6 +613,19 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
       case "telerik.KendoMapValueTo": continue
       case "int": continue
       case "*[]telerik.KendoGroup": continue
+      case "*[]telerik.KendoFilters": continue
+      case "telerik.KendoLogic": continue
+      case "telerik.KendoOperator": continue
+      case "*[]telerik.KendoAggregates": continue
+      case "telerik.KendoDirection": continue
+      case "*telerik.KendoSchema": continue
+      case "*telerik.KendoDataModel": continue
+      case "telerik.KendoTypeData": continue
+      case "*telerik.KendoSort": continue
+      case "*telerik.KendoTransport": continue
+      case "telerik.KendoType": continue
+      case "telerik.KendoTypeDataJSon": continue
+      case "telerik.HtmlMethod": continue
     }
 
     fmt.Printf("\n\n\n\n%d: %s %s = %v  template: ''%v''\n\n\n\n\n", i, typeOfT.Field(i).Name, field.Type(), field.Interface(), tag.Get("jsObject"))
