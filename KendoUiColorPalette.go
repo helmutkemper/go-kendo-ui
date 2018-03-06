@@ -1,18 +1,23 @@
 package telerik
 
 import (
-  "fmt"
-  "html/template"
   "bytes"
+  "reflect"
+  log "github.com/helmutkemper/seelog"
 )
 
 type KendoUiColorPalette struct{
-  HtmlId                                  String
+  Div                                   HtmlElementDiv                              `jsObject:"-"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/colorpalette#configuration-palette
 
-  Specifies the color palette to display. It can be a string with comma-separated colors in hex representation, an array of <a href="/kendo-ui/api/javascript/color"><b><u>kendo.Color</u></b> object</a> objects or of strings that <a href="/kendo-ui/api/javascript/kendo#parseColor">parseColor</a> understands. As a shortcut, you can pass "basic" to get the simple palette (this is the default) or "websafe" to get the Web-safe palette.
+  When a non-null palette argument is supplied, the drop-down will be a simple color picker that lists the colors. The following are supported: (default: null)
+
+  "basic" -- displays 20 basic colors
+  "websafe" -- display the "web-safe" color palette
+  otherwise, pass a string with colors in HEX representation separated with commas, or an array of colors, and it will display that palette instead. If you pass an array it can contain strings supported by parseColor or Color objects.
+  If palette is missing or null, the widget will display the HSV selector.
 
   Example - use "websafe" palette
    <div id="palette"></div>
@@ -21,9 +26,17 @@ type KendoUiColorPalette struct{
      palette: "websafe"
    });
    </script>
-  */
 
-  Palette                                 String
+  Example - use list of colors
+  <input id="colorpicker" type="color" />
+  <script>
+  $("#colorpicker").kendoColorPicker({
+    palette: [ "#000", "#333", "#666", "#999", "#ccc", "#fff" ],
+    columns: 6
+  });
+  </script>
+  */
+  Palette                               interface{}                                 `jsObject:"palette" jsType:"[]string,KendoColorPalette"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/colorpalette#configuration-columns
@@ -39,8 +52,7 @@ type KendoUiColorPalette struct{
    });
    </script>
   */
-
-  Columns                                 Int
+  Columns                                 int                                       `jsObject:"columns"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/colorpalette#configuration-tileSize
@@ -56,8 +68,7 @@ type KendoUiColorPalette struct{
    });
    </script>
   */
-
-  TileSize                                *KendoTileSize
+  TileSize                                *KendoTileSize                            `jsObject:"tileSize"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/colorpalette#configuration-value
@@ -73,24 +84,30 @@ type KendoUiColorPalette struct{
    });
    </script>
   */
+  Value                                   string                                    `jsObject:"value"`
 
-  Value                                   String
+  *ToJavaScriptConverter
 }
-func(el *KendoUiColorPalette) IsSet() bool {
-  return el != nil
-}
-func(el *KendoUiColorPalette) String() string {
-  var buffer bytes.Buffer
-  tmpl := template.Must(template.New("").Funcs(template.FuncMap{
-    "safeHTML": func(s interface{}) template.HTML {
-      return template.HTML(fmt.Sprint(s))
-    },
-  }).Parse(GetTemplate()))
-  err := tmpl.ExecuteTemplate(&buffer, "KendoUiColorPalette", *(el))
-  if err != nil {
-    fmt.Println(err.Error())
+func(el *KendoUiColorPalette) ToJavaScript() string {
+  var ret bytes.Buffer
+  if el.Div.Global.Id == "" {
+    log.Critical("KendoUiColorPalette not have a html id for mount JavaScript code.")
+    return ""
   }
-  
-  return buffer.String()
-}
 
+  element := reflect.ValueOf(el).Elem()
+  data, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
+  if err != nil {
+    log.Criticalf( "KendoUiColorPalette.Error: %v", err.Error() )
+    return ""
+  }
+
+  ret.Write( []byte(`$("#` + el.Div.Global.Id + `").kendoColorPalette({`) )
+  ret.Write( data )
+  ret.Write( []byte(`});`) )
+
+  return ret.String()
+}
+func(el *KendoUiColorPalette) ToHtml() string {
+  return el.Div.String()
+}

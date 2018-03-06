@@ -25,7 +25,7 @@ type KendoMonth struct{
    });
    </script>
   */
-  Content                                 String                  `jsObject:"content"`
+  Content                                 string                  `jsObject:"content"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/datetimepicker#configuration-month.weekNumber  The template to be used for rendering the cells in "week" column. By default, the widget renders the calculated week of the year. The properties available in the data object are:
@@ -52,7 +52,7 @@ type KendoMonth struct{
      });
    </script>
   */
-  WeekNumber                              String                  `jsObject:"weekNumber"`
+  WeekNumber                              string                  `jsObject:"weekNumber"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/datetimepicker#configuration-month.empty  The template used for rendering cells in the calendar "month" view, which are outside the min/max range.
@@ -66,7 +66,7 @@ type KendoMonth struct{
    });
    </script>
   */
-  Empty                                   String                  `jsObject:"empty"`
+  Empty                                   string                  `jsObject:"empty"`
 
   *ToJavaScriptConverter
 

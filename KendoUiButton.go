@@ -7,7 +7,7 @@ import (
 )
 
 type KendoUiButton struct{
-  HtmlId                                  String
+  HtmlId                                  string
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/button#configuration-enable
@@ -39,7 +39,7 @@ type KendoUiButton struct{
    </script>
   */
 
-  Icon                                    String
+  Icon                                    string
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/button#configuration-imageUrl
@@ -56,7 +56,7 @@ type KendoUiButton struct{
    </script>
   */
 
-  ImageUrl                                String
+  ImageUrl                                string
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/button#configuration-spriteCssClass
@@ -73,7 +73,7 @@ type KendoUiButton struct{
    </script>
   */
 
-  SpriteCssClass                          String
+  SpriteCssClass                          string
 }
 func(el *KendoUiButton) IsSet() bool {
   return el != nil

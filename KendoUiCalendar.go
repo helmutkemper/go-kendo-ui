@@ -1,8 +1,6 @@
 package telerik
 
 import (
-  "fmt"
-  "html/template"
   "bytes"
   "time"
   "reflect"
@@ -10,7 +8,7 @@ import (
 )
 
 type KendoUiCalendar struct{
-  HtmlId                                  String              `jsObject:"htmlId"`
+  Div                                   HtmlElementDiv        `jsObject:"-"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/calendar#configuration-culture
@@ -26,7 +24,7 @@ type KendoUiCalendar struct{
    </script>
   */
 
-  Culture                                 String              `jsObject:"culture"`
+  Culture                                 string              `jsObject:"culture"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/calendar#configuration-dates
@@ -63,7 +61,7 @@ type KendoUiCalendar struct{
    </script>
   */
 
-  Depth                                   String              `jsObject:"depth"`
+  Depth                                   string              `jsObject:"depth"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/calendar#configuration-disableDates
@@ -83,7 +81,7 @@ type KendoUiCalendar struct{
    </script>
   */
 
-  DisableDates                            StringArr           `jsObject:"disableDates"`
+  DisableDates                            []string            `jsObject:"disableDates"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/calendar#configuration-footer
@@ -102,7 +100,7 @@ type KendoUiCalendar struct{
    </script>
   */
 
-  Footer                                  String              `jsObject:"footer"`
+  Footer                                  string              `jsObject:"footer"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/calendar#configuration-format
@@ -118,7 +116,7 @@ type KendoUiCalendar struct{
    </script>
   */
 
-  Format                                  String              `jsObject:"format"`
+  Format                                  string              `jsObject:"format"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/calendar#configuration-max
@@ -197,7 +195,7 @@ type KendoUiCalendar struct{
    </script>
   */
 
-  Selectable                              String              `jsObject:"selectable"`
+  Selectable                              string              `jsObject:"selectable"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/calendar#configuration-selectDates
@@ -247,7 +245,7 @@ type KendoUiCalendar struct{
    </script>
   */
 
-  Start                                   String              `jsObject:"start"`
+  Start                                   string              `jsObject:"start"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/calendar#configuration-value
@@ -267,41 +265,26 @@ type KendoUiCalendar struct{
 
   *ToJavaScriptConverter
 }
-func(el *KendoUiCalendar) IsSet() bool {
-  return el != nil
-}
-func(el *KendoUiCalendar) String() string {
-  var buffer bytes.Buffer
-
-  tmpl := template.Must(template.New("").Funcs(template.FuncMap{
-    "safeHTML": func(s interface{}) template.HTML {
-      return template.HTML(fmt.Sprint(s))
-    },
-  }).Parse(GetTemplate()))
-  err := tmpl.ExecuteTemplate(&buffer, "KendoUiCalendar", *(el))
-  if err != nil {
-    fmt.Println(err.Error())
-  }
-  
-  return buffer.String()
-}
-func(el *KendoUiCalendar) ToJavaScript() []byte {
+func(el *KendoUiCalendar) ToJavaScript() string {
   var ret bytes.Buffer
-  if el.HtmlId == "" {
+  if el.Div.Global.Id == "" {
     log.Critical("KendoUiCalendar not have a html id for mount JavaScript code.")
-    return []byte{}
+    return ""
   }
 
   element := reflect.ValueOf(el).Elem()
   data, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
   if err != nil {
     log.Criticalf( "KendoUiCalendar.Error: %v", err.Error() )
-    return []byte{}
+    return ""
   }
 
-  ret.Write( []byte(`$("` + el.HtmlId + `")kendoCalendar({`) )
+  ret.Write( []byte(`$("#` + el.Div.Global.Id + `").kendoCalendar({`) )
   ret.Write( data )
   ret.Write( []byte(`});`) )
 
-  return ret.Bytes()
+  return ret.String()
+}
+func(el *KendoUiCalendar) ToHtml() string {
+  return el.Div.String()
 }

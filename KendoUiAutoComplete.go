@@ -9,7 +9,7 @@ import (
 )
 
 type KendoUiAutoComplete struct{
-  HtmlId                                  String                                  `jsObject:"htmlId"`
+  HtmlId                                  string                                  `jsObject:"htmlId"`
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-animation
@@ -98,7 +98,7 @@ type KendoUiAutoComplete struct{
    });
    </script>
   */
-  DataTextField                           String                                  `jsObject:"dataTextField"`
+  DataTextField                           string                                  `jsObject:"dataTextField"`
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-delay
@@ -172,7 +172,7 @@ type KendoUiAutoComplete struct{
    });
    </script>
   */
-  Filter                                  String                                  `jsObject:"filter"`
+  Filter                                  string                                  `jsObject:"filter"`
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-fixedGroupTemplate
@@ -356,7 +356,7 @@ type KendoUiAutoComplete struct{
    });
    </script>
   */
-  Placeholder                             String                                  `jsObject:"placeholder"`
+  Placeholder                             string                                  `jsObject:"placeholder"`
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-popup
@@ -400,7 +400,7 @@ type KendoUiAutoComplete struct{
    });
    </script>
   */
-  Separator                               String                                  `jsObject:"separator"`
+  Separator                               string                                  `jsObject:"separator"`
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-suggest
@@ -486,7 +486,7 @@ type KendoUiAutoComplete struct{
    });
    </script>
   */
-  Value                                   String                                  `jsObject:"value"`
+  Value                                   string                                  `jsObject:"value"`
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-valuePrimitive

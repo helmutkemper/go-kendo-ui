@@ -1,9 +1,8 @@
 package telerik
 
 import (
-  "fmt"
-  "html/template"
-  "bytes"
+  "reflect"
+  log "github.com/helmutkemper/seelog"
 )
 
 type KendoTileSize struct{
@@ -18,7 +17,7 @@ type KendoTileSize struct{
    });
    </script>
   */
-  Width                                   Int
+  Width                                   int                                         `jsObject:"width"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/colorpicker#configuration-tileSize.height  The height of the color cell.
@@ -31,24 +30,17 @@ type KendoTileSize struct{
    });
    </script>
   */
-  Height                                  Int
+  Height                                  int                                         `jsObject:"height"`
 
+  *ToJavaScriptConverter
 }
-func(el *KendoTileSize) IsSet() bool {
-  return el != nil
-}
-func(el *KendoTileSize) String() string {
-  var buffer bytes.Buffer
-  tmpl := template.Must(template.New("").Funcs(template.FuncMap{
-    "safeHTML": func(s interface{}) template.HTML {
-      return template.HTML(s.(string))
-    },
-  }).Parse(GetTemplate()))
-  err := tmpl.ExecuteTemplate(&buffer, "TileSize", *(el))
+func(el *KendoTileSize) ToJavaScript() []byte {
+  element := reflect.ValueOf(el).Elem()
+  ret, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
   if err != nil {
-    fmt.Println(err.Error())
+    log.Criticalf( "KendoCalendarMessages.Error: %v", err.Error() )
+    return []byte{}
   }
-  
-  return buffer.String()
-}
 
+  return ret
+}

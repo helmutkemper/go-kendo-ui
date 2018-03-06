@@ -12,17 +12,17 @@ type elementProcessed struct {
 }
 
 type FrameworkInput struct {
-  Id                  String
-  Label               String
-  Title               String
-  PlaceHolder         String
-  ValidationMessage   String
+  Id                  string
+  Label               string
+  Title               string
+  PlaceHolder         string
+  ValidationMessage   string
   Input               interface{}
 }
 
 type FrameworkForm struct {
   Template            string
-  Class               String
+  Class               string
   Form                HtmlElementForm
   Elements            []FrameworkInput
   elementsProcessed   []elementProcessed
@@ -50,41 +50,41 @@ func(el *FrameworkForm) ToForm() string {
       Content: Content{
         el.Elements[i].Label,
       },
-      For: el.Elements[i].Id,
+      For: String( el.Elements[i].Id ),
       Global:HtmlGlobalAttributes{
-        Title: el.Elements[i].Title,
+        Title: String( el.Elements[i].Title ),
       },
     }
     switch elementCast := el.Elements[i].Input.(type) {
     case KendoUiAutoComplete:
       elementNew := HtmlInputSearch{}
-      elementNew.Global.Id     = el.Elements[i].Id
+      elementNew.Global.Id     = String( el.Elements[i].Id )
       elementNew.Global.Class  = "k-textbox"
-      elementNew.Name          = el.Elements[i].Id
-      elementNew.PlaceHolder   = el.Elements[i].PlaceHolder
+      elementNew.Name          = String( el.Elements[i].Id )
+      elementNew.PlaceHolder   = String( el.Elements[i].PlaceHolder )
 
       if el.Elements[i].ValidationMessage != "" {
         label.Global.Class += " required"
 
         elementNew.Required = TRUE
         elementNew.Global.Extra = map[string]string{
-          "validationMessage":el.Elements[i].ValidationMessage.String(),
+          "validationMessage":el.Elements[i].ValidationMessage,
         }
       }
 
       element.Input = elementNew.String()
     case HtmlInputText:
-      elementCast.Global.Id    = el.Elements[i].Id
+      elementCast.Global.Id    = String( el.Elements[i].Id )
       elementCast.Global.Class = "k-textbox"
-      elementCast.Name         = el.Elements[i].Id
-      elementCast.PlaceHolder  = el.Elements[i].PlaceHolder
+      elementCast.Name         = String( el.Elements[i].Id )
+      elementCast.PlaceHolder  = String( el.Elements[i].PlaceHolder )
 
       if el.Elements[i].ValidationMessage != "" {
         label.Global.Class += " required"
 
         elementCast.Required = TRUE
         elementCast.Global.Extra = map[string]string{
-          "validationMessage":el.Elements[i].ValidationMessage.String(),
+          "validationMessage":el.Elements[i].ValidationMessage,
         }
       }
 

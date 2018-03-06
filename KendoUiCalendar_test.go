@@ -6,33 +6,83 @@ import (
 )
 
 func ExampleKendoUiCalendar_String() {
-  html := HtmlElementDiv{
-    Global: HtmlGlobalAttributes{
-      Id: "calendar",
+  calendar := KendoUiCalendar{
+    Div: HtmlElementDiv{
+      Global: HtmlGlobalAttributes{
+        Id: "calendar",
+      },
     },
-  }
-  javaScript := KendoUiCalendar{
-    HtmlId: "calendar",
-    Value: time.Now(),
+    Value: time.Date(2018,3,5,22,44,0,0,time.UTC),
   }
 
-  fmt.Printf( "%v\n", html.String() )
-  fmt.Printf("<script>%v</script>\n", javaScript.String() )
+  fmt.Printf(`<!DOCTYPE html>
+<html>
+<head>
+<base href="https://demos.telerik.com/kendo-ui/calendar/index">
+<style>html { font-size: 14px; font-family: Arial, Helvetica, sans-serif; }</style>
+<title></title>
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.1.221/styles/kendo.default-v2.min.css" />
+<script src="https://kendo.cdn.telerik.com/2018.1.221/js/jquery.min.js"></script>
+<script src="https://kendo.cdn.telerik.com/2018.1.221/js/kendo.all.min.js"></script>
+</head>
+<body>
+<div id="example">
+<div class="demo-section k-content" style="text-align: center;">
+<h4>Pick a date</h4>
+%s
+</div>
+<script>
+$(document).ready(function() {
+// create Calendar from div HTML element
+%s
+});
+</script>
+</div>
+</body>
+</html>`, calendar.ToHtml(), calendar.ToJavaScript() )
 
-  // Output:
-  //
+  //Output:
+  //<!DOCTYPE html>
+  //<html>
+  //<head>
+  //<base href="https://demos.telerik.com/kendo-ui/calendar/index">
+  //<style>html { font-size: 14px; font-family: Arial, Helvetica, sans-serif; }</style>
+  //<title></title>
+  //<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.1.221/styles/kendo.default-v2.min.css" />
+  //<script src="https://kendo.cdn.telerik.com/2018.1.221/js/jquery.min.js"></script>
+  //<script src="https://kendo.cdn.telerik.com/2018.1.221/js/kendo.all.min.js"></script>
+  //</head>
+  //<body>
+  //<div id="example">
+  //<div class="demo-section k-content" style="text-align: center;">
+  //<h4>Pick a date</h4>
+  //<div  id="calendar" ></div>
+  //</div>
+  //<script>
+  //$(document).ready(function() {
+  //// create Calendar from div HTML element
+  //$("#calendar").kendoCalendar({value: new Date(2018, 3, 5, 22, 44),});
+  //});
+  //</script>
+  //</div>
+  //</body>
+  //</html>
 }
 
 func ExampleKendoUiCalendar_ToTelerikTemplate() {
-  javaScript := KendoUiCalendar{
-    HtmlId: "calendar",
+  calendar := KendoUiCalendar{
+    Div: HtmlElementDiv{
+      Global: HtmlGlobalAttributes{
+        Id: "calendar",
+      },
+    },
     Culture: "en-US",
     Dates: []time.Time{
       time.Date(2018, 2, 28, 0, 0, 0, 0, time.UTC),
       time.Date(2019, 2, 28, 23, 59, 0, 0, time.UTC),
       time.Date(2019, 2, 28, 23, 59, 59, 0, time.UTC),
     },
-    Depth: "year",
+    Depth: "day",
     DisableDates: StringArr{ "we", "th" },
     Footer: `kendo.template($('#footer-template').html())`,
     Format: `yyyy/MM/dd`,
@@ -53,42 +103,58 @@ func ExampleKendoUiCalendar_ToTelerikTemplate() {
     },
     WeekNumber: TRUE,
     Start: "year",
-    Value: time.Now(),
+    Value: time.Date(2018,3,5,22,44,0,0,time.UTC),
   }
-  fmt.Printf( "%s", javaScript.ToJavaScript() )
+  fmt.Printf(`<!DOCTYPE html>
+<html>
+<head>
+<base href="https://demos.telerik.com/kendo-ui/calendar/index">
+<style>html { font-size: 14px; font-family: Arial, Helvetica, sans-serif; }</style>
+<title>Telerik Kendo-UI test</title>
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.1.221/styles/kendo.default-v2.min.css" />
+<script src="https://kendo.cdn.telerik.com/2018.1.221/js/jquery.min.js"></script>
+<script src="https://kendo.cdn.telerik.com/2018.1.221/js/kendo.all.min.js"></script>
+</head>
+<body>
+<div id="example">
+<div class="demo-section k-content" style="text-align: center;">
+<h4>Pick a date</h4>
+%s
+</div>
+<script>
+$(document).ready(function() {
+// create Calendar from div HTML element
+%s
+});
+</script>
+</div>
+</body>
+</html>`, calendar.ToHtml(), calendar.ToJavaScript() )
 
-  // Output:
-  // $("#calendar")kendoCalendar({
-  // culture: "en-US",
-  // dates: [
-  // new Date(2018, 2, 28),
-  // new Date(2019, 2, 28, 23, 59),
-  // new Date(2019, 2, 28, 23, 59, 59)
-  // ],
-  // depth: "year",
-  // disableDates: [
-  // "we",
-  // "th"
-  // ],
-  // footer: "kendo.template($('#footer-template').html())",
-  // format: "yyyy/MM/dd",
-  // max: new Date(2019, 2, 28, 23, 59, 59),
-  // messages: {
-  // weekColumnHeader: "W",
-  // },
-  // min: new Date(2018, 2, 28),
-  // month: {
-  // content: "$('#cell-template').html()",
-  // weekNumber: "$('#week-template').html()",
-  // empty: "-",
-  // },
-  // selectable: "multiple",
-  // selectDates: [
-  // new Date(2018, 2, 28),
-  // new Date(2019, 2, 28)
-  // ],
-  // weekNumber: true,
-  // start: "year",
-  // value: new Date(2018, 3, 1, 12, 8, 44),
-  // });
+  //Output:
+  //<!DOCTYPE html>
+  //<html>
+  //<head>
+  //<base href="https://demos.telerik.com/kendo-ui/calendar/index">
+  //<style>html { font-size: 14px; font-family: Arial, Helvetica, sans-serif; }</style>
+  //<title>Telerik Kendo-UI test</title>
+  //<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.1.221/styles/kendo.default-v2.min.css" />
+  //<script src="https://kendo.cdn.telerik.com/2018.1.221/js/jquery.min.js"></script>
+  //<script src="https://kendo.cdn.telerik.com/2018.1.221/js/kendo.all.min.js"></script>
+  //</head>
+  //<body>
+  //<div id="example">
+  //<div class="demo-section k-content" style="text-align: center;">
+  //<h4>Pick a date</h4>
+  //<div  id="calendar" ></div>
+  //</div>
+  //<script>
+  //$(document).ready(function() {
+  //// create Calendar from div HTML element
+  //$("#calendar").kendoCalendar({culture: "en-US",dates: [new Date(2018, 2, 28),new Date(2019, 2, 28, 23, 59),new Date(2019, 2, 28, 23, 59, 59)],depth: "day",disableDates: ["we","th",],footer: "kendo.template($('#footer-template').html())",format: "yyyy/MM/dd",max: new Date(2019, 2, 28, 23, 59, 59),messages: {weekColumnHeader: "W",},min: new Date(2018, 2, 28),month: { content: "$('#cell-template').html()",weekNumber: "$('#week-template').html()",empty: "-",},selectable: "multiple",selectDates: [new Date(2018, 2, 28),new Date(2019, 2, 28)],weekNumber: true,start: "year",value: new Date(2018, 3, 5, 22, 44),});
+  //});
+  //</script>
+  //</div>
+  //</body>
+  //</html>
 }

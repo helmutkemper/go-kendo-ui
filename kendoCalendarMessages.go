@@ -36,7 +36,7 @@ type KendoCalendarMessages struct {
   </script>
   */
 
-  WeekColumnHeader                    String                  `jsObject:"weekColumnHeader"`
+  WeekColumnHeader                    string                  `jsObject:"weekColumnHeader"`
 
   *ToJavaScriptConverter
 }
