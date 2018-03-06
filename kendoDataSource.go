@@ -265,7 +265,7 @@ type KendoDataSource struct {
   });
   </script>
   */
-  Group                                   interface{}                       `jsObject:"filter" jsType:"*KendoGroup,*[]KendoGroup"`
+  Group                                   interface{}                       `jsObject:"group" jsType:"*KendoGroup,*[]KendoGroup"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/inplacesort#inPlaceSort
@@ -290,7 +290,7 @@ type KendoDataSource struct {
   });
   </script>
   */
-  OfflineStorage                          interface{}                       `jsObject:"offlineStorage" jsType:"*OfflineStorage,string"` //fixme: OfflineStorage é KendoOfflineStorage
+  OfflineStorage                          interface{}                       `jsObject:"offlineStorage" jsType:"*OfflineStorage,string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/page#page

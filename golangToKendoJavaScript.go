@@ -97,12 +97,12 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
 
         buffer.WriteString(tag.Get("jsObject") + `: ` + strconv.FormatFloat( field.Interface().(float64), 'E', -1, 64) + `,`)
 
-      case *OfflineStorage:
-        if field.Interface().(*OfflineStorage) == nil {
+      case *KendoOfflineStorage:
+        if field.Interface().(*KendoOfflineStorage) == nil {
           continue
         }
 
-        buffer.WriteString(tag.Get("jsObject") + `: ` + field.Interface().(*OfflineStorage).String() + `,`)
+        buffer.WriteString(tag.Get("jsObject") + `: ` + field.Interface().(*KendoOfflineStorage).String() + `,`)
 
       case *KendoComplexFilter:
         if field.Interface().(*KendoComplexFilter) == nil {
