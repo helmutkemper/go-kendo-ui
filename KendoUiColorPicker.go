@@ -94,7 +94,7 @@ type KendoUiColorPicker struct{
    </script>
   */
 
-  Messages                                *KendoMessages
+  Messages                                *KendoColorMessages
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/colorpicker#configuration-palette
