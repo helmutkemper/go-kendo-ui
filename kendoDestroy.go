@@ -199,7 +199,7 @@ type KendoDestroy struct {
   });
   </script>
   */
-  Url                                             interface{}                               `jsObject:"type" jsType:"*JavaScript,string"`
+  Url                                             interface{}                               `jsObject:"url" jsType:"*JavaScript,string"`
 
   *ToJavaScriptConverter
 }

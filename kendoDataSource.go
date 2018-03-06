@@ -7,7 +7,7 @@ import (
 )
 
 type KendoDataSource struct {
-  VarName                                 string              `jsObject:"varName"`
+  VarName                                 string              `jsObject:"-"`
 
   /*
   @sse https://docs.telerik.com/kendo-ui/api/javascript/data/datasource#configuration-aggregate
@@ -132,7 +132,7 @@ type KendoDataSource struct {
   </script>
   */
   //fixme: data pode ser um xml
-  Data                                    []map[string]interface{}          `jsObject:"data"`
+  Data                                   *[]map[string]interface{}          `jsObject:"data"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/filter#filter

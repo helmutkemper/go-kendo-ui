@@ -21,7 +21,7 @@ func ExampleKendoDataSource_ToJavaScript_OfflineStorage_1() {
     },
     AutoSync: TRUE,
     Batch: TRUE,
-    Data: []map[string]interface{}{
+    Data: &[]map[string]interface{}{
       {
         "name": "Jane Doe",
         "age": 30,
@@ -60,7 +60,7 @@ func ExampleKendoDataSource_ToJavaScript_OfflineStorage_2() {
     },
     AutoSync: TRUE,
     Batch: TRUE,
-    Data: []map[string]interface{}{
+    Data: &[]map[string]interface{}{
       {
         "name": "Jane Doe",
         "age": 30,
@@ -102,7 +102,7 @@ func ExampleKendoDataSource_ToJavaScript_OfflineStorage_3() {
     },
     AutoSync: TRUE,
     Batch: TRUE,
-    Data: []map[string]interface{}{
+    Data: &[]map[string]interface{}{
       {
         "name": "Jane Doe",
         "age": 30,
@@ -143,7 +143,7 @@ func ExampleKendoDataSource_ToJavaScript_Filter_Array() {
     },
     AutoSync: TRUE,
     Batch: TRUE,
-    Data: []map[string]interface{}{
+    Data: &[]map[string]interface{}{
       {
         "name": "Jane Doe",
         "age": 30,
@@ -209,7 +209,7 @@ func ExampleKendoDataSource_ToJavaScript_Filter_Array() {
       Create: &KendoCreate{
         Cache: FALSE,
         ContentType: "application/json",
-        Data: []map[string]interface{}{
+        Data: &[]map[string]interface{}{
           {
             "name": "Jane Doe",
             "age":  30,
@@ -226,7 +226,7 @@ func ExampleKendoDataSource_ToJavaScript_Filter_Array() {
       Destroy: &KendoDestroy{
         Cache: FALSE,
         ContentType: "application/json",
-        Data: []map[string]interface{}{
+        Data: &[]map[string]interface{}{
           {
             "name": "Jane Doe",
             "age":  30,
@@ -244,12 +244,12 @@ func ExampleKendoDataSource_ToJavaScript_Filter_Array() {
         Code: "function(data, type) { if (type == 'read') { /* send take as '$top' and skip as '$skip' */ return { $top: data.take, $skip: data.skip } } }",
       },
       Push: &JavaScript{
-        Code: "function(callbacks) { hub.on('create', function(result) { console.log('push create'); callbacks.pushCreate(result); }); hub.on('update', function(result) { console.log('push update'); callbacks.pushUpdate(result); }); hub.on('destroy', function(result) { console.log('push destroy'); callbacks.pushDestroy(result); });",
+        Code: "function(callbacks) { hub.on('create', function(result) { console.log('push create'); callbacks.pushCreate(result); }); hub.on('update', function(result) { console.log('push update'); callbacks.pushUpdate(result); }); hub.on('destroy', function(result) { console.log('push destroy'); callbacks.pushDestroy(result); }); }",
       },
       Read: &KendoRead{
         Cache: FALSE,
         ContentType: "application/json",
-        Data: map[string]interface{}{
+        Data: &map[string]interface{}{
           "skip": 0,
           "take": 2,
         },
@@ -263,7 +263,7 @@ func ExampleKendoDataSource_ToJavaScript_Filter_Array() {
       Update: &KendoUpdate{
         Cache: FALSE,
         ContentType: "application/json",
-        Data: map[string]interface{}{
+        Data: &map[string]interface{}{
           "skip": 0,
           "take": 2,
         },

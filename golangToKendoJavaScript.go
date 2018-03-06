@@ -43,9 +43,7 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
         }
 
         buffer.WriteString(tag.Get("jsObject") + `: { `)
-
         buffer.Write( field.Interface().(*KendoAnimation).ToJavaScript() )
-
         buffer.WriteString(`},`)
 
       case *KendoVirtual:
@@ -54,9 +52,7 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
         }
 
         buffer.WriteString(tag.Get("jsObject") + `: { `)
-
         buffer.Write( field.Interface().(*KendoVirtual).ToJavaScript() )
-
         buffer.WriteString(`},`)
 
       case *JavaScript:
@@ -143,6 +139,73 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
         }
         buffer.WriteString(`],`)
 
+      case *map[string]interface{}:
+        if field.Interface().(*map[string]interface{}) == nil {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: {`)
+        for k, v := range *field.Interface().(*map[string]interface{}) {
+          switch v.(type) {
+          case string:
+            buffer.WriteString(`"` + k + `": ` + `"` + v.(string) + `",`)
+
+          case int:
+            buffer.WriteString(`"` + k + `": ` + strconv.Itoa( v.(int) ) + `,`)
+
+          case int64:
+            buffer.WriteString(`"` + k + `": ` + strconv.FormatInt( v.(int64), 64 ) + `,`)
+
+          case float32:
+            buffer.WriteString(`"` + k + `": ` + strconv.FormatFloat( float64( v.(float32) ), 'E', -1, 32) + `,`)
+
+          case float64:
+            buffer.WriteString(`"` + k + `": ` + strconv.FormatFloat( v.(float64), 'E', -1, 64) + `,`)
+          }
+        }
+        buffer.WriteString(`},`)
+
+      case *KendoCreate:
+        if field.Interface().(*KendoCreate) == nil {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: { `)
+        buffer.Write( field.Interface().(*KendoCreate).ToJavaScript() )
+        buffer.WriteString(`},`)
+
+      case *[]map[string]interface{}:
+        if field.Interface().(*[]map[string]interface{}) == nil {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: [`)
+        for _, mapStringInterface := range *field.Interface().(*[]map[string]interface{}) {
+          buffer.WriteString(`{`)
+          for k, v := range mapStringInterface{
+
+            buffer.WriteString( `"` + k + `": ` )
+            switch v.(type) {
+              case string:
+                buffer.WriteString(`"` + v.(string) + `",`)
+
+              case int:
+                buffer.WriteString(strconv.Itoa( v.(int) ) + `,`)
+
+              case int64:
+                buffer.WriteString(strconv.FormatInt( v.(int64), 64 ) + `,`)
+
+              case float32:
+                buffer.WriteString(strconv.FormatFloat( float64( v.(float32) ), 'E', -1, 32) + `,`)
+
+              case float64:
+                buffer.WriteString(strconv.FormatFloat( v.(float64), 'E', -1, 64) + `,`)
+            }
+          }
+          buffer.WriteString(`},`)
+        }
+        buffer.WriteString(`],`)
+
       case Boolean:
         if field.Interface().(Boolean) == 0 {
           continue
@@ -219,6 +282,52 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
 
       buffer.WriteString(tag.Get("jsObject") + `: "` + field.Interface().(KendoAggregate).String() + `",`)
 
+    case "*[]map[string]interface {}":
+      if field.Interface().(*[]map[string]interface{}) == nil {
+        continue
+      }
+
+      buffer.WriteString(tag.Get("jsObject") + `: [`)
+      for _, mapStringInterface := range *field.Interface().(*[]map[string]interface{}) {
+
+
+
+
+
+
+        buffer.WriteString(`{`)
+        for k, v := range mapStringInterface{
+
+          buffer.WriteString( `"` + k + `": ` )
+          switch v.(type) {
+          case string:
+            buffer.WriteString(`"` + v.(string) + `",`)
+
+          case int:
+            buffer.WriteString(strconv.Itoa( v.(int) ) + `,`)
+
+          case int64:
+            buffer.WriteString(strconv.FormatInt( v.(int64), 64 ) + `,`)
+
+          case float32:
+            buffer.WriteString(strconv.FormatFloat( float64( v.(float32) ), 'E', -1, 32) + `,`)
+
+          case float64:
+            buffer.WriteString(strconv.FormatFloat( v.(float64), 'E', -1, 64) + `,`)
+          }
+        }
+        buffer.WriteString(`},`)
+        
+        
+        
+        
+        
+        
+        
+        
+      }
+      buffer.WriteString(`],`)
+      
     case "*[]telerik.KendoGroup":
       if field.Interface().(*[]KendoGroup) == nil {
         continue
@@ -430,6 +539,15 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
       buffer.Write( field.Interface().(*KendoSchema).ToJavaScript() )
       buffer.WriteString(`},`)
 
+    case "*telerik.KendoSignalr":
+      if field.Interface().(*KendoSignalr) == nil {
+        continue
+      }
+
+      buffer.WriteString(tag.Get("jsObject") + `: {`)
+      buffer.Write( field.Interface().(*KendoSignalr).ToJavaScript() )
+      buffer.WriteString(`},`)
+
     case "*telerik.KendoDataModel":
       if field.Interface().(*KendoDataModel) == nil {
         continue
@@ -626,6 +744,11 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
       case "telerik.KendoType": continue
       case "telerik.KendoTypeDataJSon": continue
       case "telerik.HtmlMethod": continue
+      case "*[]map[string]interface {}": continue
+      case "*telerik.KendoDestroy": continue
+      case "*telerik.KendoRead": continue
+      case "*telerik.KendoUpdate": continue
+      case "*telerik.KendoSignalr": continue
     }
 
     fmt.Printf("\n\n\n\n%d: %s %s = %v  template: ''%v''\n\n\n\n\n", i, typeOfT.Field(i).Name, field.Type(), field.Interface(), tag.Get("jsObject"))
