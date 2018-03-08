@@ -1,13 +1,13 @@
 package telerik
 
 import (
-  "fmt"
-  "html/template"
   "bytes"
+  "reflect"
+  log "github.com/helmutkemper/seelog"
 )
 
 type KendoUiButton struct{
-  HtmlId                                  string
+  Html                                    interface{}                 `jsObject:"-"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/button#configuration-enable
@@ -22,8 +22,7 @@ type KendoUiButton struct{
    });
    </script>
   */
-
-  Enable                                  Boolean
+  Enable                                  Boolean                     `jsObject:"enable"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/button#configuration-icon
@@ -38,8 +37,7 @@ type KendoUiButton struct{
    });
    </script>
   */
-
-  Icon                                    string
+  Icon                                    string                      `jsObject:"icon"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/button#configuration-imageUrl
@@ -55,8 +53,7 @@ type KendoUiButton struct{
    });
    </script>
   */
-
-  ImageUrl                                string
+  ImageUrl                                string                      `jsObject:"imageUrl"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/button#configuration-spriteCssClass
@@ -73,23 +70,31 @@ type KendoUiButton struct{
    </script>
   */
 
-  SpriteCssClass                          string
-}
-func(el *KendoUiButton) IsSet() bool {
-  return el != nil
-}
-func(el *KendoUiButton) String() string {
-  var buffer bytes.Buffer
-  tmpl := template.Must(template.New("").Funcs(template.FuncMap{
-    "safeHTML": func(s interface{}) template.HTML {
-      return template.HTML(fmt.Sprint(s))
-    },
-  }).Parse(GetTemplate()))
-  err := tmpl.ExecuteTemplate(&buffer, "KendoUiButton", *(el))
-  if err != nil {
-    fmt.Println(err.Error())
-  }
-  
-  return buffer.String()
+  SpriteCssClass                          string                      `jsObject:"spriteCssClass"`
+
+  *ToJavaScriptConverter
 }
 
+func(el *KendoUiButton) ToJavaScript() string {
+  var ret bytes.Buffer
+  if el.Div.Global.Id == "" {
+    log.Critical("KendoUiCalendar not have a html id for mount JavaScript code.")
+    return ""
+  }
+
+  element := reflect.ValueOf(el).Elem()
+  data, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
+  if err != nil {
+    log.Criticalf( "KendoUiCalendar.Error: %v", err.Error() )
+    return ""
+  }
+
+  ret.Write( []byte(`$("#` + el.Div.Global.Id + `").kendoCalendar({`) )
+  ret.Write( data )
+  ret.Write( []byte(`});`) )
+
+  return ret.String()
+}
+func(el *KendoUiButton) ToHtml() string {
+  return el.Div.String()
+}

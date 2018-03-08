@@ -2,7 +2,7 @@ package telerik
 
 type TypeHtmlDropZone int
 
-var TypeHtmlDropZones = [...]string {
+var typeHtmlDropZones = [...]string {
   "",
   "copy",
   "move",
@@ -10,7 +10,7 @@ var TypeHtmlDropZones = [...]string {
 }
 
 func (el TypeHtmlDropZone) String() string {
-  return TypeHtmlDropZones[el]
+  return typeHtmlDropZones[el]
 }
 
 const (

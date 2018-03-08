@@ -10,6 +10,79 @@ import (
 
 type ToJavaScriptConverter struct {}
 
+func(el *ToJavaScriptConverter) getTagData( tag reflect.StructTag ) (string, string) {
+  var tagName, tagValue string
+
+  tagName  = "htmlAttr"
+  tagValue = tag.Get(tagName)
+  if tagValue != "" {
+    return tagName, tagValue
+  }
+
+  tagName  = "htmlAttrSet"
+  tagValue = tag.Get(tagName)
+  if tagValue != "" {
+    return tagName, tagValue
+  }
+
+  tagName  = "htmlAttrOnOff"
+  tagValue = tag.Get(tagName)
+  if tagValue != "" {
+    return tagName, tagValue
+  }
+
+  tagName  = "htmlAttrTrueFalse"
+  tagValue = tag.Get(tagName)
+  if tagValue != "" {
+    return tagName, tagValue
+  }
+
+  return "", ""
+}
+
+func(el *ToJavaScriptConverter) ToTelerikHtml( element reflect.Value ) []byte {
+  var buffer bytes.Buffer
+  var tagName, tagValue string
+
+  //typeOfT := element.Type()
+
+  for i := 0; i < element.NumField(); i += 1 {
+    field := element.Field(i)
+    typeField := element.Type().Field(i)
+    tag := typeField.Tag
+
+    tagName, tagValue = el.getTagData( tag )
+
+    if tagValue == "-" {
+      continue
+    }
+
+    switch field.Type().String() {
+      case "string":
+        if field.Interface().(string) == "" {
+          continue
+        }
+
+        buffer.WriteString(` ` + tag.Get(`htmlAttr`) + `="` + field.Interface().(string) + `",`)
+
+    case "telerik.Boolean":
+      if field.Interface().(Boolean) == 0 {
+        continue
+      }
+
+      if tagName == "htmlAttrSet" && field.Interface().(Boolean) == TRUE {
+        buffer.WriteString(` ` + tag.Get(`htmlAttrSet`))
+      }
+
+      if tagName == "htmlAttrOnOff" {
+        buffer.WriteString(` ` + tag.Get(`htmlAttrOnOff`) + `="` + field.Interface().(Boolean).OnOff() + `"`)
+      }
+    }
+  }
+
+  return buffer.Bytes()
+}
+
 func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]byte, error) {
   var buffer bytes.Buffer
 

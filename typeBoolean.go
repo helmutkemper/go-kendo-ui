@@ -19,7 +19,7 @@ func (el Boolean) String() string {
   return "false"
 }
 
-func (el Boolean) onOff() string {
+func (el Boolean) OnOff() string {
   if el == 1 {
     return "on"
   }
@@ -39,7 +39,7 @@ func(el Boolean) ToAttr(name string) string {
 func(el Boolean) ToAttrOnOff(name string) string {
   var ret string
   if el != 0 {
-    ret = ` ` + name + `="` + el.onOff() + `" `
+    ret = ` ` + name + `="` + el.OnOff() + `" `
   }
 
   return ret
