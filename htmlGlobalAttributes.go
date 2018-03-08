@@ -241,13 +241,10 @@ type HtmlGlobalAttributes struct{
 }
 func(el *HtmlGlobalAttributes)ToHtml() string {
   var buffer bytes.Buffer
-  //return `<input ` + el.Global.String() + ` type="button" ` + el.Name.ToAttr("name") + el.Value.ToAttr("value") + el.Form.ToAttr("form") + el.Disabled.ToAttrSet("disabled") + `>`
 
-  buffer.Write( []byte( `<input ` ) )
-  buffer.Write( []byte( el.Global.String() ) )
-  buffer.Write( []byte( ` type="button" ` ) )
-  buffer.Write( []byte( el.ToTelerikHtml(el) ) )
-  buffer.Write( []byte( `>` ) )
+  element := reflect.ValueOf(el).Elem()
+  data := el.ToJavaScriptConverter.ToTelerikHtml(element)
+  buffer.Write( data )
 
   return buffer.String()
 }

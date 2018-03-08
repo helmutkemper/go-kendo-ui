@@ -63,20 +63,34 @@ func(el *ToJavaScriptConverter) ToTelerikHtml( element reflect.Value ) []byte {
           continue
         }
 
-        buffer.WriteString(` ` + tag.Get(`htmlAttr`) + `="` + field.Interface().(string) + `",`)
+        buffer.WriteString(` ` + tag.Get(`htmlAttr`) + `="` + field.Interface().(string) + `"`)
 
-    case "telerik.Boolean":
-      if field.Interface().(Boolean) == 0 {
-        continue
-      }
+      case "telerik.Boolean":
+        if field.Interface().(Boolean) == 0 {
+          continue
+        }
 
-      if tagName == "htmlAttrSet" && field.Interface().(Boolean) == TRUE {
-        buffer.WriteString(` ` + tag.Get(`htmlAttrSet`))
-      }
+        if tagName == "htmlAttrSet" && field.Interface().(Boolean) == TRUE {
+          buffer.WriteString(` ` + tag.Get(`htmlAttrSet`))
+          continue
+        }
 
-      if tagName == "htmlAttrOnOff" {
-        buffer.WriteString(` ` + tag.Get(`htmlAttrOnOff`) + `="` + field.Interface().(Boolean).OnOff() + `"`)
-      }
+        if tagName == "htmlAttrOnOff" {
+          buffer.WriteString(` ` + tag.Get(`htmlAttrOnOff`) + `="` + field.Interface().(Boolean).OnOff() + `"`)
+          continue
+        }
+
+        if tagName == "htmlAttrOnOff" {
+          buffer.WriteString(` ` + tag.Get(`htmlAttrOnOff`) + `="` + field.Interface().(Boolean).String() + `"`)
+          continue
+        }
+
+      case "int":
+        if field.Interface().(int) == 0 {
+          continue
+        }
+
+        buffer.WriteString(` ` + tag.Get(`htmlAttr`) + `="` + field.Interface().(string) + `"`)
     }
   }
 
