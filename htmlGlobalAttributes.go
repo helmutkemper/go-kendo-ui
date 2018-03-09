@@ -3,7 +3,6 @@ package telerik
 import (
   "bytes"
   "reflect"
-  log "github.com/helmutkemper/seelog"
 )
 
 // Global attributes are attributes common to all HTML elements; they can be used on all elements, though they may have
@@ -239,12 +238,18 @@ type HtmlGlobalAttributes struct{
 
   *ToJavaScriptConverter
 }
-func(el *HtmlGlobalAttributes)ToHtml() string {
+func(el *HtmlGlobalAttributes)ToHtml() []byte {
   var buffer bytes.Buffer
 
   element := reflect.ValueOf(el).Elem()
   data := el.ToJavaScriptConverter.ToTelerikHtml(element)
   buffer.Write( data )
 
-  return buffer.String()
+  return buffer.Bytes()
+}
+func(el *HtmlGlobalAttributes)GetId() []byte {
+  var buffer bytes.Buffer
+      buffer.WriteString( el.Id )
+
+  return buffer.Bytes()
 }

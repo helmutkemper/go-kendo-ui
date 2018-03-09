@@ -37,7 +37,7 @@ type HtmlInputReset struct{
   Disabled                    Boolean
 
   Global                      HtmlGlobalAttributes
-}
+}/*
 func(el *HtmlInputReset)String() string {
   return `<input ` + el.Global.String() + ` type="reset" ` + el.Name.ToAttr("name") + el.Value.ToAttr("value") + el.Form.ToAttr("form") + el.Disabled.ToAttrSet("disabled") + `>`
-}
+}*/

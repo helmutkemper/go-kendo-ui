@@ -59,7 +59,7 @@ type HtmlInputDateTimeLocal struct{
   ValueAsDate                 Boolean
   ValueAsNumber               Boolean
   Global                      HtmlGlobalAttributes
-}
+}/*
 func(el *HtmlInputDateTimeLocal)String() string {
   return `<input ` + el.Global.String() + ` type="datetime-local" ` + el.Name.ToAttr("name") + el.List.ToAttr("list") + el.ValueAsDate.ToAttr("valueasdate") + el.ValueAsNumber.ToAttr("valueasnumber") + el.Value.ToAttr("value") + `>`
-}
+}*/

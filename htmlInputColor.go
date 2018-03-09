@@ -42,7 +42,7 @@ type HtmlInputColor struct{
   Disabled                    Boolean
 
   Global                      HtmlGlobalAttributes
-}
+}/*
 func(el *HtmlInputColor)String() string {
   return `<input ` + el.Global.String() + ` type="color" ` + el.Name.ToAttr("name") + el.Value.ToAttr("value") + `">`
-}
+}*/

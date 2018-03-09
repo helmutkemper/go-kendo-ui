@@ -108,7 +108,7 @@ type HtmlInputImage struct{
   Disabled                    Boolean
 
   Global                      HtmlGlobalAttributes
-}
+}/*
 func(el *HtmlInputImage)String() string {
   return `<input ` + el.Global.String() + ` type="image" ` + el.Name.ToAttr("name") + el.Value.ToAttr("value") + el.Form.ToAttr("form") + el.Disabled.ToAttrSet("disabled") + el.FormAction.ToAttr("formaction") + el.Alt.ToAttr("alt") + el.Src.ToAttr("src") + el.Width.ToAttr("width") + el.Height.ToAttr("height") + el.FormEncType.ToAttr("formenctype") + el.FormMethod.ToAttr("formmethod") + el.FormTarget.ToAttr("formtarget") + el.FormNoValidate.ToAttrSet("formnovalidate") + `>`
-}
+}*/

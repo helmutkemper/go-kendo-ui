@@ -2,7 +2,7 @@ package telerik
 
 import "fmt"
 
-func ExampleHtmlElementFormButton_String() {
+func ExampleHtmlElementFormButton_ToHtml() {
   el := HtmlElementFormButton{
     Global: HtmlGlobalAttributes{
       Id: "button",
@@ -14,8 +14,8 @@ func ExampleHtmlElementFormButton_String() {
     Disabled: TRUE,
   }
 
-  fmt.Printf( "%v", el.String() )
+  fmt.Printf( "%s", el.ToHtml() )
 
   // Output:
-  // <button  id="button"  name="button"  disabled >click-me</button>
+  // <button id="button" name="button" disabled>click-me</button>
 }

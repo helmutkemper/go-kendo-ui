@@ -37,7 +37,7 @@ type HtmlInputSubmit struct{
   Disabled                    Boolean
 
   Global                      HtmlGlobalAttributes
-}
+}/*
 func(el *HtmlInputSubmit)String() string {
   return `<input ` + el.Global.String() + ` type="submit" ` + el.Name.ToAttr("name") + el.Value.ToAttr("value") + el.Form.ToAttr("form") + el.Disabled.ToAttrSet("disabled") + `>`
-}
+}*/

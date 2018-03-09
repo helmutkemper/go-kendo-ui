@@ -23,7 +23,6 @@ type KendoUiCalendar struct{
        });
    </script>
   */
-
   Culture                                 string              `jsObject:"culture"`
 
   /*
@@ -43,7 +42,6 @@ type KendoUiCalendar struct{
        });
    </script>
   */
-
   Dates                                   []time.Time         `jsObject:"dates"`
 
   /*
@@ -60,7 +58,6 @@ type KendoUiCalendar struct{
        });
    </script>
   */
-
   Depth                                   string              `jsObject:"depth"`
 
   /*
@@ -80,7 +77,6 @@ type KendoUiCalendar struct{
    });
    </script>
   */
-
   DisableDates                            []string            `jsObject:"disableDates"`
 
   /*
@@ -99,7 +95,6 @@ type KendoUiCalendar struct{
        });
    </script>
   */
-
   Footer                                  string              `jsObject:"footer"`
 
   /*
@@ -115,7 +110,6 @@ type KendoUiCalendar struct{
        });
    </script>
   */
-
   Format                                  string              `jsObject:"format"`
 
   /*
@@ -131,7 +125,6 @@ type KendoUiCalendar struct{
        });
    </script>
   */
-
   Max                                     time.Time           `jsObject:"max"`
 
   /*
@@ -150,7 +143,6 @@ type KendoUiCalendar struct{
     })
    </script>
   */
-
   Messages                                *KendoCalendarMessages      `jsObject:"messages"`
 
   /*
@@ -167,7 +159,6 @@ type KendoUiCalendar struct{
        });
    </script>
   */
-
   Min                                     time.Time           `jsObject:"min"`
 
   /*
@@ -175,9 +166,33 @@ type KendoUiCalendar struct{
 
   Templates for the cells rendered in "month" view.
 
-  
-  */
+  Example - specify cell template as a string
+  <style>
+    .exhibition{
+      background-color: #9DD0E0;
+      color:black;
+    }
+    .party{
+      color: red;
+      background-color: #ccc;
+    }
+  </style>
+  <body>
 
+  <div id="calendar"></div>
+  <script id="cell-template" type="text/x-kendo-template">
+      <div class="#= data.value < 10 ? 'exhibition' : 'party' #">
+      #= data.value #
+    </div>
+  </script>
+  <script>
+    $("#calendar").kendoCalendar({
+      month: {
+        content: $("#cell-template").html()
+      }
+    });
+  </script>
+  */
   Month                                   *KendoMonth         `jsObject:"month"`
 
   /*
@@ -194,7 +209,6 @@ type KendoUiCalendar struct{
        });
    </script>
   */
-
   Selectable                              string              `jsObject:"selectable"`
 
   /*
@@ -212,7 +226,6 @@ type KendoUiCalendar struct{
        });
    </script>
   */
-
   SelectDates                             []time.Time         `jsObject:"selectDates"`
 
   /*
@@ -228,7 +241,6 @@ type KendoUiCalendar struct{
        });
    </script>
   */
-
   WeekNumber                              Boolean             `jsObject:"weekNumber"`
 
   /*
@@ -244,7 +256,6 @@ type KendoUiCalendar struct{
        });
    </script>
   */
-
   Start                                   string              `jsObject:"start"`
 
   /*
@@ -260,31 +271,30 @@ type KendoUiCalendar struct{
        });
    </script>
   */
-
   Value                                   time.Time           `jsObject:"value"`
 
   *ToJavaScriptConverter
 }
-func(el *KendoUiCalendar) ToJavaScript() string {
+func(el *KendoUiCalendar) ToJavaScript() []byte {
   var ret bytes.Buffer
   if el.Div.Global.Id == "" {
     log.Critical("KendoUiCalendar not have a html id for mount JavaScript code.")
-    return ""
+    return []byte{}
   }
 
   element := reflect.ValueOf(el).Elem()
   data, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
   if err != nil {
     log.Criticalf( "KendoUiCalendar.Error: %v", err.Error() )
-    return ""
+    return []byte{}
   }
 
   ret.Write( []byte(`$("#` + el.Div.Global.Id + `").kendoCalendar({`) )
   ret.Write( data )
   ret.Write( []byte(`});`) )
 
-  return ret.String()
+  return ret.Bytes()
 }
-func(el *KendoUiCalendar) ToHtml() string {
-  return el.Div.String()
+func(el *KendoUiCalendar) ToHtml() []byte {
+  return el.Div.ToHtml()
 }

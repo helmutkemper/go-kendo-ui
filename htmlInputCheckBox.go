@@ -46,7 +46,7 @@ type HtmlInputCheckBox struct{
   Checked                     Boolean
 
   Global                      HtmlGlobalAttributes
-}
+}/*
 func(el *HtmlInputCheckBox)String() string {
   return `<input ` + el.Global.String() + ` type="checkbox" ` + el.Name.ToAttr("name") + el.Value.ToAttr("value") + el.Checked.ToAttrSet("checked") + `>`
-}
+}*/

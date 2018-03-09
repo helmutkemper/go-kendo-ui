@@ -1,5 +1,5 @@
 package telerik
-
+/*
 import (
   "fmt"
   "time"
@@ -158,3 +158,4 @@ $(document).ready(function() {
   //</body>
   //</html>
 }
+*/

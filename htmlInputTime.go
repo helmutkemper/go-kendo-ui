@@ -78,7 +78,7 @@ type HtmlInputTime struct{
   ValueAsNumber               Boolean
 
   Global                      HtmlGlobalAttributes
-}
+}/*
 func(el *HtmlInputTime)String() string {
   return `<input ` + el.Global.String() + ` type="time" ` + el.Name.ToAttr("name") + el.Value.ToAttr("value") + el.Form.ToAttr("form") + el.AutoComplete.ToAttr("autocomplete") + el.List.ToAttr("list") + el.Step.ToAttr("step") + el.ValueAsDate.ToAttr("valueasdate") + el.ValueAsNumber.ToAttr("valueasnumber") + el.Readonly.ToAttrSet("readonly") + el.Disabled.ToAttrSet("disabled") + `>`
-}
+}*/

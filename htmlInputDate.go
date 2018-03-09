@@ -51,7 +51,7 @@ type HtmlInputDate struct{
   ValueAsDate                 Boolean
   ValueAsNumber               Boolean
   Global                      HtmlGlobalAttributes
-}
+}/*
 func(el *HtmlInputDate)String() string {
   return `<input ` + el.Global.String() + ` type="date" ` + el.Name.ToAttr("name") + el.List.ToAttr("list") + el.ValueAsDate.ToAttr("valueasdate") + el.ValueAsNumber.ToAttr("valueasnumber") + el.Value.ToAttr("value") + `>`
-}
+}*/

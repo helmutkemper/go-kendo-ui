@@ -76,7 +76,7 @@ type HtmlInputRange struct{
   Step                        Int
 
   Global                      HtmlGlobalAttributes
-}
+}/*
 func(el *HtmlInputRange)String() string {
   return `<input ` + el.Global.String() + ` type="range" ` + el.Name.ToAttr("name") + el.Value.ToAttr("value") + el.Form.ToAttr("form") + el.AutoComplete.ToAttr("autocomplete") + el.List.ToAttr("list") + el.Max.ToAttr("max") + el.Min.ToAttr("min") + el.Step.ToAttr("step") + el.Disabled.ToAttrSet("disabled") + `>`
-}
+}*/

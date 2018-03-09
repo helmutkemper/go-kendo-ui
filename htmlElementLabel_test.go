@@ -1,5 +1,5 @@
 package telerik
-
+/*
 import "fmt"
 
 func ExampleHtmlElementFormLabel_String() {
@@ -15,3 +15,4 @@ func ExampleHtmlElementFormLabel_String() {
   // Output:
   // <label  form="name" >Name</label>
 }
+*/

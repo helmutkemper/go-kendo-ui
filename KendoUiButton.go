@@ -7,7 +7,7 @@ import (
 )
 
 type KendoUiButton struct{
-  Html                                    interface{}                 `jsObject:"-"`
+  Html                                    HtmlElementFormButton       `jsObject:"-"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/button#configuration-enable
@@ -77,24 +77,24 @@ type KendoUiButton struct{
 
 func(el *KendoUiButton) ToJavaScript() string {
   var ret bytes.Buffer
-  if el.Div.Global.Id == "" {
-    log.Critical("KendoUiCalendar not have a html id for mount JavaScript code.")
+  if el.Html.Global.Id == "" {
+    log.Critical("kendoButton not have a html id for mount JavaScript code.")
     return ""
   }
 
   element := reflect.ValueOf(el).Elem()
   data, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
   if err != nil {
-    log.Criticalf( "KendoUiCalendar.Error: %v", err.Error() )
+    log.Criticalf( "kendoButton.Error: %v", err.Error() )
     return ""
   }
 
-  ret.Write( []byte(`$("#` + el.Div.Global.Id + `").kendoCalendar({`) )
+  ret.Write( []byte(`$("#` + el.Html.Global.Id + `").kendoButton({`) )
   ret.Write( data )
   ret.Write( []byte(`});`) )
 
   return ret.String()
 }
-func(el *KendoUiButton) ToHtml() string {
-  return el.Div.String()
+func(el *KendoUiButton) ToHtml() []byte{
+  return el.Html.ToHtml()
 }

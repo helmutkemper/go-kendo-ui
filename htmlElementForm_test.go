@@ -2,7 +2,7 @@ package telerik
 
 import "fmt"
 
-func ExampleHtmlElementForm_String() {
+func ExampleHtmlElementForm_ToHtml() {
   el := HtmlElementForm{
     Name: "form",
     Method: "get",
@@ -23,8 +23,8 @@ func ExampleHtmlElementForm_String() {
     },
   }
 
-  fmt.Printf( "%v\n", el.String() )
+  fmt.Printf( "%s\n", el.ToHtml() )
 
   // Output:
-  // <form  name="form"  action="./index.cpp"  method="get" ><label  form="name" >label_1</label><input  id="name"  type="text"  name="name" ></form>
+  // <form name="form" action="./index.cpp" method="get"><label form="name">label_1</label><input type="text" id="name" name="name"></form>
 }

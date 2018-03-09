@@ -30,7 +30,7 @@ type HtmlElementFormOutput struct{
   For                         String
 
   Global                      HtmlGlobalAttributes
-}
+}/*
 func(el *HtmlElementFormOutput)String() string {
   return `<output ` + el.Global.String() + el.Name.ToAttr("name") + el.Form.ToAttr("form") + el.For.ToAttr("for") + `>` + el.Content.String() + `</output>`
-}
+}*/

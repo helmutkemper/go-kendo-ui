@@ -43,7 +43,7 @@ type HtmlElementFormMeter struct{
   Optimum                     Int
 
   Global                      HtmlGlobalAttributes
-}
+}/*
 func(el *HtmlElementFormMeter)String() string {
   return `<meter ` + el.Global.String() + el.Form.ToAttr("form") + el.Min.ToAttr("min") + el.Max.ToAttr("max") + el.High.ToAttr("high") + el.Optimum.ToAttr("optimum") + `>` + el.Content.String() + `</meter>`
-}
+}*/

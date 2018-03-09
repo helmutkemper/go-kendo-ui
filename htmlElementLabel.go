@@ -1,5 +1,10 @@
 package telerik
 
+import (
+  "bytes"
+  "reflect"
+)
+
 // The HTML <label> element represents a caption for an item in a user interface.
 type HtmlElementFormLabel struct{
   /*
@@ -8,7 +13,7 @@ type HtmlElementFormLabel struct{
   descendant of a <form> element. This attribute enables you to place <input> elements anywhere within a document, not
   just as descendants of their form elements. An input can only be associated with one form.
   */
-  Form                        String
+  Form                        string                      `htmlAttr:"form"`
 
   /*
   The id of a labelable form-related element in the same document as the label element. The first such element in the
@@ -16,15 +21,29 @@ type HtmlElementFormLabel struct{
   A label element can have both a for attribute and a contained control element, as long as the for attribute points to
   the contained control element.
   */
-  For                         String
+  For                         string                      `htmlAttr:"for"`
 
   /*
   Content inside html tag
   */
-  Content                     Content
+  Content                     Content                     `htmlAttr:"-"`
 
-  Global                      HtmlGlobalAttributes
+  Global                      HtmlGlobalAttributes        `htmlAttr:"form"`
+
+  *ToJavaScriptConverter                                  `htmlAttr:"-"`
 }
-func(el *HtmlElementFormLabel)String() string {
-  return `<label ` + el.Global.String() + el.For.ToAttr("for") + el.Form.ToAttr("form") + `>` + el.Content.String() + `</label>`
+func(el *HtmlElementFormLabel)ToHtml() []byte {
+  var buffer bytes.Buffer
+
+  element := reflect.ValueOf(el).Elem()
+  data := el.ToJavaScriptConverter.ToTelerikHtml(element)
+
+  buffer.Write( []byte( `<label` ) )
+  buffer.Write( el.Global.ToHtml() )
+  buffer.Write( data )
+  buffer.Write( []byte( `>` ) )
+  buffer.Write( el.Content.Bytes() )
+  buffer.Write( []byte( `</label>` ) )
+
+  return buffer.Bytes()
 }

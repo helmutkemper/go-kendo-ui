@@ -2,7 +2,7 @@ package telerik
 
 import "fmt"
 
-func ExampleHtmlElementFormSelect_String() {
+func ExampleHtmlElementFormSelect_ToHtml() {
   el := HtmlElementFormSelect{
     Name: "selectName",
     Options: map[string]string{
@@ -12,8 +12,8 @@ func ExampleHtmlElementFormSelect_String() {
     },
   }
 
-  fmt.Printf( "%v\n", el.String() )
+  fmt.Printf( "%s\n", el.ToHtml() )
 
   // Output:
-  // <select  name="selectName" ><option value="key_2">key_2</option><option value="key_3">key_3</option><option value="key_1">key_1</option></select>
+  // <select name="selectName"><option value="key_1">key_1</option><option value="key_2">key_2</option><option value="key_3">key_3</option></select>
 }

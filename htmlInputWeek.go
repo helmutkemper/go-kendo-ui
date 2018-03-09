@@ -75,7 +75,7 @@ type HtmlInputWeek struct{
   Step                        Int
 
   Global                      HtmlGlobalAttributes
-}
+}/*
 func(el *HtmlInputWeek)String() string {
   return `<input ` + el.Global.String() + ` type="week" ` + el.Name.ToAttr("name") + el.Value.ToAttr("value") + el.Form.ToAttr("form") + el.AutoComplete.ToAttr("autocomplete") + el.List.ToAttr("list") + el.Step.ToAttr("step") + el.Readonly.ToAttrSet("readonly") + el.Disabled.ToAttrSet("disabled") + `>`
-}
+}*/

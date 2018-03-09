@@ -24,7 +24,7 @@ type HtmlElementFormProgress struct{
   Content                     String
 
   Global                      HtmlGlobalAttributes
-}
+}/*
 func(el *HtmlElementFormProgress)String() string {
   return `<progress ` + el.Global.String() + el.Value.ToAttr("value") + el.Max.ToAttr("max") + `>` + el.Content.String() + `</progress>`
-}
+}*/

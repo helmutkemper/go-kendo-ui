@@ -2,7 +2,7 @@ package telerik
 
 import "fmt"
 
-func ExampleHtmlElementDiv_String() {
+func ExampleHtmlElementDiv_ToHtml() {
   el := HtmlElementDiv{
     Global: HtmlGlobalAttributes{
       Id: "divId",
@@ -24,8 +24,8 @@ func ExampleHtmlElementDiv_String() {
     },
   }
 
-  fmt.Printf( "%v", el.String() )
+  fmt.Printf( "%s", el.ToHtml() )
 
   // Output:
-  // <div  class="test"  id="divId" ><label  form="name" >label_1</label><input  id="name"  type="text"  name="name" ></div>
+  // <div class="test" id="divId"><label form="name">label_1</label><input type="text" id="name" name="name"></div>
 }

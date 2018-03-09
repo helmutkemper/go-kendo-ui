@@ -53,7 +53,7 @@ type HtmlInputHidden struct{
   AutoComplete                Boolean
 
   Global                      HtmlGlobalAttributes
-}
+}/*
 func(el *HtmlInputHidden)String() string {
   return `<input ` + el.Global.String() + ` type="hidden" ` + el.Name.ToAttr("name") + el.Value.ToAttr("value") + el.AutoComplete.ToAttrOnOff("autocomplete") + `>`
-}
+}*/

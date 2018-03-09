@@ -70,7 +70,7 @@ type HtmlInputMonth struct{
   List                        String
 
   Global                      HtmlGlobalAttributes
-}
+}/*
 func(el *HtmlInputMonth)String() string {
   return `<input ` + el.Global.String() + ` type="month" ` + el.Name.ToAttr("name") + el.Value.ToAttr("value") + el.Form.ToAttr("form") + el.Disabled.ToAttrSet("disabled") + el.Readonly.ToAttrSet("readonly") + el.List.ToAttr("list") + el.AutoComplete.ToAttr("autocomplete") + `>`
-}
+}*/

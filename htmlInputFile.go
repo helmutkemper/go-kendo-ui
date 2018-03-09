@@ -61,7 +61,7 @@ type HtmlInputFile struct{
   Accept                      StringArr
 
   Global                      HtmlGlobalAttributes
-}
+}/*
 func(el *HtmlInputFile)String() string {
   return `<input ` + el.Global.String() + ` type="file" ` + el.Name.ToAttr("name") + el.Value.ToAttr("value") + el.Accept.ToAttr("accept") + el.Required.ToAttrSet("required") + el.Multiple.ToAttrSet("multiple") + `>`
-}
+}*/

@@ -46,7 +46,7 @@ type HtmlInputRadio struct{
   Checked                     Boolean
 
   Global                      HtmlGlobalAttributes
-}
+}/*
 func(el *HtmlInputRadio)String() string {
   return `<input ` + el.Global.String() + ` type="radio" ` + el.Name.ToAttr("name") + el.Value.ToAttr("value") + el.Form.ToAttr("form") + el.Checked.ToAttrSet("checked") + el.Disabled.ToAttrSet("disabled") + `>`
-}
+}*/

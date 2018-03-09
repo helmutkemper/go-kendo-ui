@@ -115,7 +115,7 @@ type HtmlInputPassword struct{
   Size                        Int
 
   Global                      HtmlGlobalAttributes
-}
+}/*
 func(el *HtmlInputPassword)String() string {
   return `<input ` + el.Global.String() + ` type="password" ` + el.Name.ToAttr("name") + el.Value.ToAttr("value") + el.Form.ToAttr("form") + el.AutoComplete.ToAttr("autocomplete") + el.MaxLength.ToAttr("maxlength") + el.MinLength.ToAttr("minlength") + el.Pattern.ToAttr("pattern") + el.PlaceHolder.ToAttr("placeholder") + el.Readonly.ToAttrSet("readonly") + el.Size.ToAttr("size") + el.Disabled.ToAttrSet("disabled") + el.Required.ToAttrSet("required") + `>`
-}
+}*/

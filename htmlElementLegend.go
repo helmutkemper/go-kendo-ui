@@ -29,7 +29,7 @@ type HtmlElementFormLegend struct{
   Disabled                    Boolean
 
   Global                      HtmlGlobalAttributes
-}
+}/*
 func(el *HtmlElementFormLegend)String() string {
   return `<legend ` + el.Global.String() + el.Name.ToAttr("name") + el.Form.ToAttr("form") + el.Disabled.ToAttrSet("disabled") + `>` + el.Content.String() + `</legend>`
-}
+}*/

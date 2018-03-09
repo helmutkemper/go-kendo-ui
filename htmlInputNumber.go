@@ -75,7 +75,7 @@ type HtmlInputNumber struct{
   ValueAsNumber               Boolean
 
   Global                      HtmlGlobalAttributes
-}
+}/*
 func(el *HtmlInputNumber)String() string {
   return `<input ` + el.Global.String() + ` type="number" ` + el.Name.ToAttr("name") + el.Value.ToAttr("value") + el.Form.ToAttr("form") + el.Disabled.ToAttrSet("disabled") + el.AutoComplete.ToAttr("autocomplete") + el.List.ToAttr("list") + el.PlaceHolder.ToAttr("placeholder") + el.Readonly.ToAttrSet("readonly") + el.ValueAsNumber.ToAttr("valueasnumber") +`>`
-}
+}*/

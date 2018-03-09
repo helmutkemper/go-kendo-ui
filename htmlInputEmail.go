@@ -115,7 +115,7 @@ type HtmlInputEmail struct{
   Size                        Int
 
   Global                      HtmlGlobalAttributes
-}
+}/*
 func(el *HtmlInputEmail)String() string {
   return `<input ` + el.Global.String() + ` type="email" ` + el.Name.ToAttr("name") + el.MaxLength.ToAttr("maxlength") + el.MinLength.ToAttr("minlength") + el.Size.ToAttr("size") + el.List.ToAttr("list") + el.Multiple.ToAttr("multiple") + el.Pattern.ToAttr("pattern") + el.PlaceHolder.ToAttr("placeholder") + el.Value.ToAttr("value") + el.AutoComplete.ToAttr("autocomplete") + el.ReadOnly.ToAttrSet("readonly") + `>`
-}
+}*/

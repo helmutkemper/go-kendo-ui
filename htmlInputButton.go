@@ -1,6 +1,9 @@
 package telerik
 
-import "bytes"
+import (
+  "bytes"
+  "reflect"
+)
 
 // <input> elements of type "button"  are rendered as simple push buttons, which can be programmed to control custom
 // functionality anywhere on a webpage as required when assigned an event handler function (typically for the click
@@ -43,15 +46,19 @@ type HtmlInputButton struct{
 
   *ToJavaScriptConverter
 }
-func(el *HtmlInputButton)ToHtml() string {
+func(el *HtmlInputButton)ToHtml() []byte {
   var buffer bytes.Buffer
+
+  element := reflect.ValueOf(el).Elem()
+  data := el.ToJavaScriptConverter.ToTelerikHtml(element)
+
   //return `<input ` + el.Global.String() + ` type="button" ` + el.Name.ToAttr("name") + el.Value.ToAttr("value") + el.Form.ToAttr("form") + el.Disabled.ToAttrSet("disabled") + `>`
 
-  buffer.Write( []byte( `<input ` ) )
-  buffer.Write( []byte( el.Global.String() ) )
+  buffer.Write( []byte( `<input` ) )
+  buffer.Write( el.Global.ToHtml() )
   buffer.Write( []byte( ` type="button" ` ) )
-  buffer.Write( []byte( el.ToTelerikHtml(el) ) )
+  buffer.Write( data )
   buffer.Write( []byte( `>` ) )
 
-  return buffer.String()
+  return buffer.Bytes()
 }

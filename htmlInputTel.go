@@ -113,7 +113,7 @@ type HtmlInputTel struct{
   Size                        Int
 
   Global                      HtmlGlobalAttributes
-}
+}/*
 func(el *HtmlInputTel)String() string {
   return `<input ` + el.Global.String() + ` type="tel" ` + el.Name.ToAttr("name") + el.Value.ToAttr("value") + el.Form.ToAttr("form")+ el.AutoComplete.ToAttr("autocomplete") + el.List.ToAttr("list") + el.MaxLength.ToAttr("maxlength") + el.MinLength.ToAttr("minlength") + el.Pattern.ToAttr("pattern") + el.PlaceHolder.ToAttr("placeholder") + el.Size.ToAttr("size") + el.Readonly.ToAttrSet("readonly") + el.Disabled.ToAttrSet("disabled") + `>`
-}
+}*/

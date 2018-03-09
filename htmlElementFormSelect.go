@@ -1,11 +1,16 @@
 package telerik
 
+import (
+  "reflect"
+  "bytes"
+)
+
 // The HTML <select> element represents a control that provides a menu
 type HtmlElementFormSelect struct{
   /*
   The name of the control, which is submitted with the form data.
   */
-  Name                        String
+  Name                        string                      `htmlAttr:"name"`
 
   /*
   The form element that the input element is associated with (its form owner). The value of the attribute must be an id
@@ -13,7 +18,7 @@ type HtmlElementFormSelect struct{
   descendant of a <form> element. This attribute enables you to place <input> elements anywhere within a document, not
   just as descendants of their form elements. An input can only be associated with one form.
   */
-  Form                        String
+  Form                        string                      `htmlAttr:"form"`
 
   /*
   This Boolean attribute indicates that the form control is not available for interaction. In particular, the click
@@ -21,20 +26,20 @@ type HtmlElementFormSelect struct{
   Unlike other browsers, Firefox will by default persist the dynamic disabled state of an <input> across page loads. Use
   the autocomplete attribute to control this feature.
   */
-  Disabled                    Boolean
+  Disabled                    Boolean                     `htmlAttrSet:"disabled"`
 
   /*
   This Boolean attribute indicates whether the user can enter more than one value. This attribute applies when the type
   attribute is set to email or file, otherwise it is ignored.
   */
-  Multiple                    String
+  Multiple                    string                      `htmlAttr:"multiple"`
 
   /*
   This attribute specifies that the user must fill in a value before submitting a form. It cannot be used when the type
   attribute is hidden, image, or a button type (submit, reset, or button). The :optional and :required CSS
   pseudo-classes will be applied to the field as appropriate.
   */
-  Required                    Boolean
+  Required                    Boolean                     `htmlAttrSet:"required"`
 
   /*
   The initial size of the control. This value is in pixels unless the value of the type attribute is text or password,
@@ -45,14 +50,38 @@ type HtmlElementFormSelect struct{
   certain fonts. In some browsers, a certain string with x characters will not be entirely visible even if size is
   defined to at least x.
   */
-  Size                        Int
+  Size                        int                         `htmlAttr:"size"`
 
-  Options                     map[string]string
+  Options                     map[string]string           `htmlAttr:"options"`
 
-  Global                      HtmlGlobalAttributes
+  Global                      HtmlGlobalAttributes        `htmlAttr:"-"`
+
+  *ToJavaScriptConverter                                  `htmlAttr:"-"`
 }
-func(el *HtmlElementFormSelect)String() string {
-  out := `<select ` + el.Global.String() + el.Name.ToAttr("name") + el.Form.ToAttr("form") + el.Multiple.ToAttr("multiple") + el.Size.ToAttr("size") + el.Required.ToAttrSet("required") + el.Disabled.ToAttrSet("disabled") + `>`
+func(el *HtmlElementFormSelect)ToHtml() []byte {
+  var buffer bytes.Buffer
+
+  element := reflect.ValueOf(el).Elem()
+  data := el.ToJavaScriptConverter.ToTelerikHtml(element)
+
+  buffer.Write( []byte( `<select` ) )
+  buffer.Write( el.Global.ToHtml() )
+  buffer.Write( data )
+  buffer.Write( []byte( `>` ) )
+
+  for k, v := range el.Options{
+    if v == "" {
+      buffer.WriteString( `<option value="` + k + `">` )
+    } else {
+      buffer.WriteString( `<option value="` + k + `">` + k + `</option>` )
+    }
+  }
+  buffer.WriteString( `</select>` )
+
+  return buffer.Bytes()
+}/*
+func(el *HtmlElementFormSelect)string() string {
+  out := `<select ` + el.Global.string() + el.Name.ToAttr("name") + el.Form.ToAttr("form") + el.Multiple.ToAttr("multiple") + el.Size.ToAttr("size") + el.Required.ToAttrSet("required") + el.Disabled.ToAttrSet("disabled") + `>`
   for k, v := range el.Options{
     if v == "" {
       out += `<option value="` + k + `">`
@@ -63,4 +92,4 @@ func(el *HtmlElementFormSelect)String() string {
   out += `</select>`
 
   return out
-}
+}*/

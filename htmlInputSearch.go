@@ -104,7 +104,7 @@ type HtmlInputSearch struct{
   Size                        Int
 
   Global                      HtmlGlobalAttributes
-}
+}/*
 func(el *HtmlInputSearch)String() string {
   return `<input ` + el.Global.String() + ` type="search" ` + el.Name.ToAttr("name") + el.Value.ToAttr("value") + el.Form.ToAttr("form") + el.AutoComplete.ToAttr("autocomplete") + el.List.ToAttr("list") + el.MaxLength.ToAttr("maxlength") + el.MinLength.ToAttr("minlength") + el.Pattern.ToAttr("pattern") + el.PlaceHolder.ToAttr("placeholder") + el.Size.ToAttr("size") + el.Required.ToAttrSet("required") + el.Disabled.ToAttrSet("disabled") + `>`
-}
+}*/

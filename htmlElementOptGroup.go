@@ -22,7 +22,7 @@ type HtmlElementFormOptGroup struct{
   Disabled                    Boolean
 
   Global                      HtmlGlobalAttributes
-}
+}/*
 func(el *HtmlElementFormOptGroup)String() string {
   return `<label ` + el.Global.String() + el.Label.ToAttr("label") + el.Disabled.ToAttrSet("disabled") + `>` + el.Content.String() + `</label>`
-}
+}*/

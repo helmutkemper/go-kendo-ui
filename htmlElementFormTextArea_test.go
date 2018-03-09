@@ -1,5 +1,5 @@
 package telerik
-
+/*
 import "fmt"
 
 func ExampleHtmlElementFormTextArea_String() {
@@ -21,3 +21,4 @@ func ExampleHtmlElementFormTextArea_String() {
   // Output:
   // <textarea  class="className"  id="textAreaId"  name="organization"  cols=40  rows=20 >company name</textarea>
 }
+*/

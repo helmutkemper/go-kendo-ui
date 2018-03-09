@@ -2,7 +2,7 @@ package telerik
 
 import "fmt"
 
-func ExampleHtmlElementFormFieldSet_String() {
+func ExampleHtmlElementFormFieldSet_ToHtml() {
   el := HtmlElementFormFieldSet{
     Global: HtmlGlobalAttributes{
       Id: "fieldSetId",
@@ -23,8 +23,8 @@ func ExampleHtmlElementFormFieldSet_String() {
     },
   }
 
-  fmt.Printf( "%v", el.String() )
+  fmt.Printf( "%s", el.ToHtml() )
 
   // Output:
-  // <fieldset  id="fieldSetId" ><label  form="name" >label_1</label><input  id="name"  type="text"  name="name" ></fieldset>
+  // <fieldset id="fieldSetId"><label form="name">label_1</label><input type="text" id="name" name="name"></fieldset>
 }

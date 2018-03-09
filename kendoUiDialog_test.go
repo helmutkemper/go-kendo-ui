@@ -1,5 +1,5 @@
 package telerik
-
+/*
 import "fmt"
 
 func ExampleKendoUiDialog_String(){
@@ -31,3 +31,4 @@ func ExampleKendoUiDialog_String(){
   // <div  id="dialog" ></div>
   // <script>$("#dialog").kendoDialog({ actions: [{ text: "OK",action: function(){ setTimeout( function(){ containerConfigurationEnvVarNameRef.focus(); }, 1000); },primary: true, },],content: "Please, set a valid environment var.",modal: true,title: "Configuration error",visible: true,width: 400, });</script>
 }
+*/
