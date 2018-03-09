@@ -236,7 +236,7 @@ type HtmlGlobalAttributes struct{
   OnVolumeChange					    string                      `htmlAttr:"onvolumechange"`
   OnWaiting                   string                      `htmlAttr:"onwaiting"`
 
-  *ToJavaScriptConverter
+  *ToJavaScriptConverter                                  `htmlAttr:"-"`
 }
 func(el *HtmlGlobalAttributes)ToHtml() []byte {
   var buffer bytes.Buffer

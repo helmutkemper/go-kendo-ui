@@ -40,7 +40,7 @@ type HtmlElementFormButton struct{
   > multipart/form-data: Use this value if you are using an <input> element with the type attribute set to file.
   > text/plain
   */
-  FormEncType                 String                      `htmlAttr:"enctype"`
+  FormEncType                 string                      `htmlAttr:"enctype"`
 
   /*
   If the button is a submit button, this attribute specifies the HTTP method that the browser uses to submit the form.
@@ -49,7 +49,7 @@ type HtmlElementFormButton struct{
   > get: The data from the form are appended to the form attribute URI, with a '?' as a separator, and the resulting URI
   is sent to the server. Use this method when the form has no side-effects and contains only ASCII characters.
   */
-  FormMethod                  String                      `htmlAttr:"method"`
+  FormMethod                  string                      `htmlAttr:"method"`
 
   /*
   If the button is a submit button, this Boolean attribute specifies that the form is not to be validated when it is
@@ -70,7 +70,7 @@ type HtmlElementFormButton struct{
   > _top: Load the response into the top-level browsing context (that is, the browsing context that is an ancestor of
   the current one, and has no parent). If there is no parent, this option behaves the same way as _self.
   */
-  FormTarget                  String                      `htmlAttr:"target"`
+  FormTarget                  string                      `htmlAttr:"target"`
 
   /*
   This Boolean attribute indicates that the form control is not available for interaction. In particular, the click
@@ -82,7 +82,7 @@ type HtmlElementFormButton struct{
 
   Global                      HtmlGlobalAttributes        `htmlAttr:"-"`
 
-  *ToJavaScriptConverter
+  *ToJavaScriptConverter                                  `htmlAttr:"-"`
 }
 func(el *HtmlElementFormButton)ToHtml() []byte {
   var buffer bytes.Buffer

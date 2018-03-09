@@ -273,7 +273,7 @@ type KendoUiCalendar struct{
   */
   Value                                   time.Time           `jsObject:"value"`
 
-  *ToJavaScriptConverter
+  *ToJavaScriptConverter                                      `jsObject:"-"`
 }
 func(el *KendoUiCalendar) ToJavaScript() []byte {
   var ret bytes.Buffer

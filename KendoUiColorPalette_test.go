@@ -1,5 +1,5 @@
 package telerik
-/*
+
 import "fmt"
 
 func ExampleKendoUiColorPalette_ToJavaScript() {
@@ -73,4 +73,3 @@ func ExampleKendoUiColorPalette_ToJavaScript() {
   //</body>
   //</html>
 }
-*/

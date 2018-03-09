@@ -1,11 +1,11 @@
 package telerik
-/*
+
 import (
   "fmt"
   "time"
 )
 
-func ExampleKendoUiCalendar_String() {
+func ExampleKendoUiCalendar_ToHtml() {
   calendar := KendoUiCalendar{
     Div: HtmlElementDiv{
       Global: HtmlGlobalAttributes{
@@ -56,7 +56,7 @@ $(document).ready(function() {
   //<div id="example">
   //<div class="demo-section k-content" style="text-align: center;">
   //<h4>Pick a date</h4>
-  //<div  id="calendar" ></div>
+  //<div id="calendar"></div>
   //</div>
   //<script>
   //$(document).ready(function() {
@@ -146,7 +146,7 @@ $(document).ready(function() {
   //<div id="example">
   //<div class="demo-section k-content" style="text-align: center;">
   //<h4>Pick a date</h4>
-  //<div  id="calendar" ></div>
+  //<div id="calendar"></div>
   //</div>
   //<script>
   //$(document).ready(function() {
@@ -158,4 +158,3 @@ $(document).ready(function() {
   //</body>
   //</html>
 }
-*/

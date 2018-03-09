@@ -86,7 +86,7 @@ type KendoUiColorPalette struct{
   */
   Value                                   string                                    `jsObject:"value"`
 
-  *ToJavaScriptConverter
+  *ToJavaScriptConverter                                                            `jsObject:"-"`
 }
 func(el *KendoUiColorPalette) ToJavaScript() string {
   var ret bytes.Buffer

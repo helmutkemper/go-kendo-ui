@@ -20,7 +20,7 @@ type HtmlElementDiv struct{
 
   Global                      HtmlGlobalAttributes        `htmlAttr:"-"`
 
-  *ToJavaScriptConverter
+  *ToJavaScriptConverter                                  `htmlAttr:"-"`
 }
 func(el *HtmlElementDiv)ToHtml() []byte {
   var buffer bytes.Buffer

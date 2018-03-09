@@ -78,6 +78,63 @@ func(el *ToJavaScriptConverter) ToTelerikHtml( element reflect.Value ) []byte {
           }
         }
 
+      case "map[string]interface {}":
+        if len( field.Interface().(map[string]interface{}) ) == 0 {
+          continue
+        }
+
+        for k, v := range field.Interface().(map[string]interface{}){
+          switch v.(type) {
+          case string:
+            if field.Interface().(string) == "" {
+              continue
+            }
+
+            buffer.WriteString(tag.Get("jsObject") + `: "` + field.Interface().(string) + `",`)
+
+          case []string:
+            if len( field.Interface().([]string) ) == 0 {
+              continue
+            }
+
+            buffer.WriteString(tag.Get("jsObject") + `: [`)
+            for _, v := range field.Interface().([]string) {
+              buffer.WriteString(`"`)
+              buffer.WriteString( v )
+              buffer.WriteString(`",`)
+            }
+            buffer.WriteString(`],`)
+
+          case int:
+            if v.(int) == 0 {
+              continue
+            }
+
+            buffer.WriteString(` ` + k + `="` + strconv.Itoa( v.(int) ) + `"`)
+
+          case int64:
+            if v.(int64) == 0 {
+              continue
+            }
+
+            buffer.WriteString(` ` + k + `="` + strconv.FormatInt( v.(int64), 64 ) + `,`)
+
+          case float32:
+            if v.(float32) == 0 {
+              continue
+            }
+
+            buffer.WriteString(` ` + k + `="` + strconv.FormatFloat( float64( v.(float32) ), 'E', -1, 32) + `,`)
+
+          case float64:
+            if v.(float64) == 0 {
+              continue
+            }
+
+            buffer.WriteString(` ` + k + `="` + strconv.FormatFloat( v.(float64), 'E', -1, 64) + `,`)
+          }
+        }
+
       case "telerik.TypeHtmlDropZone":
         if field.Interface().(TypeHtmlDropZone).String() == "" {
           continue
