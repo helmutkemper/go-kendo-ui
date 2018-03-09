@@ -1,8 +1,9 @@
 package telerik
-/*
-import "fmt"
 
-func ExampleHtmlElementFormTextArea_String() {
+import "fmt"
+//fixme: colocar data tem todos as tags html
+---------------------------------
+func ExampleHtmlElementFormTextArea_ToHtml() {
   el := HtmlElementFormTextArea{
     Global:HtmlGlobalAttributes{
       Id: "textAreaId",
@@ -14,11 +15,11 @@ func ExampleHtmlElementFormTextArea_String() {
     Content: Content{
       "company name",
     },
+    AutoCapitalize: AUTOCAPITALIZE_SENTENCES,
   }
 
-  fmt.Printf("%v\n", el.String())
+  fmt.Printf("%s\n", el.ToHtml())
 
   // Output:
   // <textarea  class="className"  id="textAreaId"  name="organization"  cols=40  rows=20 >company name</textarea>
 }
-*/

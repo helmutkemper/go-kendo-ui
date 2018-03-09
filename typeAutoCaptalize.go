@@ -24,14 +24,13 @@ func(el AutoCapitalize) ToAttr(name string) string {
 
 var autoCapitalizes = [...]string{
   "",
-  "none",
   "sentences",
+  "words",
   "characters",
 }
 
 const (
-  NONE AutoCapitalize = iota + 1
-  SENTENCES
-  WORDS
-  CHARACTERS
+  AUTOCAPITALIZE_SENTENCES AutoCapitalize = iota + 1
+  AUTOCAPITALIZE_WORDS
+  AUTOCAPITALIZE_CHARACTERS
 )

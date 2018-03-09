@@ -1,5 +1,10 @@
 package telerik
 
+import (
+  "bytes"
+  "reflect"
+)
+
 // The HTML <textarea> element represents a multi-line plain-text editing control.
 type HtmlElementFormTextArea struct{
   /*
@@ -7,12 +12,12 @@ type HtmlElementFormTextArea struct{
   @see typeNamesForAutocomplete.go
   Ex.: const NAMES_FOR_AUTOCOMPLETE_NAME
   */
-  Name                        String
+  Name                        string                      `htmlAttr:"name"`
 
   /*
   Content inside html tag
   */
-  Content                     Content
+  Content                     Content                     `htmlAttr:"-"`
 
   /*
   The form element that the input element is associated with (its form owner). The value of the attribute must be an id
@@ -20,7 +25,7 @@ type HtmlElementFormTextArea struct{
   descendant of a <form> element. This attribute enables you to place <input> elements anywhere within a document, not
   just as descendants of their form elements. An input can only be associated with one form.
   */
-  Form                        String
+  Form                        string                      `htmlAttr:"form"`
 
   /*
   This Boolean attribute indicates that the form control is not available for interaction. In particular, the click
@@ -28,7 +33,7 @@ type HtmlElementFormTextArea struct{
   Unlike other browsers, Firefox will by default persist the dynamic disabled state of an <input> across page loads. Use
   the autocomplete attribute to control this feature.
   */
-  Disabled                    Boolean
+  Disabled                    Boolean                     `htmlAttrSet:"disabled"`
 
   /*
   This is a nonstandard attribute used by iOS Safari Mobile which controls whether and how the text value for textual
@@ -41,7 +46,7 @@ type HtmlElementFormTextArea struct{
   > words: Automatically capitalize the first letter of words.
   > characters: Automatically capitalize all characters.
   */
-  AutoCapitalize              AutoCapitalize
+  AutoCapitalize              AutoCapitalize              `htmlAttr:"autocapitalize"`
 
   /*
   This attribute indicates whether the value of the control can be automatically completed by the browser.
@@ -53,13 +58,13 @@ type HtmlElementFormTextArea struct{
   to enter.
   @see typeNamesForAutocomplete.go
   */
-  AutoComplete                Boolean
+  AutoComplete                Boolean                     `htmlAttrOnOff:"AutoComplete"`
 
   /*
   The visible width of the text control, in average character widths. If it is specified, it must be a positive integer.
   If it is not specified, the default value is 20 (HTML5).
   */
-  Cols                        Int
+  Cols                        int                         `htmlAttr:"cols"`
 
   /*
   If the value of the type attribute is text, email, search, password, tel, or url, this attribute specifies the maximum
@@ -68,38 +73,38 @@ type HtmlElementFormTextArea struct{
   Specifying a negative number results in the default behavior (i.e. the user can enter an unlimited number of
   characters). The constraint is evaluated only when the value of the attribute has been changed.
   */
-  MaxLength                   Int
+  MaxLength                   int                         `htmlAttr:"maxlength"`
 
   /*
   If the value of the type attribute is text, email, search, password, tel, or url, this attribute specifies the minimum
   number of characters (in Unicode code points) that the user can enter. For other control types, it is ignored.
   */
-  MinLength                   Int
+  MinLength                   int                         `htmlAttr:"maxlength"`
 
   /*
   A hint to the user of what can be entered in the control . The placeholder text must not contain carriage returns or
   line-feeds.
   */
-  PlaceHolder                 String
+  PlaceHolder                 string                      `htmlAttr:"placeholder"`
 
   /*
   This attribute specifies that the user must fill in a value before submitting a form. It cannot be used when the type
   attribute is hidden, image, or a button type (submit, reset, or button). The :optional and :required CSS
   pseudo-classes will be applied to the field as appropriate.
   */
-  Required                    Boolean
+  Required                    Boolean                     `htmlAttrSet:"Required"`
 
   /*
   The number of visible text lines for the control.
   */
-  Rows                        Int
+  Rows                        int                         `htmlAttr:"rows"`
 
   /*
   Setting the value of this attribute to true indicates that the element needs to have its spelling and grammar checked.
   The value default indicates that the element is to act according to a default behavior, possibly based on the parent
   element's own spellcheck value. The value false indicates that the element should not be checked.
   */
-  SpellCheck                  Boolean
+  SpellCheck                  Boolean                     `htmlAttr:"spellcheck"`
 
   /*
   Indicates how the control wraps text. Possible values are:
@@ -111,10 +116,25 @@ type HtmlElementFormTextArea struct{
   becomes horizontally scrollable.
   If this attribute is not specified, soft is its default value.
   */
-  Wrap                        Warp
+  Wrap                        Warp                        `htmlAttr:"wrap"`
 
-  Global                      HtmlGlobalAttributes
-}/*
-func(el *HtmlElementFormTextArea)String() string {
-  return `<textarea ` + el.Global.String() + el.Name.ToAttr("name") + el.Form.ToAttr("form") + el.AutoCapitalize.ToAttr("autocapitalize") + el.AutoComplete.ToAttr("autocomplete") + el.Cols.ToAttr("cols") + el.MaxLength.ToAttr("maxlength") + el.MinLength.ToAttr("minlength") + el.PlaceHolder.ToAttr("placeholder") + el.Rows.ToAttr("rows") + el.SpellCheck.ToAttr("spellcheck") + el.Wrap.ToAttr("warp") + el.Disabled.ToAttrSet("disabled") + `>` + el.Content.String() + `</textarea>`
-}*/
+  Global                      HtmlGlobalAttributes        `htmlAttr:"-"`
+
+  *ToJavaScriptConverter                                  `htmlAttr:"-"`
+}
+func(el *HtmlElementFormTextArea)ToHtml() []byte {
+  var buffer bytes.Buffer
+
+  element := reflect.ValueOf(el).Elem()
+  data := el.ToJavaScriptConverter.ToTelerikHtml(element)
+
+  buffer.Write( []byte( `<textarea` ) )
+  buffer.Write( el.Global.ToHtml() )
+  buffer.Write( data )
+  buffer.Write( []byte( `>` ) )
+  buffer.Write( el.Content.Bytes() )
+  buffer.Write( []byte( `</textarea>` ) )
+
+  return buffer.Bytes()
+}
+//return `<textarea ` + el.Global.String() + el.Name.ToAttr("name") + el.Form.ToAttr("form") + el.AutoCapitalize.ToAttr("autocapitalize") + el.AutoComplete.ToAttr("autocomplete") + el.Cols.ToAttr("cols") + el.MaxLength.ToAttr("maxlength") + el.MinLength.ToAttr("minlength") + el.PlaceHolder.ToAttr("placeholder") + el.Rows.ToAttr("rows") + el.SpellCheck.ToAttr("spellcheck") + el.Wrap.ToAttr("warp") + el.Disabled.ToAttrSet("disabled") + `>` + el.Content.String() + `</textarea>`
