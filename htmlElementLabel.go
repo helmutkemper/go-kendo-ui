@@ -28,7 +28,7 @@ type HtmlElementFormLabel struct{
   */
   Content                     Content                     `htmlAttr:"-"`
 
-  Global                      HtmlGlobalAttributes        `htmlAttr:"form"`
+  Global                      HtmlGlobalAttributes        `htmlAttr:"-"`
 
   *ToJavaScriptConverter                                  `htmlAttr:"-"`
 }

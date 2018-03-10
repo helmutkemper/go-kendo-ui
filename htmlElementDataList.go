@@ -3,6 +3,7 @@ package telerik
 import (
   "bytes"
   "reflect"
+  "sort"
 )
 
 // The HTML <datalist> element contains a set of <option> elements that represent the values available for other
@@ -12,6 +13,13 @@ type HtmlElementFormDataList struct{
   The name of the control, which is submitted with the form data.
   */
   Name                        string                      `htmlAttr:"name"`
+
+  /*
+  Identifies a list of pre-defined options to suggest to the user. The value must be the id of a <datalist> element in
+  the same document. The browser displays only options that are valid values for this input element.
+  This attribute is ignored when the type attribute's value is hidden, checkbox, radio, file, or a button type.
+  */
+  List                        string                      `htmlAttr:"list"`
 
   /*
   The initial value of the control. This attribute is optional except when the value of the type attribute is radio or
@@ -37,7 +45,7 @@ type HtmlElementFormDataList struct{
   */
   Disabled                    Boolean                     `htmlAttrSet:"disabled"`
 
-  Options                     map[string]string           `htmlAttrSet:"options"`
+  Options                     []HtmlOptions               `htmlAttrSet:"-"`
 
   Global                      HtmlGlobalAttributes        `htmlAttrSet:"-"`
 
@@ -56,11 +64,24 @@ func(el *HtmlElementFormDataList)ToHtml() []byte {
 
 
   buffer.WriteString(`<datalist id="` + el.Name + `">` )
-  for k, v := range el.Options{
-    if v == "" {
-      buffer.WriteString(`<option value="` + k + `">` )
+  // ordena as chaves
+  keys := make([]int, 0)
+  for k := range el.Options {
+    keys = append(keys, k)
+  }
+  sort.Ints(keys)
+
+  for k := range keys {
+    buffer.Write( []byte( `<option` ) )
+    buffer.Write( []byte( ` value="` ) )
+    buffer.WriteString( el.Options[k].Key )
+
+    if el.Options[k].Label == "" {
+      buffer.Write( []byte( `"/>` ) )
     } else {
-      buffer.WriteString(`<option value="` + k + `">` + v + `</option>` )
+      buffer.Write( []byte( `">` ) )
+      buffer.WriteString( el.Options[k].Label )
+      buffer.Write( []byte( `</option>` ) )
     }
   }
   buffer.WriteString(`</datalist>` )

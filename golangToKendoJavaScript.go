@@ -10,6 +10,17 @@ import (
 
 type ToJavaScriptConverter struct {}
 
+/*
+keys := make([]int, 0)
+for k, _ := range romanNumeralDict {
+    keys = append(keys, k)
+}
+sort.Ints(keys)
+for _, k := range keys {
+    fmt.Println(k, romanNumeralDict[k])
+}
+*/
+
 func(el *ToJavaScriptConverter) getTagData( tag reflect.StructTag ) (string, string) {
   var tagName, tagValue string
 

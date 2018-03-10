@@ -13,5 +13,5 @@ func ExampleHtmlElementFormLabel_String() {
   fmt.Printf("%s\n", el.ToHtml())
 
   // Output:
-  // <label  form="name" >Name</label>
+  // <label form="name">Name</label>
 }

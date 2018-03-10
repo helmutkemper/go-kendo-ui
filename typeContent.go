@@ -52,7 +52,7 @@ func(el Content) Bytes() []byte {
       case HtmlInputText:
         out += outConverted.String()*/
     default:
-      fmt.Printf("error: type %T not found in typeContent\n", outConverted)
+      fmt.Printf("typeContent.go: error: type %T not found in typeContent\n", outConverted)
     }
   }
 

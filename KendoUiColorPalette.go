@@ -107,7 +107,7 @@ func(el *KendoUiColorPalette) ToJavaScript() string {
   ret.Write( []byte(`});`) )
 
   return ret.String()
-}/*
-func(el *KendoUiColorPalette) ToHtml() string {
-  return el.Div.String()
-}*/
+}
+func(el *KendoUiColorPalette) ToHtml() []byte {
+  return el.Div.ToHtml()
+}

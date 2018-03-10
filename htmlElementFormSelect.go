@@ -3,6 +3,7 @@ package telerik
 import (
   "reflect"
   "bytes"
+  "sort"
 )
 
 // The HTML <select> element represents a control that provides a menu
@@ -52,7 +53,16 @@ type HtmlElementFormSelect struct{
   */
   Size                        int                         `htmlAttr:"size"`
 
-  Options                     map[string]string           `htmlAttr:"options"`
+  /*
+  The initial value of the control. This attribute is optional except when the value of the type attribute is radio or
+  checkbox.
+  Note that when reloading the page, Gecko and IE will ignore the value specified in the HTML source, if the value was
+  changed before the reload.
+  */
+  Value                       string                      `htmlAttr:"-"`
+
+  Options                     []HtmlOptions               `htmlAttr:"-"`
+  //OptionsGroup                           `htmlAttr:"options"`
 
   Global                      HtmlGlobalAttributes        `htmlAttr:"-"`
 
@@ -69,11 +79,29 @@ func(el *HtmlElementFormSelect)ToHtml() []byte {
   buffer.Write( data )
   buffer.Write( []byte( `>` ) )
 
-  for k, v := range el.Options{
-    if v == "" {
-      buffer.WriteString( `<option value="` + k + `">` )
+  // ordena as chaves
+  keys := make([]int, 0)
+  for k := range el.Options {
+    keys = append(keys, k)
+  }
+  sort.Ints(keys)
+
+  for k := range keys {
+    buffer.Write( []byte( `<option` ) )
+
+    if el.Value != "" && el.Value == el.Options[k].Key {
+      buffer.Write( []byte( ` selected` ) )
+    }
+
+    buffer.Write( []byte( ` value="` ) )
+    buffer.WriteString( el.Options[k].Key )
+
+    if el.Options[k].Label == "" {
+      buffer.Write( []byte( `"/>` ) )
     } else {
-      buffer.WriteString( `<option value="` + k + `">` + k + `</option>` )
+      buffer.Write( []byte( `">` ) )
+      buffer.WriteString( el.Options[k].Label )
+      buffer.Write( []byte( `</option>` ) )
     }
   }
   buffer.WriteString( `</select>` )
