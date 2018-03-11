@@ -225,6 +225,14 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
       }
 
       switch field.Interface().(type) {
+      case *KendoDataSource:
+        if field.Interface().(*KendoDataSource) == nil {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: `)
+        buffer.Write( field.Interface().(*KendoDataSource).ToJavaScript() )
+
       case *KendoAnimation:
         if field.Interface().(*KendoAnimation) == nil {
           continue

@@ -623,10 +623,6 @@ type KendoDataSource struct {
 }
 func(el *KendoDataSource) ToJavaScript() []byte {
   var ret bytes.Buffer
-  if el.VarName == "" {
-    log.Critical("KendoDataSource not have a VarName for mount JavaScript code.")
-    return []byte{}
-  }
 
   element := reflect.ValueOf(el).Elem()
   data, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)

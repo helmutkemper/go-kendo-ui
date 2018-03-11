@@ -129,3 +129,48 @@ func ExampleKendoUiAutoComplete_ToJavaScript_2() {
   // Output:
   // $("#auto_complete").kendoAutoComplete({dataSource: ["Albania","Andorra","Armenia","Austria","Azerbaijan","Belarus","Belgium","Bosnia & Herzegovina","Bulgaria","Croatia","Cyprus","Czech Republic","Denmark","Estonia","Finland","France","Georgia","Germany","Greece","Hungary","Iceland","Ireland","Italy","Kosovo","Latvia","Liechtenstein","Lithuania","Luxembourg","Macedonia","Malta","Moldova","Monaco","Montenegro","Netherlands","Norway","Poland","Portugal","Romania","Russia","San Marino","Serbia","Slovakia","Slovenia","Spain","Sweden","Switzerland","Turkey","Ukraine","United Kingdom","Vatican City",],});
 }
+
+func ExampleKendoUiAutoComplete_ToJavaScript_3() {
+  html := KendoUiAutoComplete{
+    Html: HtmlInputText{
+      Global: HtmlGlobalAttributes{
+        Id: "auto_complete",
+      },
+    },
+    DataSource: &KendoDataSource{
+      Aggregate: &[]KendoAggregates{
+        {
+          Aggregate: AGGREGATE_SUM,
+          Field: "age",
+        },
+        {
+          Aggregate: AGGREGATE_MIN,
+          Field: "age",
+        },
+        {
+          Aggregate: AGGREGATE_MAX,
+          Field: "age",
+        },
+      },
+      AutoSync: TRUE,
+      Batch: TRUE,
+      Data: &[]map[string]interface{}{
+        {
+          "name": "Jane Doe",
+          "age": 30,
+        },
+        {
+          "name": "Jane Doe",
+          "age": 33,
+        },
+      },
+      InPlaceSort: FALSE,
+      OfflineStorage: "products-offline",
+    },
+  }
+
+  fmt.Printf( "%s", html.ToJavaScript() )
+
+  // Output:
+  // $("#auto_complete").kendoAutoComplete({dataSource: ["Albania","Andorra","Armenia","Austria","Azerbaijan","Belarus","Belgium","Bosnia & Herzegovina","Bulgaria","Croatia","Cyprus","Czech Republic","Denmark","Estonia","Finland","France","Georgia","Germany","Greece","Hungary","Iceland","Ireland","Italy","Kosovo","Latvia","Liechtenstein","Lithuania","Luxembourg","Macedonia","Malta","Moldova","Monaco","Montenegro","Netherlands","Norway","Poland","Portugal","Romania","Russia","San Marino","Serbia","Slovakia","Slovenia","Spain","Sweden","Switzerland","Turkey","Ukraine","United Kingdom","Vatican City",],});
+}
