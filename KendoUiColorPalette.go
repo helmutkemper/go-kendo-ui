@@ -7,7 +7,7 @@ import (
 )
 
 type KendoUiColorPalette struct{
-  Div                                   HtmlElementDiv                              `jsObject:"-"`
+  Html                                  HtmlElementDiv                              `jsObject:"-"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/colorpalette#configuration-palette
@@ -90,7 +90,7 @@ type KendoUiColorPalette struct{
 }
 func(el *KendoUiColorPalette) ToJavaScript() string {
   var ret bytes.Buffer
-  if el.Div.Global.Id == "" {
+  if el.Html.Global.Id == "" {
     log.Critical("KendoUiColorPalette not have a html id for mount JavaScript code.")
     return ""
   }
@@ -102,12 +102,12 @@ func(el *KendoUiColorPalette) ToJavaScript() string {
     return ""
   }
 
-  ret.Write( []byte(`$("#` + el.Div.Global.Id + `").kendoColorPalette({`) )
+  ret.Write( []byte(`$("#` + el.Html.Global.Id + `").kendoColorPalette({`) )
   ret.Write( data )
   ret.Write( []byte(`});`) )
 
   return ret.String()
 }
 func(el *KendoUiColorPalette) ToHtml() []byte {
-  return el.Div.ToHtml()
+  return el.Html.ToHtml()
 }

@@ -1,15 +1,13 @@
 package telerik
 
 import (
-  "fmt"
-  "html/template"
   "bytes"
-  log "github.com/helmutkemper/seelog"
   "reflect"
+  log "github.com/helmutkemper/seelog"
 )
 
 type KendoUiAutoComplete struct{
-  HtmlId                                  string                                  `jsObject:"htmlId"`
+  Html                                    HtmlInputText                           `jsObject:"-"`
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-animation
@@ -63,7 +61,7 @@ type KendoUiAutoComplete struct{
    });
    </script>
   */
-  DataSource                              KendoDataSource                         `jsObject:"dataSource"`
+  DataSource                              interface{}                             `jsObject:"dataSource" jsType:"*KendoDataSource,string,*map[string]interface {},[]string"`
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-clearButton
@@ -113,7 +111,7 @@ type KendoUiAutoComplete struct{
    });
    </script>
   */
-  Delay                                   Int                                     `jsObject:"delay"`
+  Delay                                   int                                     `jsObject:"delay"`
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-enable
@@ -172,7 +170,7 @@ type KendoUiAutoComplete struct{
    });
    </script>
   */
-  Filter                                  string                                  `jsObject:"filter"`
+  Filter                                  KendoFilter                             `jsObject:"filter"`
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-fixedGroupTemplate
@@ -198,7 +196,7 @@ type KendoUiAutoComplete struct{
       });
   </script>
   */
-  FixedGroupTemplate                      interface{}                             `jsObject:"fixedGroupTemplate"`
+  FixedGroupTemplate                      interface{}                             `jsObject:"fixedGroupTemplate" jsType:"*JavaScript,string"`
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-footerTemplate
@@ -219,7 +217,7 @@ type KendoUiAutoComplete struct{
    });
    </script>
   */
-  FooterTemplate                          interface{}                             `jsObject:"footerTemplate"`
+  FooterTemplate                          interface{}                             `jsObject:"footerTemplate" jsType:"*JavaScript,string"`
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-groupTemplate
@@ -245,7 +243,7 @@ type KendoUiAutoComplete struct{
       });
   </script>
   */
-  GroupTemplate                           interface{}                             `jsObject:"groupTemplate"`
+  GroupTemplate                           interface{}                             `jsObject:"groupTemplate" jsType:"*JavaScript,string"`
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-height
@@ -263,7 +261,7 @@ type KendoUiAutoComplete struct{
    });
    </script>
   */
-  Height                                  Int                                     `jsObject:"height"`
+  Height                                  int                                     `jsObject:"height"`
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-highlightFirst
@@ -319,7 +317,7 @@ type KendoUiAutoComplete struct{
    });
    </script>
   */
-  MinLength                               Int                                     `jsObject:"minLength"`
+  MinLength                               int                                     `jsObject:"minLength"`
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-noDataTemplate
@@ -340,7 +338,7 @@ type KendoUiAutoComplete struct{
    });
    </script>
   */
-  NoDataTemplate                          interface{}                             `jsObject:"noDataTemplate"`
+  NoDataTemplate                          interface{}                             `jsObject:"noDataTemplate" jsType:"*JavaScript,string"`
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-placeholder
@@ -380,7 +378,7 @@ type KendoUiAutoComplete struct{
    });
    </script>
   */
-  Popup                                   interface{}                             `jsObject:"popup"`
+  Popup                                   *KendoPopup                             `jsObject:"popup"`
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-separator
@@ -440,7 +438,7 @@ type KendoUiAutoComplete struct{
    });
    </script>
   */
-  HeaderTemplate                          interface{}                             `jsObject:"headerTemplate"`
+  HeaderTemplate                          interface{}                             `jsObject:"headerTemplate" jsType:"*JavaScript,string"`
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-template
@@ -466,7 +464,7 @@ type KendoUiAutoComplete struct{
    });
    </script>
   */
-  Template                                interface{}                             `jsObject:"template"`
+  Template                                interface{}                             `jsObject:"template" jsType:"*JavaScript,string"`
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-value
@@ -558,32 +556,9 @@ type KendoUiAutoComplete struct{
 
   *ToJavaScriptConverter
 }
-func(el *KendoUiAutoComplete) IsSet() bool {
-  return el != nil
-}
-func(el *KendoUiAutoComplete) String() string {
-  var buffer bytes.Buffer
-
-  //switch data := el.DataSource.(type) {
-  //case []string:
-    //el.DataSource = `["` + strings.Join(data.([]string), `","`) + `"]`
-  //}
-
-  tmpl := template.Must(template.New("").Funcs(template.FuncMap{
-    "safeHTML": func(s interface{}) template.HTML {
-      return template.HTML(fmt.Sprint(s))
-    },
-  }).Parse(GetTemplate()))
-  err := tmpl.ExecuteTemplate(&buffer, "KendoUiAutoComplete", *(el))
-  if err != nil {
-    fmt.Println(err.Error())
-  }
-  
-  return buffer.String()
-}
 func(el *KendoUiAutoComplete) ToJavaScript() []byte {
   var ret bytes.Buffer
-  if el.HtmlId == "" {
+  if el.Html.Global.Id == "" {
     log.Critical("kendoUiAutoComplete not have a html id for mount JavaScript code.")
     return []byte{}
   }
@@ -595,9 +570,12 @@ func(el *KendoUiAutoComplete) ToJavaScript() []byte {
     return []byte{}
   }
 
-  ret.Write( []byte(`$("` + el.HtmlId + `")kendoAutoComplete({`) )
+  ret.Write( []byte(`$("#` + el.Html.Global.Id + `").kendoAutoComplete({`) )
   ret.Write( data )
   ret.Write( []byte(`});`) )
 
   return ret.Bytes()
+}
+func(el *KendoUiAutoComplete) ToHtml() []byte{
+  return el.Html.ToHtml()
 }

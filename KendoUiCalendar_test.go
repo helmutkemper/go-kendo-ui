@@ -7,7 +7,7 @@ import (
 
 func ExampleKendoUiCalendar_ToHtml() {
   calendar := KendoUiCalendar{
-    Div: HtmlElementDiv{
+    Html: HtmlElementDiv{
       Global: HtmlGlobalAttributes{
         Id: "calendar",
       },
@@ -71,7 +71,7 @@ $(document).ready(function() {
 
 func ExampleKendoUiCalendar_ToTelerikTemplate() {
   calendar := KendoUiCalendar{
-    Div: HtmlElementDiv{
+    Html: HtmlElementDiv{
       Global: HtmlGlobalAttributes{
         Id: "calendar",
       },

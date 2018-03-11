@@ -8,6 +8,7 @@ import (
   log "github.com/helmutkemper/seelog"
 )
 
+//fixme: incompleto - https://docs.telerik.com/kendo-ui/api/javascript/ui/popup
 type KendoPopup struct{
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-popup.appendTo  Defines a jQuery selector that will be used to find a container element, where the popup will be appended to.

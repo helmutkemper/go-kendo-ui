@@ -234,6 +234,15 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
         buffer.Write( field.Interface().(*KendoAnimation).ToJavaScript() )
         buffer.WriteString(`},`)
 
+      case *KendoPopup:
+        if field.Interface().(*KendoPopup) == nil {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: { `)
+        buffer.Write( field.Interface().(*KendoPopup).ToJavaScript() )
+        buffer.WriteString(`},`)
+
       case *KendoVirtual:
         if field.Interface().(*KendoVirtual) == nil {
           continue
@@ -418,6 +427,15 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
         fmt.Printf("\n\n\n\ninterface{}: %d: %s %s = %v  template: ''%v''\n\n\n\n\n", i, typeOfT.Field(i).Name, field.Type(), field.Interface(), tag.Get("jsObject"))
       }
     //---------------------------------------------------------------------------------------------------------------
+
+    case "*telerik.KendoColorMessages":
+      if field.Interface().(*KendoColorMessages) == nil {
+        continue
+      }
+
+      buffer.WriteString(tag.Get("jsObject") + `: { `)
+      buffer.Write( field.Interface().(*KendoColorMessages).ToJavaScript() )
+      buffer.WriteString(`},`)
 
     case "*telerik.KendoTileSize":
       if field.Interface().(*KendoTileSize) == nil {
@@ -966,6 +984,7 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
       case "*telerik.KendoSignalr": continue
       case "[]string": continue
       case "*telerik.KendoTileSize": continue
+      case "*telerik.KendoColorMessages": continue
     }
 
     fmt.Printf("\n\n\n\n%d: %s %s = %v  template: ''%v''\n\n\n\n\n", i, typeOfT.Field(i).Name, field.Type(), field.Interface(), tag.Get("jsObject"))

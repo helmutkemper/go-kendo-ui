@@ -8,7 +8,7 @@ import (
 )
 
 type KendoUiCalendar struct{
-  Div                                   HtmlElementDiv        `jsObject:"-"`
+  Html                                  HtmlElementDiv        `jsObject:"-"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/calendar#configuration-culture
@@ -277,7 +277,7 @@ type KendoUiCalendar struct{
 }
 func(el *KendoUiCalendar) ToJavaScript() []byte {
   var ret bytes.Buffer
-  if el.Div.Global.Id == "" {
+  if el.Html.Global.Id == "" {
     log.Critical("KendoUiCalendar not have a html id for mount JavaScript code.")
     return []byte{}
   }
@@ -289,12 +289,12 @@ func(el *KendoUiCalendar) ToJavaScript() []byte {
     return []byte{}
   }
 
-  ret.Write( []byte(`$("#` + el.Div.Global.Id + `").kendoCalendar({`) )
+  ret.Write( []byte(`$("#` + el.Html.Global.Id + `").kendoCalendar({`) )
   ret.Write( data )
   ret.Write( []byte(`});`) )
 
   return ret.Bytes()
 }
 func(el *KendoUiCalendar) ToHtml() []byte {
-  return el.Div.ToHtml()
+  return el.Html.ToHtml()
 }

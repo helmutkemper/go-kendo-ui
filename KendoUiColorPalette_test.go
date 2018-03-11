@@ -4,7 +4,7 @@ import "fmt"
 
 func ExampleKendoUiColorPalette_ToJavaScript() {
   color := KendoUiColorPalette{
-    Div: HtmlElementDiv{
+    Html: HtmlElementDiv{
       Global: HtmlGlobalAttributes{
         Id: "palette",
       },
@@ -63,7 +63,7 @@ func ExampleKendoUiColorPalette_ToJavaScript() {
   //<div id="example">
   //<div class="demo-section hidden-on-narrow k-content wide">
   //<div id="background">
-  //<div  id="palette" ></div>
+  //<div id="palette"></div>
   //</div>
   //</div>
   //</div>

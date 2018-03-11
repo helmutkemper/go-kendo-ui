@@ -1,13 +1,13 @@
 package telerik
 
 import (
-  "fmt"
-  "html/template"
   "bytes"
+  "reflect"
+  log "github.com/helmutkemper/seelog"
 )
 
 type KendoUiColorPicker struct{
-  HtmlId                                  String
+  Html                                  HtmlInputText                           `jsObject:"-"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/colorpicker#configuration-buttons
@@ -23,8 +23,7 @@ type KendoUiColorPicker struct{
    })
    </script>
   */
-
-  Buttons                                 Boolean
+  Buttons                                 Boolean                               `jsObject:"buttons"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/colorpicker#configuration-clearButton
@@ -40,8 +39,7 @@ type KendoUiColorPicker struct{
    });
    </script>
   */
-
-  ClearButton                             Boolean
+  ClearButton                             Boolean                               `jsObject:"clearButton"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/colorpicker#configuration-columns
@@ -57,8 +55,7 @@ type KendoUiColorPicker struct{
    });
    </script>
   */
-
-  Columns                                 Int
+  Columns                                 int                                   `jsObject:"columns"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/colorpicker#configuration-tileSize
@@ -74,8 +71,7 @@ type KendoUiColorPicker struct{
    });
    </script>
   */
-
-  TileSize                                *KendoTileSize
+  TileSize                                *KendoTileSize                        `jsObject:"tileSize"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/colorpicker#configuration-messages
@@ -93,8 +89,7 @@ type KendoUiColorPicker struct{
    })
    </script>
   */
-
-  Messages                                *KendoColorMessages
+  Messages                                *KendoColorMessages                   `jsObject:"messages"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/colorpicker#configuration-palette
@@ -113,8 +108,7 @@ type KendoUiColorPicker struct{
    });
    </script>
   */
-
-  Palette                                 String
+  Palette                                 string                                `jsObject:"palette"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/colorpicker#configuration-opacity
@@ -129,8 +123,7 @@ type KendoUiColorPicker struct{
    });
    </script>
   */
-
-  Opacity                                 Boolean
+  Opacity                                 Boolean                               `jsObject:"opacity"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/colorpicker#configuration-preview
@@ -146,8 +139,7 @@ type KendoUiColorPicker struct{
    });
    </script>
   */
-
-  Preview                                 Boolean
+  Preview                                 Boolean                               `jsObject:"preview"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/colorpicker#configuration-toolIcon
@@ -162,8 +154,7 @@ type KendoUiColorPicker struct{
    });
    </script>
   */
-
-  ToolIcon                                String
+  ToolIcon                                string                                `jsObject:"toolIcon"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/colorpicker#configuration-value
@@ -178,24 +169,31 @@ type KendoUiColorPicker struct{
    });
    </script>
   */
+  Value                                   string                                `jsObject:"value"`
 
-  Value                                   String
+  *ToJavaScriptConverter
 }
-func(el *KendoUiColorPicker) IsSet() bool {
-  return el != nil
-}
-func(el *KendoUiColorPicker) String() string {
-  var buffer bytes.Buffer
-  tmpl := template.Must(template.New("").Funcs(template.FuncMap{
-    "safeHTML": func(s interface{}) template.HTML {
-      return template.HTML(fmt.Sprint(s))
-    },
-  }).Parse(GetTemplate()))
-  err := tmpl.ExecuteTemplate(&buffer, "KendoUiColorPicker", *(el))
-  if err != nil {
-    fmt.Println(err.Error())
+func(el *KendoUiColorPicker) ToJavaScript() []byte {
+  var ret bytes.Buffer
+
+  if el.Html.Global.Id == "" {
+    log.Critical("kendoColorPicker not have a html id for mount JavaScript code.")
+    return []byte{}
   }
-  
-  return buffer.String()
-}
 
+  element := reflect.ValueOf(el).Elem()
+  data, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
+  if err != nil {
+    log.Criticalf( "kendoColorPicker.Error: %v", err.Error() )
+    return []byte{}
+  }
+
+  ret.Write( []byte(`$("#` + el.Html.Global.Id + `").kendoColorPicker({`) )
+  ret.Write( data )
+  ret.Write( []byte(`});`) )
+
+  return ret.Bytes()
+}
+func(el *KendoUiColorPicker) ToHtml() []byte{
+  return el.Html.ToHtml()
+}

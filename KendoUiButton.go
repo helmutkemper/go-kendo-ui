@@ -75,25 +75,25 @@ type KendoUiButton struct{
   *ToJavaScriptConverter
 }
 
-func(el *KendoUiButton) ToJavaScript() string {
+func(el *KendoUiButton) ToJavaScript() []byte {
   var ret bytes.Buffer
   if el.Html.Global.Id == "" {
     log.Critical("kendoButton not have a html id for mount JavaScript code.")
-    return ""
+    return []byte{}
   }
 
   element := reflect.ValueOf(el).Elem()
   data, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
   if err != nil {
     log.Criticalf( "kendoButton.Error: %v", err.Error() )
-    return ""
+    return []byte{}
   }
 
   ret.Write( []byte(`$("#` + el.Html.Global.Id + `").kendoButton({`) )
   ret.Write( data )
   ret.Write( []byte(`});`) )
 
-  return ret.String()
+  return ret.Bytes()
 }
 func(el *KendoUiButton) ToHtml() []byte{
   return el.Html.ToHtml()

@@ -142,7 +142,7 @@ type KendoUiMultiSelect struct {
   });
   </script>
   */
-  DataSource                              interface{}                             `jsObject:"dataSource" jsType:"*KendoDataSource,string"`
+  DataSource                              interface{}                             `jsObject:"dataSource" jsType:"*KendoDataSource,string,*map[string]interface {}"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/datatextfield
