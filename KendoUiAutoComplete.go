@@ -22,8 +22,8 @@ type KendoUiAutoComplete struct{
      animation: false
    });
    </script>
-  */
-  Animation                               *KendoAnimation                         `jsObject:"animation"`
+  *///fixme: animation deveria ser interface
+  Animation                               interface{}                             `jsObject:"animation" jsType:"*KendoAnimation,Boolean"`
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-autoWidth
