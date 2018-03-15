@@ -50,8 +50,7 @@ type KendoUiDialog struct{
    });
    </script>
   */
-
-  Animation                               *KendoAnimation
+  Animation                               interface{}                             `jsObject:"animation" jsType:"*KendoAnimation,Boolean"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog#configuration-buttonLayout

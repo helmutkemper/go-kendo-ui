@@ -58,7 +58,7 @@ func ExampleKendoUiColorPicker_ToHtml_Div() {
     Value: "#b72bba",
   }
 
-  fmt.Printf( "%s", html.ToHtml() )
+  fmt.Printf( "%s", html.ToJavaScript() )
 
   // Output:
   // $("#picker").kendoColorPicker({buttons: true,clearButton: true,columns: 3,tileSize: { width: 32,height: 32,},messages: { apply: "update",cancel: "Discard",},palette: "websafe",opacity: true,preview: true,toolIcon: "k-foreColor",value: "#b72bba",});

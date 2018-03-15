@@ -23,7 +23,7 @@ type KendoUiAutoComplete struct{
    });
    </script>
   */
-  Animation                               *KendoAnimation                         `jsObject:"animation"`
+  Animation                               interface{}                             `jsObject:"animation" jsType:"*KendoAnimation,Boolean"`
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-autoWidth

@@ -81,8 +81,7 @@ type KendoUiContextMenu struct{
        });
    </script>
   */
-
-  Animation                               *KendoAnimation
+  Animation                               interface{}                             `jsObject:"animation" jsType:"*KendoAnimation,Boolean"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/contextmenu#configuration-appendTo
@@ -240,8 +239,7 @@ type KendoUiContextMenu struct{
        });
    </script>
   */
-
-  DataSource                              interface{}
+  DataSource                              interface{}                             `jsObject:"dataSource" jsType:"*KendoDataSource,string,*map[string]interface {},[]string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/contextmenu#configuration-direction

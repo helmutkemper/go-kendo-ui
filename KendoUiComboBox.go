@@ -1,13 +1,13 @@
 package telerik
 
 import (
-  "fmt"
-  "html/template"
   "bytes"
+  "reflect"
+  log "github.com/helmutkemper/seelog"
 )
 
 type KendoUiComboBox struct{
-  HtmlId                                  String
+  Html                                  HtmlInputText                           `jsObject:"-"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-animation
@@ -22,8 +22,7 @@ type KendoUiComboBox struct{
    });
    </script>
   */
-
-  Animation                               *KendoAnimation
+  Animation                               interface{}                             `jsObject:"animation" jsType:"*KendoAnimation,Boolean"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-autoBind
@@ -38,8 +37,7 @@ type KendoUiComboBox struct{
    });
    </script>
   */
-
-  AutoBind                                Boolean
+  AutoBind                                Boolean                               `jsObject:"autoBind"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-autoWidth
@@ -58,8 +56,7 @@ type KendoUiComboBox struct{
    });
    </script>
   */
-
-  AutoWidth                               Boolean
+  AutoWidth                               Boolean                               `jsObject:"autoWidth"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-cascadeFrom
@@ -92,8 +89,7 @@ type KendoUiComboBox struct{
    });
    </script>
   */
-
-  CascadeFrom                             String
+  CascadeFrom                             string                                `jsObject:"cascadeFrom"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-cascadeFromField
@@ -127,8 +123,7 @@ type KendoUiComboBox struct{
    });
    </script>
   */
-
-  CascadeFromField                        String
+  CascadeFromField                        string                                `jsObject:"cascadeFromField"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-clearButton
@@ -143,8 +138,7 @@ type KendoUiComboBox struct{
    });
    </script>
   */
-
-  ClearButton                             Boolean
+  ClearButton                             Boolean                               `jsObject:"clearButton"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-dataSource
@@ -163,8 +157,7 @@ type KendoUiComboBox struct{
    });
    </script>
   */
-
-  DataSource                              interface{}
+  DataSource                              interface{}                           `jsObject:"dataSource" jsType:"*KendoDataSource,string,*map[string]interface {},[]string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-dataTextField
@@ -185,8 +178,7 @@ type KendoUiComboBox struct{
    });
    </script>
   */
-
-  DataTextField                           String
+  DataTextField                           string                                `jsObject:"dataTextField"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-dataValueField
@@ -207,8 +199,7 @@ type KendoUiComboBox struct{
    });
    </script>
   */
-
-  DataValueField                          String
+  DataValueField                          string                                `jsObject:"dataValueField"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-delay
@@ -223,8 +214,7 @@ type KendoUiComboBox struct{
    });
    </script>
   */
-
-  Delay                                   Int
+  Delay                                   int                                   `jsObject:"delay"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-enable
@@ -239,8 +229,7 @@ type KendoUiComboBox struct{
    });
    </script>
   */
-
-  Enable                                  Boolean
+  Enable                                  Boolean                               `jsObject:"enable"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-enforceMinLength
@@ -270,8 +259,7 @@ type KendoUiComboBox struct{
    });
    </script>
   */
-
-  EnforceMinLength                        Boolean
+  EnforceMinLength                        Boolean                               `jsObject:"enforceMinLength"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-filter
@@ -286,18 +274,14 @@ type KendoUiComboBox struct{
    });
    </script>
   */
-
-  Filter                                  String
+  Filter                                  KendoFilter                           `jsObject:"filter"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-fixedGroupTemplate
 
   The <a href="/kendo-ui/api/javascript/kendo#methods-template">template</a> used to render the fixed header group. By default the widget displays only the value of the current group.
-
-  
   */
-
-  FixedGroupTemplate                      String
+  FixedGroupTemplate                      string                                `jsObject:"fixedGroupTemplate"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-footerTemplate
@@ -319,18 +303,14 @@ type KendoUiComboBox struct{
    });
    </script>
   */
-
-  FooterTemplate                          String
+  FooterTemplate                          string                                `jsObject:"footerTemplate"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-groupTemplate
 
   The <a href="/kendo-ui/api/javascript/kendo#methods-template">template</a> used to render the groups. By default the widget displays only the value of the group.
-
-  
   */
-
-  GroupTemplate                           String
+  GroupTemplate                           string                                `jsObject:"groupTemplate"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-height
@@ -345,8 +325,7 @@ type KendoUiComboBox struct{
    });
    </script>
   */
-
-  Height                                  Int
+  Height                                  int                                   `jsObject:"height"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-highlightFirst
@@ -361,8 +340,7 @@ type KendoUiComboBox struct{
    });
    </script>
   */
-
-  HighlightFirst                          Boolean
+  HighlightFirst                          Boolean                               `jsObject:"highlightFirst"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-ignoreCase
@@ -377,8 +355,7 @@ type KendoUiComboBox struct{
    });
    </script>
   */
-
-  IgnoreCase                              Boolean
+  IgnoreCase                              Boolean                               `jsObject:"ignoreCase"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-index
@@ -397,8 +374,7 @@ type KendoUiComboBox struct{
    });
    </script>
   */
-
-  Index                                   Int
+  Index                                   int                                   `jsObject:"index"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-minLength
@@ -414,8 +390,7 @@ type KendoUiComboBox struct{
    });
    </script>
   */
-
-  MinLength                               Int
+  MinLength                               int                                   `jsObject:"minLength"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-noDataTemplate
@@ -434,8 +409,7 @@ type KendoUiComboBox struct{
    });
    </script>
   */
-
-  NoDataTemplate                          String
+  NoDataTemplate                          string                                `jsObject:"noDataTemplate"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-placeholder
@@ -450,8 +424,7 @@ type KendoUiComboBox struct{
    });
    </script>
   */
-
-  Placeholder                             String
+  Placeholder                             string                                `jsObject:"placeholder"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-popup
@@ -476,8 +449,7 @@ type KendoUiComboBox struct{
    });
    </script>
   */
-
-  Popup                                   *KendoPopup
+  Popup                                   *KendoPopup                           `jsObject:"popup"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-suggest
@@ -492,8 +464,7 @@ type KendoUiComboBox struct{
    });
    </script>
   */
-
-  Suggest                                 Boolean
+  Suggest                                 Boolean                               `jsObject:"suggest"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-syncValueAndText
@@ -508,8 +479,7 @@ type KendoUiComboBox struct{
    });
    </script>
   */
-
-  SyncValueAndText                        Boolean
+  SyncValueAndText                        Boolean                               `jsObject:"syncValueAndText"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-headerTemplate
@@ -532,8 +502,7 @@ type KendoUiComboBox struct{
    });
    </script>
   */
-
-  HeaderTemplate                          String
+  HeaderTemplate                          string                                `jsObject:"headerTemplate"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-template
@@ -560,8 +529,7 @@ type KendoUiComboBox struct{
    });
    </script>
   */
-
-  Template                                String
+  Template                                string                                `jsObject:"template"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-text
@@ -577,8 +545,7 @@ type KendoUiComboBox struct{
    });
    </script>
   */
-
-  Text                                    String
+  Text                                    string                                `jsObject:"text"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-value
@@ -594,8 +561,7 @@ type KendoUiComboBox struct{
    });
    </script>
   */
-
-  Value                                   String
+  Value                                   string                                `jsObject:"value"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-valuePrimitive
@@ -623,35 +589,39 @@ type KendoUiComboBox struct{
    kendo.bind($("#combobox"), viewModel);
    </script>
   */
-
-  ValuePrimitive                          Boolean
+  ValuePrimitive                          Boolean                               `jsObject:"valuePrimitive"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-virtual
 
   Enables the virtualization feature of the widget. The configuration can be set on an object, which contains two properties - <b><u>itemHeight</u></b> and <b><u>valueMapper</u></b>.
   For detailed information, refer to the <a href="/kendo-ui/controls/editors/combobox/virtualization">article on virtualization</a>.
-
-  
   */
+  Virtual                                 *KendoVirtual                         `jsObject:"virtual"`
 
-  Virtual                                 *KendoVirtual
+  *ToJavaScriptConverter
 }
-func(el *KendoUiComboBox) IsSet() bool {
-  return el != nil
-}
-func(el *KendoUiComboBox) String() string {
-  var buffer bytes.Buffer
-  tmpl := template.Must(template.New("").Funcs(template.FuncMap{
-    "safeHTML": func(s interface{}) template.HTML {
-      return template.HTML(fmt.Sprint(s))
-    },
-  }).Parse(GetTemplate()))
-  err := tmpl.ExecuteTemplate(&buffer, "KendoUiComboBox", *(el))
-  if err != nil {
-    fmt.Println(err.Error())
+func(el *KendoUiComboBox) ToJavaScript() []byte {
+  var ret bytes.Buffer
+
+  if el.Html.Global.Id == "" {
+    log.Critical("KendoUiComboBox not have a html id for mount JavaScript code.")
+    return []byte{}
   }
-  
-  return buffer.String()
-}
 
+  element := reflect.ValueOf(el).Elem()
+  data, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
+  if err != nil {
+    log.Criticalf( "KendoUiComboBox.Error: %v", err.Error() )
+    return []byte{}
+  }
+
+  ret.Write( []byte(`$("#` + el.Html.Global.Id + `").kendoComboBox({`) )
+  ret.Write( data )
+  ret.Write( []byte(`});`) )
+
+  return ret.Bytes()
+}
+func(el *KendoUiComboBox) ToHtml() []byte{
+  return el.Html.ToHtml()
+}
