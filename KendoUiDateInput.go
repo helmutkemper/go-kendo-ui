@@ -1,14 +1,14 @@
 package telerik
 
 import (
-  "fmt"
-  "html/template"
   "bytes"
+  "reflect"
+  log "github.com/helmutkemper/seelog"
   "time"
 )
 
 type KendoUiDateInput struct{
-  HtmlId                                  String
+  Html                                  HtmlInputDate                            `jsObject:"-"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dateinput#configuration-format
@@ -24,7 +24,7 @@ type KendoUiDateInput struct{
    </script>
   */
 
-  Format                                  String
+  Format                                  string
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dateinput#configuration-max
@@ -98,22 +98,30 @@ type KendoUiDateInput struct{
   */
 
   Messages                                *KendoMessages
-}
-func(el *KendoUiDateInput) IsSet() bool {
-  return el != nil
-}
-func(el *KendoUiDateInput) String() string {
-  var buffer bytes.Buffer
-  tmpl := template.Must(template.New("").Funcs(template.FuncMap{
-    "safeHTML": func(s interface{}) template.HTML {
-      return template.HTML(fmt.Sprint(s))
-    },
-  }).Parse(GetTemplate()))
-  err := tmpl.ExecuteTemplate(&buffer, "KendoUiDateInput", *(el))
-  if err != nil {
-    fmt.Println(err.Error())
-  }
-  
-  return buffer.String()
-}
 
+  *ToJavaScriptConverter
+}
+func(el *KendoUiDateInput) ToJavaScript() []byte {
+  var ret bytes.Buffer
+
+  if el.Html.Global.Id == "" {
+    log.Critical("KendoUiContextMenu not have a html id for mount JavaScript code.")
+    return []byte{}
+  }
+
+  element := reflect.ValueOf(el).Elem()
+  data, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
+  if err != nil {
+    log.Criticalf( "KendoUiContextMenu.Error: %v", err.Error() )
+    return []byte{}
+  }
+
+  ret.Write( []byte(`$("#` + el.Html.Global.Id + `").kendoContextMenu({`) )
+  ret.Write( data )
+  ret.Write( []byte(`});`) )
+
+  return ret.Bytes()
+}
+func(el *KendoUiDateInput) ToHtml() []byte{
+  return el.Html.ToHtml()
+}
