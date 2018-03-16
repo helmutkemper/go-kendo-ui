@@ -22,7 +22,7 @@ type KendoUiComboBox struct{
    });
    </script>
   */
-  Animation                               interface{}                             `jsObject:"animation" jsType:"*KendoAnimation,Boolean"`
+  Animation                               interface{}                           `jsObject:"animation" jsType:"*KendoAnimation,Boolean"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-autoBind
@@ -281,8 +281,7 @@ type KendoUiComboBox struct{
 
   The <a href="/kendo-ui/api/javascript/kendo#methods-template">template</a> used to render the fixed header group. By default the widget displays only the value of the current group.
   */
-  FixedGroupTemplate                      string                                `jsObject:"fixedGroupTemplate"`
-  FixedGroupTemplate                      interface{}                             `jsObject:"fixedGroupTemplate" jsType:"*JavaScript,string"`
+  FixedGroupTemplate                      interface{}                           `jsObject:"fixedGroupTemplate" jsType:"*JavaScript,string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-footerTemplate
@@ -304,16 +303,14 @@ type KendoUiComboBox struct{
    });
    </script>
   */
-  FooterTemplate                          string                                `jsObject:"footerTemplate"`
-  FooterTemplate                          interface{}                             `jsObject:"footerTemplate" jsType:"*JavaScript,string"`
+  FooterTemplate                          interface{}                           `jsObject:"footerTemplate" jsType:"*JavaScript,string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-groupTemplate
 
   The <a href="/kendo-ui/api/javascript/kendo#methods-template">template</a> used to render the groups. By default the widget displays only the value of the group.
   */
-  GroupTemplate                           string                                `jsObject:"groupTemplate"`
-  GroupTemplate                           interface{}                             `jsObject:"groupTemplate" jsType:"*JavaScript,string"`
+  GroupTemplate                           interface{}                           `jsObject:"groupTemplate" jsType:"*JavaScript,string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-height
@@ -394,7 +391,6 @@ type KendoUiComboBox struct{
    </script>
   */
   MinLength                               int                                   `jsObject:"minLength"`
-  MinLength                               int                                     `jsObject:"minLength"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-noDataTemplate
@@ -413,8 +409,7 @@ type KendoUiComboBox struct{
    });
    </script>
   */
-  NoDataTemplate                          string                                `jsObject:"noDataTemplate"`
-  NoDataTemplate                          interface{}                             `jsObject:"noDataTemplate" jsType:"*JavaScript,string"`
+  NoDataTemplate                          interface{}                           `jsObject:"noDataTemplate" jsType:"*JavaScript,string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-placeholder
@@ -507,8 +502,7 @@ type KendoUiComboBox struct{
    });
    </script>
   */
-  HeaderTemplate                          string                                `jsObject:"headerTemplate"`
-  HeaderTemplate                          interface{}                             `jsObject:"headerTemplate" jsType:"*JavaScript,string"`
+  HeaderTemplate                          interface{}                           `jsObject:"headerTemplate" jsType:"*JavaScript,string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-template
@@ -535,8 +529,7 @@ type KendoUiComboBox struct{
    });
    </script>
   */
-  Template                                string                                `jsObject:"template"`
-  Template                                interface{}                             `jsObject:"Template" jsType:"*JavaScript,string"`
+  Template                                interface{}                           `jsObject:"Template" jsType:"*JavaScript,string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-text

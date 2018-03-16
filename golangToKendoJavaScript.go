@@ -436,6 +436,15 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
       }
     //---------------------------------------------------------------------------------------------------------------
 
+    case "*telerik.KendoConfirmMessages":
+      if field.Interface().(*KendoConfirmMessages) == nil {
+        continue
+      }
+
+      buffer.WriteString(tag.Get("jsObject") + `: { `)
+      buffer.Write( field.Interface().(*KendoConfirmMessages).ToJavaScript() )
+      buffer.WriteString(`},`)
+
     case "*telerik.KendoColorMessages":
       if field.Interface().(*KendoColorMessages) == nil {
         continue
@@ -993,6 +1002,7 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
       case "[]string": continue
       case "*telerik.KendoTileSize": continue
       case "*telerik.KendoColorMessages": continue
+      case "*telerik.KendoConfirmMessages": continue
     }
 
     fmt.Printf("\n\n\n\n%d: %s %s = %v  template: ''%v''\n\n\n\n\n", i, typeOfT.Field(i).Name, field.Type(), field.Interface(), tag.Get("jsObject"))

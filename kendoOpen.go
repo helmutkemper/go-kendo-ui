@@ -21,23 +21,6 @@ type KendoOpen struct{
 
   *ToJavaScriptConverter
 }
-/*func(el *KendoOpen) IsSet() bool {
-  return el != nil
-}
-func(el *KendoOpen) String() string {
-  var buffer bytes.Buffer
-  tmpl := template.Must(template.New("").Funcs(template.FuncMap{
-    "safeHTML": func(s interface{}) template.HTML {
-      return template.HTML(s.(string))
-    },
-  }).Parse(GetTemplate()))
-  err := tmpl.ExecuteTemplate(&buffer, "Open", *(el))
-  if err != nil {
-    fmt.Println(err.Error())
-  }
-  
-  return buffer.String()
-}*/
 func(el *KendoOpen) ToJavaScript() []byte {
   element := reflect.ValueOf(el).Elem()
   ret, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)

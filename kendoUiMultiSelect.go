@@ -305,7 +305,7 @@ type KendoUiMultiSelect struct {
       });
   </script>
   */
-  FixedGroupTemplate                      string                                  `jsObject:"fixedGroupTemplate"`
+  FixedGroupTemplate                      string                                  `jsObject:"fixedGroupTemplate" jsType:"*JavaScript,string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/footertemplate
@@ -329,7 +329,7 @@ type KendoUiMultiSelect struct {
   });
   </script>
   */
-  FooterTemplate                          string                                  `jsObject:"footerTemplate"`
+  FooterTemplate                          string                                  `jsObject:"footerTemplate" jsType:"*JavaScript,string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/grouptemplate
@@ -357,7 +357,7 @@ type KendoUiMultiSelect struct {
       });
   </script>
   */
-  GroupTemplate                           string                                  `jsObject:"groupTemplate"`
+  GroupTemplate                           string                                  `jsObject:"groupTemplate" jsType:"*JavaScript,string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/height
@@ -472,7 +472,7 @@ type KendoUiMultiSelect struct {
   });
   </script>
   */
-  NoDataTemplate                          string                                  `jsObject:"noDataTemplate"`
+  NoDataTemplate                          string                                  `jsObject:"noDataTemplate" jsType:"*JavaScript,string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/placeholder
@@ -549,7 +549,7 @@ type KendoUiMultiSelect struct {
   });
   </script>
   */
-  HeaderTemplate                          string                                  `jsObject:"headerTemplate"`
+  HeaderTemplate                          string                                  `jsObject:"headerTemplate" jsType:"*JavaScript,string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/itemtemplate
@@ -590,7 +590,7 @@ type KendoUiMultiSelect struct {
   });
   </script>
   */
-  ItemTemplate                            string                                  `jsObject:"itemTemplate"`
+  ItemTemplate                            string                                  `jsObject:"itemTemplate" jsType:"*JavaScript,string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/tagtemplate
@@ -674,7 +674,7 @@ type KendoUiMultiSelect struct {
   });
   </script>
   */
-  TagTemplate                            *JavaScript                              `jsObject:"tagTemplate"`
+  TagTemplate                            *JavaScript                              `jsObject:"tagTemplate" jsType:"*JavaScript,string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/tagmode

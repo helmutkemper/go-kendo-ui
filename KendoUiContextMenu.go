@@ -1,13 +1,13 @@
 package telerik
 
 import (
-  "fmt"
-  "html/template"
   "bytes"
+  "reflect"
+  log "github.com/helmutkemper/seelog"
 )
 
 type KendoUiContextMenu struct{
-  HtmlId                                  String
+  Html                                  HtmlElementDiv                            `jsObject:"-"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/contextmenu#configuration-alignToAnchor
@@ -39,8 +39,7 @@ type KendoUiContextMenu struct{
        });
    </script>
   */
-
-  AlignToAnchor                           Boolean
+  AlignToAnchor                           Boolean                                 `jsObject:"alignToAnchor"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/contextmenu#configuration-animation
@@ -112,8 +111,7 @@ type KendoUiContextMenu struct{
        });
    </script>
   */
-
-  AppendTo                                String
+  AppendTo                                interface{}                             `jsObject:"appendTo" jsType:"*JavaScript,string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/contextmenu#configuration-closeOnClick
@@ -145,8 +143,7 @@ type KendoUiContextMenu struct{
        });
    </script>
   */
-
-  CloseOnClick                            Boolean
+  CloseOnClick                            Boolean                                 `jsObject:"closeOnClick"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/contextmenu#configuration-copyAnchorStyles
@@ -180,8 +177,7 @@ type KendoUiContextMenu struct{
      });
    </script>
   */
-
-  CopyAnchorStyles                        Boolean
+  CopyAnchorStyles                        Boolean                                 `jsObject:"copyAnchorStyles"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/contextmenu#configuration-dataSource
@@ -271,8 +267,7 @@ type KendoUiContextMenu struct{
        });
    </script>
   */
-
-  Direction                               String
+  Direction                               string                                  `jsObject:"direction"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/contextmenu#configuration-filter
@@ -308,8 +303,7 @@ type KendoUiContextMenu struct{
        });
    </script>
   */
-
-  Filter                                  String
+  Filter                                  string                                  `jsObject:"filter"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/contextmenu#configuration-hoverDelay
@@ -341,8 +335,7 @@ type KendoUiContextMenu struct{
        });
    </script>
   */
-
-  HoverDelay                              Int
+  HoverDelay                              int                                     `jsObject:"hoverDelay"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/contextmenu#configuration-orientation
@@ -373,9 +366,8 @@ type KendoUiContextMenu struct{
            orientation: "horizontal"
        });
    </script>
-  */
-
-  Orientation                             String
+  *///
+  Orientation                             KendoOrientation                        `jsObject:"orientation"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/contextmenu#configuration-popupCollision
@@ -407,8 +399,7 @@ type KendoUiContextMenu struct{
        });
    </script>
   */
-
-  PopupCollision                          String
+  PopupCollision                          Boolean                                 `jsObject:"popupCollision"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/contextmenu#configuration-showOn
@@ -440,8 +431,7 @@ type KendoUiContextMenu struct{
        });
    </script>
   */
-
-  ShowOn                                  String
+  ShowOn                                  string                                  `jsObject:"showOn"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/contextmenu#configuration-target
@@ -472,24 +462,31 @@ type KendoUiContextMenu struct{
        });
    </script>
   */
+  Target                                  string                                  `jsObject:"target"`
 
-  Target                                  String
+  *ToJavaScriptConverter
 }
-func(el *KendoUiContextMenu) IsSet() bool {
-  return el != nil
-}
-func(el *KendoUiContextMenu) String() string {
-  var buffer bytes.Buffer
-  tmpl := template.Must(template.New("").Funcs(template.FuncMap{
-    "safeHTML": func(s interface{}) template.HTML {
-      return template.HTML(fmt.Sprint(s))
-    },
-  }).Parse(GetTemplate()))
-  err := tmpl.ExecuteTemplate(&buffer, "KendoUiContextMenu", *(el))
-  if err != nil {
-    fmt.Println(err.Error())
+func(el *KendoUiContextMenu) ToJavaScript() []byte {
+  var ret bytes.Buffer
+
+  if el.Html.Global.Id == "" {
+    log.Critical("KendoUiContextMenu not have a html id for mount JavaScript code.")
+    return []byte{}
   }
-  
-  return buffer.String()
-}
 
+  element := reflect.ValueOf(el).Elem()
+  data, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
+  if err != nil {
+    log.Criticalf( "KendoUiContextMenu.Error: %v", err.Error() )
+    return []byte{}
+  }
+
+  ret.Write( []byte(`$("#` + el.Html.Global.Id + `").kendoContextMenu({`) )
+  ret.Write( data )
+  ret.Write( []byte(`});`) )
+
+  return ret.Bytes()
+}
+func(el *KendoUiContextMenu) ToHtml() []byte{
+  return el.Html.ToHtml()
+}
