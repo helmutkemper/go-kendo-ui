@@ -23,8 +23,7 @@ type KendoUiDateInput struct{
    });
    </script>
   */
-
-  Format                                  string
+  Format                                  string                                 `jsObject:"format"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dateinput#configuration-max
@@ -39,8 +38,7 @@ type KendoUiDateInput struct{
    });
    </script>
   */
-
-  Max                                     time.Time
+  Max                                     time.Time                              `jsObject:"max"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dateinput#configuration-min
@@ -55,8 +53,7 @@ type KendoUiDateInput struct{
    });
    </script>
   */
-
-  Min                                     time.Time
+  Min                                     time.Time                              `jsObject:"min"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dateinput#configuration-value
@@ -71,8 +68,7 @@ type KendoUiDateInput struct{
    });
    </script>
   */
-
-  Value                                   time.Time
+  Value                                   time.Time                              `jsObject:"value"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dateinput#configuration-messages
@@ -96,8 +92,7 @@ type KendoUiDateInput struct{
    });
    </script>
   */
-
-  Messages                                *KendoMessages
+  Messages                                *KendoMessages                         `jsObject:"messages"`
 
   *ToJavaScriptConverter
 }

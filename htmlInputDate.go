@@ -1,5 +1,10 @@
 package telerik
 
+import (
+  "bytes"
+  "reflect"
+)
+
 // <input> elements of type date create input fields that let the user enter a date, either using a text box that
 // automatically validates the content, or using a special date picker interface. The resulting value includes the year,
 // month, and day, but not the time. The time and datetime-local input types support time and date/time inputs.
@@ -15,7 +20,7 @@ type HtmlInputDate struct{
   @see typeNamesForAutocomplete.go
   Ex.: const NAMES_FOR_AUTOCOMPLETE_NAME
   */
-  Name                        String
+  Name                        String                      `htmlAttr:"name"`
 
   /*
   The initial value of the control. This attribute is optional except when the value of the type attribute is radio or
@@ -23,7 +28,7 @@ type HtmlInputDate struct{
   Note that when reloading the page, Gecko and IE will ignore the value specified in the HTML source, if the value was
   changed before the reload.
   */
-  Value                       String
+  Value                       String                      `htmlAttr:"value"`
 
   /*
   The form element that the input element is associated with (its form owner). The value of the attribute must be an id
@@ -31,7 +36,7 @@ type HtmlInputDate struct{
   descendant of a <form> element. This attribute enables you to place <input> elements anywhere within a document, not
   just as descendants of their form elements. An input can only be associated with one form.
   */
-  Form                        String
+  Form                        String                      `htmlAttr:"form"`
 
   /*
   This Boolean attribute indicates that the form control is not available for interaction. In particular, the click
@@ -39,19 +44,44 @@ type HtmlInputDate struct{
   Unlike other browsers, Firefox will by default persist the dynamic disabled state of an <input> across page loads. Use
   the autocomplete attribute to control this feature.
   */
-  Disabled                    Boolean
+  Disabled                    Boolean                     `htmlAttrSet:"disabled"`
+
+  /*
+  This attribute indicates whether the value of the control can be automatically completed by the browser.
+  Possible values are:
+  off: The user must explicitly enter a value into this field for every use, or the document provides its own
+  auto-completion method. The browser does not automatically complete the entry.
+  on: The browser is allowed to automatically complete the value based on values that the user has entered during
+  previous uses, however on does not provide any further information about what kind of data the user might be expected
+  to enter.
+  @see typeNamesForAutocomplete.go
+  */
+  AutoComplete                Boolean                     `htmlAttrOnOff:"autocomplete"`
 
   /*
   Identifies a list of pre-defined options to suggest to the user. The value must be the id of a <datalist> element in
   the same document. The browser displays only options that are valid values for this input element. This attribute is
   ignored when the type attribute's value is hidden, checkbox, radio, file, or a button type.
   */
-  List                        String
+  List                        String                      `htmlAttr:"list"`
 
-  ValueAsDate                 Boolean
-  ValueAsNumber               Boolean
-  Global                      HtmlGlobalAttributes
-}/*
-func(el *HtmlInputDate)String() string {
-  return `<input ` + el.Global.String() + ` type="date" ` + el.Name.ToAttr("name") + el.List.ToAttr("list") + el.ValueAsDate.ToAttr("valueasdate") + el.ValueAsNumber.ToAttr("valueasnumber") + el.Value.ToAttr("value") + `>`
-}*/
+  ValueAsDate                 Boolean                     `htmlAttr:"valueAsDate"`
+  ValueAsNumber               Boolean                     `htmlAttr:"valueAsNumber"`
+
+  Global                      HtmlGlobalAttributes        `htmlAttr:"-"`
+
+  *ToJavaScriptConverter                                  `htmlAttr:"-"`
+}
+func(el *HtmlInputDate)ToHtml() []byte {
+  var buffer bytes.Buffer
+
+  element := reflect.ValueOf(el).Elem()
+  data := el.ToJavaScriptConverter.ToTelerikHtml(element)
+
+  buffer.Write( []byte( `<input type="date"` ) )
+  buffer.Write( el.Global.ToHtml() )
+  buffer.Write( data )
+  buffer.Write( []byte( `>` ) )
+
+  return buffer.Bytes()
+}
