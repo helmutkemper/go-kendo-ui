@@ -136,7 +136,7 @@ type KendoUiDateTimePicker struct{
    </script>
   */
 
-  Depth                                   String
+  Depth                                   KendoTimeDepth                          `jsObject:"depth"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/datetimepicker#configuration-disableDates
@@ -156,7 +156,7 @@ type KendoUiDateTimePicker struct{
    </script>
   */
 
-  DisableDates                            interface{}
+  DisableDates                            KendoWeekDays                           `jsObject:"disableDates"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/datetimepicker#configuration-footer

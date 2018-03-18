@@ -1,13 +1,13 @@
 package telerik
 
 import (
-  "fmt"
-  "html/template"
   "bytes"
+  "reflect"
+  log "github.com/helmutkemper/seelog"
 )
 
 type KendoUiDraggable struct{
-  HtmlId                                  String
+  Html                                    HtmlElementDiv                          `jsObject:"-"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/draggable#configuration-axis
@@ -34,8 +34,7 @@ type KendoUiDraggable struct{
      }
    </style>
   */
-
-  Axis                                    String
+  Axis                                    KendoAxis                               `jsObject:"axis"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/draggable#configuration-autoScroll
@@ -62,8 +61,7 @@ type KendoUiDraggable struct{
      }
    </style>
   */
-
-  AutoScroll                              Boolean
+  AutoScroll                              Boolean                                 `jsObject:"autoScroll"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/draggable#configuration-container
@@ -97,8 +95,7 @@ type KendoUiDraggable struct{
      }
    </style>
   */
-
-  Container                               String
+  Container                               *JavaScript                             `jsObject:"container"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/draggable#configuration-cursorOffset
@@ -125,8 +122,7 @@ type KendoUiDraggable struct{
      }
    </style>
   */
-
-  CursorOffset                            interface{}
+  CursorOffset                            KendoOffset                             `jsObject:"cursorOffset"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/draggable#configuration-distance
@@ -153,8 +149,7 @@ type KendoUiDraggable struct{
      }
    </style>
   */
-
-  Distance                                Int
+  Distance                                int                                     `jsObject:"distance"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/draggable#configuration-filter
@@ -188,8 +183,7 @@ type KendoUiDraggable struct{
      .static{ background-color: purple; }
    </style>
   */
-
-  Filter                                  String
+  Filter                                  string                                  `jsObject:"filter"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/draggable#configuration-group
@@ -244,8 +238,7 @@ type KendoUiDraggable struct{
      .purple, #purpleArea { background-color: purple; }
    </style>
   */
-
-  Group                                   String
+  Group                                   string                                  `jsObject:"group"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/draggable#configuration-hint
@@ -277,8 +270,7 @@ type KendoUiDraggable struct{
      }
    </style>
   */
-
-  Hint                                    String
+  Hint                                    interface{}                             `jsObject:"hint" jsType:"*JavaScript,string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/draggable#configuration-holdToDrag
@@ -319,8 +311,7 @@ type KendoUiDraggable struct{
      }
    </style>
   */
-
-  HoldToDrag                              Boolean
+  HoldToDrag                              Boolean                                 `jsObject:"holdToDrag"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/draggable#configuration-ignore
@@ -354,24 +345,30 @@ type KendoUiDraggable struct{
        }
    </style>
   */
+  Ignore                                  string                                  `jsObject:"ignore"`
 
-  Ignore                                  String
+  *ToJavaScriptConverter
 }
-func(el *KendoUiDraggable) IsSet() bool {
-  return el != nil
-}
-func(el *KendoUiDraggable) String() string {
-  var buffer bytes.Buffer
-  tmpl := template.Must(template.New("").Funcs(template.FuncMap{
-    "safeHTML": func(s interface{}) template.HTML {
-      return template.HTML(fmt.Sprint(s))
-    },
-  }).Parse(GetTemplate()))
-  err := tmpl.ExecuteTemplate(&buffer, "KendoUiDraggable", *(el))
-  if err != nil {
-    fmt.Println(err.Error())
+func(el *KendoUiDraggable) ToJavaScript() []byte {
+  var ret bytes.Buffer
+  if el.Html.Global.Id == "" {
+    log.Critical("kendoDraggable not have a html id for mount JavaScript code.")
+    return []byte{}
   }
-  
-  return buffer.String()
-}
 
+  element := reflect.ValueOf(el).Elem()
+  data, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
+  if err != nil {
+    log.Criticalf( "kendoDraggable.Error: %v", err.Error() )
+    return []byte{}
+  }
+
+  ret.Write( []byte(`$("#` + el.Html.Global.Id + `").kendoDraggable({`) )
+  ret.Write( data )
+  ret.Write( []byte(`});`) )
+
+  return ret.Bytes()
+}
+func(el *KendoUiDraggable) ToHtml() []byte{
+  return el.Html.ToHtml()
+}

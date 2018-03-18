@@ -58,7 +58,7 @@ type KendoUiCalendar struct{
        });
    </script>
   */
-  Depth                                   string              `jsObject:"depth"`
+  Depth                                   KendoTimeDepth                          `jsObject:"depth"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/calendar#configuration-disableDates
@@ -77,7 +77,7 @@ type KendoUiCalendar struct{
    });
    </script>
   */
-  DisableDates                            []string            `jsObject:"disableDates"`
+  DisableDates                            KendoWeekDays                           `jsObject:"disableDates"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/calendar#configuration-footer

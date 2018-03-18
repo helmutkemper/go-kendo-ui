@@ -1,14 +1,14 @@
 package telerik
 
 import (
-  "fmt"
-  "html/template"
   "bytes"
+  "reflect"
+  log "github.com/helmutkemper/seelog"
   "time"
 )
 
 type KendoUiDatePicker struct{
-  HtmlId                                  String
+  Html                                    HtmlInputText                           `jsObject:"-"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/datepicker#configuration-animation
@@ -24,13 +24,13 @@ type KendoUiDatePicker struct{
    });
    </script>
   */
-
-  Animation                               *KendoAnimation
+  Animation                               interface{}                             `jsObject:"animation" jsType:"*KendoAnimation,Boolean"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/datepicker#configuration-ARIATemplate
 
   Specifies a template used to populate value of the aria-label attribute.
+  (default: "Current focused date is #=kendo.toString(data.current, 'D')#")
 
   Example
    <input id="datepicker" />
@@ -40,8 +40,7 @@ type KendoUiDatePicker struct{
    });
    </script>
   */
-
-  ARIATemplate                            String
+  ARIATemplate                            interface{}                             `jsObject:"ARIATemplate" jsType:"*JavaScript,string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/datepicker#configuration-culture
@@ -56,8 +55,7 @@ type KendoUiDatePicker struct{
    });
    </script>
   */
-
-  Culture                                 String
+  Culture                                 string                                  `jsObject:"culture"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/datepicker#configuration-dateInput
@@ -72,8 +70,7 @@ type KendoUiDatePicker struct{
    });
    </script>
   */
-
-  DateInput                               Boolean
+  DateInput                               Boolean                                 `jsObject:"dateInput"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/datepicker#configuration-dates
@@ -118,8 +115,7 @@ type KendoUiDatePicker struct{
    
    </script>
   */
-
-  Dates                                   interface{}
+  Dates                                   []time.Time                             `jsObject:"dates"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/datepicker#configuration-depth
@@ -136,8 +132,7 @@ type KendoUiDatePicker struct{
    });
    </script>
   */
-
-  Depth                                   String
+  Depth                                   KendoTimeDepth                          `jsObject:"depth"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/datepicker#configuration-disableDates
@@ -156,8 +151,7 @@ type KendoUiDatePicker struct{
    });
    </script>
   */
-
-  DisableDates                            interface{}
+  DisableDates                            KendoWeekDays                           `jsObject:"disableDates"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/datepicker#configuration-footer
@@ -175,8 +169,7 @@ type KendoUiDatePicker struct{
    });
    </script>
   */
-
-  Footer                                  String
+  FooterTemplate                          interface{}                             `jsObject:"footer" jsType:"*JavaScript,string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/datepicker#configuration-format
@@ -191,8 +184,7 @@ type KendoUiDatePicker struct{
    });
    </script>
   */
-
-  Format                                  String
+  Format                                  string                                  `jsObject:"format"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/datepicker#configuration-max
@@ -207,8 +199,7 @@ type KendoUiDatePicker struct{
    });
    </script>
   */
-
-  Max                                     time.Time
+  Max                                     time.Time                               `jsObject:"max"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/datepicker#configuration-min
@@ -223,18 +214,14 @@ type KendoUiDatePicker struct{
    });
    </script>
   */
-
-  Min                                     time.Time
+  Min                                     time.Time                               `jsObject:"min"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/datepicker#configuration-month
 
   Templates for the cells rendered in the calendar "month" view.
-
-  
   */
-
-  Month                                   *KendoMonth
+  Month                                   *KendoMonth                             `jsObject:"month"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/datepicker#configuration-weekNumber
@@ -249,8 +236,7 @@ type KendoUiDatePicker struct{
        });
    </script>
   */
-
-  WeekNumber                              Boolean
+  WeekNumber                              Boolean                                 `jsObject:"weekNumber"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/datepicker#configuration-parseFormats
@@ -267,8 +253,7 @@ type KendoUiDatePicker struct{
    });
    </script>
   */
-
-  ParseFormats                            interface{}
+  ParseFormats                            []string                                `jsObject:"parseFormats"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/datepicker#configuration-start
@@ -283,8 +268,7 @@ type KendoUiDatePicker struct{
        });
    </script>
   */
-
-  Start                                   String
+  Start                                   KendoWeekDay                            `jsObject:"start"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/datepicker#configuration-value
@@ -299,24 +283,30 @@ type KendoUiDatePicker struct{
    });
    </script>
   */
+  Value                                   time.Time                               `jsObject:"value"`
 
-  Value                                   time.Time
+  *ToJavaScriptConverter
 }
-func(el *KendoUiDatePicker) IsSet() bool {
-  return el != nil
-}
-func(el *KendoUiDatePicker) String() string {
-  var buffer bytes.Buffer
-  tmpl := template.Must(template.New("").Funcs(template.FuncMap{
-    "safeHTML": func(s interface{}) template.HTML {
-      return template.HTML(fmt.Sprint(s))
-    },
-  }).Parse(GetTemplate()))
-  err := tmpl.ExecuteTemplate(&buffer, "KendoUiDatePicker", *(el))
-  if err != nil {
-    fmt.Println(err.Error())
+func(el *KendoUiDatePicker) ToJavaScript() []byte {
+  var ret bytes.Buffer
+  if el.Html.Global.Id == "" {
+    log.Critical("kendoDatePicker not have a html id for mount JavaScript code.")
+    return []byte{}
   }
-  
-  return buffer.String()
-}
 
+  element := reflect.ValueOf(el).Elem()
+  data, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
+  if err != nil {
+    log.Criticalf( "kendoDatePicker.Error: %v", err.Error() )
+    return []byte{}
+  }
+
+  ret.Write( []byte(`$("#` + el.Html.Global.Id + `").kendoDatePicker({`) )
+  ret.Write( data )
+  ret.Write( []byte(`});`) )
+
+  return ret.Bytes()
+}
+func(el *KendoUiDatePicker) ToHtml() []byte{
+  return el.Html.ToHtml()
+}
