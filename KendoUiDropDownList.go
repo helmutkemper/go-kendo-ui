@@ -1,13 +1,13 @@
 package telerik
 
 import (
-  "fmt"
-  "html/template"
   "bytes"
+  "reflect"
+  log "github.com/helmutkemper/seelog"
 )
 
 type KendoUiDropDownList struct{
-  HtmlId                                  String
+  Html                                    HtmlInputText                           `jsObject:"-"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-animation
@@ -41,8 +41,7 @@ type KendoUiDropDownList struct{
    });
    </script>
   */
-
-  AutoBind                                Boolean
+  AutoBind                                Boolean                                 `jsObject:"autoBind"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-autoWidth
@@ -61,8 +60,7 @@ type KendoUiDropDownList struct{
    });
    </script>
   */
-
-  AutoWidth                               Boolean
+  AutoWidth                               Boolean                                 `jsObject:"autoWidth"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-cascadeFrom
@@ -95,8 +93,7 @@ type KendoUiDropDownList struct{
    });
    </script>
   */
-
-  CascadeFrom                             String
+  CascadeFrom                             String                                  `jsObject:"cascadeFrom"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-cascadeFromField
@@ -130,8 +127,7 @@ type KendoUiDropDownList struct{
    });
    </script>
   */
-
-  CascadeFromField                        String
+  CascadeFromField                        String                                  `jsObject:"cascadeFromField"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-dataSource
@@ -171,8 +167,7 @@ type KendoUiDropDownList struct{
      });
    </script>
   */
-
-  DataTextField                           String
+  DataTextField                           String                                  `jsObject:"dataTextField"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-dataValueField
@@ -193,8 +188,7 @@ type KendoUiDropDownList struct{
    });
    </script>
   */
-
-  DataValueField                          String
+  DataValueField                          String                                  `jsObject:"dataValueField"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-delay
@@ -209,8 +203,7 @@ type KendoUiDropDownList struct{
    });
    </script>
   */
-
-  Delay                                   Int
+  Delay                                   Int                                     `jsObject:"delay"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-enable
@@ -225,8 +218,7 @@ type KendoUiDropDownList struct{
    });
    </script>
   */
-
-  Enable                                  Boolean
+  Enable                                  Boolean                                 `jsObject:"enable"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-enforceMinLength
@@ -255,8 +247,7 @@ type KendoUiDropDownList struct{
    });
    </script>
   */
-
-  EnforceMinLength                        Boolean
+  EnforceMinLength                        Boolean                                 `jsObject:"enforceMinLength"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-filter
@@ -272,18 +263,14 @@ type KendoUiDropDownList struct{
    });
    </script>
   */
-
-  Filter                                  String
+  Filter                                  String                                  `jsObject:"filter"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-fixedGroupTemplate
 
   The <a href="/kendo-ui/api/javascript/kendo#methods-template">template</a> used to render the fixed header group. By default the widget displays only the value of the current group.
-
-  
   */
-
-  FixedGroupTemplate                      String
+  FixedGroupTemplate                      interface{}                             `jsObject:"fixedGroupTemplate" jsType:"*JavaScript,string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-footerTemplate
@@ -305,18 +292,14 @@ type KendoUiDropDownList struct{
    });
    </script>
   */
-
-  FooterTemplate                          String
+  FooterTemplate                          interface{}                             `jsObject:"footerTemplate" jsType:"*JavaScript,string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-groupTemplate
 
   The <a href="/kendo-ui/api/javascript/kendo#methods-template">template</a> used to render the groups. By default the widget displays only the value of the group.
-
-  
   */
-
-  GroupTemplate                           String
+  GroupTemplate                           interface{}                             `jsObject:"groupTemplate" jsType:"*JavaScript,string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-height
@@ -341,8 +324,7 @@ type KendoUiDropDownList struct{
    });
    </script>
   */
-
-  Height                                  Int
+  Height                                  Int                                     `jsObject:"height"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-ignoreCase
@@ -357,8 +339,7 @@ type KendoUiDropDownList struct{
    });
    </script>
   */
-
-  IgnoreCase                              Boolean
+  IgnoreCase                              Boolean                                 `jsObject:"ignoreCase"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-index
@@ -377,8 +358,7 @@ type KendoUiDropDownList struct{
    });
    </script>
   */
-
-  Index                                   Int
+  Index                                   Int                                     `jsObject:"index"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-minLength
@@ -396,8 +376,7 @@ type KendoUiDropDownList struct{
    });
    </script>
   */
-
-  MinLength                               Int
+  MinLength                               Int                                     `jsObject:"minLength"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-noDataTemplate
@@ -416,8 +395,7 @@ type KendoUiDropDownList struct{
    });
    </script>
   */
-
-  NoDataTemplate                          String
+  NoDataTemplate                          interface{}                             `jsObject:"noDataTemplate" jsType:"*JavaScript,string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-popup
@@ -442,8 +420,7 @@ type KendoUiDropDownList struct{
    });
    </script>
   */
-
-  Popup                                   *KendoPopup
+  Popup                                   *KendoPopup                             `jsObject:"popup"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-optionLabel
@@ -459,19 +436,15 @@ type KendoUiDropDownList struct{
    });
    </script>
   */
-
-  OptionLabel                             String
+  OptionLabel                             String                                  `jsObject:"optionLabel"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-optionLabelTemplate
 
   The <a href="/kendo-ui/api/javascript/kendo#methods-template">template</a> used to render the option label.
   Define the <a href="/kendo-ui/api/javascript/kendo#configuration-optionLabel">optionLabel</a> as <strong>object</strong> if complex template structure is used
-
-  
   */
-
-  OptionLabelTemplate                     String
+  OptionLabelTemplate                     interface{}                             `jsObject:"optionLabelTemplate" jsType:"*JavaScript,string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-headerTemplate
@@ -492,8 +465,7 @@ type KendoUiDropDownList struct{
    });
    </script>
   */
-
-  HeaderTemplate                          String
+  HeaderTemplate                          interface{}                             `jsObject:"headerTemplate" jsType:"*JavaScript,string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-template
@@ -520,8 +492,7 @@ type KendoUiDropDownList struct{
    });
    </script>
   */
-
-  Template                                String
+  Template                                interface{}                             `jsObject:"template" jsType:"*JavaScript,string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-valueTemplate
@@ -546,8 +517,7 @@ type KendoUiDropDownList struct{
    });
    </script>
   */
-
-  ValueTemplate                           String
+  ValueTemplate                           interface{}                             `jsObject:"valueTemplate" jsType:"*JavaScript,string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-text
@@ -563,8 +533,7 @@ type KendoUiDropDownList struct{
    });
    </script>
   */
-
-  Text                                    String
+  Text                                    String                                  `jsObject:"text"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-value
@@ -580,8 +549,7 @@ type KendoUiDropDownList struct{
    });
    </script>
   */
-
-  Value                                   String
+  Value                                   String                                  `jsObject:"value"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-valuePrimitive
@@ -611,35 +579,38 @@ type KendoUiDropDownList struct{
    kendo.bind($("#dropdown"), viewModel);
    </script>
   */
-
-  ValuePrimitive                          Boolean
+  ValuePrimitive                          Boolean                                 `jsObject:"valuePrimitive"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-virtual
 
   Enables the virtualization feature of the widget. The configuration can be set on an object, which contains two properties - <b><u>itemHeight</u></b> and <b><u>valueMapper</u></b>.
   For detailed information, refer to the <a href="/kendo-ui/controls/editors/combobox/virtualization">article on virtualization</a>.
-
-  
   */
-
   Virtual                                 *KendoVirtual
-}
-func(el *KendoUiDropDownList) IsSet() bool {
-  return el != nil
-}
-func(el *KendoUiDropDownList) String() string {
-  var buffer bytes.Buffer
-  tmpl := template.Must(template.New("").Funcs(template.FuncMap{
-    "safeHTML": func(s interface{}) template.HTML {
-      return template.HTML(fmt.Sprint(s))
-    },
-  }).Parse(GetTemplate()))
-  err := tmpl.ExecuteTemplate(&buffer, "KendoUiDropDownList", *(el))
-  if err != nil {
-    fmt.Println(err.Error())
-  }
-  
-  return buffer.String()
-}
 
+  *ToJavaScriptConverter
+}
+func(el *KendoUiDropDownList) ToJavaScript() []byte {
+  var ret bytes.Buffer
+  if el.Html.Global.Id == "" {
+    log.Critical("kendoDropDownList not have a html id for mount JavaScript code.")
+    return []byte{}
+  }
+
+  element := reflect.ValueOf(el).Elem()
+  data, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
+  if err != nil {
+    log.Criticalf( "kendoDropDownList.Error: %v", err.Error() )
+    return []byte{}
+  }
+
+  ret.Write( []byte(`$("#` + el.Html.Global.Id + `").kendoDropDownList({`) )
+  ret.Write( data )
+  ret.Write( []byte(`});`) )
+
+  return ret.Bytes()
+}
+func(el *KendoUiDropDownList) ToHtml() []byte{
+  return el.Html.ToHtml()
+}

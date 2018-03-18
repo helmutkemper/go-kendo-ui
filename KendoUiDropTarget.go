@@ -1,13 +1,13 @@
 package telerik
 
 import (
-  "fmt"
-  "html/template"
   "bytes"
+  "reflect"
+  log "github.com/helmutkemper/seelog"
 )
 
 type KendoUiDropTarget struct{
-  HtmlId                                  String
+  Html                                    HtmlInputText                           `jsObject:"-"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/droptarget#configuration-group
@@ -62,24 +62,30 @@ type KendoUiDropTarget struct{
      .purple, #purpleArea { background-color: purple; }
    </style>
   */
+  Group                                   string                                  `jsObject:"group"`
 
-  Group                                   String
+  *ToJavaScriptConverter
 }
-func(el *KendoUiDropTarget) IsSet() bool {
-  return el != nil
-}
-func(el *KendoUiDropTarget) String() string {
-  var buffer bytes.Buffer
-  tmpl := template.Must(template.New("").Funcs(template.FuncMap{
-    "safeHTML": func(s interface{}) template.HTML {
-      return template.HTML(fmt.Sprint(s))
-    },
-  }).Parse(GetTemplate()))
-  err := tmpl.ExecuteTemplate(&buffer, "KendoUiDropTarget", *(el))
-  if err != nil {
-    fmt.Println(err.Error())
+func(el *KendoUiDropTarget) ToJavaScript() []byte {
+  var ret bytes.Buffer
+  if el.Html.Global.Id == "" {
+    log.Critical("kendoDropTarget not have a html id for mount JavaScript code.")
+    return []byte{}
   }
-  
-  return buffer.String()
-}
 
+  element := reflect.ValueOf(el).Elem()
+  data, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
+  if err != nil {
+    log.Criticalf( "kendoDropTarget.Error: %v", err.Error() )
+    return []byte{}
+  }
+
+  ret.Write( []byte(`$("#` + el.Html.Global.Id + `").kendoDropTarget({`) )
+  ret.Write( data )
+  ret.Write( []byte(`});`) )
+
+  return ret.Bytes()
+}
+func(el *KendoUiDropTarget) ToHtml() []byte{
+  return el.Html.ToHtml()
+}
