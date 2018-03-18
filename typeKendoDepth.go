@@ -15,8 +15,10 @@ func (el KendoTimeDepth) String() string {
 }
 
 const (
+  TIME_DEPTH_DAY KendoTimeDepth = iota + 1
+
   // Shows the days of the month.
-  TIME_DEPTH_MONTH KendoTimeDepth = iota + 1
+  TIME_DEPTH_MONTH
 
   // Shows the months of the year.
   TIME_DEPTH_YEAR

@@ -418,6 +418,41 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
 
               case float64:
                 buffer.WriteString(strconv.FormatFloat( v.(float64), 'E', -1, 64) + `,`)
+
+              case bool:
+                buffer.WriteString( strconv.FormatBool( v.(bool) ) + `,` )
+
+              case []map[string]interface{}:
+                buffer.WriteString(`[`)
+
+                for _, mapArr := range v.([]map[string]interface{}){
+                  buffer.WriteString(`{`)
+
+                  for k, v := range mapArr{
+                    buffer.WriteString( `"` + k + `": ` )
+                    switch v.(type){
+                      case string:
+                        buffer.WriteString(`"` + v.(string) + `",`)
+
+                      case int:
+                        buffer.WriteString(strconv.Itoa( v.(int) ) + `,`)
+
+                      case int64:
+                        buffer.WriteString(strconv.FormatInt( v.(int64), 64 ) + `,`)
+
+                      case float32:
+                        buffer.WriteString(strconv.FormatFloat( float64( v.(float32) ), 'E', -1, 32) + `,`)
+
+                      case float64:
+                        buffer.WriteString(strconv.FormatFloat( v.(float64), 'E', -1, 64) + `,`)
+
+                      case bool:
+                        buffer.WriteString( strconv.FormatBool( v.(bool) ) + `,` )
+                    }
+                  }
+                  buffer.WriteString(`},`)
+                }
+                buffer.WriteString(`],`)
             }
           }
           buffer.WriteString(`},`)
@@ -519,6 +554,27 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
       }
 
       buffer.WriteString(tag.Get("jsObject") + `: "` + field.Interface().(KendoTypeData).String() + `",`)
+
+    case "telerik.KendoContextMenuDirection":
+      if field.Interface().(KendoContextMenuDirection) == 0 {
+        continue
+      }
+
+      buffer.WriteString(tag.Get("jsObject") + `: "` + field.Interface().(KendoContextMenuDirection).String() + `",`)
+
+    case "telerik.HtmlMouseEvent":
+      if field.Interface().(HtmlMouseEvent) == 0 {
+        continue
+      }
+
+      buffer.WriteString(tag.Get("jsObject") + `: "` + field.Interface().(HtmlMouseEvent).String() + `",`)
+
+    case "telerik.KendoOrientation":
+      if field.Interface().(KendoOrientation) == 0 {
+        continue
+      }
+
+      buffer.WriteString(tag.Get("jsObject") + `: "` + field.Interface().(KendoOrientation).String() + `",`)
 
     case "telerik.KendoAggregate":
       if field.Interface().(KendoAggregate) == 0 {
@@ -1003,6 +1059,9 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
       case "*telerik.KendoTileSize": continue
       case "*telerik.KendoColorMessages": continue
       case "*telerik.KendoConfirmMessages": continue
+      case "telerik.KendoContextMenuDirection": continue
+      case "telerik.KendoOrientation": continue
+      case "telerik.HtmlMouseEvent": continue
     }
 
     fmt.Printf("\n\n\n\n%d: %s %s = %v  template: ''%v''\n\n\n\n\n", i, typeOfT.Field(i).Name, field.Type(), field.Interface(), tag.Get("jsObject"))

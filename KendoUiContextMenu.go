@@ -267,7 +267,7 @@ type KendoUiContextMenu struct{
        });
    </script>
   */
-  Direction                               string                                  `jsObject:"direction"`
+  Direction                               KendoContextMenuDirection               `jsObject:"direction"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/contextmenu#configuration-filter
@@ -431,7 +431,7 @@ type KendoUiContextMenu struct{
        });
    </script>
   */
-  ShowOn                                  string                                  `jsObject:"showOn"`
+  ShowOn                                  HtmlMouseEvent                          `jsObject:"showOn"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/contextmenu#configuration-target
@@ -462,7 +462,7 @@ type KendoUiContextMenu struct{
        });
    </script>
   */
-  Target                                  string                                  `jsObject:"target"`
+  Target                                  interface{}                             `jsObject:"target" jsType:"*JavaScript,string"`
 
   *ToJavaScriptConverter
 }
