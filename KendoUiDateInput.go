@@ -92,7 +92,7 @@ type KendoUiDateInput struct{
    });
    </script>
   */
-  Messages                                *KendoMessages                         `jsObject:"messages"`
+  Messages                                *KendoCalendarMessages                 `jsObject:"messages"`
 
   *ToJavaScriptConverter
 }
