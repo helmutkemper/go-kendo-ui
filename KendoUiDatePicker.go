@@ -268,7 +268,7 @@ type KendoUiDatePicker struct{
        });
    </script>
   */
-  Start                                   KendoWeekDay                            `jsObject:"start"`
+  Start                                   KendoTimeDepth                          `jsObject:"start"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/datepicker#configuration-value

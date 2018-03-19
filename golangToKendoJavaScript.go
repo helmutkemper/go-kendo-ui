@@ -541,6 +541,13 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
 
       buffer.WriteString(tag.Get("jsObject") + `: "` + field.Interface().(HtmlMethod).String() + `",`)
 
+    case "telerik.KendoTimeDepth":
+      if field.Interface().(KendoTimeDepth) == 0 {
+        continue
+      }
+
+      buffer.WriteString(tag.Get("jsObject") + `: "` + field.Interface().(KendoTimeDepth).String() + `",`)
+
     case "telerik.KendoTypeDataJSon":
       if field.Interface().(KendoTypeDataJSon) == 0 {
         continue
@@ -626,6 +633,19 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
       for _, v := range field.Interface().([]string) {
         buffer.WriteString(`"`)
         buffer.WriteString( v )
+        buffer.WriteString(`",`)
+      }
+      buffer.WriteString(`],`)
+
+    case "telerik.KendoWeekDays":
+      if len(field.Interface().(KendoWeekDays)) == 0 {
+        continue
+      }
+
+      buffer.WriteString(tag.Get("jsObject") + `: [`)
+      for _, v := range field.Interface().(KendoWeekDays) {
+        buffer.WriteString(`"`)
+        buffer.WriteString( v.String() )
         buffer.WriteString(`",`)
       }
       buffer.WriteString(`],`)
@@ -1062,6 +1082,8 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
       case "telerik.KendoContextMenuDirection": continue
       case "telerik.KendoOrientation": continue
       case "telerik.HtmlMouseEvent": continue
+      case "telerik.KendoWeekDays": continue
+      case "telerik.KendoTimeDepth": continue
     }
 
     fmt.Printf("\n\n\n\n%d: %s %s = %v  template: ''%v''\n\n\n\n\n", i, typeOfT.Field(i).Name, field.Type(), field.Interface(), tag.Get("jsObject"))
