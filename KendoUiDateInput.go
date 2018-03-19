@@ -100,18 +100,18 @@ func(el *KendoUiDateInput) ToJavaScript() []byte {
   var ret bytes.Buffer
 
   if el.Html.Global.Id == "" {
-    log.Critical("KendoUiContextMenu not have a html id for mount JavaScript code.")
+    log.Critical("kendoDateInput not have a html id for mount JavaScript code.")
     return []byte{}
   }
 
   element := reflect.ValueOf(el).Elem()
   data, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
   if err != nil {
-    log.Criticalf( "KendoUiContextMenu.Error: %v", err.Error() )
+    log.Criticalf( "kendoDateInput.Error: %v", err.Error() )
     return []byte{}
   }
 
-  ret.Write( []byte(`$("#` + el.Html.Global.Id + `").kendoContextMenu({`) )
+  ret.Write( []byte(`$("#` + el.Html.Global.Id + `").kendoDateInput({`) )
   ret.Write( data )
   ret.Write( []byte(`});`) )
 
