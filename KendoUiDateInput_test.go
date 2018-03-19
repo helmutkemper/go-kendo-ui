@@ -31,5 +31,5 @@ func ExampleKendoUiDateInput_ToHtml() {
   fmt.Printf( "%s", html.ToJavaScript() )
 
   // Output:
-  //
+  // $("#dateinput").kendoContextMenu({format: "yyyy/MM/dd",max: new Date(2018, 12, 31, 23, 59, 59),min: new Date(2018, 1, 1),value: new Date(2018, 2, 1),messages: {year: "year",month: "month",day: "day",weekday: "day of the week",hour: "hour",minute: "minute",second: "second",dayperiod: "AM/PM",},});
 }
