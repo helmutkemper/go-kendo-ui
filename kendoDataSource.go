@@ -131,8 +131,7 @@ type KendoDataSource struct {
   });
   </script>
   */
-  //fixme: data pode ser um xml
-  Data                                   *[]map[string]interface{}          `jsObject:"data"`
+  Data                                   interface{}                           `jsObject:"data" jsType:"string,*map[string]interface {},[]string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/filter#filter
