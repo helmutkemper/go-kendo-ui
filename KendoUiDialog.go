@@ -7,7 +7,7 @@ import (
 )
 
 type KendoUiDialog struct{
-  Html                                    HtmlInputText                           `jsObject:"-"`
+  Html                                    HtmlElementDiv                          `jsObject:"-"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog#configuration-actions
@@ -33,8 +33,7 @@ type KendoUiDialog struct{
        });
    </script>
   */
-
-  Actions                                 *[]KendoActions
+  Actions                                 *[]KendoActions                         `jsObject:"actions"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog#configuration-animation
@@ -96,7 +95,7 @@ type KendoUiDialog struct{
    });
    </script>
   */
-  Content                                 Content                                 `jsObject:"content"`
+  Content                                 string                                  `jsObject:"content"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog#configuration-height

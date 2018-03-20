@@ -1,15 +1,14 @@
 package telerik
-/*
+
 import "fmt"
 
 func ExampleKendoUiDialog_String(){
-  html := HtmlElementDiv{
-    Global: HtmlGlobalAttributes{
-      Id: "dialog",
+  element := KendoUiDialog{
+    Html: HtmlElementDiv{
+      Global: HtmlGlobalAttributes{
+        Id: "dialog",
+      },
     },
-  }
-  javaScript := KendoUiDialog{
-    HtmlId: "dialog",
     Modal: TRUE,
     Visible: TRUE,
     Title: "Configuration error",
@@ -17,18 +16,19 @@ func ExampleKendoUiDialog_String(){
     Width: 400,
     Actions: &[]KendoActions{
       {
-        Action:  "function(){ setTimeout( function(){ containerConfigurationEnvVarNameRef.focus(); }, 1000); }",
+        Action:  &JavaScript{
+          Code: "function(){ setTimeout( function(){ containerConfigurationEnvVarNameRef.focus(); }, 1000); }",
+        },
         Primary: TRUE,
         Text:    "OK",
       },
     },
   }
 
-  fmt.Printf( "%v\n", html.String() )
-  fmt.Printf("<script>%v</script>\n", javaScript.String() )
+  fmt.Printf( "%s\n", element.ToHtml() )
+  fmt.Printf("<script>%s</script>\n", element.ToJavaScript() )
 
   // Output:
   // <div  id="dialog" ></div>
   // <script>$("#dialog").kendoDialog({ actions: [{ text: "OK",action: function(){ setTimeout( function(){ containerConfigurationEnvVarNameRef.focus(); }, 1000); },primary: true, },],content: "Please, set a valid environment var.",modal: true,title: "Configuration error",visible: true,width: 400, });</script>
 }
-*/

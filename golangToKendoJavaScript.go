@@ -624,6 +624,19 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
       }
       buffer.WriteString(`],`)
       
+    case "*[]telerik.KendoActions":
+      if len( *( field.Interface().( *[]KendoActions) ) ) == 0 {
+        continue
+      }
+
+      buffer.WriteString(tag.Get("jsObject") + `: [`)
+      for _, v := range *( field.Interface().( *[]KendoActions) ) {
+        buffer.WriteString(`{`)
+        buffer.Write( v.ToJavaScript() )
+        buffer.WriteString(`},`)
+      }
+      buffer.WriteString(`],`)
+
     case "[]string":
       if len(field.Interface().([]string)) == 0 {
         continue
@@ -879,6 +892,15 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
       buffer.Write( field.Interface().(*KendoDataModel).ToJavaScript() )
       buffer.WriteString(`},`)
 
+    case "*telerik.KendoMessages":
+      if field.Interface().(*KendoMessages) == nil {
+        continue
+      }
+
+      buffer.WriteString(tag.Get("jsObject") + `: {`)
+      buffer.Write( field.Interface().(*KendoMessages).ToJavaScript() )
+      buffer.WriteString(`},`)
+
     case "telerik.Boolean":
       if field.Interface().(Boolean) == 0 {
         continue
@@ -953,12 +975,22 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
 
       buffer.WriteString(tag.Get("jsObject") + `: "` + field.Interface().(KendoType).String() + `",` )
 
+    case "telerik.KendoButtonLayout":
+      if field.Interface().(KendoButtonLayout) == 0 {
+        continue
+      }
+
+      buffer.WriteString(tag.Get("jsObject") + `: "` + field.Interface().(KendoButtonLayout).String() + `",` )
+
     case "telerik.KendoDirection":
       if field.Interface().(KendoDirection) == 0 {
         continue
       }
 
       buffer.WriteString(tag.Get("jsObject") + `: "` + field.Interface().(KendoDirection).String() + `",` )
+
+    case "telerik.Content":
+      buffer.Write( field.Interface().(Content).Bytes() )
 
     case "time.Time":
       if field.Interface().(time.Time).String() == `0001-01-01 00:00:00 +0000 UTC` {
@@ -1084,6 +1116,10 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
       case "telerik.HtmlMouseEvent": continue
       case "telerik.KendoWeekDays": continue
       case "telerik.KendoTimeDepth": continue
+      case "*[]telerik.KendoActions": continue
+      case "telerik.KendoButtonLayout": continue
+      case "telerik.Content": continue
+      case "*telerik.KendoMessages": continue
     }
 
     fmt.Printf("\n\n\n\n%d: %s %s = %v  template: ''%v''\n\n\n\n\n", i, typeOfT.Field(i).Name, field.Type(), field.Interface(), tag.Get("jsObject"))

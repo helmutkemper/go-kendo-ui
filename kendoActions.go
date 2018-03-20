@@ -1,9 +1,6 @@
 package telerik
 
 import (
-  "fmt"
-  "html/template"
-  "bytes"
   "reflect"
   log "github.com/helmutkemper/seelog"
 )
@@ -21,7 +18,7 @@ type KendoActions struct{
        });
    </script>
   */
-  Text                                    String                  `jsObject:"text"`
+  Text                                    string                  `jsObject:"text"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog#configuration-actions.action  The callback function to be called after pressing the action button.
@@ -41,7 +38,7 @@ type KendoActions struct{
        });
    </script>
   */
-  Action                                  String                  `jsObject:"action"`
+  Action                                  *JavaScript             `jsObject:"action"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog#configuration-actions.primary  A boolean property indicating whether the action button will be decorated as primary button or not.
@@ -59,23 +56,6 @@ type KendoActions struct{
   Primary                                 Boolean                 `jsObject:"primary"`
 
   *ToJavaScriptConverter
-}
-func(el *KendoActions) IsSet() bool {
-  return el != nil
-}
-func(el *KendoActions) String() string {
-  var buffer bytes.Buffer
-  tmpl := template.Must(template.New("").Funcs(template.FuncMap{
-    "safeHTML": func(s interface{}) template.HTML {
-      return template.HTML(s.(string))
-    },
-  }).Parse(GetTemplate()))
-  err := tmpl.ExecuteTemplate(&buffer, "Actions", *(el))
-  if err != nil {
-    fmt.Println(err.Error())
-  }
-  
-  return buffer.String()
 }
 func(el *KendoActions) ToJavaScript() ([]byte) {
   element := reflect.ValueOf(el).Elem()

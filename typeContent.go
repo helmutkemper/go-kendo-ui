@@ -13,44 +13,36 @@ func(el Content) Bytes() []byte {
 
   for _, v := range el{
     switch outConverted := v.(type) {
-    case string:
-      buffer.WriteString( v.(string) )
-    case HtmlElementDiv:
-      buffer.Write( outConverted.ToHtml() )
-    case HtmlElementFormLabel:
-      buffer.Write( outConverted.ToHtml() )
-    case HtmlInputText:
-      buffer.Write( outConverted.ToHtml() )
-      /*case String:
-        out += v.(String).String()
-      case HtmlElementFormLegend:
-        out += outConverted.String()
+      case string:
+        buffer.WriteString( v.(string) )
       case HtmlElementDiv:
-        out += outConverted.String()
-      case HtmlElementFormFieldSet:
-        out += outConverted.String()
-      case HtmlElementForm:
-        out += outConverted.String()
-      case HtmlElementFormSelect:
-        out += outConverted.String()
-      case HtmlElementFormTextArea:
-        out += outConverted.String()
+        buffer.Write( outConverted.ToHtml() )
       case HtmlElementFormLabel:
-        out += outConverted.String()
-      case HtmlElementFormMeter:
-        out += outConverted.String()
-      case HtmlElementFormOptGroup:
-        out += outConverted.String()
-      case HtmlElementFormOutput:
-        out += outConverted.String()
-      case HtmlElementFormProgress:
-        out += outConverted.String()
-      case HtmlElementFormButton:
-        out += outConverted.String()
-      case HtmlElementFormDataList:
-        out += outConverted.String()
+        buffer.Write( outConverted.ToHtml() )
       case HtmlInputText:
+        buffer.Write( outConverted.ToHtml() )
+      case HtmlElementFormLegend:
+        buffer.Write( outConverted.ToHtml() )
+      case HtmlElementFormFieldSet:
+        buffer.Write( outConverted.ToHtml() )
+      case HtmlElementForm:
+        buffer.Write( outConverted.ToHtml() )
+      case HtmlElementFormSelect:
+        buffer.Write( outConverted.ToHtml() )
+      case HtmlElementFormTextArea:
+        buffer.Write( outConverted.ToHtml() )
+      case HtmlElementFormMeter:
+        buffer.Write( outConverted.ToHtml() )
+      case HtmlElementFormButton:
+        buffer.Write( outConverted.ToHtml() )
+      case HtmlElementFormDataList:
+        buffer.Write( outConverted.ToHtml() )
+        /*
+      case HtmlElementFormOutput:
+        buffer.Write( outConverted.String()
+      case HtmlElementFormProgress:
         out += outConverted.String()*/
+
     default:
       fmt.Printf("typeContent.go: error: type %T not found in typeContent\n", outConverted)
     }
