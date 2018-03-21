@@ -9,7 +9,7 @@ func CustomTemplate_Demo() {
   tmpl.Dialog = KendoUiDialog{
     Title: `Environments vars from container`,
     Content: &JavaScript{
-      Code: `kendo.template($("#containerCreateTemplateEnvVarAddNewEnvVar").html())`,
+      Code: `kendo.template($("#` + tmpl.Id + `Template").html())`,
     },
     Visible: FALSE,
     Modal: TRUE,
@@ -24,7 +24,7 @@ func CustomTemplate_Demo() {
         Text: `Add`,
         Action: &JavaScript{
           Code: `function(e){
-              containerHostEnvAddNewEnvVarFunction();
+              ` + tmpl.Id + `CustomValueCheck();
               return false;
             }`,
           },
@@ -33,7 +33,7 @@ func CustomTemplate_Demo() {
           Text: `Add and close`,
           Action: &JavaScript{
             Code: `function(e){
-              containerHostEnvAddNewEnvVarFunction();
+              ` + tmpl.Id + `CustomValueCheck();
             }`,
           },
           Primary: TRUE,
