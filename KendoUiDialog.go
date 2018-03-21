@@ -7,6 +7,8 @@ import (
 )
 
 type KendoUiDialog struct{
+  GlobalVar                               Boolean                                 `jsObject:"-"`
+
   Html                                    HtmlElementDiv                          `jsObject:"-"`
 
   /*
@@ -95,7 +97,7 @@ type KendoUiDialog struct{
    });
    </script>
   */
-  Content                                 string                                  `jsObject:"content"`
+  Content                                 interface{}                             `jsObject:"content" jsType:"*JavaScript,JavaScript,string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog#configuration-height
@@ -398,6 +400,7 @@ type KendoUiDialog struct{
 
   *ToJavaScriptConverter
 }
+
 func(el *KendoUiDialog) ToJavaScript() []byte {
   var ret bytes.Buffer
   if el.Html.Global.Id == "" {
@@ -418,6 +421,210 @@ func(el *KendoUiDialog) ToJavaScript() []byte {
 
   return ret.Bytes()
 }
+
 func(el *KendoUiDialog) ToHtml() []byte{
   return el.Html.ToHtml()
+}
+
+/*
+@see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog/methods/close#close
+
+Closes a Dialog.
+
+Returns: kendo.ui.Dialog Returns the dialog object to support chaining.
+
+Example - close a dialog after one second
+<div id="dialog"></div>
+<script>
+  $("#dialog").kendoDialog();
+  var dialog = $("#dialog").data("kendoDialog");
+  setTimeout(function() {
+    dialog.close();
+  }, 1000);
+</script>
+*/
+func(el *KendoUiDialog) MethodClose() []byte{
+  if el.GlobalVar == TRUE {
+    return []byte(`KendoUiGlobalVarFromId` + el.Html.Global.Id + `.close();`)
+  }
+
+  return []byte(`$("#` + el.Html.Global.Id + `").data("kendoDialog").close();`)
+}
+
+/*
+@see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog/methods/content#content
+
+content: Gets or set the content of a dialog. Supports chaining when used as a setter.
+
+Parameters: content String |jQuery (optional)
+The content of the Dialog. Can be an HTML string or jQuery object.
+
+Returns: String The current dialog content, if used as a getter. If used as a setter, the method will return the dialog
+object to support chaining.
+
+Example - get the dialog content
+<div id="dialog">foo</div>
+<script>
+  $("#dialog").kendoDialog();
+  var dialog = $("#dialog").data("kendoDialog");
+  console.log(dialog.content()); // logs "foo"
+</script>
+
+Example - set the dialog content
+<div id="dialog"></div>
+<script>
+  $("#dialog").kendoDialog();
+  var dialog = $("#dialog").data("kendoDialog");
+  dialog.content("Kendo UI all the things!");
+</script>
+*/
+func(el *KendoUiDialog) MethodContent( content interface{} ) []byte{
+  if el.GlobalVar == TRUE {
+    switch converted := content.(type) {
+    case string:
+      return []byte(`KendoUiGlobalVarFromId` + el.Html.Global.Id + `.content("` + converted + `");`)
+    case JavaScript:
+      return []byte(`KendoUiGlobalVarFromId` + el.Html.Global.Id + `.content(` + converted.String() + `);`)
+    case *JavaScript:
+      return []byte(`KendoUiGlobalVarFromId` + el.Html.Global.Id + `.content(` + converted.String() + `);`)
+    }
+  }
+
+  switch converted := content.(type) {
+  case string:
+    return []byte(`$("#` + el.Html.Global.Id + `").data("kendoDialog").content("` + converted + `");`)
+  case JavaScript:
+    return []byte(`$("#` + el.Html.Global.Id + `").data("kendoDialog").content(` + converted.String() + `);`)
+  case *JavaScript:
+    return []byte(`$("#` + el.Html.Global.Id + `").data("kendoDialog").content(` + converted.String() + `);`)
+  }
+  return []byte(`content must be a string, JavaScript ou *JavaScript`)
+}
+
+/*
+@see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog/methods/destroy#destroy
+
+destroy: Destroys the dialog and its modal overlay, if necessary. Removes the widget HTML elements from the DOM.
+
+Example
+<div id="dialog"></div>
+<script>
+  $("#dialog").kendoDialog();
+  var dialog = $("#dialog").data("kendoDialog");
+  dialog.destroy();
+</script>
+*/
+func(el *KendoUiDialog) MethodDestroy() []byte{
+  if el.GlobalVar == TRUE {
+    return []byte(`KendoUiGlobalVarFromId` + el.Html.Global.Id + `.destroy();`)
+  }
+
+  return []byte(`$("#` + el.Html.Global.Id + `").data("kendoDialog").destroy();`)
+}
+
+/*
+@see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog/methods/open#open
+
+open: Opens a Dialog and brings it on top of any other open Dialog or Window instances by calling toFront internally.
+
+Returns: kendo.ui.Dialog Returns the dialog object to support chaining.
+
+Example
+<div id="dialog"></div>
+<script>
+  $("#dialog").kendoDialog({
+    visible: false
+  });
+  var dialog = $("#dialog").data("kendoDialog");
+  dialog.open();
+</script>
+*/
+func(el *KendoUiDialog) MethodOpen() []byte{
+  if el.GlobalVar == TRUE {
+    return []byte(`KendoUiGlobalVarFromId` + el.Html.Global.Id + `.open();`)
+  }
+
+  return []byte(`$("#` + el.Html.Global.Id + `").data("kendoDialog").open();`)
+}
+
+/*
+@see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog/methods/title#title
+
+title: String (optional) Gets or sets the title of a Dialog. Can be a text string. Supports chaining when used as a
+setter. If passed to the method, an HTML string would be escaped.
+
+Parameters: text String (optional)
+The title of the Dialog.
+
+Returns: String The current dialog title, if used as a getter. If used as a setter, the method will return the dialog
+object to support chaining.
+
+Example - get the title of the dialog
+<div id="dialog"></div>
+<script>
+  $("#dialog").kendoDialog();
+  var dialog = $("#dialog").data("kendoDialog");
+  var title = dialog.title();
+</script>
+
+Example - set the title of a dialog
+<div id="dialog"></div>
+<script>
+  $("#dialog").kendoDialog();
+  var dialog = $("#dialog").data("kendoDialog");
+  dialog.title("<em>Hello</em>");
+</script>
+*/
+func(el *KendoUiDialog) MethodTitle( title interface{} ) []byte{
+  if el.GlobalVar == TRUE {
+    switch converted := title.(type) {
+    case string:
+      return []byte(`KendoUiGlobalVarFromId` + el.Html.Global.Id + `.content("` + converted + `");`)
+    case JavaScript:
+      return []byte(`KendoUiGlobalVarFromId` + el.Html.Global.Id + `.content(` + converted.String() + `);`)
+    case *JavaScript:
+      return []byte(`KendoUiGlobalVarFromId` + el.Html.Global.Id + `.content(` + converted.String() + `);`)
+    }
+  }
+
+  switch converted := title.(type) {
+  case string:
+    return []byte(`$("#` + el.Html.Global.Id + `").data("kendoDialog").content("` + converted + `");`)
+  case JavaScript:
+    return []byte(`$("#` + el.Html.Global.Id + `").data("kendoDialog").content(` + converted.String() + `);`)
+  case *JavaScript:
+    return []byte(`$("#` + el.Html.Global.Id + `").data("kendoDialog").content(` + converted.String() + `);`)
+  }
+  return []byte(`title must be a string, JavaScript ou *JavaScript`)
+}
+
+/*
+@see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog/methods/tofront#toFront
+
+toFront
+Increases the z-index style of a Dialog wrapper to bring the instance on top of other open Dialogs. This method is executed automatically when the open method is used.
+
+Returns
+kendo.ui.Dialog Returns the dialog object to support chaining.
+
+Example
+<div id="dialog"></div>
+<script>
+  $("#dialog").kendoDialog();
+  var dialog = $("#dialog").data("kendoDialog");
+  dialog.toFront();
+</script>
+*/
+func(el *KendoUiDialog) MethodToFront() []byte{
+  if el.GlobalVar == TRUE {
+    return []byte(`KendoUiGlobalVarFromId` + el.Html.Global.Id + `.toFront();`)
+  }
+
+  return []byte(`$("#` + el.Html.Global.Id + `").data("kendoDialog").toFront();`)
+}
+
+func(el *KendoUiDialog) GetGlobalVar() []byte{
+  el.GlobalVar = TRUE
+
+  return []byte(`var KendoUiGlobalVarFromId` + el.Html.Global.Id + ` = $("#` + el.Html.Global.Id + `").data("kendoDialog");`)
 }
