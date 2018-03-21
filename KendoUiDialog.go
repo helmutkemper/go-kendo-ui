@@ -252,6 +252,150 @@ type KendoUiDialog struct{
   */
   Width                                   int                                     `jsObject:"width"`
 
+  /*
+  @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog/events/close#close
+
+  Triggered when a Dialog is closed (by a user or through the close() method).
+
+  Event Data: e.userTriggered - Boolean
+  Indicates whether the close action has been triggered by the user (by clicking the close button or hitting the escape key). When the close method has been called, this field is false.
+
+  Example - subscribe to the "close" event during initialization
+  <div id="dialog"></div>
+  <script>
+  $("#dialog").kendoDialog({
+    close: function(e) {
+      // close animation has finished playing
+    }
+  });
+  </script>
+
+  Example - subscribe to the "close" event after initialization
+  <div id="dialog"></div>
+  <script>
+    function dialog_close(e) {
+      // close animation has finished playing
+    }
+    $("#dialog").kendoDialog();
+    var dialog = $("#dialog").data("kendoDialog");
+    dialog.bind("close", dialog_close);
+  </script>
+  */
+  EventClose                              *JavaScript                             `jsObject:"close"`
+
+  /*
+  @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog/events/hide#hide
+
+  Triggered when a Dialog has finished its closing animation.
+
+  Example - subscribe to the "hide" event during initialization
+  <div id="dialog"></div>
+  <script>
+  $("#dialog").kendoDialog({
+    hide: function() {
+      // close animation is about to finish
+    }
+  });
+  </script>
+
+  Example - subscribe to the "hide" event after initialization
+  <div id="dialog"></div>
+  <script>
+    function dialog_hide() {
+      // close animation will start soon
+    }
+    $("#dialog").kendoDialog();
+    var dialog = $("#dialog").data("kendoDialog");
+    dialog.bind("hide", dialog_hide);
+  </script>
+  */
+  EventHide                               *JavaScript                             `jsObject:"hide"`
+
+  /*
+  @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog/events/initopen#initOpen
+
+  Triggered when a Dialog is opened for the first time (i.e. the open() method is called).
+
+  Example - subscribe to the "initOpen" event during initialization
+  <div id="dialog"></div>
+  <script>
+  $("#dialog").kendoDialog({
+    initOpen: function() {
+      // open animation will start soon
+    }
+  });
+  </script>
+
+  Example - subscribe to the "initOpen" event after initialization
+  <div id="dialog" style="display: none;"></div>
+  <script>
+    function dialog_initOpen() {
+      // open animation will start soon
+    }
+    $("#dialog").kendoDialog();
+    var dialog = $("#dialog").data("kendoDialog");
+    dialog.bind("initOpen", dialog_initOpen);
+    dialog.open();
+  </script>
+  */
+  EventInitOpen                           *JavaScript                             `jsObject:"initOpen"`
+
+  /*
+  @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog/events/open#open
+
+  Triggered when a Dialog is opened (i.e. the open() method is called).
+
+  Example - subscribe to the "open" event during initialization
+  <div id="dialog"></div>
+  <script>
+  $("#dialog").kendoDialog({
+    open: function() {
+      // open animation will start soon
+    }
+  });
+  </script>
+
+  Example - subscribe to the "open" event after initialization
+  <div id="dialog"></div>
+  <script>
+    function dialog_open() {
+      // open animation will start soon
+    }
+    $("#dialog").kendoDialog();
+    var dialog = $("#dialog").data("kendoDialog");
+    dialog.bind("open", dialog_open);
+  </script>
+  */
+  EventOpen                               *JavaScript                             `jsObject:"open"`
+
+  /*
+  @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog/events/show#show
+
+  Triggered when a Dialog has finished its opening animation.
+
+  Example - subscribe to the "show" event during initialization
+  <div id="dialog"></div>
+  <script>
+  $("#dialog").kendoDialog({
+    show: function() {
+      // open animation has finished playing
+    }
+  });
+  </script>
+
+  Example - subscribe to the "show" event after initialization
+  <div id="dialog"></div>
+  <script>
+    function dialog_show() {
+      // open animation has finished playing
+    }
+    $("#dialog").kendoDialog();
+    var dialog = $("#dialog").data("kendoDialog");
+    dialog.bind("show", dialog_show);
+  </script>
+  */
+  EventShow                               *JavaScript                             `jsObject:"show"`
+
   *ToJavaScriptConverter
 }
 func(el *KendoUiDialog) ToJavaScript() []byte {
