@@ -59,6 +59,13 @@ type HtmlInputNumber struct{
   List                        String
 
   /*
+  This attribute specifies that the user must fill in a value before submitting a form. It cannot be used when the type
+  attribute is hidden, image, or a button type (submit, reset, or button). The :optional and :required CSS
+  pseudo-classes will be applied to the field as appropriate.
+  */
+  Required                    Boolean                     `htmlAttrSet:"required"`
+
+  /*
   A hint to the user of what can be entered in the control . The placeholder text must not contain carriage returns or
   line-feeds.
   */

@@ -120,7 +120,7 @@ func ExampleIdea() {
       HtmlElementSpan{
         Content: Content{
 
-          HtmlInputGeneric{
+          HtmlInputNumber{ // fixme: number incompleto
             Name: "ExposedPorts",
             PlaceHolder: "",
             AutoComplete: FALSE,
