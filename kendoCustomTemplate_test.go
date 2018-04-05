@@ -110,6 +110,40 @@ func ExampleGetTemplate() {
 }
 
 func ExampleIdea() {
+  hostExposedPortsAddNewPortDialog := KendoUiDialog{
+    Html: HtmlElementDiv{
+      Global: HtmlGlobalAttributes{
+        Id: "containerHostExposedPortsAddNewPort",
+      },
+    },
+    Modal: TRUE,
+    Visible: FALSE,
+    Title: "Expose port from container",
+    Content: &JavaScript{
+      Code: "kendo.template($('#containerCreateTemplateExposedPortsAddNewPort').html())",
+    },
+    Actions: &[]KendoActions{
+      {
+        Text: "Close",
+      },
+      {
+        Action:  &JavaScript{
+          Code: "if(!$('#spanCreateTemplateExposedPortsAddNewPort').kendoValidator().data('kendoValidator').validate()){ return false; }",
+        },
+        Text:    "Add",
+      },
+      {
+        Action:  &JavaScript{
+          Code: "if(!$('#spanCreateTemplateExposedPortsAddNewPort').kendoValidator().data('kendoValidator').validate()){ return false; }",
+        },
+        Primary: TRUE,
+        Text:    "Add and close",
+      },
+    },
+  }
+  fmt.Printf( "%s\n", hostExposedPortsAddNewPortDialog.ToHtml() )
+  fmt.Printf( "%s\n", hostExposedPortsAddNewPortDialog.ToJavaScript() )
+
   hostExposedPortsTemplateFooter := HtmlElementScript{
     Global: HtmlGlobalAttributes{
       Id: "containerHostExposedPortsFooterTemplate",
@@ -140,6 +174,9 @@ func ExampleIdea() {
     Content: Content{
 
       HtmlElementSpan{
+        Global: HtmlGlobalAttributes{
+          Id: "spanCreateTemplateExposedPortsAddNewPort",
+        },
         Content: Content{
 
           HtmlInputNumber{
