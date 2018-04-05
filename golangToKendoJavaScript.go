@@ -97,24 +97,24 @@ func(el *ToJavaScriptConverter) ToTelerikHtml( element reflect.Value ) []byte {
         for k, v := range field.Interface().(map[string]interface{}){
           switch v.(type) {
           case string:
-            if field.Interface().(string) == "" {
+            if v.(string) == "" {
               continue
             }
 
-            buffer.WriteString(tag.Get("jsObject") + `: "` + field.Interface().(string) + `",`)
+            buffer.WriteString(` ` + k + `="` + v.(string) + `"`)
 
           case []string:
-            if len( field.Interface().([]string) ) == 0 {
+            if len( v.([]string) ) == 0 {
               continue
             }
 
-            buffer.WriteString(tag.Get("jsObject") + `: [`)
-            for _, v := range field.Interface().([]string) {
+            buffer.WriteString( ` ` + k + `=[`)
+            for _, v2 := range v.([]string) {
               buffer.WriteString(`"`)
-              buffer.WriteString( v )
+              buffer.WriteString( v2 )
               buffer.WriteString(`",`)
             }
-            buffer.WriteString(`],`)
+            buffer.WriteString(`]`)
 
           case int:
             if v.(int) == 0 {
@@ -128,21 +128,21 @@ func(el *ToJavaScriptConverter) ToTelerikHtml( element reflect.Value ) []byte {
               continue
             }
 
-            buffer.WriteString(` ` + k + `="` + strconv.FormatInt( v.(int64), 64 ) + `,`)
+            buffer.WriteString(` ` + k + `="` + strconv.FormatInt( v.(int64), 64 ) + `"`)
 
           case float32:
             if v.(float32) == 0 {
               continue
             }
 
-            buffer.WriteString(` ` + k + `="` + strconv.FormatFloat( float64( v.(float32) ), 'E', -1, 32) + `,`)
+            buffer.WriteString(` ` + k + `="` + strconv.FormatFloat( float64( v.(float32) ), 'E', -1, 32) + `"`)
 
           case float64:
             if v.(float64) == 0 {
               continue
             }
 
-            buffer.WriteString(` ` + k + `="` + strconv.FormatFloat( v.(float64), 'E', -1, 64) + `,`)
+            buffer.WriteString(` ` + k + `="` + strconv.FormatFloat( v.(float64), 'E', -1, 64) + `"`)
           }
         }
 
@@ -152,6 +152,13 @@ func(el *ToJavaScriptConverter) ToTelerikHtml( element reflect.Value ) []byte {
         }
 
         buffer.WriteString(` ` + tagValue + `="` + field.Interface().(TypeHtmlDropZone).String() + `"`)
+
+      case "telerik.HtmlType":
+        if field.Interface().(HtmlType).String() == "" {
+          continue
+        }
+
+        buffer.WriteString(` ` + tagValue + `="` + field.Interface().(HtmlType).String() + `"`)
 
       case "telerik.Warp":
         if field.Interface().(Warp).String() == "" {
@@ -471,6 +478,15 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
       }
     //---------------------------------------------------------------------------------------------------------------
 
+    case "*telerik.KendoAdjustSize":
+      if field.Interface().(*KendoAdjustSize) == nil {
+        continue
+      }
+
+      buffer.WriteString(tag.Get("jsObject") + `: { `)
+      buffer.Write( field.Interface().(*KendoAdjustSize).ToJavaScript() )
+      buffer.WriteString(`},`)
+
     case "*telerik.KendoConfirmMessages":
       if field.Interface().(*KendoConfirmMessages) == nil {
         continue
@@ -575,6 +591,13 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
       }
 
       buffer.WriteString(tag.Get("jsObject") + `: "` + field.Interface().(HtmlMouseEvent).String() + `",`)
+
+    case "telerik.HtmlType":
+      if field.Interface().(HtmlType) == 0 {
+        continue
+      }
+
+      buffer.WriteString(tag.Get("jsObject") + `: "` + field.Interface().(HtmlType).String() + `",`)
 
     case "telerik.KendoOrientation":
       if field.Interface().(KendoOrientation) == 0 {
@@ -947,6 +970,13 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
 
       buffer.WriteString(tag.Get("jsObject") + `: "` + field.Interface().(KendoPosition).String() + `",` )
 
+    case "telerik.KendoCollision":
+      if field.Interface().(KendoCollision) == 0 {
+        continue
+      }
+
+      buffer.WriteString(tag.Get("jsObject") + `: "` + field.Interface().(KendoCollision).String() + `",` )
+
     case "telerik.KendoTagMode":
       if field.Interface().(KendoTagMode) == 0 {
         continue
@@ -1114,12 +1144,15 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
       case "telerik.KendoContextMenuDirection": continue
       case "telerik.KendoOrientation": continue
       case "telerik.HtmlMouseEvent": continue
+      case "telerik.HtmlType": continue
+      case "telerik.KendoCollision": continue
       case "telerik.KendoWeekDays": continue
       case "telerik.KendoTimeDepth": continue
       case "*[]telerik.KendoActions": continue
       case "telerik.KendoButtonLayout": continue
       case "telerik.Content": continue
       case "*telerik.KendoMessages": continue
+      case "*telerik.KendoAdjustSize": continue
     }
 
     fmt.Printf("\n\n\n\n%d: %s %s = %v  template: ''%v''\n\n\n\n\n", i, typeOfT.Field(i).Name, field.Type(), field.Interface(), tag.Get("jsObject"))

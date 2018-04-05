@@ -1,44 +1,158 @@
 package telerik
 
-func CustomTemplate_Demo() {
-  tmpl := CustomTemplate{}
-  tmpl.Id = `Port`
-  tmpl.Template = `<span>Port: #= Value #<br>Usually used in: #= ImageName #</span>`
-  tmpl.Footer = tmpl.GetFooterTemplateButtonAsString(`Add new port and protocol`, `centerText`)
-  tmpl.NoData = `<div>No ports found to add. Please add a port and a protocol before continuing.</div>`
-  tmpl.Dialog = KendoUiDialog{
-    Title: `Environments vars from container`,
-    Content: &JavaScript{
-      Code: `kendo.template($("#` + tmpl.Id + `Template").html())`,
-    },
-    Visible: FALSE,
-    Modal: TRUE,
-    EventOpen: &JavaScript{
-      Code: ``,
-    },
-    Actions: &[]KendoActions{
-      {
-        Text: `Close`,
+import "fmt"
+
+func ExampleGetTemplate() {
+  customTemplate := CustomTemplate{
+    Id: []byte( `ExposePort` ),
+  }
+  customTemplate.Footer   = customTemplate.GetFooterTemplateButton( []byte( `Add` ), []byte( `centerText` ) )
+  customTemplate.NoData   = []byte( `<div>No ports found to add. Please add a port and a protocol before continuing.</div>` )
+  customTemplate.Template = []byte( `<span>Port: #= Value #<br>Usually used in: #= ImageName #</span>` )
+
+  html := KendoUiMultiSelect{
+    Html: HtmlElementFormSelect{
+      Global: HtmlGlobalAttributes{
+        Id: "multiSelect",
       },
-      {
-        Text: `Add`,
-        Action: &JavaScript{
-          Code: `function(e){
-              ` + tmpl.Id + `CustomValueCheck();
-              return false;
-            }`,
-          },
-        },
-        {
-          Text: `Add and close`,
-          Action: &JavaScript{
-            Code: `function(e){
-              ` + tmpl.Id + `CustomValueCheck();
-            }`,
-          },
-          Primary: TRUE,
-        },
-      },
+    },
+    AutoClose: FALSE,
+    AutoWidth: TRUE,
+    ClearButton: FALSE,
+    DataTextField: "productName",
+    DataValueField: "productId",
+    Delay: 100,
+    Filter: FILTER_CONTAINS,
+    //FixedGroupTemplate: "Fixed header: #: data #",
+    FooterTemplate: &JavaScript{
+      Code: string( customTemplate.GetElementFooterTemplate() ),
+    },
+    //GroupTemplate: "Group template: #: data #",
+    NoDataTemplate: &JavaScript{
+      Code: string( customTemplate.GetElementNoDataTemplate() ),
+    },
+    Placeholder: "Select...",
+    //HeaderTemplate: "<div><h2>Fruits</h2></div>",
+    ItemTemplate: &JavaScript{
+      Code: string( customTemplate.GetElementTemplate() ),
+    },
+    //TagMode: TAG_MODE_MULTIPLE,
+    Value: []map[string]interface{}{
+      { "productName": "Item 1", "productId": "1" },
+      { "productName": "Item 2", "productId": "2" },
+      { "productName": "Item 3", "productId": "3" },
+    },
+  }
+
+  fmt.Printf( `<!DOCTYPE html>
+<html>
+<head>
+    <base href="https://demos.telerik.com/kendo-ui/grid/index">
+    <style>html { font-size: 14px; font-family: Arial, Helvetica, sans-serif; }</style>
+    <title></title>
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.1.221/styles/kendo.default-v2.min.css" />
+
+    <script src="https://kendo.cdn.telerik.com/2018.1.221/js/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2018.1.221/js/kendo.all.min.js"></script>
+    <script>
+    %s
+    $(document).ready(function () {
+    %s
+    });
+    </script>
+    %s
+    %s
+    %s
+
+</head>
+<body>
+
+<div id="example">
+    %s
+</div>
+
+<style type="text/css">
+    .customer-photo {
+        display: inline-block;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background-size: 32px 35px;
+        background-position: center center;
+        vertical-align: middle;
+        line-height: 32px;
+        box-shadow: inset 0 0 1px #999, inset 0 0 10px rgba(0,0,0,.2);
+        margin-left: 5px;
     }
+
+    .customer-name {
+        display: inline-block;
+        vertical-align: middle;
+        line-height: 32px;
+        padding-left: 3px;
+    }
+</style>
+
+
+</body>
+</html>
+`,
+    customTemplate.GetFooterTemplateButtonOpenDialogJavaScript(),
+    html.ToJavaScript(),
+    customTemplate.GetTemplate(),
+    customTemplate.GetFooterTemplate(),
+    customTemplate.GetNoDataTemplate(),
+    html.ToHtml(),
+  )
+
+  // Output:
+  //
 }
 
+func ExampleIdea() {
+  htmlScript := HtmlElementScript{
+    Global: HtmlGlobalAttributes{
+      Id: "containerCreateTemplateExposedPortsAddNewPort",
+    },
+    Type: "text/x-kendo-template",
+    Content: Content{
+      HtmlElementSpan{
+        Content: Content{
+          HtmlInputGeneric{
+            Name: "ExposedPorts",
+            PlaceHolder: "",
+            AutoComplete: FALSE,
+            Required: TRUE,
+            Global: HtmlGlobalAttributes{
+              Id: "ExposedPortsNumber",
+              Class: "oneThirdSize",
+              Extra: map[string]interface{}{
+                "validationMessage": "Enter a {0}",
+              },
+            },
+          },
+          HtmlElementFormSelect{
+            Global: HtmlGlobalAttributes{
+              Id: "ExposedPortsProtocol",
+              Class: "oneThirdSize",
+            },
+            Options: []HtmlOptions{
+              {
+                Label: "UDP",
+                Key:   "UDP",
+              },
+              {
+                Label: "TCP",
+                Key:   "TCP",
+              },
+            },
+          },
+        },
+      },
+    },
+  }
+  fmt.Printf( "%s", htmlScript.ToHtml() )
+
+  // Output:
+  //
+}

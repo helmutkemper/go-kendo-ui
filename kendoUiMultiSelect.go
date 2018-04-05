@@ -7,7 +7,7 @@ import (
 )
 
 type KendoUiMultiSelect struct {
-  HtmlId                                  string                                  `jsObject:"htmlId"`
+  Html                                    HtmlElementFormSelect                   `jsObject:"-"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/animation
@@ -305,7 +305,7 @@ type KendoUiMultiSelect struct {
       });
   </script>
   */
-  FixedGroupTemplate                      string                                  `jsObject:"fixedGroupTemplate" jsType:"*JavaScript,string"`
+  FixedGroupTemplate                      interface{}                             `jsObject:"fixedGroupTemplate" jsType:"*JavaScript,string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/footertemplate
@@ -329,7 +329,7 @@ type KendoUiMultiSelect struct {
   });
   </script>
   */
-  FooterTemplate                          string                                  `jsObject:"footerTemplate" jsType:"*JavaScript,string"`
+  FooterTemplate                          interface{}                             `jsObject:"footerTemplate" jsType:"*JavaScript,string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/grouptemplate
@@ -357,7 +357,7 @@ type KendoUiMultiSelect struct {
       });
   </script>
   */
-  GroupTemplate                           string                                  `jsObject:"groupTemplate" jsType:"*JavaScript,string"`
+  GroupTemplate                           interface{}                             `jsObject:"groupTemplate" jsType:"*JavaScript,string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/height
@@ -472,7 +472,7 @@ type KendoUiMultiSelect struct {
   });
   </script>
   */
-  NoDataTemplate                          string                                  `jsObject:"noDataTemplate" jsType:"*JavaScript,string"`
+  NoDataTemplate                          interface{}                             `jsObject:"noDataTemplate" jsType:"*JavaScript,string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/placeholder
@@ -549,7 +549,7 @@ type KendoUiMultiSelect struct {
   });
   </script>
   */
-  HeaderTemplate                          string                                  `jsObject:"headerTemplate" jsType:"*JavaScript,string"`
+  HeaderTemplate                          interface{}                             `jsObject:"headerTemplate" jsType:"*JavaScript,string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/itemtemplate
@@ -590,7 +590,7 @@ type KendoUiMultiSelect struct {
   });
   </script>
   */
-  ItemTemplate                            string                                  `jsObject:"itemTemplate" jsType:"*JavaScript,string"`
+  ItemTemplate                            interface{}                             `jsObject:"itemTemplate" jsType:"*JavaScript,string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/tagtemplate
@@ -674,7 +674,7 @@ type KendoUiMultiSelect struct {
   });
   </script>
   */
-  TagTemplate                            *JavaScript                              `jsObject:"tagTemplate" jsType:"*JavaScript,string"`
+  TagTemplate                            interface{}                              `jsObject:"tagTemplate" jsType:"*JavaScript,string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/tagmode
@@ -883,32 +883,9 @@ type KendoUiMultiSelect struct {
 
   *ToJavaScriptConverter
 }
-/*func(el *KendoUiMultiSelect) IsSet() bool {
-  return el != nil
-}
-func(el *KendoUiMultiSelect) string() string {
-  var buffer bytes.Buffer
-
-  switch data := el.DataSource.(type) {
-  case []string:
-    el.DataSource = `["` + strings.Join(data, `","`) + `"]`
-  }
-
-  tmpl := template.Must(template.New("").Funcs(template.FuncMap{
-    "safeHTML": func(s interface{}) template.HTML {
-      return template.HTML(fmt.Sprint(s))
-    },
-  }).Parse(GetTemplate()))
-  err := tmpl.ExecuteTemplate(&buffer, "KendoUiMultiSelect", *(el))
-  if err != nil {
-    fmt.Println(err.Error())
-  }
-
-  return buffer.String()
-}*/
 func(el *KendoUiMultiSelect) ToJavaScript() []byte {
   var ret bytes.Buffer
-  if el.HtmlId == "" {
+  if el.Html.Global.Id == "" {
     log.Critical("kendoMultiSelect not have a html id for mount JavaScript code.")
     return []byte{}
   }
@@ -920,9 +897,12 @@ func(el *KendoUiMultiSelect) ToJavaScript() []byte {
     return []byte{}
   }
 
-  ret.Write( []byte(`$("` + el.HtmlId + `")kendoMultiSelect({`) )
+  ret.Write( []byte(`$("#` + el.Html.Global.Id + `").kendoMultiSelect({`) )
   ret.Write( data )
   ret.Write( []byte(`});`) )
 
   return ret.Bytes()
+}
+func(el *KendoUiMultiSelect) ToHtml() []byte{
+  return el.Html.ToHtml()
 }

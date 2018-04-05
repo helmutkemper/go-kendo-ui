@@ -125,7 +125,7 @@ func(el *HtmlInputGeneric)ToHtml() []byte {
   element := reflect.ValueOf(el).Elem()
   data := el.ToJavaScriptConverter.ToTelerikHtml(element)
 
-  buffer.Write( []byte( `<input type="text"` ) )
+  buffer.Write( []byte( `<input ` ) )
   buffer.Write( el.Global.ToHtml() )
   buffer.Write( data )
   buffer.Write( []byte( `>` ) )

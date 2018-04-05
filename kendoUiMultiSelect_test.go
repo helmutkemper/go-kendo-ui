@@ -4,7 +4,11 @@ import "fmt"
 
 func ExampleKendoDataSource_ToJavaScript_Animation_Object() {
   javaScript := KendoUiMultiSelect{
-    HtmlId: "multiselect",
+    Html: HtmlElementFormSelect{
+      Global: HtmlGlobalAttributes{
+        Id: "multiselect",
+      },
+    },
     Animation: &KendoAnimation{
       Open: &KendoOpen{
         Effects: EFFECT_ZOOM_IN,
@@ -152,7 +156,11 @@ func ExampleKendoDataSource_ToJavaScript_Animation_Object() {
 
 func ExampleKendoDataSource_ToJavaScript_Animation_Boolean_FALSE() {
   javaScript := KendoUiMultiSelect{
-    HtmlId: "multiselect",
+    Html: HtmlElementFormSelect{
+      Global: HtmlGlobalAttributes{
+        Id: "multiselect",
+      },
+    },
     Animation: FALSE,
     AutoBind: FALSE,
     AutoClose: FALSE,
@@ -283,7 +291,11 @@ func ExampleKendoDataSource_ToJavaScript_Animation_Boolean_FALSE() {
 
 func ExampleKendoDataSource_ToJavaScript_Virtual_Boolean_FALSE() {
   javaScript := KendoUiMultiSelect{
-    HtmlId: "multiselect",
+    Html: HtmlElementFormSelect{
+      Global: HtmlGlobalAttributes{
+        Id: "multiselect",
+      },
+    },
     Animation: &KendoAnimation{
       Open: &KendoOpen{
         Effects: EFFECT_ZOOM_IN,

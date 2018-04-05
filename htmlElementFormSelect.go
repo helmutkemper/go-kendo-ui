@@ -7,6 +7,8 @@ import (
 )
 
 // The HTML <select> element represents a control that provides a menu
+// Fixme: rever!
+// @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select
 type HtmlElementFormSelect struct{
   /*
   The name of the control, which is submitted with the form data.

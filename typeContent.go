@@ -17,6 +17,10 @@ func(el Content) Bytes() []byte {
         buffer.WriteString( v.(string) )
       case HtmlElementDiv:
         buffer.Write( outConverted.ToHtml() )
+      case HtmlInputGeneric:
+        buffer.Write( outConverted.ToHtml() )
+      case HtmlElementSpan:
+        buffer.Write( outConverted.ToHtml() )
       case HtmlElementFormLabel:
         buffer.Write( outConverted.ToHtml() )
       case HtmlInputText:
