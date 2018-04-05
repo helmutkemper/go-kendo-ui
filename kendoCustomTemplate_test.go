@@ -128,13 +128,13 @@ func ExampleIdea() {
       },
       {
         Action:  &JavaScript{
-          Code: "if(!$('#spanCreateTemplateExposedPortsAddNewPort').kendoValidator().data('kendoValidator').validate()){ return false; }",
+          Code: "function(input){ if(!$('#spanCreateTemplateExposedPortsAddNewPort').kendoValidator().data('kendoValidator').validate()){ return false; } return false; }",
         },
         Text:    "Add",
       },
       {
         Action:  &JavaScript{
-          Code: "if(!$('#spanCreateTemplateExposedPortsAddNewPort').kendoValidator().data('kendoValidator').validate()){ return false; }",
+          Code: "function(input){ if(!$('#spanCreateTemplateExposedPortsAddNewPort').kendoValidator().data('kendoValidator').validate()){ return false; } }",
         },
         Primary: TRUE,
         Text:    "Add and close",
@@ -173,19 +173,20 @@ func ExampleIdea() {
     Type: "text/x-kendo-template",
     Content: Content{
 
-      HtmlElementSpan{
+      HtmlElementDiv{
         Global: HtmlGlobalAttributes{
           Id: "spanCreateTemplateExposedPortsAddNewPort",
         },
         Content: Content{
 
-          HtmlInputNumber{
+          HtmlInputText{
             Name: "ExposedPorts",
             PlaceHolder: "",
+            Pattern: "[^=]*",
             AutoComplete: FALSE,
             Required: TRUE,
             Global: HtmlGlobalAttributes{
-              Id: "ExposedPortsNumber",
+              Id: "ExposedPorts",
               Class: "oneThirdSize",
               Extra: map[string]interface{}{
                 "validationMessage": "Enter a {0}",
@@ -200,6 +201,10 @@ func ExampleIdea() {
             },
             Options: []HtmlOptions{
               {
+                Label: "Please, select one",
+                Key:   "",
+              },
+              {
                 Label: "TCP",
                 Key:   "TCP",
               },
@@ -210,6 +215,16 @@ func ExampleIdea() {
             },
           },
 
+        },
+      },
+
+      HtmlElementSpan{
+        Global: HtmlGlobalAttributes{
+          Id: "spanCreateTemplateExposedPortsAddNewPort",
+          Class: "k-invalid-msg",
+          Data: map[string]string{
+            "for":"ExposedPortsNumber",
+          },
         },
       },
 

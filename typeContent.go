@@ -11,6 +11,17 @@ type Content []interface{}
 func(el Content) Bytes() []byte {
   var buffer bytes.Buffer
 
+  /*
+  keys := make([]int, 0)
+  for k, _ := range romanNumeralDict {
+      keys = append(keys, k)
+  }
+  sort.Ints(keys)
+  for _, k := range keys {
+      fmt.Println(k, romanNumeralDict[k])
+  }
+  */
+
   for _, v := range el{
     switch outConverted := v.(type) {
       case string:
