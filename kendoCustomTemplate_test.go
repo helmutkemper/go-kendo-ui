@@ -116,8 +116,10 @@ func ExampleIdea() {
     },
     Type: "text/x-kendo-template",
     Content: Content{
+
       HtmlElementSpan{
         Content: Content{
+
           HtmlInputGeneric{
             Name: "ExposedPorts",
             PlaceHolder: "",
@@ -131,6 +133,7 @@ func ExampleIdea() {
               },
             },
           },
+
           HtmlElementFormSelect{
             Global: HtmlGlobalAttributes{
               Id: "ExposedPortsProtocol",
@@ -138,17 +141,19 @@ func ExampleIdea() {
             },
             Options: []HtmlOptions{
               {
-                Label: "UDP",
-                Key:   "UDP",
-              },
-              {
                 Label: "TCP",
                 Key:   "TCP",
               },
+              {
+                Label: "UDP",
+                Key:   "UDP",
+              },
             },
           },
+
         },
       },
+
     },
   }
   fmt.Printf( "%s", htmlScript.ToHtml() )
