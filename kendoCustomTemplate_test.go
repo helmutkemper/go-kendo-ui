@@ -110,7 +110,29 @@ func ExampleGetTemplate() {
 }
 
 func ExampleIdea() {
-  htmlScript := HtmlElementScript{
+  hostExposedPortsTemplateFooter := HtmlElementScript{
+    Global: HtmlGlobalAttributes{
+      Id: "containerHostExposedPortsFooterTemplate",
+    },
+    Type:    "text/x-kendo-template",
+    Content: Content{
+
+      HtmlElementFormButton{
+        Global: HtmlGlobalAttributes{
+          Id: "buttonHostExposedPortsFooterTemplate",
+          Class: "k-button k-primary centerText",
+          OnClick: "containerHostExposedPortsAddNewPort()",
+        },
+        Content: Content{
+          "Add new port and protocol",
+        },
+      },
+
+    },
+  }
+  fmt.Printf( "%s\n", hostExposedPortsTemplateFooter.ToHtml() )
+
+  hostExposedPortsTemplate := HtmlElementScript{
     Global: HtmlGlobalAttributes{
       Id: "containerCreateTemplateExposedPortsAddNewPort",
     },
@@ -156,7 +178,27 @@ func ExampleIdea() {
 
     },
   }
-  fmt.Printf( "%s", htmlScript.ToHtml() )
+  fmt.Printf( "%s\n", hostExposedPortsTemplate.ToHtml() )
+
+  hostExposedPortsTemplateNoData := HtmlElementScript{
+    Global: HtmlGlobalAttributes{
+      Id: "containerHostExposedPortsNoDataTemplate",
+    },
+    Type:    "text/x-kendo-template",
+    Content: Content{
+
+      HtmlElementDiv{
+        Global: HtmlGlobalAttributes{
+          Id: "divExposedPortsFooterTemplate",
+        },
+        Content: Content{
+          "No ports found to add. Please add a port and a protocol before continuing.",
+        },
+      },
+
+    },
+  }
+  fmt.Printf( "%s\n", hostExposedPortsTemplateNoData.ToHtml() )
 
   // Output:
   //
