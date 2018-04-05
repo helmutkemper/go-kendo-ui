@@ -23,20 +23,20 @@ func ExampleGetTemplate() {
     DataValueField: "productId",
     Delay: 100,
     Filter: FILTER_CONTAINS,
-    //FixedGroupTemplate: "Fixed header: #: data #",
+    // FixedGroupTemplate: "Fixed header: #: data #",
     FooterTemplate: &JavaScript{
       Code: string( customTemplate.GetElementFooterTemplate() ),
     },
-    //GroupTemplate: "Group template: #: data #",
+    // GroupTemplate: "Group template: #: data #",
     NoDataTemplate: &JavaScript{
       Code: string( customTemplate.GetElementNoDataTemplate() ),
     },
     Placeholder: "Select...",
-    //HeaderTemplate: "<div><h2>Fruits</h2></div>",
+    // HeaderTemplate: "<div><h2>Fruits</h2></div>",
     ItemTemplate: &JavaScript{
       Code: string( customTemplate.GetElementTemplate() ),
     },
-    //TagMode: TAG_MODE_MULTIPLE,
+    // TagMode: TAG_MODE_MULTIPLE,
     Value: []map[string]interface{}{
       { "productName": "Item 1", "productId": "1" },
       { "productName": "Item 2", "productId": "2" },
@@ -120,7 +120,7 @@ func ExampleIdea() {
       HtmlElementSpan{
         Content: Content{
 
-          HtmlInputNumber{ // fixme: number incompleto
+          HtmlInputNumber{
             Name: "ExposedPorts",
             PlaceHolder: "",
             AutoComplete: FALSE,

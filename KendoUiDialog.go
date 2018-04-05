@@ -97,7 +97,7 @@ type KendoUiDialog struct{
    });
    </script>
   */
-  Content                                 interface{}                             `jsObject:"content" jsType:"*JavaScript,JavaScript,string"`
+  Content                                 interface{}                             `jsObject:"content" jsType:"*JavaScript,JavaScript,string,Content"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog#configuration-height
