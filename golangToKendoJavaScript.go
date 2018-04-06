@@ -613,6 +613,103 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
 
       buffer.WriteString(tag.Get("jsObject") + `: "` + field.Interface().(KendoAggregate).String() + `",`)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    case "map[string]telerik.KendoField":
+      if len( field.Interface().(map[string]KendoField) ) == 0 {
+        continue
+      }
+
+      buffer.WriteString(tag.Get("jsObject") + `: {`)
+      for k, v := range field.Interface().(map[string]KendoField) {
+        buffer.WriteString( `"` + k + `": ` )
+        buffer.Write( v.ToJavaScript() )
+        buffer.WriteString( `, ` )
+      }
+      buffer.WriteString(`},`)
+
+    case "[string]map[string]interface {}":
+      if field.Interface().(map[string]interface{}) == nil {
+        continue
+      }
+
+      buffer.WriteString(tag.Get("jsObject") + `: [`)
+      for k, v := range field.Interface().(map[string]interface{}) {
+
+
+
+        buffer.WriteString( `"` + k + `": ` )
+        switch v.(type) {
+        case string:
+          buffer.WriteString(`"` + v.(string) + `",`)
+
+        case int:
+          buffer.WriteString(strconv.Itoa( v.(int) ) + `,`)
+
+        case int64:
+          buffer.WriteString(strconv.FormatInt( v.(int64), 64 ) + `,`)
+
+        case float32:
+          buffer.WriteString(strconv.FormatFloat( float64( v.(float32) ), 'E', -1, 32) + `,`)
+
+        case float64:
+          buffer.WriteString(strconv.FormatFloat( v.(float64), 'E', -1, 64) + `,`)
+        }
+
+
+      }
+      buffer.WriteString(`],`)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     case "*[]map[string]interface {}":
       if field.Interface().(*[]map[string]interface{}) == nil {
         continue

@@ -110,6 +110,7 @@ func ExampleGetTemplate() {
 }
 
 func ExampleIdea() {
+
   hostExposedPortsAddNewPortDialog := KendoUiDialog{
     Html: HtmlElementDiv{
       Global: HtmlGlobalAttributes{
@@ -266,6 +267,47 @@ func ExampleIdea() {
     },
   }
   fmt.Printf( "%s\n", hostExposedPortsTemplateNoData.ToHtml() )
+
+  sel := KendoUiMultiSelect{
+    Html: HtmlElementFormSelect{
+      Global: HtmlGlobalAttributes{
+        Id: "containerHostExposedPorts",
+      },
+    },
+    Filter: FILTER_CONTAINS,
+    Placeholder: "",
+    ItemTemplate: &JavaScript{
+      Code: "kendo.template($('#containerHostExposedPortsTemplate').html())",
+    },
+    NoDataTemplate: &JavaScript{
+      Code: "kendo.template($('#containerHostExposedPortsNoDataTemplate').html())",
+    },
+    FooterTemplate: &JavaScript{
+      Code: "kendo.template($('#containerHostExposedPortsFooterTemplate').html())",
+    },
+    DataTextField: "Value",
+    DataValueField: "Id",
+    DataSource: &KendoDataSource{
+      Schema: &KendoSchema{
+        Model: &KendoDataModel{
+          Id: "Id",
+          Fields: map[string]KendoField{
+            "Id": {
+              Type: JAVASCRIPT_NUMBER,
+            },
+            "Value": {
+              Type: JAVASCRIPT_STRING,
+            },
+            "ImageName": {
+              Type: JAVASCRIPT_STRING,
+            },
+          },
+        },
+      },
+    },
+  }
+  fmt.Printf( "%s\n", sel.ToHtml() )
+  fmt.Printf( "%s\n", sel.ToJavaScript() )
 
   // Output:
   //
