@@ -179,14 +179,14 @@ func ExampleIdea() {
         },
         Content: Content{
 
-          HtmlInputText{
+          HtmlInputNumber{
             Name: "ExposedPorts",
             PlaceHolder: "",
-            Pattern: "[^=]*",
+            // Pattern: "[^=]*",
             AutoComplete: FALSE,
             Required: TRUE,
             Global: HtmlGlobalAttributes{
-              Id: "ExposedPorts",
+              Id: "ExposedPortsNumber",
               Class: "oneThirdSize",
               Extra: map[string]interface{}{
                 "validationMessage": "Enter a {0}",
@@ -199,6 +199,7 @@ func ExampleIdea() {
               Id: "ExposedPortsProtocol",
               Class: "oneThirdSize",
             },
+            Required: TRUE,
             Options: []HtmlOptions{
               {
                 Label: "Please, select one",
@@ -223,7 +224,7 @@ func ExampleIdea() {
           Id: "spanCreateTemplateExposedPortsAddNewPort",
           Class: "k-invalid-msg",
           Data: map[string]string{
-            "for":"ExposedPortsNumber",
+            "for":"ExposedPorts",
           },
         },
       },
