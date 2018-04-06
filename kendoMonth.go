@@ -1,9 +1,6 @@
 package telerik
 
 import (
-  "fmt"
-  "html/template"
-  "bytes"
   "reflect"
   log "github.com/helmutkemper/seelog"
 )
@@ -70,23 +67,6 @@ type KendoMonth struct{
 
   *ToJavaScriptConverter
 
-}
-func(el *KendoMonth) IsSet() bool {
-  return el != nil
-}
-func(el *KendoMonth) String() string {
-  var buffer bytes.Buffer
-  tmpl := template.Must(template.New("").Funcs(template.FuncMap{
-    "safeHTML": func(s interface{}) template.HTML {
-      return template.HTML(s.(string))
-    },
-  }).Parse(GetTemplate()))
-  err := tmpl.ExecuteTemplate(&buffer, "Month", *(el))
-  if err != nil {
-    fmt.Println(err.Error())
-  }
-  
-  return buffer.String()
 }
 func(el *KendoMonth) ToJavaScript() ([]byte) {
   element := reflect.ValueOf(el).Elem()

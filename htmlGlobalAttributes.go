@@ -241,6 +241,10 @@ type HtmlGlobalAttributes struct{
 func(el *HtmlGlobalAttributes)ToHtml() []byte {
   var buffer bytes.Buffer
 
+  if el.Id == "" {
+    el.Id = getAutoId()
+  }
+
   element := reflect.ValueOf(el).Elem()
   data := el.ToJavaScriptConverter.ToTelerikHtml(element)
   buffer.Write( data )
@@ -249,7 +253,12 @@ func(el *HtmlGlobalAttributes)ToHtml() []byte {
 }
 func(el *HtmlGlobalAttributes)GetId() []byte {
   var buffer bytes.Buffer
-      buffer.WriteString( el.Id )
+
+  if el.Id == "" {
+    el.Id = getAutoId()
+  }
+
+  buffer.WriteString( el.Id )
 
   return buffer.Bytes()
 }

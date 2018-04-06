@@ -92,8 +92,7 @@ type Kendo struct {
 func(el *Kendo) ToJavaScript() []byte {
   var ret bytes.Buffer
   if el.Id == "" {
-    log.Critical("kendo not have a html id for mount JavaScript code.")
-    return []byte{}
+    el.Id = getAutoId()
   }
 
   element := reflect.ValueOf(el).Elem()

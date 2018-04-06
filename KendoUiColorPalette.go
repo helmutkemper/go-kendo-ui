@@ -91,8 +91,7 @@ type KendoUiColorPalette struct{
 func(el *KendoUiColorPalette) ToJavaScript() string {
   var ret bytes.Buffer
   if el.Html.Global.Id == "" {
-    log.Critical("KendoUiColorPalette not have a html id for mount JavaScript code.")
-    return ""
+    el.Html.Global.Id = getAutoId()
   }
 
   element := reflect.ValueOf(el).Elem()
@@ -110,4 +109,10 @@ func(el *KendoUiColorPalette) ToJavaScript() string {
 }
 func(el *KendoUiColorPalette) ToHtml() []byte {
   return el.Html.ToHtml()
+}
+func(el *KendoUiColorPalette) GetId() []byte{
+  if el.Html.Global.Id == "" {
+    el.Html.Global.Id = getAutoId()
+  }
+  return []byte( el.Html.Global.Id )
 }

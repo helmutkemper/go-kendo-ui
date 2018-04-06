@@ -179,56 +179,70 @@ func ExampleIdea() {
         },
         Content: Content{
 
-          HtmlInputNumber{
-            Name: "ExposedPorts",
-            PlaceHolder: "",
-            // Pattern: "[^=]*",
-            AutoComplete: FALSE,
-            Required: TRUE,
-            Global: HtmlGlobalAttributes{
-              Id: "ExposedPortsNumber",
-              Class: "oneThirdSize",
-              Extra: map[string]interface{}{
-                "validationMessage": "Enter a {0}",
+          HtmlElementDiv{
+            Content: Content{
+
+              HtmlElementFormLabel{
+                For: "ExposedPortsNumber",
+                Content: Content{
+                  "Port number",
+                },
               },
+
+              HtmlInputNumber{
+                Name: "ExposedPorts",
+                PlaceHolder: "",
+                // Pattern: "[^=]*",
+                AutoComplete: FALSE,
+                Required: TRUE,
+                Global: HtmlGlobalAttributes{
+                  Id: "ExposedPortsNumber",
+                  Class: "oneThirdSize",
+                  Extra: map[string]interface{}{
+                    "validationMessage": "Enter a {0}",
+                  },
+                },
+              },
+
             },
           },
 
-          HtmlElementFormSelect{
-            Global: HtmlGlobalAttributes{
-              Id: "ExposedPortsProtocol",
-              Class: "oneThirdSize",
-            },
-            Required: TRUE,
-            Options: []HtmlOptions{
-              {
-                Label: "Please, select one",
-                Key:   "",
+          HtmlElementDiv{
+            Content: Content{
+
+              HtmlElementFormLabel{
+                For: "ExposedPortsProtocol",
+                Content: Content{
+                  "Port protocol",
+                },
               },
-              {
-                Label: "TCP",
-                Key:   "TCP",
+
+              HtmlElementFormSelect{
+                Global: HtmlGlobalAttributes{
+                  Id: "ExposedPortsProtocol",
+                  Class: "oneThirdSize",
+                },
+                Required: TRUE,
+                Options: []HtmlOptions{
+                  {
+                    Label: "Please, select one",
+                    Key:   "",
+                  },
+                  {
+                    Label: "TCP",
+                    Key:   "TCP",
+                  },
+                  {
+                    Label: "UDP",
+                    Key:   "UDP",
+                  },
+                },
               },
-              {
-                Label: "UDP",
-                Key:   "UDP",
-              },
+
             },
           },
-
         },
       },
-
-      HtmlElementSpan{
-        Global: HtmlGlobalAttributes{
-          Id: "spanCreateTemplateExposedPortsAddNewPort",
-          Class: "k-invalid-msg",
-          Data: map[string]string{
-            "for":"ExposedPorts",
-          },
-        },
-      },
-
     },
   }
   fmt.Printf( "%s\n", hostExposedPortsTemplate.ToHtml() )

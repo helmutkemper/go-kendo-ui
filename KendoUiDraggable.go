@@ -352,8 +352,7 @@ type KendoUiDraggable struct{
 func(el *KendoUiDraggable) ToJavaScript() []byte {
   var ret bytes.Buffer
   if el.Html.Global.Id == "" {
-    log.Critical("kendoDraggable not have a html id for mount JavaScript code.")
-    return []byte{}
+    el.Html.Global.Id = getAutoId()
   }
 
   element := reflect.ValueOf(el).Elem()
@@ -371,4 +370,10 @@ func(el *KendoUiDraggable) ToJavaScript() []byte {
 }
 func(el *KendoUiDraggable) ToHtml() []byte{
   return el.Html.ToHtml()
+}
+func(el *KendoUiDraggable) GetId() []byte{
+  if el.Html.Global.Id == "" {
+    el.Html.Global.Id = getAutoId()
+  }
+  return []byte( el.Html.Global.Id )
 }

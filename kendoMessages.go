@@ -1,9 +1,6 @@
 package telerik
 
 import (
-  "fmt"
-  "html/template"
-  "bytes"
   log "github.com/helmutkemper/seelog"
   "reflect"
 )
@@ -38,23 +35,6 @@ type KendoMessages struct{
   PromptInput                             String                  `jsObject:"promptinput"`
 
   *ToJavaScriptConverter
-}
-func(el *KendoMessages) IsSet() bool {
-  return el != nil
-}
-func(el *KendoMessages) String() string {
-  var buffer bytes.Buffer
-  tmpl := template.Must(template.New("").Funcs(template.FuncMap{
-    "safeHTML": func(s interface{}) template.HTML {
-      return template.HTML(s.(string))
-    },
-  }).Parse(GetTemplate()))
-  err := tmpl.ExecuteTemplate(&buffer, "Messages", *(el))
-  if err != nil {
-    fmt.Println(err.Error())
-  }
-  
-  return buffer.String()
 }
 func(el *KendoMessages) ToJavaScript() ([]byte) {
   element := reflect.ValueOf(el).Elem()

@@ -278,8 +278,7 @@ type KendoUiCalendar struct{
 func(el *KendoUiCalendar) ToJavaScript() []byte {
   var ret bytes.Buffer
   if el.Html.Global.Id == "" {
-    log.Critical("KendoUiCalendar not have a html id for mount JavaScript code.")
-    return []byte{}
+    el.Html.Global.Id = getAutoId()
   }
 
   element := reflect.ValueOf(el).Elem()
@@ -297,4 +296,10 @@ func(el *KendoUiCalendar) ToJavaScript() []byte {
 }
 func(el *KendoUiCalendar) ToHtml() []byte {
   return el.Html.ToHtml()
+}
+func(el *KendoUiCalendar) GetId() []byte{
+  if el.Html.Global.Id == "" {
+    el.Html.Global.Id = getAutoId()
+  }
+  return []byte( el.Html.Global.Id )
 }

@@ -470,8 +470,7 @@ func(el *KendoUiContextMenu) ToJavaScript() []byte {
   var ret bytes.Buffer
 
   if el.Html.Global.Id == "" {
-    log.Critical("KendoUiContextMenu not have a html id for mount JavaScript code.")
-    return []byte{}
+    el.Html.Global.Id = getAutoId()
   }
 
   element := reflect.ValueOf(el).Elem()
@@ -489,4 +488,10 @@ func(el *KendoUiContextMenu) ToJavaScript() []byte {
 }
 func(el *KendoUiContextMenu) ToHtml() []byte{
   return el.Html.ToHtml()
+}
+func(el *KendoUiContextMenu) GetId() []byte{
+  if el.Html.Global.Id == "" {
+    el.Html.Global.Id = getAutoId()
+  }
+  return []byte( el.Html.Global.Id )
 }

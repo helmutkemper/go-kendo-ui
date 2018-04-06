@@ -78,8 +78,7 @@ type KendoUiButton struct{
 func(el *KendoUiButton) ToJavaScript() []byte {
   var ret bytes.Buffer
   if el.Html.Global.Id == "" {
-    log.Critical("kendoButton not have a html id for mount JavaScript code.")
-    return []byte{}
+    el.Html.Global.Id = getAutoId()
   }
 
   element := reflect.ValueOf(el).Elem()
@@ -97,4 +96,10 @@ func(el *KendoUiButton) ToJavaScript() []byte {
 }
 func(el *KendoUiButton) ToHtml() []byte{
   return el.Html.ToHtml()
+}
+func(el *KendoUiButton) GetId() []byte{
+  if el.Html.Global.Id == "" {
+    el.Html.Global.Id = getAutoId()
+  }
+  return []byte( el.Html.Global.Id )
 }

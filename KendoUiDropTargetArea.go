@@ -141,8 +141,7 @@ type KendoUiDropTargetArea struct{
 func(el *KendoUiDropTargetArea) ToJavaScript() []byte {
   var ret bytes.Buffer
   if el.Html.Global.Id == "" {
-    log.Critical("kendoDropTargetArea not have a html id for mount JavaScript code.")
-    return []byte{}
+    el.Html.Global.Id = getAutoId()
   }
 
   element := reflect.ValueOf(el).Elem()
@@ -160,4 +159,10 @@ func(el *KendoUiDropTargetArea) ToJavaScript() []byte {
 }
 func(el *KendoUiDropTargetArea) ToHtml() []byte{
   return el.Html.ToHtml()
+}
+func(el *KendoUiDropTargetArea) GetId() []byte{
+  if el.Html.Global.Id == "" {
+    el.Html.Global.Id = getAutoId()
+  }
+  return []byte( el.Html.Global.Id )
 }
