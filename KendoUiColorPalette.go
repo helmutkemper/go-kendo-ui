@@ -68,7 +68,7 @@ type KendoUiColorPalette struct{
    });
    </script>
   */
-  TileSize                                *KendoTileSize                            `jsObject:"tileSize"`
+  TileSize                                KendoTileSize                             `jsObject:"tileSize"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/colorpalette#configuration-value

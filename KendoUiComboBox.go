@@ -449,7 +449,7 @@ type KendoUiComboBox struct{
    });
    </script>
   */
-  Popup                                   *KendoPopup                           `jsObject:"popup"`
+  Popup                                   KendoPopup                            `jsObject:"popup"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-suggest
@@ -597,7 +597,7 @@ type KendoUiComboBox struct{
   Enables the virtualization feature of the widget. The configuration can be set on an object, which contains two properties - <b><u>itemHeight</u></b> and <b><u>valueMapper</u></b>.
   For detailed information, refer to the <a href="/kendo-ui/controls/editors/combobox/virtualization">article on virtualization</a>.
   */
-  Virtual                                 *KendoVirtual                         `jsObject:"virtual"`
+  Virtual                                 KendoVirtual                          `jsObject:"virtual"`
 
   *ToJavaScriptConverter
 }

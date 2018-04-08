@@ -44,7 +44,7 @@ type KendoGroup struct{
   });
   </script>
   */
-  Aggregates                                  *[]KendoAggregates                                  `jsObject:"aggregates"`
+  Aggregates                                  []KendoAggregates                                   `jsObject:"aggregates"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/group#group.dir

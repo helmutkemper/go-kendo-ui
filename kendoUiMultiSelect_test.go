@@ -9,12 +9,12 @@ func ExampleKendoDataSource_ToJavaScript_Animation_Object() {
         Id: "multiselect",
       },
     },
-    Animation: &KendoAnimation{
-      Open: &KendoOpen{
+    Animation: KendoAnimation{
+      Open: KendoOpen{
         Effects: EFFECT_ZOOM_IN,
         Duration: 300,
       },
-      Close: &KendoClose{
+      Close: KendoClose{
         Effects: EFFECT_ZOOM_OUT,
         Duration: 300,
       },
@@ -40,8 +40,8 @@ func ExampleKendoDataSource_ToJavaScript_Animation_Object() {
     MaxSelectedItems: 3,
     NoDataTemplate: "No Data!",
     Placeholder: "Select...",
-    Popup: &KendoPopup{
-      AppendTo: &JavaScript{
+    Popup: KendoPopup{
+      AppendTo: JavaScript{
         Code: "$('#container')",
       },
       Origin: ORIGIN_TOP_LEFT,
@@ -49,7 +49,7 @@ func ExampleKendoDataSource_ToJavaScript_Animation_Object() {
     },
     HeaderTemplate: "<div><h2>Fruits</h2></div>",
     ItemTemplate: "<span><img src='/img/#: id #.png' alt='#: name #' />#: name #</span>",
-    TagTemplate: &JavaScript{
+    TagTemplate: JavaScript{
       Code: "kendo.template($('#tagTemplate').html())",
     },
     TagMode: TAG_MODE_MULTIPLE,
@@ -59,9 +59,9 @@ func ExampleKendoDataSource_ToJavaScript_Animation_Object() {
       { "productName": "Item 3", "productId": "3" },
     },
     ValuePrimitive: TRUE,
-    Virtual: &KendoVirtual{
+    Virtual: KendoVirtual{
       ItemHeight: 26,
-      ValueMapper: &JavaScript{
+      ValueMapper: JavaScript{
         Code: `function(options) {
 	$.ajax({
 		url: 'https://demos.telerik.com/kendo-ui/service/Orders/ValueMapper',
@@ -183,8 +183,8 @@ func ExampleKendoDataSource_ToJavaScript_Animation_Boolean_FALSE() {
     MaxSelectedItems: 3,
     NoDataTemplate: "No Data!",
     Placeholder: "Select...",
-    Popup: &KendoPopup{
-      AppendTo: &JavaScript{
+    Popup: KendoPopup{
+      AppendTo: JavaScript{
         Code: "$('#container')",
       },
       Origin: ORIGIN_TOP_LEFT,
@@ -192,7 +192,7 @@ func ExampleKendoDataSource_ToJavaScript_Animation_Boolean_FALSE() {
     },
     HeaderTemplate: "<div><h2>Fruits</h2></div>",
     ItemTemplate: "<span><img src='/img/#: id #.png' alt='#: name #' />#: name #</span>",
-    TagTemplate: &JavaScript{
+    TagTemplate: JavaScript{
       Code: "kendo.template($('#tagTemplate').html())",
     },
     TagMode: TAG_MODE_MULTIPLE,
@@ -202,9 +202,9 @@ func ExampleKendoDataSource_ToJavaScript_Animation_Boolean_FALSE() {
       { "productName": "Item 3", "productId": "3" },
     },
     ValuePrimitive: TRUE,
-    Virtual: &KendoVirtual{
+    Virtual: KendoVirtual{
       ItemHeight: 26,
-      ValueMapper: &JavaScript{
+      ValueMapper: JavaScript{
         Code: `function(options) {
 	$.ajax({
 		url: 'https://demos.telerik.com/kendo-ui/service/Orders/ValueMapper',
@@ -296,12 +296,12 @@ func ExampleKendoDataSource_ToJavaScript_Virtual_Boolean_FALSE() {
         Id: "multiselect",
       },
     },
-    Animation: &KendoAnimation{
-      Open: &KendoOpen{
+    Animation: KendoAnimation{
+      Open: KendoOpen{
         Effects: EFFECT_ZOOM_IN,
         Duration: 300,
       },
-      Close: &KendoClose{
+      Close: KendoClose{
         Effects: EFFECT_ZOOM_OUT,
         Duration: 300,
       },
@@ -327,8 +327,8 @@ func ExampleKendoDataSource_ToJavaScript_Virtual_Boolean_FALSE() {
     MaxSelectedItems: 3,
     NoDataTemplate: "No Data!",
     Placeholder: "Select...",
-    Popup: &KendoPopup{
-      AppendTo: &JavaScript{
+    Popup: KendoPopup{
+      AppendTo: JavaScript{
         Code: "$('#container')",
       },
       Origin: ORIGIN_TOP_LEFT,
@@ -336,7 +336,7 @@ func ExampleKendoDataSource_ToJavaScript_Virtual_Boolean_FALSE() {
     },
     HeaderTemplate: "<div><h2>Fruits</h2></div>",
     ItemTemplate: "<span><img src='/img/#: id #.png' alt='#: name #' />#: name #</span>",
-    TagTemplate: &JavaScript{
+    TagTemplate: JavaScript{
       Code: "kendo.template($('#tagTemplate').html())",
     },
     TagMode: TAG_MODE_MULTIPLE,

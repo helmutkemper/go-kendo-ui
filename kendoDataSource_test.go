@@ -5,7 +5,7 @@ import "fmt"
 func ExampleKendoDataSource_ToJavaScript_OfflineStorage_1() {
   javaScript := KendoDataSource{
     VarName: "dataSource",
-    Aggregate: &[]KendoAggregates{
+    Aggregate: []KendoAggregates{
       {
         Aggregate: AGGREGATE_SUM,
         Field: "age",
@@ -21,7 +21,7 @@ func ExampleKendoDataSource_ToJavaScript_OfflineStorage_1() {
     },
     AutoSync: TRUE,
     Batch: TRUE,
-    Data: &[]map[string]interface{}{
+    Data: []map[string]interface{}{
       {
         "name": "Jane Doe",
         "age": 30,
@@ -44,7 +44,7 @@ func ExampleKendoDataSource_ToJavaScript_OfflineStorage_1() {
 func ExampleKendoDataSource_ToJavaScript_OfflineStorage_2() {
   javaScript := KendoDataSource{
     VarName: "dataSource",
-    Aggregate: &[]KendoAggregates{
+    Aggregate: []KendoAggregates{
       {
         Aggregate: AGGREGATE_SUM,
         Field: "age",
@@ -60,7 +60,7 @@ func ExampleKendoDataSource_ToJavaScript_OfflineStorage_2() {
     },
     AutoSync: TRUE,
     Batch: TRUE,
-    Data: &[]map[string]interface{}{
+    Data: []map[string]interface{}{
       {
         "name": "Jane Doe",
         "age": 30,
@@ -71,7 +71,7 @@ func ExampleKendoDataSource_ToJavaScript_OfflineStorage_2() {
       },
     },
     InPlaceSort: FALSE,
-    OfflineStorage: &KendoOfflineStorage{
+    OfflineStorage: KendoOfflineStorage{
       GetItem: "products-key",
       SetItem: "products-key",
     },
@@ -86,7 +86,7 @@ func ExampleKendoDataSource_ToJavaScript_OfflineStorage_2() {
 func ExampleKendoDataSource_ToJavaScript_OfflineStorage_3() {
   javaScript := KendoDataSource{
     VarName: "dataSource",
-    Aggregate: &[]KendoAggregates{
+    Aggregate: []KendoAggregates{
       {
         Aggregate: AGGREGATE_SUM,
         Field: "age",
@@ -102,7 +102,7 @@ func ExampleKendoDataSource_ToJavaScript_OfflineStorage_3() {
     },
     AutoSync: TRUE,
     Batch: TRUE,
-    Data: &[]map[string]interface{}{
+    Data: []map[string]interface{}{
       {
         "name": "Jane Doe",
         "age": 30,
@@ -127,7 +127,7 @@ func ExampleKendoDataSource_ToJavaScript_OfflineStorage_3() {
 func ExampleKendoDataSource_ToJavaScript_Filter_Array() {
   javaScript := KendoDataSource{
     VarName: "dataSource",
-    Aggregate: &[]KendoAggregates{
+    Aggregate: []KendoAggregates{
       {
         Aggregate: AGGREGATE_SUM,
         Field: "age",
@@ -143,7 +143,7 @@ func ExampleKendoDataSource_ToJavaScript_Filter_Array() {
     },
     AutoSync: TRUE,
     Batch: TRUE,
-    Data: &[]map[string]interface{}{
+    Data: []map[string]interface{}{
       {
         "name": "Jane Doe",
         "age": 30,
@@ -153,7 +153,7 @@ func ExampleKendoDataSource_ToJavaScript_Filter_Array() {
         "age": 33,
       },
     },
-    Filter: &[]KendoComplexFilter{
+    Filter: []KendoComplexFilter{
       {
         Field: "category",
         Operator: OPERATOR_EQUAL_TO,
@@ -165,7 +165,7 @@ func ExampleKendoDataSource_ToJavaScript_Filter_Array() {
         Value: "Coffee",
       },
     },
-    Group: &[]KendoGroup{
+    Group: []KendoGroup{
       {
         Field: "category",
       },
@@ -174,20 +174,20 @@ func ExampleKendoDataSource_ToJavaScript_Filter_Array() {
       },
     },
     InPlaceSort: FALSE,
-    OfflineStorage: &JavaScript{
+    OfflineStorage: JavaScript{
       Code: `{ getItem: function() { return JSON.parse(sessionStorage.getItem("products-key")); }, setItem: function(item) { sessionStorage.setItem("products-key", JSON.stringify(item)); } }`,
     },
     Page: 1,
     PageSize: 25,
-    Schema: &KendoSchema{
+    Schema: KendoSchema{
       Aggregates: "aggregates",
       Data: "statuses",
       Errors: "errors",
       Groups: "groups",
-      Model: &KendoDataModel{
+      Model: KendoDataModel{
         Id: "personId",
       },
-      Parser: &JavaScript{
+      Parser: JavaScript{
         Code: "function(response) { var products = []; for (var i = 0; i < response.length; i++) { var product = { id: response[i].ProductID, name: response[i].ProductName }; products.push(product); } return products; }",
       },
       Total: "total",
@@ -198,18 +198,18 @@ func ExampleKendoDataSource_ToJavaScript_Filter_Array() {
     ServerGrouping: FALSE,
     ServerPaging: FALSE,
     ServerSorting: FALSE,
-    Sort: &KendoSort{
+    Sort: KendoSort{
       Dir: DIRECTION_ASC,
       Field: "age",
-      Compare: &JavaScript{
+      Compare: JavaScript{
         Code: "function(a, b) { return numbers[a.item] - numbers[b.item]; }",
       },
     },
-    Transport: &KendoTransport{
-      Create: &KendoCreate{
+    Transport: KendoTransport{
+      Create: KendoCreate{
         Cache: FALSE,
         ContentType: "application/json",
-        Data: &[]map[string]interface{}{
+        Data: []map[string]interface{}{
           {
             "name": "Jane Doe",
             "age":  30,
@@ -223,10 +223,10 @@ func ExampleKendoDataSource_ToJavaScript_Filter_Array() {
         Type: HTML_METHOD_GET,
         Url: "https://demos.telerik.com/kendo-ui/service/products/create",
       },
-      Destroy: &KendoDestroy{
+      Destroy: KendoDestroy{
         Cache: FALSE,
         ContentType: "application/json",
-        Data: &[]map[string]interface{}{
+        Data: []map[string]interface{}{
           {
             "name": "Jane Doe",
             "age":  30,
@@ -240,16 +240,16 @@ func ExampleKendoDataSource_ToJavaScript_Filter_Array() {
         Type: HTML_METHOD_DELETE,
         Url: "https://demos.telerik.com/kendo-ui/service/products",
       },
-      ParameterMap: &JavaScript{
+      ParameterMap: JavaScript{
         Code: "function(data, type) { if (type == 'read') { /* send take as '$top' and skip as '$skip' */ return { $top: data.take, $skip: data.skip } } }",
       },
-      Push: &JavaScript{
+      Push: JavaScript{
         Code: "function(callbacks) { hub.on('create', function(result) { console.log('push create'); callbacks.pushCreate(result); }); hub.on('update', function(result) { console.log('push update'); callbacks.pushUpdate(result); }); hub.on('destroy', function(result) { console.log('push destroy'); callbacks.pushDestroy(result); }); }",
       },
-      Read: &KendoRead{
+      Read: KendoRead{
         Cache: FALSE,
         ContentType: "application/json",
-        Data: &map[string]interface{}{
+        Data: map[string]interface{}{
           "skip": 0,
           "take": 2,
         },
@@ -257,13 +257,13 @@ func ExampleKendoDataSource_ToJavaScript_Filter_Array() {
         Type: HTML_METHOD_GET,
         Url: "https://demos.telerik.com/kendo-ui/service/products",
       },
-      Submit: &JavaScript{
+      Submit: JavaScript{
         Code: "function(e) { var data = e.data; console.log(data); /* send batch update to desired URL, then notify success/error */ e.success(data.updated,'update'); e.success(data.created,'create'); e.success(data.destroyed,'destroy'); e.error(null, 'customerror', 'custom error'); }",
       },
-      Update: &KendoUpdate{
+      Update: KendoUpdate{
         Cache: FALSE,
         ContentType: "application/json",
-        Data: &map[string]interface{}{
+        Data: map[string]interface{}{
           "skip": 0,
           "take": 2,
         },
@@ -284,7 +284,7 @@ func ExampleKendoDataSource_ToJavaScript_Filter_Array() {
 func ExampleKendoDataSource_ToJavaScript_Filter_Object() {
   javaScript := KendoDataSource{
     VarName: "dataSource",
-    Aggregate: &[]KendoAggregates{
+    Aggregate: []KendoAggregates{
       {
         Aggregate: AGGREGATE_SUM,
         Field: "age",
@@ -300,7 +300,7 @@ func ExampleKendoDataSource_ToJavaScript_Filter_Object() {
     },
     AutoSync: TRUE,
     Batch: TRUE,
-    Data: &[]map[string]interface{}{
+    Data: []map[string]interface{}{
       {
         "name": "Jane Doe",
         "age": 30,
@@ -310,12 +310,12 @@ func ExampleKendoDataSource_ToJavaScript_Filter_Object() {
         "age": 33,
       },
     },
-    Filter: &KendoComplexFilter{
+    Filter: KendoComplexFilter{
       Field: "category",
       Operator: OPERATOR_EQUAL_TO,
       Value: "Beverages",
     },
-    Group: &[]KendoGroup{
+    Group: []KendoGroup{
       {
         Field: "category",
       },
@@ -324,20 +324,20 @@ func ExampleKendoDataSource_ToJavaScript_Filter_Object() {
       },
     },
     InPlaceSort: FALSE,
-    OfflineStorage: &JavaScript{
+    OfflineStorage: JavaScript{
       Code: `{ getItem: function() { return JSON.parse(sessionStorage.getItem("products-key")); }, setItem: function(item) { sessionStorage.setItem("products-key", JSON.stringify(item)); } }`,
     },
     Page: 1,
     PageSize: 25,
-    Schema: &KendoSchema{
+    Schema: KendoSchema{
       Aggregates: "aggregates",
       Data: "statuses",
       Errors: "errors",
       Groups: "groups",
-      Model: &KendoDataModel{
+      Model: KendoDataModel{
         Id: "personId",
       },
-      Parser: &JavaScript{
+      Parser: JavaScript{
         Code: "function(response) { var products = []; for (var i = 0; i < response.length; i++) { var product = { id: response[i].ProductID, name: response[i].ProductName }; products.push(product); } return products; }",
       },
       Total: "total",
@@ -348,18 +348,18 @@ func ExampleKendoDataSource_ToJavaScript_Filter_Object() {
     ServerGrouping: FALSE,
     ServerPaging: FALSE,
     ServerSorting: FALSE,
-    Sort: &KendoSort{
+    Sort: KendoSort{
       Dir: DIRECTION_ASC,
       Field: "age",
-      Compare: &JavaScript{
+      Compare: JavaScript{
         Code: "function(a, b) { return numbers[a.item] - numbers[b.item]; }",
       },
     },
-    Transport: &KendoTransport{
-      Create: &KendoCreate{
+    Transport: KendoTransport{
+      Create: KendoCreate{
         Cache: FALSE,
         ContentType: "application/json",
-        Data: &[]map[string]interface{}{
+        Data: []map[string]interface{}{
           {
             "name": "Jane Doe",
             "age":  30,
@@ -373,10 +373,10 @@ func ExampleKendoDataSource_ToJavaScript_Filter_Object() {
         Type: HTML_METHOD_GET,
         Url: "https://demos.telerik.com/kendo-ui/service/products/create",
       },
-      Destroy: &KendoDestroy{
+      Destroy: KendoDestroy{
         Cache: FALSE,
         ContentType: "application/json",
-        Data: &[]map[string]interface{}{
+        Data: []map[string]interface{}{
           {
             "name": "Jane Doe",
             "age":  30,
@@ -390,16 +390,16 @@ func ExampleKendoDataSource_ToJavaScript_Filter_Object() {
         Type: HTML_METHOD_DELETE,
         Url: "https://demos.telerik.com/kendo-ui/service/products",
       },
-      ParameterMap: &JavaScript{
+      ParameterMap: JavaScript{
         Code: "function(data, type) { if (type == 'read') { /* send take as '$top' and skip as '$skip' */ return { $top: data.take, $skip: data.skip } } }",
       },
-      Push: &JavaScript{
+      Push: JavaScript{
         Code: "function(callbacks) { hub.on('create', function(result) { console.log('push create'); callbacks.pushCreate(result); }); hub.on('update', function(result) { console.log('push update'); callbacks.pushUpdate(result); }); hub.on('destroy', function(result) { console.log('push destroy'); callbacks.pushDestroy(result); }); }",
       },
-      Read: &KendoRead{
+      Read: KendoRead{
         Cache: FALSE,
         ContentType: "application/json",
-        Data: &map[string]interface{}{
+        Data: map[string]interface{}{
           "skip": 0,
           "take": 2,
         },
@@ -407,13 +407,13 @@ func ExampleKendoDataSource_ToJavaScript_Filter_Object() {
         Type: HTML_METHOD_GET,
         Url: "https://demos.telerik.com/kendo-ui/service/products",
       },
-      Submit: &JavaScript{
+      Submit: JavaScript{
         Code: "function(e) { var data = e.data; console.log(data); /* send batch update to desired URL, then notify success/error */ e.success(data.updated,'update'); e.success(data.created,'create'); e.success(data.destroyed,'destroy'); e.error(null, 'customerror', 'custom error'); }",
       },
-      Update: &KendoUpdate{
+      Update: KendoUpdate{
         Cache: FALSE,
         ContentType: "application/json",
-        Data: &map[string]interface{}{
+        Data: map[string]interface{}{
           "skip": 0,
           "take": 2,
         },

@@ -71,7 +71,7 @@ type KendoUiColorPicker struct{
    });
    </script>
   */
-  TileSize                                *KendoTileSize                        `jsObject:"tileSize"`
+  TileSize                                KendoTileSize                         `jsObject:"tileSize"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/colorpicker#configuration-messages
@@ -89,7 +89,7 @@ type KendoUiColorPicker struct{
    })
    </script>
   */
-  Messages                                *KendoColorMessages                   `jsObject:"messages"`
+  Messages                                KendoColorMessages                    `jsObject:"messages"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/colorpicker#configuration-palette

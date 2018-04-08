@@ -12,12 +12,12 @@ func ExampleKendoUiDatePicker_ToHtml() {
         Id: "datepicker",
       },
     },
-    Animation: &KendoAnimation{
-      Open: &KendoOpen{
+    Animation: KendoAnimation{
+      Open: KendoOpen{
         Duration: 300,
         Effects: EFFECT_EXPAND_OUT,
       },
-      Close: &KendoClose{
+      Close: KendoClose{
         Duration: 300,
         Effects: EFFECT_EXPAND_IN,
       },

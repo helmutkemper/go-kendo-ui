@@ -14,9 +14,9 @@ func ExampleKendoUiDialog_String(){
     Title: "Configuration error",
     Content: "Please, set a valid environment var.",
     Width: 400,
-    Actions: &[]KendoActions{
+    Actions: []KendoActions{
       {
-        Action:  &JavaScript{
+        Action:  JavaScript{
           Code: "function(){ setTimeout( function(){ containerConfigurationEnvVarNameRef.focus(); }, 1000); }",
         },
         Primary: TRUE,

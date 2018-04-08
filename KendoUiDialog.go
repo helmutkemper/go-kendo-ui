@@ -35,7 +35,7 @@ type KendoUiDialog struct{
        });
    </script>
   */
-  Actions                                 *[]KendoActions                         `jsObject:"actions"`
+  Actions                                 []KendoActions                          `jsObject:"actions"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog#configuration-animation
@@ -159,7 +159,7 @@ type KendoUiDialog struct{
    });
    </script>
   */
-  Messages                                *KendoMessages                          `jsObject:"messages"`
+  Messages                                KendoMessages                           `jsObject:"messages"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog#configuration-minHeight
@@ -283,7 +283,7 @@ type KendoUiDialog struct{
     dialog.bind("close", dialog_close);
   </script>
   */
-  EventClose                              *JavaScript                             `jsObject:"close"`
+  EventClose                              JavaScript                              `jsObject:"close"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog/events/hide#hide
@@ -311,7 +311,7 @@ type KendoUiDialog struct{
     dialog.bind("hide", dialog_hide);
   </script>
   */
-  EventHide                               *JavaScript                             `jsObject:"hide"`
+  EventHide                               JavaScript                              `jsObject:"hide"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog/events/initopen#initOpen
@@ -340,7 +340,7 @@ type KendoUiDialog struct{
     dialog.open();
   </script>
   */
-  EventInitOpen                           *JavaScript                             `jsObject:"initOpen"`
+  EventInitOpen                           JavaScript                              `jsObject:"initOpen"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog/events/open#open
@@ -368,7 +368,7 @@ type KendoUiDialog struct{
     dialog.bind("open", dialog_open);
   </script>
   */
-  EventOpen                               *JavaScript                             `jsObject:"open"`
+  EventOpen                               JavaScript                              `jsObject:"open"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog/events/show#show
@@ -396,7 +396,7 @@ type KendoUiDialog struct{
     dialog.bind("show", dialog_show);
   </script>
   */
-  EventShow                               *JavaScript                             `jsObject:"show"`
+  EventShow                               JavaScript                              `jsObject:"show"`
 
   *ToJavaScriptConverter
 }

@@ -33,7 +33,7 @@ type KendoPopup struct{
     }).data("kendoPopup").open();
   </script>
   */
-  AdjustSize                              *KendoAdjustSize                        `jsObject:"adjustSize"`
+  AdjustSize                              KendoAdjustSize                         `jsObject:"adjustSize"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/popup/configuration/anchor#anchor
@@ -87,7 +87,7 @@ type KendoPopup struct{
    });
    </script>
   */
-  AppendTo                               *JavaScript                              `jsObject:"appendTo"`
+  AppendTo                               JavaScript                               `jsObject:"appendTo"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/popup/configuration/collision#collision

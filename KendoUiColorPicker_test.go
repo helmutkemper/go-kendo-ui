@@ -12,11 +12,11 @@ func ExampleKendoUiColorPicker_ToHtml_Input() {
     Buttons: TRUE,
     ClearButton: TRUE,
     Columns: 3,
-    TileSize: &KendoTileSize{
+    TileSize: KendoTileSize{
       Width: 32,
       Height: 32,
     },
-    Messages: &KendoColorMessages{
+    Messages: KendoColorMessages{
       Apply: "update",
       Cancel: "Discard",
     },
@@ -43,11 +43,11 @@ func ExampleKendoUiColorPicker_ToHtml_Div() {
     Buttons: TRUE,
     ClearButton: TRUE,
     Columns: 3,
-    TileSize: &KendoTileSize{
+    TileSize: KendoTileSize{
       Width: 32,
       Height: 32,
     },
-    Messages: &KendoColorMessages{
+    Messages: KendoColorMessages{
       Apply: "update",
       Cancel: "Discard",
     },

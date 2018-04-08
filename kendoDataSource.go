@@ -44,7 +44,7 @@ type KendoDataSource struct {
   </script>
   */
 
-  Aggregate                               *[]KendoAggregates                  `jsObject:"aggregate"`
+  Aggregate                               []KendoAggregates                   `jsObject:"aggregate"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/autosync#autoSync
@@ -373,7 +373,7 @@ type KendoDataSource struct {
   });
   </script>
   */
-  Schema                                 *KendoSchema                       `jsObject:"schema"`
+  Schema                                 KendoSchema                        `jsObject:"schema"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/serveraggregates#serverAggregates
@@ -561,7 +561,7 @@ type KendoDataSource struct {
   });
   </script>
   */
-  Sort                                    *KendoSort                        `jsObject:"sort"`
+  Sort                                    KendoSort                         `jsObject:"sort"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/transport#transport
@@ -588,7 +588,7 @@ type KendoDataSource struct {
   });
   </script>
   */
-  Transport                               *KendoTransport                   `jsObject:"transport"`
+  Transport                               KendoTransport                    `jsObject:"transport"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/type#type

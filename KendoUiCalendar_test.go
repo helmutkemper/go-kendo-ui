@@ -87,11 +87,11 @@ func ExampleKendoUiCalendar_ToTelerikTemplate() {
     Footer: `kendo.template($('#footer-template').html())`,
     Format: `yyyy/MM/dd`,
     Max: time.Date(2019, 2, 28, 23, 59, 59, 0, time.UTC),
-    Messages: &KendoCalendarMessages{
+    Messages: KendoCalendarMessages{
       WeekColumnHeader: "W",
     },
     Min: time.Date(2018, 2, 28, 0, 0, 0, 0, time.UTC),
-    Month: &KendoMonth{
+    Month: KendoMonth{
       Content: `$('#cell-template').html()`,
       WeekNumber: `$('#week-template').html()`,
       Empty: `-`,

@@ -24,16 +24,16 @@ func ExampleGetTemplate() {
     Delay: 100,
     Filter: FILTER_CONTAINS,
     // FixedGroupTemplate: "Fixed header: #: data #",
-    FooterTemplate: &JavaScript{
+    FooterTemplate: JavaScript{
       Code: string( customTemplate.GetElementFooterTemplate() ),
     },
     // GroupTemplate: "Group template: #: data #",
-    NoDataTemplate: &JavaScript{
+    NoDataTemplate: JavaScript{
       Code: string( customTemplate.GetElementNoDataTemplate() ),
     },
     Placeholder: "Select...",
     // HeaderTemplate: "<div><h2>Fruits</h2></div>",
-    ItemTemplate: &JavaScript{
+    ItemTemplate: JavaScript{
       Code: string( customTemplate.GetElementTemplate() ),
     },
     // TagMode: TAG_MODE_MULTIPLE,
@@ -120,21 +120,21 @@ func ExampleIdea() {
     Modal: TRUE,
     Visible: FALSE,
     Title: "Expose port from container",
-    Content: &JavaScript{
+    Content: JavaScript{
       Code: "kendo.template($('#containerCreateTemplateExposedPortsAddNewPort').html())",
     },
-    Actions: &[]KendoActions{
+    Actions: []KendoActions{
       {
         Text: "Close",
       },
       {
-        Action:  &JavaScript{
+        Action:  JavaScript{
           Code: "function(input){ if(!$('#spanCreateTemplateExposedPortsAddNewPort').kendoValidator().data('kendoValidator').validate()){ return false; } return false; }",
         },
         Text:    "Add",
       },
       {
-        Action:  &JavaScript{
+        Action:  JavaScript{
           Code: "function(input){ if(!$('#spanCreateTemplateExposedPortsAddNewPort').kendoValidator().data('kendoValidator').validate()){ return false; } }",
         },
         Primary: TRUE,
@@ -276,20 +276,20 @@ func ExampleIdea() {
     },
     Filter: FILTER_CONTAINS,
     Placeholder: "",
-    ItemTemplate: &JavaScript{
+    ItemTemplate: JavaScript{
       Code: "kendo.template($('#containerHostExposedPortsTemplate').html())",
     },
-    NoDataTemplate: &JavaScript{
+    NoDataTemplate: JavaScript{
       Code: "kendo.template($('#containerHostExposedPortsNoDataTemplate').html())",
     },
-    FooterTemplate: &JavaScript{
+    FooterTemplate: JavaScript{
       Code: "kendo.template($('#containerHostExposedPortsFooterTemplate').html())",
     },
     DataTextField: "Value",
     DataValueField: "Id",
-    DataSource: &KendoDataSource{
-      Schema: &KendoSchema{
-        Model: &KendoDataModel{
+    DataSource: KendoDataSource{
+      Schema: KendoSchema{
+        Model: KendoDataModel{
           Id: "Id",
           Fields: map[string]KendoField{
             "Id": {

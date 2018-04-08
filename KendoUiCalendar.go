@@ -143,7 +143,7 @@ type KendoUiCalendar struct{
     })
    </script>
   */
-  Messages                                *KendoCalendarMessages      `jsObject:"messages"`
+  Messages                                KendoCalendarMessages       `jsObject:"messages"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/calendar#configuration-min
@@ -193,7 +193,7 @@ type KendoUiCalendar struct{
     });
   </script>
   */
-  Month                                   *KendoMonth         `jsObject:"month"`
+  Month                                   KendoMonth          `jsObject:"month"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/calendar#configuration-selectable

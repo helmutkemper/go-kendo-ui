@@ -95,7 +95,7 @@ type KendoUiDraggable struct{
      }
    </style>
   */
-  Container                               *JavaScript                             `jsObject:"container"`
+  Container                               JavaScript                              `jsObject:"container"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/draggable#configuration-cursorOffset

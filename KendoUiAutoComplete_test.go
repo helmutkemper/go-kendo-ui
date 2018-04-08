@@ -9,12 +9,12 @@ func ExampleKendoUiAutoComplete_ToJavaScript_1() {
         Id: "auto_complete",
       },
     },
-    Animation: &KendoAnimation{
-      Open: &KendoOpen{
+    Animation: KendoAnimation{
+      Open: KendoOpen{
         Duration: 300,
         Effects: EFFECT_EXPAND_IN,
       },
-      Close: &KendoClose{
+      Close: KendoClose{
         Duration: 300,
         Effects: EFFECT_EXPAND_OUT,
       },
@@ -22,7 +22,7 @@ func ExampleKendoUiAutoComplete_ToJavaScript_1() {
     AutoWidth: FALSE,
     ClearButton: TRUE,
     DataTextField: "name",
-    DataSource: &[]map[string]interface{}{
+    DataSource: []map[string]interface{}{
       {
         "id": 1,
         "name": "Apples",
@@ -42,15 +42,15 @@ func ExampleKendoUiAutoComplete_ToJavaScript_1() {
     MinLength: 3,
     NoDataTemplate: "No Data!",
     Placeholder: "Enter value ...",
-    Popup: &KendoPopup{
-      AppendTo: &JavaScript{
+    Popup: KendoPopup{
+      AppendTo: JavaScript{
         Code: "$('#container')",
       },
     },
     Separator: ", ",
     Suggest: TRUE,
     HeaderTemplate: "<div><h2>Fruits</h2></div>",
-    Template: &JavaScript{
+    Template: JavaScript{
       Code: "kendo.template($('#template').html())",
     },
     Value: "Oranges",
@@ -137,8 +137,8 @@ func ExampleKendoUiAutoComplete_ToJavaScript_3() {
         Id: "auto_complete",
       },
     },
-    DataSource: &KendoDataSource{
-      Aggregate: &[]KendoAggregates{
+    DataSource: KendoDataSource{
+      Aggregate: []KendoAggregates{
         {
           Aggregate: AGGREGATE_SUM,
           Field: "age",
@@ -154,7 +154,7 @@ func ExampleKendoUiAutoComplete_ToJavaScript_3() {
       },
       AutoSync: TRUE,
       Batch: TRUE,
-      Data: &[]map[string]interface{}{
+      Data: []map[string]interface{}{
         {
           "name": "Jane Doe",
           "age": 30,

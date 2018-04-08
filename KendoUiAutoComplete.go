@@ -378,7 +378,7 @@ type KendoUiAutoComplete struct{
    });
    </script>
   */
-  Popup                                   *KendoPopup                             `jsObject:"popup"`
+  Popup                                   KendoPopup                              `jsObject:"popup"`
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-separator
@@ -552,7 +552,7 @@ type KendoUiAutoComplete struct{
        });
    </script>
   */
-  Virtual                                 *KendoVirtual                           `jsObject:"virtual"`
+  Virtual                                 KendoVirtual                            `jsObject:"virtual"`
 
   *ToJavaScriptConverter
 }

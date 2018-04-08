@@ -525,7 +525,7 @@ type KendoUiMultiSelect struct {
   });
   </script>
   */
-  Popup                                  *KendoPopup                              `jsObject:"popup"`
+  Popup                                  KendoPopup                               `jsObject:"popup"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/headertemplate

@@ -38,7 +38,7 @@ type KendoActions struct{
        });
    </script>
   */
-  Action                                  *JavaScript             `jsObject:"action"`
+  Action                                  JavaScript              `jsObject:"action"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog#configuration-actions.primary  A boolean property indicating whether the action button will be decorated as primary button or not.

@@ -154,7 +154,7 @@ type KendoVirtual struct{
   As of the Kendo UI R3 2016 release, the implementation of the <b><u>valueMapper</u></b> function is optional. It is required only if the widget contains an initial value or if the <b><u>value</u></b> method is used.
   
   */
-  ValueMapper                             *JavaScript                             `jsObject:"valueMapper"`
+  ValueMapper                             JavaScript                              `jsObject:"valueMapper"`
 
   *ToJavaScriptConverter
 }

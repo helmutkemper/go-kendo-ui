@@ -25,7 +25,7 @@ type KendoUiConfirm struct{
    }).data("kendoConfirm").open();
    </script>
   */
-  Messages                                *KendoConfirmMessages                 `jsObject:"messages"`
+  Messages                                KendoConfirmMessages                  `jsObject:"messages"`
 
   *ToJavaScriptConverter
 }

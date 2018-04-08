@@ -58,7 +58,7 @@ type HtmlInputFile struct{
   video/* representing video files.
   image/* representing image files.
   */
-  Accept                      StringArr
+  Accept                      []string
 
   Global                      HtmlGlobalAttributes
 }/*

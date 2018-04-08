@@ -9,12 +9,12 @@ func ExampleKendoUiComboBox_ToHtml() {
         Id: "combobox",
       },
     },
-    Animation: &KendoAnimation{
-      Open: &KendoOpen{
+    Animation: KendoAnimation{
+      Open: KendoOpen{
         Effects: EFFECT_EXPAND_OUT,
         Duration: 300,
       },
-      Close: &KendoClose{
+      Close: KendoClose{
         Effects: EFFECT_EXPAND_IN,
         Duration: 300,
       },
@@ -24,7 +24,7 @@ func ExampleKendoUiComboBox_ToHtml() {
     CascadeFrom: "parent",
     CascadeFromField: "id",
     ClearButton: FALSE,
-    DataSource: &[]map[string]interface{}{
+    DataSource: []map[string]interface{}{
       { "name": "Child1", "id": 1, "parentId": 1 },
       { "name": "Child2", "id": 2, "parentId": 2 },
       { "name": "Child3", "id": 3, "parentId": 1 },

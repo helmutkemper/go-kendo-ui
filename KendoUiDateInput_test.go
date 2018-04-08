@@ -16,7 +16,7 @@ func ExampleKendoUiDateInput_ToHtml() {
     Max: time.Date(2018,12,31,23,59,59,0, time.UTC),
     Min: time.Date(2018, 1, 1, 0, 0, 0,0, time.UTC),
     Value: time.Date(2018,02,01,0,0,0,0, time.UTC),
-    Messages: &KendoCalendarMessages{
+    Messages: KendoCalendarMessages{
       Year: "year",
       Month: "month",
       Day: "day",

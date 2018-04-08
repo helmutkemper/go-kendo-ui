@@ -22,7 +22,7 @@ type KendoAnimation struct{
    });
    </script>
   */
-  Close                                   *KendoClose                 `jsObject:"close"`
+  Close                                   KendoClose                  `jsObject:"close"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-animation.open  The animation played when the suggestion popup is opened.
@@ -39,7 +39,7 @@ type KendoAnimation struct{
    });
    </script>
   */
-  Open                                    *KendoOpen                  `jsObject:"open"`
+  Open                                    KendoOpen                   `jsObject:"open"`
 
   *ToJavaScriptConverter
 }
