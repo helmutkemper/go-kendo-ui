@@ -172,5 +172,5 @@ func ExampleKendoUiAutoComplete_ToJavaScript_3() {
   fmt.Printf( "%s", html.ToJavaScript() )
 
   // Output:
-  // $("#auto_complete").kendoAutoComplete({dataSource: ["Albania","Andorra","Armenia","Austria","Azerbaijan","Belarus","Belgium","Bosnia & Herzegovina","Bulgaria","Croatia","Cyprus","Czech Republic","Denmark","Estonia","Finland","France","Georgia","Germany","Greece","Hungary","Iceland","Ireland","Italy","Kosovo","Latvia","Liechtenstein","Lithuania","Luxembourg","Macedonia","Malta","Moldova","Monaco","Montenegro","Netherlands","Norway","Poland","Portugal","Romania","Russia","San Marino","Serbia","Slovakia","Slovenia","Spain","Sweden","Switzerland","Turkey","Ukraine","United Kingdom","Vatican City",],});
+  // $("#auto_complete").kendoAutoComplete({dataSource:  new kendo.data.DataSource({aggregate: [{aggregate: "sum",field: "age",},{aggregate: "min",field: "age",},{aggregate: "max",field: "age",},],autoSync: true,batch: true,data: [{"name": "Jane Doe","age": 30,},{"age": 33,"name": "Jane Doe",},],inPlaceSort: false,offlineStorage: "products-offline",});});
 }

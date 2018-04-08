@@ -221,7 +221,7 @@ type KendoUiDatePicker struct{
 
   Templates for the cells rendered in the calendar "month" view.
   */
-  Month                                   *KendoMonth                             `jsObject:"month"`
+  Month                                   KendoMonth                              `jsObject:"month"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/datepicker#configuration-weekNumber

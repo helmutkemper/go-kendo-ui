@@ -85,73 +85,21 @@ func ExampleKendoDataSource_ToJavaScript_Animation_Object() {
   fmt.Printf( "%s", javaScript.ToJavaScript() )
 
   // Output:
-  // $("multiselect")kendoMultiSelect({
-  //   animation: {
-  //     close: {
-  //       effects: "zoom:out",
-  //       duration: 300
-  //     },
-  //     open: {
-  //       effects: "zoom:in",
-  //       duration: 300
-  //     }
-  //   },
-  //   autoBind: false,
-  //   autoClose: false,
-  //   autoWidth: true,
-  //   clearButton: false,
-  //   dataSource: "selectDataSource",
-  //   dataTextField: "Name",
-  //   dataValueField: "Id",
-  //   delay: 100,
-  //   enable: true,
-  //   enforceMinLength: true,
-  //   filter: "contains",
-  //   fixedGroupTemplate: "Fixed header: #: data #",
-  //   footerTemplate: "Total <strong>#: instance.dataSource.total() #</strong> items found",
-  //   groupTemplate: "Group template: #: data #",
-  //   height: 500,
-  //   highlightFirst: false,
-  //   ignoreCase: false,
-  //   minLength: 3,
-  //   maxSelectedItems: 3,
-  //   noDataTemplate: "No Data!",
-  //   placeholder: "Select...",
-  //   popup: {
-  //     appendTo: $('#container'),
-  //     origin: "top left",
-  //     position: "bottom right"
-  //   },
-  //   headerTemplate: "<div><h2>Fruits</h2></div>",
-  //   itemTemplate: "<span><img src='/img/#: id #.png' alt='#: name #' />#: name #</span>",
-  //   tagTemplate: kendo.template($('#tagTemplate').html()),
-  //   tagMode: "multiple",
-  //   value: [
-  //     {"productName": "Item 1","productId": "1"},
-  //     {"productName": "Item 2","productId": "2"},
-  //     {"productName": "Item 3","productId": "3"}
-  //   ],
-  //   valuePrimitive: true,
-  //   virtual: {
-  //     itemHeight: 26,
-  //     mapValueTo: "index",
-  //     valueMapper: function(options) {
-  //       $.ajax({
-  //         url: 'https://demos.telerik.com/kendo-ui/service/Orders/ValueMapper',
-  //         type: 'GET',
-  //         dataType: 'jsonp',
-  //         data: convertValues(options.value),
-  //         success: function (data) {
-  //           //the **data** is either index or array of indices.
-  //           //Example:
-  //           // 10258 -> 10 (index in the Orders collection)
-  //           // [10258, 10261] -> [10, 14] (indices in the Orders collection)
-  //           options.success(data);
-  //         }
-  //       })
-  //     }
-  //   }
-  // });
+  // $("#multiselect").kendoMultiSelect({animation: { close: { effects: "zoom:out",duration: 300,},open: { effects: "zoom:in",duration: 300,},},autoBind: false,autoClose: false,autoWidth: true,clearButton: false,dataSource: "selectDataSource",dataTextField: "Name",dataValueField: "Id",delay: 100,enable: true,enforceMinLength: true,filter: "contains",fixedGroupTemplate: "Fixed header: #: data #",footerTemplate: "Total <strong>#: instance.dataSource.total() #</strong> items found",groupTemplate: "Group template: #: data #",height: 500,highlightFirst: false,ignoreCase: false,minLength: 3,maxSelectedItems: 3,noDataTemplate: "No Data!",placeholder: "Select...",popup: { appendTo: $('#container'),origin: "top left",position: "bottom right",},headerTemplate: "<div><h2>Fruits</h2></div>",itemTemplate: "<span><img src='/img/#: id #.png' alt='#: name #' />#: name #</span>",tagTemplate: kendo.template($('#tagTemplate').html()),tagMode: "multiple",value: [{"productName": "Item 1","productId": "1",},{"productName": "Item 2","productId": "2",},{"productName": "Item 3","productId": "3",},],valuePrimitive: true,virtual: { itemHeight: 26,mapValueTo: "index",valueMapper: function(options) {
+  //	$.ajax({
+  //		url: 'https://demos.telerik.com/kendo-ui/service/Orders/ValueMapper',
+  //		type: 'GET',
+  //		dataType: 'jsonp',
+  //		data: convertValues(options.value),
+  //		success: function (data) {
+  //			//the **data** is either index or array of indices.
+  //			//Example:
+  //			// 10258 -> 10 (index in the Orders collection)
+  //			// [10258, 10261] -> [10, 14] (indices in the Orders collection)
+  //			options.success(data);
+  //		}
+  //	})
+  //},},});
 }
 
 func ExampleKendoDataSource_ToJavaScript_Animation_Boolean_FALSE() {

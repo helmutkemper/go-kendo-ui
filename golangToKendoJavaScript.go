@@ -209,17 +209,17 @@ func(el *ToJavaScriptConverter) ToTelerikHtml( element reflect.Value ) []byte {
   return buffer.Bytes()
 }
 
-func(el *ToJavaScriptConverter) interfaceToBuffer(tag string, data interface{}, buffer bytes.Buffer){
+func(el *ToJavaScriptConverter) interfaceToBuffer(tag string, data interface{}, buffer *bytes.Buffer, skipEmpty bool){
   switch converted := data.(type) {
   case string:
-    if converted == "" {
+    if converted == "" && skipEmpty == false {
       return
     }
 
     buffer.WriteString(tag + `: "` + converted + `",`)
 
   case []string:
-    if len( converted ) == 0 {
+    if len( converted ) == 0 && skipEmpty == false {
       return
     }
 
@@ -230,84 +230,84 @@ func(el *ToJavaScriptConverter) interfaceToBuffer(tag string, data interface{}, 
     buffer.WriteString(`],`)
 
   case uint8:
-    if converted == 0 {
+    if converted == 0 && skipEmpty == false {
       return
     }
 
     buffer.WriteString(tag + `: ` + strconv.FormatInt( int64( converted ), 10 ) + `,`)
 
   case uint16:
-    if converted == 0 {
+    if converted == 0 && skipEmpty == false {
       return
     }
 
     buffer.WriteString(tag + `: ` + strconv.FormatInt( int64( converted ), 10 ) + `,`)
 
   case uint32:
-    if converted == 0 {
+    if converted == 0 && skipEmpty == false {
       return
     }
 
     buffer.WriteString(tag + `: ` + strconv.FormatInt( int64( converted ), 10 ) + `,`)
 
   case uint64:
-    if converted == 0 {
+    if converted == 0 && skipEmpty == false {
       return
     }
 
     buffer.WriteString(tag + `: ` + strconv.FormatInt( int64( converted ), 64 ) + `,`)
 
   case uint:
-    if converted == 0 {
+    if converted == 0 && skipEmpty == false {
       return
     }
 
     buffer.WriteString(tag + `: ` + strconv.Itoa( int( converted ) ) + `,`)
 
   case int8:
-    if converted == 0 {
+    if converted == 0 && skipEmpty == false {
       return
     }
 
     buffer.WriteString(tag + `: ` + strconv.FormatInt( int64( converted ), 10 ) + `,`)
 
   case int16:
-    if converted == 0 {
+    if converted == 0 && skipEmpty == false {
       return
     }
 
     buffer.WriteString(tag + `: ` + strconv.FormatInt( int64( converted ), 10 ) + `,`)
 
   case int32:
-    if converted == 0 {
+    if converted == 0 && skipEmpty == false {
       return
     }
 
     buffer.WriteString(tag + `: ` + strconv.FormatInt( int64( converted ), 10 ) + `,`)
 
   case int64:
-    if converted == 0 {
+    if converted == 0 && skipEmpty == false {
       return
     }
 
     buffer.WriteString(tag + `: ` + strconv.FormatInt( converted, 64 ) + `,`)
 
   case int:
-    if converted == 0 {
+    if converted == 0 && skipEmpty == false {
       return
     }
 
     buffer.WriteString(tag + `: ` + strconv.Itoa( converted ) + `,`)
 
   case float32:
-    if converted == 0 {
+    if converted == 0 && skipEmpty == false {
       return
     }
 
     buffer.WriteString(tag + `: ` + strconv.FormatFloat( float64( converted ), 'E', -1, 32) + `,`)
 
   case float64:
-    if converted == 0 {
+    if converted == 0 && skipEmpty == false {
       return
     }
 
@@ -338,16 +338,427 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
       }
 
       switch convertedFromInterface := converted.(type) {
+      case KendoMonth:
+        if reflect.DeepEqual(convertedFromInterface, KendoMonth{}) == true {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: { `)
+        buffer.Write( convertedFromInterface.ToJavaScript() )
+        buffer.WriteString(`},`)
+
+      case HtmlMouseEvent:
+        if convertedFromInterface == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: "` + convertedFromInterface.String() + `",`)
+
+      case KendoOrientation:
+        if convertedFromInterface == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: "` + convertedFromInterface.String() + `",`)
+
+      case KendoContextMenuDirection:
+        if convertedFromInterface == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: "` + convertedFromInterface.String() + `",`)
+
+      case KendoConfirmMessages:
+        if reflect.DeepEqual(convertedFromInterface, KendoConfirmMessages{}) == true {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: { `)
+        buffer.Write( convertedFromInterface.ToJavaScript() )
+        buffer.WriteString(`},`)
+
+      case KendoColorMessages:
+        if reflect.DeepEqual(convertedFromInterface, KendoColorMessages{}) == true {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: { `)
+        buffer.Write( convertedFromInterface.ToJavaScript() )
+        buffer.WriteString(`},`)
+
+      case KendoTileSize:
+        if reflect.DeepEqual(convertedFromInterface, KendoTileSize{}) == true {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: { `)
+        buffer.Write( convertedFromInterface.ToJavaScript() )
+        buffer.WriteString(`},`)
+
+      case KendoCalendarMessages:
+        if reflect.DeepEqual(convertedFromInterface, KendoCalendarMessages{}) == true {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: {`)
+        buffer.Write( convertedFromInterface.ToJavaScript() )
+        buffer.WriteString(`},`)
+
+      case time.Time:
+        if convertedFromInterface.String() == `0001-01-01 00:00:00 +0000 UTC` {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: `)
+
+        if int( convertedFromInterface.Month() ) == 0 && convertedFromInterface.Day() == 0 && convertedFromInterface.Hour() == 0 && convertedFromInterface.Minute() == 0 && convertedFromInterface.Second() == 0 {
+          buffer.WriteString( `new Date(` + strconv.Itoa( convertedFromInterface.Year() ) + `),`)
+          // fmt.Printf("new Date(%v, %v, %v, %v, %v, %v, 0)", v.Year(), int( v.Month() ), v.Day(), v.Hour(), v.Minute(), v.Second())
+        } else if convertedFromInterface.Day() == 0 && convertedFromInterface.Hour() == 0 && convertedFromInterface.Minute() == 0 && convertedFromInterface.Second() == 0 {
+          buffer.WriteString(`new Date(` + strconv.Itoa( convertedFromInterface.Year() ) + `, ` + strconv.Itoa( int( convertedFromInterface.Month() ) ) + `),` )
+        } else if convertedFromInterface.Hour() == 0 && convertedFromInterface.Minute() == 0 && convertedFromInterface.Second() == 0 {
+          buffer.WriteString(`new Date(` + strconv.Itoa( convertedFromInterface.Year() ) + `, ` + strconv.Itoa( int( convertedFromInterface.Month() ) ) + `, ` + strconv.Itoa( convertedFromInterface.Day() ) + `),`)
+        } else if convertedFromInterface.Minute() == 0 && convertedFromInterface.Second() == 0 {
+          buffer.WriteString(`new Date(` + strconv.Itoa( convertedFromInterface.Year() ) + `, ` + strconv.Itoa( int( convertedFromInterface.Month() ) ) + `, ` + strconv.Itoa( convertedFromInterface.Day() ) + `, ` + strconv.Itoa( convertedFromInterface.Hour() ) + `),`)
+        } else if convertedFromInterface.Second() == 0 {
+          buffer.WriteString(`new Date(` + strconv.Itoa( convertedFromInterface.Year() ) + `, ` + strconv.Itoa( int( convertedFromInterface.Month() ) ) + `, ` + strconv.Itoa( convertedFromInterface.Day() ) + `, ` + strconv.Itoa( convertedFromInterface.Hour() ) + `, ` + strconv.Itoa( convertedFromInterface.Minute() ) + `),`)
+        } else {
+          buffer.WriteString(`new Date(` + strconv.Itoa( convertedFromInterface.Year() ) + `, ` + strconv.Itoa( int( convertedFromInterface.Month() ) ) + `, ` + strconv.Itoa( convertedFromInterface.Day() ) + `, ` + strconv.Itoa( convertedFromInterface.Hour() ) + `, ` + strconv.Itoa( convertedFromInterface.Minute() ) + `, ` + strconv.Itoa( convertedFromInterface.Second() ) + `),`)
+        }
+
+      case KendoWeekDays:
+        if len( convertedFromInterface ) == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: [`)
+        for _, v := range convertedFromInterface {
+          buffer.WriteString(`"`)
+          buffer.WriteString( v.String() )
+          buffer.WriteString(`",`)
+        }
+        buffer.WriteString(`],`)
+
+      case KendoTimeDepth:
+        if convertedFromInterface == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: "` + convertedFromInterface.String() + `",`)
+
+      case []time.Time:
+        length := len( convertedFromInterface )
+        if length == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + ": [")
+
+        for k, v := range convertedFromInterface {
+          if int( v.Month() ) == 0 && v.Day() == 0 && v.Hour() == 0 && v.Minute() == 0 && v.Second() == 0 {
+            buffer.WriteString(`new Date(` + strconv.Itoa( v.Year() ) + `)`)
+            // fmt.Printf("new Date(%v, %v, %v, %v, %v, %v, 0)", v.Year(), int( v.Month() ), v.Day(), v.Hour(), v.Minute(), v.Second())
+          } else if v.Day() == 0 && v.Hour() == 0 && v.Minute() == 0 && v.Second() == 0 {
+            buffer.WriteString(`new Date(` + strconv.Itoa( v.Year() ) + `, ` + strconv.Itoa( int( v.Month() ) ) + `)`)
+          } else if v.Hour() == 0 && v.Minute() == 0 && v.Second() == 0 {
+            buffer.WriteString(`new Date(` + strconv.Itoa( v.Year() ) + `, ` + strconv.Itoa( int( v.Month() ) ) + `, ` + strconv.Itoa( v.Day() ) + `)`)
+          } else if v.Minute() == 0 && v.Second() == 0 {
+            buffer.WriteString(`new Date(` + strconv.Itoa( v.Year() ) + `, ` + strconv.Itoa( int( v.Month() ) ) + `, ` + strconv.Itoa( v.Day() ) + `, ` + strconv.Itoa( v.Hour() ) + `)`)
+          } else if v.Second() == 0 {
+            buffer.WriteString(`new Date(` + strconv.Itoa( v.Year() ) + `, ` + strconv.Itoa( int( v.Month() ) ) + `, ` + strconv.Itoa( v.Day() ) + `, ` + strconv.Itoa( v.Hour() ) + `, ` + strconv.Itoa( v.Minute() ) + `)`)
+          } else {
+            buffer.WriteString(`new Date(` + strconv.Itoa( v.Year() ) + `, ` + strconv.Itoa( int( v.Month() ) ) + `, ` + strconv.Itoa( v.Day() ) + `, ` + strconv.Itoa( v.Hour() ) + `, ` + strconv.Itoa( v.Minute() ) + `, ` + strconv.Itoa( v.Second() ) + `)`)
+          }
+
+          if k != length -1 {
+            buffer.WriteString(",")
+          }
+        }
+
+        buffer.WriteString("],")
+
+      case KendoMessages:
+        if reflect.DeepEqual(convertedFromInterface, KendoMessages{}) == true {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: {`)
+        buffer.Write( convertedFromInterface.ToJavaScript() )
+        buffer.WriteString(`},`)
+
+      case KendoButtonLayout:
+        if convertedFromInterface == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: "` + convertedFromInterface.String() + `",` )
+
+      case []KendoActions:
+        if len( convertedFromInterface ) == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: [`)
+        for _, v := range convertedFromInterface {
+          buffer.WriteString(`{`)
+          buffer.Write( v.ToJavaScript() )
+          buffer.WriteString(`},`)
+        }
+        buffer.WriteString(`],`)
+
+      case KendoMapValueTo:
+        if convertedFromInterface == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: "` + convertedFromInterface.String() + `",` )
+
+      case KendoTagMode:
+        if convertedFromInterface == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: "` + convertedFromInterface.String() + `",` )
+
+      case map[string]KendoField:
+        if len( convertedFromInterface ) == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: {`)
+        for k, v := range convertedFromInterface {
+          buffer.WriteString( `"` + k + `": ` )
+          buffer.Write( v.ToJavaScript() )
+          buffer.WriteString( `, ` )
+        }
+        buffer.WriteString(`},`)
+
+      case KendoUpdate:
+        if reflect.DeepEqual(convertedFromInterface, KendoUpdate{}) == true {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: { `)
+        buffer.Write( convertedFromInterface.ToJavaScript() )
+        buffer.WriteString(`},`)
+
+      case KendoSignalr:
+        if reflect.DeepEqual(convertedFromInterface, KendoSignalr{}) == true {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: {`)
+        buffer.Write( convertedFromInterface.ToJavaScript() )
+        buffer.WriteString(`},`)
+
+      case KendoRead:
+        if reflect.DeepEqual(convertedFromInterface, KendoRead{}) == true {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: { `)
+        buffer.Write( convertedFromInterface.ToJavaScript() )
+        buffer.WriteString(`},`)
+
+      case HtmlMethod:
+        if convertedFromInterface == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: "` + convertedFromInterface.String() + `",`)
+
+      case KendoTypeDataJSon:
+        if convertedFromInterface == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: "` + convertedFromInterface.String() + `",`)
+
+      case KendoDestroy:
+        if reflect.DeepEqual(convertedFromInterface, KendoDestroy{}) == true {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: { `)
+        buffer.Write( convertedFromInterface.ToJavaScript() )
+        buffer.WriteString(`},`)
+
+      case KendoDirection:
+        if convertedFromInterface == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: "` + convertedFromInterface.String() + `",` )
+
+      case KendoTypeData:
+        if convertedFromInterface == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: "` + convertedFromInterface.String() + `",`)
+
+      case KendoDataModel:
+        if reflect.DeepEqual(convertedFromInterface, KendoDataModel{}) == true {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: {`)
+        buffer.Write( convertedFromInterface.ToJavaScript() )
+        buffer.WriteString(`},`)
+
+      case KendoOperator:
+        if convertedFromInterface == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: "` + convertedFromInterface.String() + `",` )
+
+      case KendoLogic:
+        if convertedFromInterface == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: "` + convertedFromInterface.String() + `",` )
+
+      case KendoType:
+        if convertedFromInterface == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: "` + convertedFromInterface.String() + `",` )
+
+      case []KendoAggregates:
+        if len( convertedFromInterface ) == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: [`)
+        for _, v := range convertedFromInterface {
+          buffer.WriteString(`{`)
+          buffer.Write( v.ToJavaScript() )
+          buffer.WriteString(`},`)
+        }
+        buffer.WriteString(`],`)
+
+      case KendoAggregate:
+        if convertedFromInterface == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: "` + convertedFromInterface.String() + `",`)
+
+      case KendoTransport:
+        if reflect.DeepEqual(convertedFromInterface, KendoTransport{}) == true {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: { `)
+        buffer.Write( convertedFromInterface.ToJavaScript() )
+        buffer.WriteString(`},`)
+
+      case KendoSort:
+        if reflect.DeepEqual(convertedFromInterface, KendoSort{}) == true {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: { `)
+        buffer.Write( convertedFromInterface.ToJavaScript() )
+        buffer.WriteString(`},`)
+
+      case KendoSchema:
+        if reflect.DeepEqual(convertedFromInterface, KendoSchema{}) == true {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: {`)
+        buffer.Write( convertedFromInterface.ToJavaScript() )
+        buffer.WriteString(`},`)
+
       case KendoDataSource:
-        if converted == nil {
+        if reflect.DeepEqual(convertedFromInterface, KendoDataSource{}) == true {
           continue
         }
 
         buffer.WriteString(tag.Get("jsObject") + `: `)
         buffer.Write( convertedFromInterface.ToJavaScript() )
 
+      case KendoPosition:
+        if convertedFromInterface == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: "` + convertedFromInterface.String() + `",` )
+
+      case KendoOrigin:
+        if convertedFromInterface == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: "` + convertedFromInterface.String() + `",` )
+
+      case KendoCollision:
+        if convertedFromInterface == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: "` + convertedFromInterface.String() + `",` )
+
+      case KendoAdjustSize:
+        if reflect.DeepEqual(convertedFromInterface, KendoAdjustSize{}) == true {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: { `)
+        buffer.Write( convertedFromInterface.ToJavaScript() )
+        buffer.WriteString(`},`)
+
+      case KendoEffect:
+        if convertedFromInterface == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: "` + convertedFromInterface.String() + `",` )
+
+      case KendoFilter:
+        if convertedFromInterface == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: "` + convertedFromInterface.String() + `",` )
+
+      case []KendoFilters:
+        if len( convertedFromInterface ) == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: [`)
+        for _, v := range convertedFromInterface {
+          buffer.WriteString(`{`)
+          buffer.Write( v.ToJavaScript() )
+          buffer.WriteString(`},`)
+        }
+        buffer.WriteString(`],`)
+
       case KendoAnimation:
         if reflect.DeepEqual(convertedFromInterface, KendoAnimation{}) == true {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: { `)
+        buffer.Write( convertedFromInterface.ToJavaScript() )
+        buffer.WriteString(`},`)
+
+      case KendoOpen:
+        if reflect.DeepEqual(convertedFromInterface, KendoOpen{}) == true {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: { `)
+        buffer.Write( convertedFromInterface.ToJavaScript() )
+        buffer.WriteString(`},`)
+
+      case KendoClose:
+        if reflect.DeepEqual(convertedFromInterface, KendoClose{}) == true {
           continue
         }
 
@@ -471,13 +882,13 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
         buffer.WriteString(`],`)
 
       case map[string]interface{}:
-        if len( converted.(map[string]interface{}) ) == 0 {
+        if len( convertedFromInterface ) == 0 {
           continue
         }
 
         buffer.WriteString(tag.Get("jsObject") + `: {`)
-        for k, v := range converted.(map[string]interface{}) {
-          el.interfaceToBuffer(k, v, buffer)
+        for k, v := range convertedFromInterface {
+          el.interfaceToBuffer(k, v, &buffer, true)
         }
         buffer.WriteString(`},`)
 
@@ -564,46 +975,12 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
 
         buffer.WriteString(tag.Get("jsObject") + `: ` + field.Interface().(Boolean).String() + `,`)
 
+      case *ToJavaScriptConverter:
+
       default:
         fmt.Printf("\n\n\n\ninterface{}: %d: %s %s = %v  template: ''%v''\n\n\n\n\n", i, typeOfT.Field(i).Name, field.Type(), field.Interface(), tag.Get("jsObject"))
       }
       // ---------------------------------------------------------------------------------------------------------------
-
-    case KendoAdjustSize:
-      if reflect.DeepEqual(converted, KendoAdjustSize{}) == true {
-        continue
-      }
-
-      buffer.WriteString(tag.Get("jsObject") + `: { `)
-      buffer.Write( converted.ToJavaScript() )
-      buffer.WriteString(`},`)
-
-    case KendoConfirmMessages:
-      if reflect.DeepEqual(converted, KendoConfirmMessages{}) == true {
-        continue
-      }
-
-      buffer.WriteString(tag.Get("jsObject") + `: { `)
-      buffer.Write( converted.ToJavaScript() )
-      buffer.WriteString(`},`)
-
-    case KendoColorMessages:
-      if reflect.DeepEqual(converted, KendoColorMessages{}) == true {
-        continue
-      }
-
-      buffer.WriteString(tag.Get("jsObject") + `: { `)
-      buffer.Write( field.Interface().(*KendoColorMessages).ToJavaScript() )
-      buffer.WriteString(`},`)
-
-    case KendoTileSize:
-      if reflect.DeepEqual(converted, KendoTileSize{}) == true {
-        continue
-      }
-
-      buffer.WriteString(tag.Get("jsObject") + `: { `)
-      buffer.Write( converted.ToJavaScript() )
-      buffer.WriteString(`},`)
 
     case KendoCreate:
       if reflect.DeepEqual(converted, KendoCreate{}) == true {
@@ -614,90 +991,7 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
       buffer.Write( converted.ToJavaScript() )
       buffer.WriteString(`},`)
 
-    case KendoRead:
-      if reflect.DeepEqual(converted, KendoRead{}) == true {
-        continue
-      }
-
-      buffer.WriteString(tag.Get("jsObject") + `: { `)
-      buffer.Write( converted.ToJavaScript() )
-      buffer.WriteString(`},`)
-
-    case KendoDestroy:
-      if reflect.DeepEqual(converted, KendoDestroy{}) == true {
-        continue
-      }
-
-      buffer.WriteString(tag.Get("jsObject") + `: { `)
-      buffer.Write( converted.ToJavaScript() )
-      buffer.WriteString(`},`)
-
-    case KendoUpdate:
-      if reflect.DeepEqual(converted, KendoUpdate{}) == true {
-        continue
-      }
-
-      buffer.WriteString(tag.Get("jsObject") + `: { `)
-      buffer.Write( converted.ToJavaScript() )
-      buffer.WriteString(`},`)
-
-    case HtmlMethod:
-      if converted == 0 {
-        continue
-      }
-
-      buffer.WriteString(tag.Get("jsObject") + `: "` + converted.String() + `",`)
-
-    case KendoTimeDepth:
-      if converted == 0 {
-        continue
-      }
-
-      buffer.WriteString(tag.Get("jsObject") + `: "` + converted.String() + `",`)
-
-    case KendoTypeDataJSon:
-      if converted == 0 {
-        continue
-      }
-
-      buffer.WriteString(tag.Get("jsObject") + `: "` + converted.String() + `",`)
-
-    case KendoTypeData:
-      if converted == 0 {
-        continue
-      }
-
-      buffer.WriteString(tag.Get("jsObject") + `: "` + converted.String() + `",`)
-
-    case KendoContextMenuDirection:
-      if converted == 0 {
-        continue
-      }
-
-      buffer.WriteString(tag.Get("jsObject") + `: "` + converted.String() + `",`)
-
-    case HtmlMouseEvent:
-      if converted == 0 {
-        continue
-      }
-
-      buffer.WriteString(tag.Get("jsObject") + `: "` + converted.String() + `",`)
-
     case HtmlType:
-      if converted == 0 {
-        continue
-      }
-
-      buffer.WriteString(tag.Get("jsObject") + `: "` + converted.String() + `",`)
-
-    case KendoOrientation:
-      if converted == 0 {
-        continue
-      }
-
-      buffer.WriteString(tag.Get("jsObject") + `: "` + converted.String() + `",`)
-
-    case KendoAggregate:
       if converted == 0 {
         continue
       }
@@ -751,19 +1045,6 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
       }
       buffer.WriteString(`],`)
 
-    case []KendoActions:
-      if len( converted ) == 0 {
-        continue
-      }
-
-      buffer.WriteString(tag.Get("jsObject") + `: [`)
-      for _, v := range converted {
-        buffer.WriteString(`{`)
-        buffer.Write( v.ToJavaScript() )
-        buffer.WriteString(`},`)
-      }
-      buffer.WriteString(`],`)
-
     case []string:
       if len( converted ) == 0 {
         continue
@@ -777,46 +1058,7 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
       }
       buffer.WriteString(`],`)
 
-    case KendoWeekDays:
-      if len( converted ) == 0 {
-        continue
-      }
-
-      buffer.WriteString(tag.Get("jsObject") + `: [`)
-      for _, v := range converted {
-        buffer.WriteString(`"`)
-        buffer.WriteString( v.String() )
-        buffer.WriteString(`",`)
-      }
-      buffer.WriteString(`],`)
-
     case []KendoGroup:
-      if len( converted ) == 0 {
-        continue
-      }
-
-      buffer.WriteString(tag.Get("jsObject") + `: [`)
-      for _, v := range converted {
-        buffer.WriteString(`{`)
-        buffer.Write( v.ToJavaScript() )
-        buffer.WriteString(`},`)
-      }
-      buffer.WriteString(`],`)
-
-    case []KendoFilters:
-      if len( converted ) == 0 {
-        continue
-      }
-
-      buffer.WriteString(tag.Get("jsObject") + `: [`)
-      for _, v := range converted {
-        buffer.WriteString(`{`)
-        buffer.Write( v.ToJavaScript() )
-        buffer.WriteString(`},`)
-      }
-      buffer.WriteString(`],`)
-
-    case []KendoAggregates:
       if len( converted ) == 0 {
         continue
       }
@@ -852,15 +1094,6 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
 
     case KendoGroup:
       if reflect.DeepEqual(converted, KendoGroup{}) == true {
-        continue
-      }
-
-      buffer.WriteString(tag.Get("jsObject") + `: { `)
-      buffer.Write( converted.ToJavaScript() )
-      buffer.WriteString(`},`)
-
-    case KendoSort:
-      if reflect.DeepEqual(converted, KendoSort{}) == true {
         continue
       }
 
@@ -913,69 +1146,6 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
       buffer.Write( converted.ToJavaScript() )
       buffer.WriteString(`},`)
 
-    case KendoTransport:
-      if reflect.DeepEqual(converted, KendoTransport{}) == true {
-        continue
-      }
-
-      buffer.WriteString(tag.Get("jsObject") + `: { `)
-      buffer.Write( converted.ToJavaScript() )
-      buffer.WriteString(`},`)
-
-    case KendoMonth:
-      if reflect.DeepEqual(converted, KendoMonth{}) == true {
-        continue
-      }
-
-      buffer.WriteString(tag.Get("jsObject") + `: { `)
-      buffer.Write( converted.ToJavaScript() )
-      buffer.WriteString(`},`)
-
-    case KendoCalendarMessages:
-      if reflect.DeepEqual(converted, KendoCalendarMessages{}) == true {
-        continue
-      }
-
-      buffer.WriteString(tag.Get("jsObject") + `: {`)
-      buffer.Write( converted.ToJavaScript() )
-      buffer.WriteString(`},`)
-
-    case KendoSchema:
-      if reflect.DeepEqual(converted, KendoSchema{}) == true {
-        continue
-      }
-
-      buffer.WriteString(tag.Get("jsObject") + `: {`)
-      buffer.Write( converted.ToJavaScript() )
-      buffer.WriteString(`},`)
-
-    case KendoSignalr:
-      if reflect.DeepEqual(converted, KendoSignalr{}) == true {
-        continue
-      }
-
-      buffer.WriteString(tag.Get("jsObject") + `: {`)
-      buffer.Write( converted.ToJavaScript() )
-      buffer.WriteString(`},`)
-
-    case KendoDataModel:
-      if reflect.DeepEqual(converted, KendoDataModel{}) == true {
-        continue
-      }
-
-      buffer.WriteString(tag.Get("jsObject") + `: {`)
-      buffer.Write( converted.ToJavaScript() )
-      buffer.WriteString(`},`)
-
-    case KendoMessages:
-      if reflect.DeepEqual(converted, KendoMessages{}) == true {
-        continue
-      }
-
-      buffer.WriteString(tag.Get("jsObject") + `: {`)
-      buffer.Write( converted.ToJavaScript() )
-      buffer.WriteString(`},`)
-
     case Boolean:
       if converted == 0 {
         continue
@@ -987,145 +1157,10 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
         buffer.WriteString(tag.Get("jsObject") + `: true,`)
       }
 
-    case KendoEffect:
-      if converted == 0 {
-        continue
-      }
-
-      buffer.WriteString(tag.Get("jsObject") + `: "` + converted.String() + `",` )
-
-    case KendoOperator:
-      if converted == 0 {
-        continue
-      }
-
-      buffer.WriteString(tag.Get("jsObject") + `: "` + converted.String() + `",` )
-
-    case KendoFilter:
-      if converted == 0 {
-        continue
-      }
-
-      buffer.WriteString(tag.Get("jsObject") + `: "` + converted.String() + `",` )
-
-    case KendoOrigin:
-      if converted == 0 {
-        continue
-      }
-
-      buffer.WriteString(tag.Get("jsObject") + `: "` + converted.String() + `",` )
-
-    case KendoPosition:
-      if converted == 0 {
-        continue
-      }
-
-      buffer.WriteString(tag.Get("jsObject") + `: "` + converted.String() + `",` )
-
-    case KendoCollision:
-      if converted == 0 {
-        continue
-      }
-
-      buffer.WriteString(tag.Get("jsObject") + `: "` + converted.String() + `",` )
-
-    case KendoTagMode:
-      if converted == 0 {
-        continue
-      }
-
-      buffer.WriteString(tag.Get("jsObject") + `: "` + converted.String() + `",` )
-
-    case KendoMapValueTo:
-      if converted == 0 {
-        continue
-      }
-
-      buffer.WriteString(tag.Get("jsObject") + `: "` + converted.String() + `",` )
-
-    case KendoLogic:
-      if converted == 0 {
-        continue
-      }
-
-      buffer.WriteString(tag.Get("jsObject") + `: "` + converted.String() + `",` )
-
-    case KendoType:
-      if converted == 0 {
-        continue
-      }
-
-      buffer.WriteString(tag.Get("jsObject") + `: "` + converted.String() + `",` )
-
-    case KendoButtonLayout:
-      if converted == 0 {
-        continue
-      }
-
-      buffer.WriteString(tag.Get("jsObject") + `: "` + converted.String() + `",` )
-
-    case KendoDirection:
-      if converted == 0 {
-        continue
-      }
-
-      buffer.WriteString(tag.Get("jsObject") + `: "` + converted.String() + `",` )
-
     case Content:
       buffer.Write( converted.Bytes() )
 
-    case time.Time:
-      if converted.String() == `0001-01-01 00:00:00 +0000 UTC` {
-        continue
-      }
-
-      buffer.WriteString(tag.Get("jsObject") + `: `)
-
-      if int( converted.Month() ) == 0 && converted.Day() == 0 && converted.Hour() == 0 && converted.Minute() == 0 && converted.Second() == 0 {
-        buffer.WriteString( `new Date(` + strconv.Itoa( converted.Year() ) + `),`)
-        // fmt.Printf("new Date(%v, %v, %v, %v, %v, %v, 0)", v.Year(), int( v.Month() ), v.Day(), v.Hour(), v.Minute(), v.Second())
-      } else if converted.Day() == 0 && converted.Hour() == 0 && converted.Minute() == 0 && converted.Second() == 0 {
-        buffer.WriteString(`new Date(` + strconv.Itoa( converted.Year() ) + `, ` + strconv.Itoa( int( converted.Month() ) ) + `),` )
-      } else if converted.Hour() == 0 && converted.Minute() == 0 && converted.Second() == 0 {
-        buffer.WriteString(`new Date(` + strconv.Itoa( converted.Year() ) + `, ` + strconv.Itoa( int( converted.Month() ) ) + `, ` + strconv.Itoa( converted.Day() ) + `),`)
-      } else if converted.Minute() == 0 && converted.Second() == 0 {
-        buffer.WriteString(`new Date(` + strconv.Itoa( converted.Year() ) + `, ` + strconv.Itoa( int( converted.Month() ) ) + `, ` + strconv.Itoa( converted.Day() ) + `, ` + strconv.Itoa( converted.Hour() ) + `),`)
-      } else if converted.Second() == 0 {
-        buffer.WriteString(`new Date(` + strconv.Itoa( converted.Year() ) + `, ` + strconv.Itoa( int( converted.Month() ) ) + `, ` + strconv.Itoa( converted.Day() ) + `, ` + strconv.Itoa( converted.Hour() ) + `, ` + strconv.Itoa( converted.Minute() ) + `),`)
-      } else {
-        buffer.WriteString(`new Date(` + strconv.Itoa( converted.Year() ) + `, ` + strconv.Itoa( int( converted.Month() ) ) + `, ` + strconv.Itoa( converted.Day() ) + `, ` + strconv.Itoa( converted.Hour() ) + `, ` + strconv.Itoa( converted.Minute() ) + `, ` + strconv.Itoa( converted.Second() ) + `),`)
-      }
-
-    case []time.Time:
-      length := len( converted )
-      if length == 0 {
-        continue
-      }
-
-      buffer.WriteString(tag.Get("jsObject") + ": [")
-
-      for k, v := range converted {
-        if int( v.Month() ) == 0 && v.Day() == 0 && v.Hour() == 0 && v.Minute() == 0 && v.Second() == 0 {
-          buffer.WriteString(`new Date(` + strconv.Itoa( v.Year() ) + `)`)
-          // fmt.Printf("new Date(%v, %v, %v, %v, %v, %v, 0)", v.Year(), int( v.Month() ), v.Day(), v.Hour(), v.Minute(), v.Second())
-        } else if v.Day() == 0 && v.Hour() == 0 && v.Minute() == 0 && v.Second() == 0 {
-          buffer.WriteString(`new Date(` + strconv.Itoa( v.Year() ) + `, ` + strconv.Itoa( int( v.Month() ) ) + `)`)
-        } else if v.Hour() == 0 && v.Minute() == 0 && v.Second() == 0 {
-          buffer.WriteString(`new Date(` + strconv.Itoa( v.Year() ) + `, ` + strconv.Itoa( int( v.Month() ) ) + `, ` + strconv.Itoa( v.Day() ) + `)`)
-        } else if v.Minute() == 0 && v.Second() == 0 {
-          buffer.WriteString(`new Date(` + strconv.Itoa( v.Year() ) + `, ` + strconv.Itoa( int( v.Month() ) ) + `, ` + strconv.Itoa( v.Day() ) + `, ` + strconv.Itoa( v.Hour() ) + `)`)
-        } else if v.Second() == 0 {
-          buffer.WriteString(`new Date(` + strconv.Itoa( v.Year() ) + `, ` + strconv.Itoa( int( v.Month() ) ) + `, ` + strconv.Itoa( v.Day() ) + `, ` + strconv.Itoa( v.Hour() ) + `, ` + strconv.Itoa( v.Minute() ) + `)`)
-        } else {
-          buffer.WriteString(`new Date(` + strconv.Itoa( v.Year() ) + `, ` + strconv.Itoa( int( v.Month() ) ) + `, ` + strconv.Itoa( v.Day() ) + `, ` + strconv.Itoa( v.Hour() ) + `, ` + strconv.Itoa( v.Minute() ) + `, ` + strconv.Itoa( v.Second() ) + `)`)
-        }
-
-        if k != length -1 {
-          buffer.WriteString(",")
-        }
-      }
-
-      buffer.WriteString("],")
+    case nil:
 
     default:
       fmt.Printf( "\n\n\nToTelerikJavaScript() type %T not found\n\n\n", converted )
@@ -1648,19 +1683,6 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
 
 
 
-
-    case "map[string]telerik.KendoField":
-      if len( field.Interface().(map[string]KendoField) ) == 0 {
-        continue
-      }
-
-      buffer.WriteString(tag.Get("jsObject") + `: {`)
-      for k, v := range field.Interface().(map[string]KendoField) {
-        buffer.WriteString( `"` + k + `": ` )
-        buffer.Write( v.ToJavaScript() )
-        buffer.WriteString( `, ` )
-      }
-      buffer.WriteString(`},`)
 
     case "[string]map[string]interface {}":
       if field.Interface().(map[string]interface{}) == nil {
