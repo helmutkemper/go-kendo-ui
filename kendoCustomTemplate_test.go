@@ -167,7 +167,34 @@ func ExampleIdea() {
   }
   fmt.Printf( "%s\n", hostExposedPortsTemplateFooter.ToHtml() )
 
+  script := HtmlElementScript{
+    Content: Content{
+
+      `function containerHostExposedPortsAddNewPort(){
+        $('#containerHostExposedPortsAddNewPort').data('kendoDialog').open();
+      }`,
+
+    },
+  }
+  fmt.Printf( "%s\n", script.ToHtml() )
+
   hostExposedPortsTemplate := HtmlElementScript{
+    Global: HtmlGlobalAttributes{
+      Id: "containerHostExposedPortsTemplate",
+    },
+    Content: Content{
+
+      HtmlElementSpan{
+        Content: Content{
+          "containerHostExposedPortsTemplate",
+        },
+      },
+
+    },
+  }
+  fmt.Printf( "%s\n", hostExposedPortsTemplate.ToHtml() )
+
+  hostExposedPortsTemplateAddNewPort := HtmlElementScript{
     Global: HtmlGlobalAttributes{
       Id: "containerCreateTemplateExposedPortsAddNewPort",
     },
@@ -246,7 +273,7 @@ func ExampleIdea() {
       },
     },
   }
-  fmt.Printf( "%s\n", hostExposedPortsTemplate.ToHtml() )
+  fmt.Printf( "%s\n", hostExposedPortsTemplateAddNewPort.ToHtml() )
 
   hostExposedPortsTemplateNoData := HtmlElementScript{
     Global: HtmlGlobalAttributes{
