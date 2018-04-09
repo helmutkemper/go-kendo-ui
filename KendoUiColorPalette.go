@@ -88,7 +88,7 @@ type KendoUiColorPalette struct{
 
   *ToJavaScriptConverter                                                            `jsObject:"-"`
 }
-func(el *KendoUiColorPalette) ToJavaScript() string {
+func(el *KendoUiColorPalette) ToJavaScript() []byte {
   var ret bytes.Buffer
   if el.Html.Global.Id == "" {
     el.Html.Global.Id = getAutoId()
@@ -98,14 +98,14 @@ func(el *KendoUiColorPalette) ToJavaScript() string {
   data, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
   if err != nil {
     log.Criticalf( "KendoUiColorPalette.Error: %v", err.Error() )
-    return ""
+    return []byte{}
   }
 
   ret.Write( []byte(`$("#` + el.Html.Global.Id + `").kendoColorPalette({`) )
   ret.Write( data )
   ret.Write( []byte(`});`) )
 
-  return ret.String()
+  return ret.Bytes()
 }
 func(el *KendoUiColorPalette) ToHtml() []byte {
   return el.Html.ToHtml()

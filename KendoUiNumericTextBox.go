@@ -7,7 +7,7 @@ import (
 )
 
 type KendoUiNumericTextBox struct {
-  Html                                    HtmlElementFormSelect                   `jsObject:"-"`
+  Html                                    HtmlInputNumber                         `jsObject:"-"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/numerictextbox/configuration/culture#culture
@@ -161,7 +161,7 @@ type KendoUiNumericTextBox struct {
   });
   </script>
   */
-  Placeholder                             string                                  `jsObject:"placeholder"`
+  PlaceHolder                             string                                  `jsObject:"placeholder"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/numerictextbox/configuration/restrictdecimals#restrictDecimals

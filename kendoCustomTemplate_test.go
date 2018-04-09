@@ -217,17 +217,19 @@ func ExampleIdea() {
                 },
               },
 
-              HtmlInputNumber{
-                Name: "ExposedPorts",
-                PlaceHolder: "",
-                // Pattern: "[^=]*",
-                AutoComplete: FALSE,
-                Required: TRUE,
-                Global: HtmlGlobalAttributes{
-                  Id: "ExposedPortsNumber",
-                  Class: "oneThirdSize",
-                  Extra: map[string]interface{}{
-                    "validationMessage": "Enter a {0}",
+              KendoUiNumericTextBox{
+                Html: HtmlInputNumber{
+                  Name: "ExposedPorts",
+                  PlaceHolder: "",
+                  AutoComplete: FALSE,
+                  Required: TRUE,
+                  // Pattern: "[^=]*",
+                  Global: HtmlGlobalAttributes{
+                    Id: "ExposedPortsNumber",
+                    Class: "oneThirdSize",
+                    Extra: map[string]interface{}{
+                      "validationMessage": "Enter a {0}",
+                    },
                   },
                 },
               },

@@ -1152,7 +1152,7 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
       }
 
     case Content:
-      buffer.Write( converted.Bytes() )
+      buffer.Write( converted.ToHtml() )
 
     case nil:
 

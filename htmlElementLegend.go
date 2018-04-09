@@ -47,7 +47,7 @@ func(el *HtmlElementFormLegend)ToHtml() []byte {
   buffer.Write( el.Global.ToHtml() )
   buffer.Write( data )
   buffer.Write( []byte( `>` ) )
-  buffer.Write( el.Content.Bytes() )
+  buffer.Write( el.Content.ToHtml() )
   buffer.Write( []byte( `</legend>` ) )
 
   return buffer.Bytes()

@@ -4,113 +4,132 @@ import (
   //"fmt"
   "fmt"
   "bytes"
+  "sort"
 )
 
 type Content []interface{}
 
-func(el Content) Bytes() []byte {
+func(el Content) ToHtml() []byte {
   var buffer bytes.Buffer
 
-  /*
   keys := make([]int, 0)
-  for k, _ := range romanNumeralDict {
-      keys = append(keys, k)
+  for k := range el {
+    keys = append(keys, k)
   }
   sort.Ints(keys)
   for _, k := range keys {
-      fmt.Println(k, romanNumeralDict[k])
-  }
-  */
-
-  for _, v := range el{
-    switch outConverted := v.(type) {
-      case string:
-        buffer.WriteString( v.(string) )
-      case HtmlElementDiv:
-        buffer.Write( outConverted.ToHtml() )
-      case HtmlInputGeneric:
-        buffer.Write( outConverted.ToHtml() )
-      case HtmlInputNumber:
-        buffer.Write( outConverted.ToHtml() )
-      case HtmlElementSpan:
-        buffer.Write( outConverted.ToHtml() )
-      case HtmlElementFormLabel:
-        buffer.Write( outConverted.ToHtml() )
-      case HtmlInputText:
-        buffer.Write( outConverted.ToHtml() )
-      case HtmlElementFormLegend:
-        buffer.Write( outConverted.ToHtml() )
-      case HtmlElementFormFieldSet:
-        buffer.Write( outConverted.ToHtml() )
-      case HtmlElementForm:
-        buffer.Write( outConverted.ToHtml() )
-      case HtmlElementFormSelect:
-        buffer.Write( outConverted.ToHtml() )
-      case HtmlElementFormTextArea:
-        buffer.Write( outConverted.ToHtml() )
-      case HtmlElementFormMeter:
-        buffer.Write( outConverted.ToHtml() )
-      case HtmlElementFormButton:
-        buffer.Write( outConverted.ToHtml() )
-      case HtmlElementFormDataList:
-        buffer.Write( outConverted.ToHtml() )
-        /*
-      case HtmlElementFormOutput:
-        buffer.Write( outConverted.String()
-      case HtmlElementFormProgress:
-        out += outConverted.String()*/
+    switch outConverted := el[k].(type) {
+    case string:
+      buffer.WriteString( el[k].(string) )
+    case HtmlElementDiv:
+      buffer.Write( outConverted.ToHtml() )
+    case HtmlInputGeneric:
+      buffer.Write( outConverted.ToHtml() )
+    case HtmlInputNumber:
+      buffer.Write( outConverted.ToHtml() )
+    case HtmlElementSpan:
+      buffer.Write( outConverted.ToHtml() )
+    case HtmlElementFormLabel:
+      buffer.Write( outConverted.ToHtml() )
+    case HtmlInputText:
+      buffer.Write( outConverted.ToHtml() )
+    case HtmlElementFormLegend:
+      buffer.Write( outConverted.ToHtml() )
+    case HtmlElementFormFieldSet:
+      buffer.Write( outConverted.ToHtml() )
+    case HtmlElementForm:
+      buffer.Write( outConverted.ToHtml() )
+    case HtmlElementFormSelect:
+      buffer.Write( outConverted.ToHtml() )
+    case HtmlElementFormTextArea:
+      buffer.Write( outConverted.ToHtml() )
+    case HtmlElementFormMeter:
+      buffer.Write( outConverted.ToHtml() )
+    case HtmlElementFormButton:
+      buffer.Write( outConverted.ToHtml() )
+    case HtmlElementFormDataList:
+      buffer.Write( outConverted.ToHtml() )
+    case KendoUiNumericTextBox:
+      buffer.Write( outConverted.ToHtml() )
+    /*case HtmlElementFormOutput:
+      buffer.Write( outConverted.ToHtml() )
+    case HtmlElementFormProgress:
+      buffer.Write( outConverted.ToHtml() )*/
 
     default:
-      fmt.Printf("typeContent.go: error: type %T not found in typeContent\n", outConverted)
+      fmt.Printf("\n\n\ntypeContent.go: error: type %T not found in typeContent\n\n\n", outConverted)
     }
   }
 
   return buffer.Bytes()
 }
-/*
-func(el Content) String() string {
-  out := ``
 
-  for _, v := range el{
-    switch outConverted := v.(type) {
-    case string:
-      out += v.(string)
-    case HtmlElementDiv:
-      out += outConverted.ToHtml()
-    /*case String:
-      out += v.(String).String()
-    case HtmlElementFormLegend:
-      out += outConverted.String()
-    case HtmlElementDiv:
-      out += outConverted.String()
-    case HtmlElementFormFieldSet:
-      out += outConverted.String()
-    case HtmlElementForm:
-      out += outConverted.String()
-    case HtmlElementFormSelect:
-      out += outConverted.String()
-    case HtmlElementFormTextArea:
-      out += outConverted.String()
-    case HtmlElementFormLabel:
-      out += outConverted.String()
-    case HtmlElementFormMeter:
-      out += outConverted.String()
-    case HtmlElementFormOptGroup:
-      out += outConverted.String()
-    case HtmlElementFormOutput:
-      out += outConverted.String()
-    case HtmlElementFormProgress:
-      out += outConverted.String()
-    case HtmlElementFormButton:
-      out += outConverted.String()
-    case HtmlElementFormDataList:
-      out += outConverted.String()
-    case HtmlInputText:
-      out += outConverted.String()
+func(el Content) ToJavaScript() []byte {
+  var buffer bytes.Buffer
+      buffer.WriteString( "\n" )
+
+  keys := make([]int, 0)
+  for k := range el {
+    keys = append(keys, k)
+  }
+  sort.Ints(keys)
+  for _, k := range keys {
+    switch outConverted := el[k].(type) {
+    case KendoUiDialog:
+      buffer.Write( outConverted.ToJavaScript() )
+      buffer.WriteString( "\n" )
+    case KendoUiDateTimePicker:
+      buffer.Write( outConverted.ToJavaScript() )
+      buffer.WriteString( "\n" )
+    case KendoUiDatePicker:
+      buffer.Write( outConverted.ToJavaScript() )
+      buffer.WriteString( "\n" )
+    case KendoUiDateInput:
+      buffer.Write( outConverted.ToJavaScript() )
+      buffer.WriteString( "\n" )
+    case KendoUiContextMenu:
+      buffer.Write( outConverted.ToJavaScript() )
+      buffer.WriteString( "\n" )
+    case KendoUiConfirm:
+      buffer.Write( outConverted.ToJavaScript() )
+      buffer.WriteString( "\n" )
+    case KendoUiComboBox:
+      buffer.Write( outConverted.ToJavaScript() )
+      buffer.WriteString( "\n" )
+    case KendoUiColorPicker:
+      buffer.Write( outConverted.ToJavaScript() )
+      buffer.WriteString( "\n" )
+    case KendoUiColorPalette:
+      buffer.Write( outConverted.ToJavaScript() )
+      buffer.WriteString( "\n" )
+    case KendoUiCalendar:
+      buffer.Write( outConverted.ToJavaScript() )
+      buffer.WriteString( "\n" )
+    case KendoUiButton:
+      buffer.Write( outConverted.ToJavaScript() )
+      buffer.WriteString( "\n" )
+    case KendoUiMultiSelect:
+      buffer.Write( outConverted.ToJavaScript() )
+      buffer.WriteString( "\n" )
+    case KendoUiAutoComplete:
+      buffer.Write( outConverted.ToJavaScript() )
+      buffer.WriteString( "\n" )
+    case KendoUiDraggable:
+      buffer.Write( outConverted.ToJavaScript() )
+      buffer.WriteString( "\n" )
+    case KendoUiDropDownList:
+      buffer.Write( outConverted.ToJavaScript() )
+      buffer.WriteString( "\n" )
+    case KendoUiDropTarget:
+      buffer.Write( outConverted.ToJavaScript() )
+      buffer.WriteString( "\n" )
+    case KendoUiDropTargetArea:
+      buffer.Write( outConverted.ToJavaScript() )
+      buffer.WriteString( "\n" )
     default:
-      fmt.Printf("error: type %T not found in typeContent\n", outConverted)
+      fmt.Printf("\n\n\ntypeContent.go: error: type %T not found in typeContent\n\n\n", outConverted)
     }
   }
 
-  return out
-}*/
+  return buffer.Bytes()
+}
