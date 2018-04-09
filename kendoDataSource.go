@@ -633,7 +633,7 @@ func(el *KendoDataSource) ToJavaScript() []byte {
   if el.VarName == "" {
     ret.Write( []byte(` new kendo.data.DataSource({`) )
     ret.Write( data )
-    ret.Write( []byte(`});`) )
+    ret.Write( []byte(`}),`) )
   } else {
     ret.Write( []byte(`var ` + el.VarName + ` = new kendo.data.DataSource({`) )
     ret.Write( data )

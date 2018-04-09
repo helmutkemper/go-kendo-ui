@@ -527,9 +527,9 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
 
         buffer.WriteString(tag.Get("jsObject") + `: {`)
         for k, v := range convertedFromInterface {
-          buffer.WriteString( `"` + k + `": ` )
+          buffer.WriteString( `"` + k + `": {` )
           buffer.Write( v.ToJavaScript() )
-          buffer.WriteString( `, ` )
+          buffer.WriteString( `}, ` )
         }
         buffer.WriteString(`},`)
 
@@ -683,6 +683,13 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
         buffer.Write( convertedFromInterface.ToJavaScript() )
 
       case KendoPosition:
+        if convertedFromInterface == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: "` + convertedFromInterface.String() + `",` )
+
+      case JavaScriptType:
         if convertedFromInterface == 0 {
           continue
         }
@@ -997,19 +1004,6 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
       }
 
       buffer.WriteString(tag.Get("jsObject") + `: "` + converted.String() + `",`)
-
-    case map[string]KendoField:
-      if len( converted ) == 0 {
-        continue
-      }
-
-      buffer.WriteString(tag.Get("jsObject") + `: {`)
-      for k, v := range converted {
-        buffer.WriteString( `"` + k + `": ` )
-        buffer.Write( v.ToJavaScript() )
-        buffer.WriteString( `, ` )
-      }
-      buffer.WriteString(`},`)
 
     case []map[string]interface{}:
       if len( converted ) == 0 {
