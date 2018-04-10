@@ -93,6 +93,8 @@ type KendoUiNumericTextBox struct {
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/numerictextbox/configuration/format#format
 
+  @see https://docs.telerik.com/kendo-ui/framework/globalization/numberformatting
+
   Specifies the number format used when the widget is not focused. Any valid number format is allowed.
 
   Compare with the decimals property. (default: "n")

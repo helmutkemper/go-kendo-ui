@@ -120,6 +120,7 @@ func ExampleIdea() {
     Modal: TRUE,
     Visible: FALSE,
     Title: "Expose port from container",
+    Width: 400,
     Content: JavaScript{
       Code: "kendo.template($('#containerCreateTemplateExposedPortsAddNewPort').html())",
     },
@@ -232,6 +233,7 @@ func ExampleIdea() {
                     },
                   },
                 },
+                Format: "#",
               },
 
             },
