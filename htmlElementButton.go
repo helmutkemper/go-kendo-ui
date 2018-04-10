@@ -99,3 +99,10 @@ func(el *HtmlElementFormButton)ToHtml() []byte {
 
   return buffer.Bytes()
 }
+func(el *HtmlElementFormButton)ToJavaScript() []byte {
+  var buffer bytes.Buffer
+
+  buffer.Write( el.Content.ToJavaScript() )
+
+  return buffer.Bytes()
+}

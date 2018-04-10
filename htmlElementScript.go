@@ -68,6 +68,10 @@ func(el *HtmlElementScript)ToHtml() []byte {
 func(el *HtmlElementScript)ToJavaScript() []byte {
   var buffer bytes.Buffer
 
+  if el.Type == "text/x-kendo-template" {
+    return []byte{}
+  }
+
   buffer.Write( []byte( `<script>` ) )
   buffer.Write( el.Content.ToJavaScript() )
   buffer.Write( []byte( `</script>` ) )

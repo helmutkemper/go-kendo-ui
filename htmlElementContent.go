@@ -21,6 +21,6 @@ func(el *HtmlContent)ToHtml() []byte {
 func(el *HtmlContent)ToJavaScript() []byte {
   var buffer bytes.Buffer
 
-  buffer.Write( el.Content.ToHtml() )
+  buffer.Write( el.Content.ToJavaScript() )
   return buffer.Bytes()
 }

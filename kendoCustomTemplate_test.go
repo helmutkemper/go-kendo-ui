@@ -110,239 +110,239 @@ func ExampleGetTemplate() {
 }
 
 func ExampleIdea() {
-
-  hostExposedPortsAddNewPortDialog := KendoUiDialog{
-    Html: HtmlElementDiv{
-      Global: HtmlGlobalAttributes{
-        Id: "containerHostExposedPortsAddNewPort",
-      },
-    },
-    Modal: TRUE,
-    Visible: FALSE,
-    Title: "Expose port from container",
-    Width: 400,
-    Content: JavaScript{
-      Code: "kendo.template($('#containerCreateTemplateExposedPortsAddNewPort').html())",
-    },
-    Actions: []KendoActions{
-      {
-        Text: "Close",
-      },
-      {
-        Action:  JavaScript{
-          Code: "function(input){ if(!$('#spanCreateTemplateExposedPortsAddNewPort').kendoValidator().data('kendoValidator').validate()){ return false; } return false; }",
-        },
-        Text:    "Add",
-      },
-      {
-        Action:  JavaScript{
-          Code: "function(input){ if(!$('#spanCreateTemplateExposedPortsAddNewPort').kendoValidator().data('kendoValidator').validate()){ return false; } }",
-        },
-        Primary: TRUE,
-        Text:    "Add and close",
-      },
-    },
-  }
-  fmt.Printf( "%s\n", hostExposedPortsAddNewPortDialog.ToHtml() )
-  fmt.Printf( "%s\n", hostExposedPortsAddNewPortDialog.ToJavaScript() )
-
-  hostExposedPortsTemplateFooter := HtmlElementScript{
-    Global: HtmlGlobalAttributes{
-      Id: "containerHostExposedPortsFooterTemplate",
-    },
-    Type:    "text/x-kendo-template",
+// fixme: constantes para tipos de scripts - application/javascript - text/x-kendo-template
+  content := HtmlContent{
     Content: Content{
 
-      HtmlElementFormButton{
+      KendoUiDialog{
+        Html: HtmlElementDiv{
+          Global: HtmlGlobalAttributes{
+            Id: "containerHostExposedPortsAddNewPort",
+          },
+        },
+        Modal: TRUE,
+        Visible: FALSE,
+        Title: "Expose port from container",
+        Width: 400,
+        Content: JavaScript{
+          Code: "kendo.template($('#containerCreateTemplateExposedPortsAddNewPort').html())",
+        },
+        Actions: []KendoActions{
+          {
+            Text: "Close",
+          },
+          {
+            Action:  JavaScript{
+              Code: "function(input){ if(!$('#spanCreateTemplateExposedPortsAddNewPort').kendoValidator().data('kendoValidator').validate()){ return false; } return false; }",
+            },
+            Text:    "Add",
+          },
+          {
+            Action:  JavaScript{
+              Code: "function(input){ if(!$('#spanCreateTemplateExposedPortsAddNewPort').kendoValidator().data('kendoValidator').validate()){ return false; } }",
+            },
+            Primary: TRUE,
+            Text:    "Add and close",
+          },
+        },
+      },
+
+      HtmlElementScript{
         Global: HtmlGlobalAttributes{
-          Id: "buttonHostExposedPortsFooterTemplate",
-          Class: "k-button k-primary centerText",
-          OnClick: "containerHostExposedPortsAddNewPort()",
+          Id: "containerHostExposedPortsFooterTemplate",
         },
+        Type:    "text/x-kendo-template",
         Content: Content{
-          "Add new port and protocol",
+
+          HtmlElementFormButton{
+            Global: HtmlGlobalAttributes{
+              Id: "buttonHostExposedPortsFooterTemplate",
+              Class: "k-button k-primary centerText",
+              OnClick: "containerHostExposedPortsAddNewPort()",
+            },
+            Content: Content{
+              "Add new port and protocol",
+            },
+          },
+
         },
       },
 
-    },
-  }
-  fmt.Printf( "%s\n", hostExposedPortsTemplateFooter.ToHtml() )
-
-  script := HtmlElementScript{
-    Content: Content{
-
-      `function containerHostExposedPortsAddNewPort(){
-        $('#containerHostExposedPortsAddNewPort').data('kendoDialog').open();
-      }`,
-
-    },
-  }
-  fmt.Printf( "%s\n", script.ToHtml() )
-
-  hostExposedPortsTemplate := HtmlElementScript{
-    Global: HtmlGlobalAttributes{
-      Id: "containerHostExposedPortsTemplate",
-    },
-    Content: Content{
-
-      HtmlElementSpan{
+      HtmlElementScript{
         Content: Content{
-          "containerHostExposedPortsTemplate",
+
+          `function containerHostExposedPortsAddNewPort(){
+            $('#containerHostExposedPortsAddNewPort').data('kendoDialog').open();
+          }`,
+
         },
       },
 
-    },
-  }
-  fmt.Printf( "%s\n", hostExposedPortsTemplate.ToHtml() )
-
-  hostExposedPortsTemplateAddNewPort := HtmlElementScript{
-    Global: HtmlGlobalAttributes{
-      Id: "containerCreateTemplateExposedPortsAddNewPort",
-    },
-    Type: "text/x-kendo-template",
-    Content: Content{
-
-      HtmlElementDiv{
+      HtmlElementScript{
         Global: HtmlGlobalAttributes{
-          Id: "spanCreateTemplateExposedPortsAddNewPort",
+          Id: "containerHostExposedPortsTemplate",
         },
+        Type:    "text/x-kendo-template",
+        Content: Content{
+
+          HtmlElementSpan{
+            Content: Content{
+              "containerHostExposedPortsTemplate",
+            },
+          },
+
+        },
+      },
+
+      HtmlElementScript{
+        Global: HtmlGlobalAttributes{
+          Id: "containerCreateTemplateExposedPortsAddNewPort",
+        },
+        Type: "text/x-kendo-template",
         Content: Content{
 
           HtmlElementDiv{
+            Global: HtmlGlobalAttributes{
+              Id: "spanCreateTemplateExposedPortsAddNewPort",
+            },
             Content: Content{
 
-              HtmlElementFormLabel{
-                For: "ExposedPortsNumber",
+              HtmlElementDiv{
                 Content: Content{
-                  "Port number",
-                },
-              },
 
-              KendoUiNumericTextBox{
-                Html: HtmlInputNumber{
-                  Name: "ExposedPorts",
-                  PlaceHolder: "",
-                  AutoComplete: FALSE,
-                  Required: TRUE,
-                  // Pattern: "[^=]*",
-                  Global: HtmlGlobalAttributes{
-                    Id: "ExposedPortsNumber",
-                    Class: "oneThirdSize",
-                    Extra: map[string]interface{}{
-                      "validationMessage": "Enter a {0}",
+                  HtmlElementFormLabel{
+                    For: "ExposedPortsNumber",
+                    Content: Content{
+                      "Port number",
                     },
                   },
+
+                  KendoUiNumericTextBox{
+                    Html: HtmlInputNumber{
+                      Name: "ExposedPorts",
+                      PlaceHolder: "",
+                      AutoComplete: FALSE,
+                      Required: TRUE,
+                      // Pattern: "[^=]*",
+                      Global: HtmlGlobalAttributes{
+                        Id: "ExposedPortsNumber",
+                        Class: "oneThirdSize",
+                        Extra: map[string]interface{}{
+                          "validationMessage": "Enter a {0}",
+                        },
+                      },
+                    },
+                    Format: "#",
+                  },
+
                 },
-                Format: "#",
               },
 
+              HtmlElementDiv{
+                Content: Content{
+
+                  HtmlElementFormLabel{
+                    For: "ExposedPortsProtocol",
+                    Content: Content{
+                      "Port protocol",
+                    },
+                  },
+
+                  KendoUiComboBox{
+                    Html: HtmlElementFormSelect{
+                      Global: HtmlGlobalAttributes{
+                        Id: "ExposedPortsProtocol",
+                        Class: "oneThirdSize",
+                      },
+                      Required: TRUE,
+                      Options: []HtmlOptions{
+                        {
+                          Label: "Please, select one",
+                          Key:   "",
+                        },
+                        {
+                          Label: "TCP",
+                          Key:   "TCP",
+                        },
+                        {
+                          Label: "UDP",
+                          Key:   "UDP",
+                        },
+                      },
+                    },
+
+                  },
+
+                },
+              },
             },
           },
+        },
+      },
+
+      HtmlElementScript{
+        Global: HtmlGlobalAttributes{
+          Id: "containerHostExposedPortsNoDataTemplate",
+        },
+        Type:    "text/x-kendo-template",
+        Content: Content{
 
           HtmlElementDiv{
+            Global: HtmlGlobalAttributes{
+              Id: "divExposedPortsFooterTemplate",
+            },
             Content: Content{
+              "No ports found to add. Please add a port and a protocol before continuing.",
+            },
+          },
 
-              HtmlElementFormLabel{
-                For: "ExposedPortsProtocol",
-                Content: Content{
-                  "Port protocol",
+        },
+      },
+
+      KendoUiMultiSelect{
+        Html: HtmlElementFormSelect{
+          Global: HtmlGlobalAttributes{
+            Id: "containerHostExposedPorts",
+          },
+        },
+        Filter: FILTER_CONTAINS,
+        Placeholder: "",
+        ItemTemplate: JavaScript{
+          Code: "kendo.template($('#containerHostExposedPortsTemplate').html())",
+        },
+        NoDataTemplate: JavaScript{
+          Code: "kendo.template($('#containerHostExposedPortsNoDataTemplate').html())",
+        },
+        FooterTemplate: JavaScript{
+          Code: "kendo.template($('#containerHostExposedPortsFooterTemplate').html())",
+        },
+        DataTextField: "Value",
+        DataValueField: "Id",
+        DataSource: KendoDataSource{
+          Schema: KendoSchema{
+            Model: KendoDataModel{
+              Id: "Id",
+              Fields: map[string]KendoField{
+                "Id": {
+                  Type: JAVASCRIPT_NUMBER,
+                },
+                "Value": {
+                  Type: JAVASCRIPT_STRING,
+                },
+                "ImageName": {
+                  Type: JAVASCRIPT_STRING,
                 },
               },
-
-              KendoUiComboBox{
-                Html: HtmlElementFormSelect{
-                  Global: HtmlGlobalAttributes{
-                    Id: "ExposedPortsProtocol",
-                    Class: "oneThirdSize",
-                  },
-                  Required: TRUE,
-                  Options: []HtmlOptions{
-                    {
-                      Label: "Please, select one",
-                      Key:   "",
-                    },
-                    {
-                      Label: "TCP",
-                      Key:   "TCP",
-                    },
-                    {
-                      Label: "UDP",
-                      Key:   "UDP",
-                    },
-                  },
-                },
-
-              },
-
             },
           },
         },
       },
-    },
-  }
-  fmt.Printf( "%s\n", hostExposedPortsTemplateAddNewPort.ToHtml() )
-  fmt.Printf( "%s\n", hostExposedPortsTemplateAddNewPort.ToJavaScript() )
-
-  hostExposedPortsTemplateNoData := HtmlElementScript{
-    Global: HtmlGlobalAttributes{
-      Id: "containerHostExposedPortsNoDataTemplate",
-    },
-    Type:    "text/x-kendo-template",
-    Content: Content{
-
-      HtmlElementDiv{
-        Global: HtmlGlobalAttributes{
-          Id: "divExposedPortsFooterTemplate",
-        },
-        Content: Content{
-          "No ports found to add. Please add a port and a protocol before continuing.",
-        },
-      },
 
     },
   }
-  fmt.Printf( "%s\n", hostExposedPortsTemplateNoData.ToHtml() )
 
-  sel := KendoUiMultiSelect{
-    Html: HtmlElementFormSelect{
-      Global: HtmlGlobalAttributes{
-        Id: "containerHostExposedPorts",
-      },
-    },
-    Filter: FILTER_CONTAINS,
-    Placeholder: "",
-    ItemTemplate: JavaScript{
-      Code: "kendo.template($('#containerHostExposedPortsTemplate').html())",
-    },
-    NoDataTemplate: JavaScript{
-      Code: "kendo.template($('#containerHostExposedPortsNoDataTemplate').html())",
-    },
-    FooterTemplate: JavaScript{
-      Code: "kendo.template($('#containerHostExposedPortsFooterTemplate').html())",
-    },
-    DataTextField: "Value",
-    DataValueField: "Id",
-    DataSource: KendoDataSource{
-      Schema: KendoSchema{
-        Model: KendoDataModel{
-          Id: "Id",
-          Fields: map[string]KendoField{
-            "Id": {
-              Type: JAVASCRIPT_NUMBER,
-            },
-            "Value": {
-              Type: JAVASCRIPT_STRING,
-            },
-            "ImageName": {
-              Type: JAVASCRIPT_STRING,
-            },
-          },
-        },
-      },
-    },
-  }
-  fmt.Printf( "%s\n", sel.ToHtml() )
-  fmt.Printf( "%s\n", sel.ToJavaScript() )
+  fmt.Printf( "%s", content.ToJavaScript() )
+  fmt.Printf( "%s", content.ToHtml() )
 
   // Output:
   //

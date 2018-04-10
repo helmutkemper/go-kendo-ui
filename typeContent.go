@@ -53,6 +53,12 @@ func(el Content) ToHtml() []byte {
       buffer.Write( outConverted.ToHtml() )
     case KendoUiComboBox:
       buffer.Write( outConverted.ToHtml() )
+    case KendoUiDialog:
+      buffer.Write( outConverted.ToHtml() )
+    case HtmlElementScript:
+      buffer.Write( outConverted.ToHtml() )
+    case KendoUiMultiSelect:
+      buffer.Write( outConverted.ToHtml() )
     /*case HtmlElementFormOutput:
       buffer.Write( outConverted.ToHtml() )
     case HtmlElementFormProgress:
@@ -77,6 +83,9 @@ func(el Content) ToJavaScript() []byte {
   sort.Ints(keys)
   for _, k := range keys {
     switch outConverted := el[k].(type) {
+    case string:
+      buffer.WriteString( outConverted )
+      buffer.WriteString( "\n" )
     case KendoUiDialog:
       buffer.Write( outConverted.ToJavaScript() )
       buffer.WriteString( "\n" )
@@ -138,6 +147,15 @@ func(el Content) ToJavaScript() []byte {
       buffer.Write( outConverted.ToJavaScript() )
       buffer.WriteString( "\n" )
     case HtmlElementFormSelect:
+      buffer.Write( outConverted.ToJavaScript() )
+      buffer.WriteString( "\n" )
+    case HtmlElementScript:
+      buffer.Write( outConverted.ToJavaScript() )
+      buffer.WriteString( "\n" )
+    case HtmlElementFormButton:
+      buffer.Write( outConverted.ToJavaScript() )
+      buffer.WriteString( "\n" )
+    case HtmlElementSpan:
       buffer.Write( outConverted.ToJavaScript() )
       buffer.WriteString( "\n" )
     default:
