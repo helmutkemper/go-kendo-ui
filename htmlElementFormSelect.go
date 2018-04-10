@@ -109,17 +109,7 @@ func(el *HtmlElementFormSelect)ToHtml() []byte {
   buffer.WriteString( `</select>` )
 
   return buffer.Bytes()
-}/*
-func(el *HtmlElementFormSelect)string() string {
-  out := `<select ` + el.Global.string() + el.Name.ToAttr("name") + el.Form.ToAttr("form") + el.Multiple.ToAttr("multiple") + el.Size.ToAttr("size") + el.Required.ToAttrSet("required") + el.Disabled.ToAttrSet("disabled") + `>`
-  for k, v := range el.Options{
-    if v == "" {
-      out += `<option value="` + k + `">`
-    } else {
-      out += `<option value="` + k + `">` + k + `</option>`
-    }
-  }
-  out += `</select>`
-
-  return out
-}*/
+}
+func(el *HtmlElementFormSelect)ToJavaScript() []byte {
+  return []byte{}
+}

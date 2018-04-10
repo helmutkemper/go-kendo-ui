@@ -276,6 +276,7 @@ func ExampleIdea() {
     },
   }
   fmt.Printf( "%s\n", hostExposedPortsTemplateAddNewPort.ToHtml() )
+  fmt.Printf( "%s\n", hostExposedPortsTemplateAddNewPort.ToJavaScript() )
 
   hostExposedPortsTemplateNoData := HtmlElementScript{
     Global: HtmlGlobalAttributes{

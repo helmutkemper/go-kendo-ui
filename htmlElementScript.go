@@ -65,3 +65,14 @@ func(el *HtmlElementScript)ToHtml() []byte {
 
   return buffer.Bytes()
 }
+func(el *HtmlElementScript)ToJavaScript() []byte {
+  var buffer bytes.Buffer
+
+  buffer.Write( []byte( `<script` ) )
+  buffer.Write( el.Global.ToHtml() )
+  buffer.Write( []byte( `>` ) )
+  buffer.Write( el.Content.ToJavaScript() )
+  buffer.Write( []byte( `</script>` ) )
+
+  return buffer.Bytes()
+}

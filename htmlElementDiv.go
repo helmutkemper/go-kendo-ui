@@ -37,3 +37,10 @@ func(el *HtmlElementDiv)ToHtml() []byte {
 
   return buffer.Bytes()
 }
+func(el *HtmlElementDiv)ToJavaScript() []byte {
+  var buffer bytes.Buffer
+
+  buffer.Write( el.Content.ToJavaScript() )
+
+  return buffer.Bytes()
+}

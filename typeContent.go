@@ -57,7 +57,7 @@ func(el Content) ToHtml() []byte {
       buffer.Write( outConverted.ToHtml() )*/
 
     default:
-      fmt.Printf("\n\n\ntypeContent.go: error: type %T not found in typeContent\n\n\n", outConverted)
+      fmt.Printf("\n\n\nToHtml() - typeContent.go: error: type %T not found in typeContent\n\n\n", outConverted)
     }
   }
 
@@ -126,8 +126,20 @@ func(el Content) ToJavaScript() []byte {
     case KendoUiDropTargetArea:
       buffer.Write( outConverted.ToJavaScript() )
       buffer.WriteString( "\n" )
+    case HtmlElementDiv:
+      buffer.Write( outConverted.ToJavaScript() )
+      buffer.WriteString( "\n" )
+    case HtmlElementFormLabel:
+      buffer.Write( outConverted.ToJavaScript() )
+      buffer.WriteString( "\n" )
+    case KendoUiNumericTextBox:
+      buffer.Write( outConverted.ToJavaScript() )
+      buffer.WriteString( "\n" )
+    case HtmlElementFormSelect:
+      buffer.Write( outConverted.ToJavaScript() )
+      buffer.WriteString( "\n" )
     default:
-      fmt.Printf("\n\n\ntypeContent.go: error: type %T not found in typeContent\n\n\n", outConverted)
+      fmt.Printf("\n\n\nToJavaScript() - typeContent.go: error: type %T not found in typeContent\n\n\n", outConverted)
     }
   }
 

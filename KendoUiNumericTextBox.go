@@ -178,7 +178,7 @@ type KendoUiNumericTextBox struct {
   });
   </script>
   */
-  restrictDecimals                        Boolean                                 `jsObject:"restrictDecimals"`
+  RestrictDecimals                        Boolean                                 `jsObject:"restrictDecimals"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/numerictextbox/configuration/round#round

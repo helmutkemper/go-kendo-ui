@@ -47,3 +47,6 @@ func(el *HtmlElementFormLabel)ToHtml() []byte {
 
   return buffer.Bytes()
 }
+func(el *HtmlElementFormLabel)ToJavaScript() []byte {
+  return []byte{}
+}
