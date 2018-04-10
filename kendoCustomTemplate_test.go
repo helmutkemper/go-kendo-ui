@@ -110,48 +110,15 @@ func ExampleGetTemplate() {
 }
 
 func ExampleIdea() {
-// fixme: constantes para tipos de scripts - application/javascript - text/x-kendo-template
+
   content := HtmlContent{
     Content: Content{
-
-      KendoUiDialog{
-        Html: HtmlElementDiv{
-          Global: HtmlGlobalAttributes{
-            Id: "containerHostExposedPortsAddNewPort",
-          },
-        },
-        Modal: TRUE,
-        Visible: FALSE,
-        Title: "Expose port from container",
-        Width: 400,
-        Content: JavaScript{
-          Code: "kendo.template($('#containerCreateTemplateExposedPortsAddNewPort').html())",
-        },
-        Actions: []KendoActions{
-          {
-            Text: "Close",
-          },
-          {
-            Action:  JavaScript{
-              Code: "function(input){ if(!$('#spanCreateTemplateExposedPortsAddNewPort').kendoValidator().data('kendoValidator').validate()){ return false; } return false; }",
-            },
-            Text:    "Add",
-          },
-          {
-            Action:  JavaScript{
-              Code: "function(input){ if(!$('#spanCreateTemplateExposedPortsAddNewPort').kendoValidator().data('kendoValidator').validate()){ return false; } }",
-            },
-            Primary: TRUE,
-            Text:    "Add and close",
-          },
-        },
-      },
 
       HtmlElementScript{
         Global: HtmlGlobalAttributes{
           Id: "containerHostExposedPortsFooterTemplate",
         },
-        Type:    "text/x-kendo-template",
+        Type:    SCRIPT_TYPE_KENDO_TEMPLATE,
         Content: Content{
 
           HtmlElementFormButton{
@@ -169,11 +136,10 @@ func ExampleIdea() {
       },
 
       HtmlElementScript{
+        Type: SCRIPT_TYPE_JAVASCRIPT,
         Content: Content{
 
-          `function containerHostExposedPortsAddNewPort(){
-            $('#containerHostExposedPortsAddNewPort').data('kendoDialog').open();
-          }`,
+          `function containerHostExposedPortsAddNewPort(){ $('#containerHostExposedPortsAddNewPort').data('kendoDialog').open(); }`,
 
         },
       },
@@ -182,7 +148,7 @@ func ExampleIdea() {
         Global: HtmlGlobalAttributes{
           Id: "containerHostExposedPortsTemplate",
         },
-        Type:    "text/x-kendo-template",
+        Type:    SCRIPT_TYPE_KENDO_TEMPLATE,
         Content: Content{
 
           HtmlElementSpan{
@@ -198,7 +164,7 @@ func ExampleIdea() {
         Global: HtmlGlobalAttributes{
           Id: "containerCreateTemplateExposedPortsAddNewPort",
         },
-        Type: "text/x-kendo-template",
+        Type: SCRIPT_TYPE_KENDO_TEMPLATE,
         Content: Content{
 
           HtmlElementDiv{
@@ -284,7 +250,7 @@ func ExampleIdea() {
         Global: HtmlGlobalAttributes{
           Id: "containerHostExposedPortsNoDataTemplate",
         },
-        Type:    "text/x-kendo-template",
+        Type:    SCRIPT_TYPE_KENDO_TEMPLATE,
         Content: Content{
 
           HtmlElementDiv{
@@ -334,6 +300,39 @@ func ExampleIdea() {
                 },
               },
             },
+          },
+        },
+      },
+
+      KendoUiDialog{
+        Html: HtmlElementDiv{
+          Global: HtmlGlobalAttributes{
+            Id: "containerHostExposedPortsAddNewPort",
+          },
+        },
+        Modal: TRUE,
+        Visible: FALSE,
+        Title: "Expose port from container",
+        Width: 400,
+        Content: JavaScript{
+          Code: "kendo.template($('#containerCreateTemplateExposedPortsAddNewPort').html())",
+        },
+        Actions: []KendoActions{
+          {
+            Text: "Close",
+          },
+          {
+            Action:  JavaScript{
+              Code: "function(input){ if(!$('#spanCreateTemplateExposedPortsAddNewPort').kendoValidator().data('kendoValidator').validate()){ return false; } return false; }",
+            },
+            Text:    "Add",
+          },
+          {
+            Action:  JavaScript{
+              Code: "function(input){ if(!$('#spanCreateTemplateExposedPortsAddNewPort').kendoValidator().data('kendoValidator').validate()){ return false; } }",
+            },
+            Primary: TRUE,
+            Text:    "Add and close",
           },
         },
       },

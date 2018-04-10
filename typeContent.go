@@ -59,6 +59,8 @@ func(el Content) ToHtml() []byte {
       buffer.Write( outConverted.ToHtml() )
     case KendoUiMultiSelect:
       buffer.Write( outConverted.ToHtml() )
+    case HtmlScriptType:
+      buffer.WriteString( outConverted.String() )
     /*case HtmlElementFormOutput:
       buffer.Write( outConverted.ToHtml() )
     case HtmlElementFormProgress:

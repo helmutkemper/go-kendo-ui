@@ -39,7 +39,8 @@ type HtmlElementScript struct{
     attribute, however, this attribute’s possible values were never standardized. The type attribute should be used
     instead.
   */
-  Type                        string                      `htmlAttr:"type"`
+  Type                        HtmlScriptType              `htmlAttr:"type" required:"true" requiredMessage:"Please, set script type for all elements 'telerik.HtmlElementScript{}'"`
+  // fixme: fazer
 
   /*
   Content inside html tag
@@ -52,6 +53,10 @@ type HtmlElementScript struct{
 }
 func(el *HtmlElementScript)ToHtml() []byte {
   var buffer bytes.Buffer
+
+  if el.Type == SCRIPT_TYPE_JAVASCRIPT {
+    return []byte{}
+  }
 
   element := reflect.ValueOf(el).Elem()
   data := el.ToJavaScriptConverter.ToTelerikHtml(element)
@@ -68,7 +73,7 @@ func(el *HtmlElementScript)ToHtml() []byte {
 func(el *HtmlElementScript)ToJavaScript() []byte {
   var buffer bytes.Buffer
 
-  if el.Type == "text/x-kendo-template" {
+  if el.Type == SCRIPT_TYPE_KENDO_TEMPLATE {
     return []byte{}
   }
 

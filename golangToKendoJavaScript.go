@@ -201,6 +201,15 @@ func(el *ToJavaScriptConverter) ToTelerikHtml( element reflect.Value ) []byte {
 
         buffer.WriteString(` ` + tagValue + `="` + strconv.Itoa( field.Interface().(int) ) + `"`)
 
+      case "telerik.HtmlScriptType":
+        if field.Interface().(HtmlScriptType) == 0 {
+          continue
+        }
+
+        buffer.WriteString(` ` + tagValue + `="` + field.Interface().(HtmlScriptType).String() + `"`)
+
+
+
     default:
       fmt.Printf("\nhtmlTag(): %d: %s - %s = %v\n", i, field.Type(), field.Interface(), tagName)
     }
