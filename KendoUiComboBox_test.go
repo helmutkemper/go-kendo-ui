@@ -4,7 +4,7 @@ import "fmt"
 
 func ExampleKendoUiComboBox_ToHtml() {
   html := KendoUiComboBox{
-    Html: HtmlInputText{
+    Html: HtmlElementFormSelect{
       Global: HtmlGlobalAttributes{
         Id: "combobox",
       },

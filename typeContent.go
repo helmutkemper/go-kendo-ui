@@ -51,6 +51,8 @@ func(el Content) ToHtml() []byte {
       buffer.Write( outConverted.ToHtml() )
     case KendoUiNumericTextBox:
       buffer.Write( outConverted.ToHtml() )
+    case KendoUiComboBox:
+      buffer.Write( outConverted.ToHtml() )
     /*case HtmlElementFormOutput:
       buffer.Write( outConverted.ToHtml() )
     case HtmlElementFormProgress:

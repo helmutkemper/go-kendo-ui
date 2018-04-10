@@ -247,26 +247,29 @@ func ExampleIdea() {
                 },
               },
 
-              HtmlElementFormSelect{
-                Global: HtmlGlobalAttributes{
-                  Id: "ExposedPortsProtocol",
-                  Class: "oneThirdSize",
+              KendoUiComboBox{
+                Html: HtmlElementFormSelect{
+                  Global: HtmlGlobalAttributes{
+                    Id: "ExposedPortsProtocol",
+                    Class: "oneThirdSize",
+                  },
+                  Required: TRUE,
+                  Options: []HtmlOptions{
+                    {
+                      Label: "Please, select one",
+                      Key:   "",
+                    },
+                    {
+                      Label: "TCP",
+                      Key:   "TCP",
+                    },
+                    {
+                      Label: "UDP",
+                      Key:   "UDP",
+                    },
+                  },
                 },
-                Required: TRUE,
-                Options: []HtmlOptions{
-                  {
-                    Label: "Please, select one",
-                    Key:   "",
-                  },
-                  {
-                    Label: "TCP",
-                    Key:   "TCP",
-                  },
-                  {
-                    Label: "UDP",
-                    Key:   "UDP",
-                  },
-                },
+
               },
 
             },

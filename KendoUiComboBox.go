@@ -7,7 +7,7 @@ import (
 )
 
 type KendoUiComboBox struct{
-  Html                                  HtmlInputText                           `jsObject:"-"`
+  Html                                  HtmlElementFormSelect                   `jsObject:"-"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-animation
