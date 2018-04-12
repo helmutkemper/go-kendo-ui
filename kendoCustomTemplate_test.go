@@ -111,6 +111,92 @@ func ExampleGetTemplate() {
 
 func ExampleIdea() {
 
+  dialogWindow := HtmlElementScript{
+    Global: HtmlGlobalAttributes{
+      Id: "containerCreateTemplateExposedPortsAddNewPort",
+    },
+    Type: SCRIPT_TYPE_KENDO_TEMPLATE,
+    Content: Content{
+
+      HtmlElementDiv{
+        Global: HtmlGlobalAttributes{
+          Id: "spanCreateTemplateExposedPortsAddNewPort",
+        },
+        Content: Content{
+
+          HtmlElementDiv{
+            Content: Content{
+
+              HtmlElementFormLabel{
+                For: "ExposedPortsNumber",
+                Content: Content{
+                  "Port number",
+                },
+              },
+
+              KendoUiNumericTextBox{
+                Html: HtmlInputNumber{
+                  Name: "ExposedPorts",
+                  PlaceHolder: "",
+                  AutoComplete: FALSE,
+                  Required: TRUE,
+                  // Pattern: "[^=]*",
+                  Global: HtmlGlobalAttributes{
+                    Id: "ExposedPortsNumber",
+                    Class: "oneThirdSize",
+                    Extra: map[string]interface{}{
+                      "validationMessage": "Enter a {0}",
+                    },
+                  },
+                },
+                Format: "#",
+              },
+
+            },
+          },
+
+          HtmlElementDiv{
+            Content: Content{
+
+              HtmlElementFormLabel{
+                For: "ExposedPortsProtocol",
+                Content: Content{
+                  "Port protocol",
+                },
+              },
+
+              KendoUiComboBox{
+                Html: HtmlElementFormSelect{
+                  Global: HtmlGlobalAttributes{
+                    Id: "ExposedPortsProtocol",
+                    Class: "oneThirdSize",
+                  },
+                  Required: TRUE,
+                  Options: []HtmlOptions{
+                    {
+                      Label: "Please, select one",
+                      Key:   "",
+                    },
+                    {
+                      Label: "TCP",
+                      Key:   "TCP",
+                    },
+                    {
+                      Label: "UDP",
+                      Key:   "UDP",
+                    },
+                  },
+                },
+
+              },
+
+            },
+          },
+        },
+      },
+    },
+  }
+
   content := HtmlContent{
     Content: Content{
 
@@ -160,91 +246,7 @@ func ExampleIdea() {
         },
       },
 
-      HtmlElementScript{
-        Global: HtmlGlobalAttributes{
-          Id: "containerCreateTemplateExposedPortsAddNewPort",
-        },
-        Type: SCRIPT_TYPE_KENDO_TEMPLATE,
-        Content: Content{
-
-          HtmlElementDiv{
-            Global: HtmlGlobalAttributes{
-              Id: "spanCreateTemplateExposedPortsAddNewPort",
-            },
-            Content: Content{
-
-              HtmlElementDiv{
-                Content: Content{
-
-                  HtmlElementFormLabel{
-                    For: "ExposedPortsNumber",
-                    Content: Content{
-                      "Port number",
-                    },
-                  },
-
-                  KendoUiNumericTextBox{
-                    Html: HtmlInputNumber{
-                      Name: "ExposedPorts",
-                      PlaceHolder: "",
-                      AutoComplete: FALSE,
-                      Required: TRUE,
-                      // Pattern: "[^=]*",
-                      Global: HtmlGlobalAttributes{
-                        Id: "ExposedPortsNumber",
-                        Class: "oneThirdSize",
-                        Extra: map[string]interface{}{
-                          "validationMessage": "Enter a {0}",
-                        },
-                      },
-                    },
-                    Format: "#",
-                  },
-
-                },
-              },
-
-              HtmlElementDiv{
-                Content: Content{
-
-                  HtmlElementFormLabel{
-                    For: "ExposedPortsProtocol",
-                    Content: Content{
-                      "Port protocol",
-                    },
-                  },
-
-                  KendoUiComboBox{
-                    Html: HtmlElementFormSelect{
-                      Global: HtmlGlobalAttributes{
-                        Id: "ExposedPortsProtocol",
-                        Class: "oneThirdSize",
-                      },
-                      Required: TRUE,
-                      Options: []HtmlOptions{
-                        {
-                          Label: "Please, select one",
-                          Key:   "",
-                        },
-                        {
-                          Label: "TCP",
-                          Key:   "TCP",
-                        },
-                        {
-                          Label: "UDP",
-                          Key:   "UDP",
-                        },
-                      },
-                    },
-
-                  },
-
-                },
-              },
-            },
-          },
-        },
-      },
+      dialogWindow,
 
       HtmlElementScript{
         Global: HtmlGlobalAttributes{
@@ -315,7 +317,7 @@ func ExampleIdea() {
         Title: "Expose port from container",
         Width: 400,
         Content: JavaScript{
-          Code: "kendo.template($('#containerCreateTemplateExposedPortsAddNewPort').html())",
+          Code: string( dialogWindow.ToKendoTemplate() ),
         },
         Actions: []KendoActions{
           {
@@ -334,6 +336,9 @@ func ExampleIdea() {
             Primary: TRUE,
             Text:    "Add and close",
           },
+        },
+        EventOpen: JavaScript{
+          Code: "function(){ " + string( dialogWindow.Content.ToJavaScript() ) + "}",
         },
       },
 

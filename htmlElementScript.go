@@ -83,3 +83,13 @@ func(el *HtmlElementScript)ToJavaScript() []byte {
 
   return buffer.Bytes()
 }
+func(el *HtmlElementScript)ToKendoTemplate() []byte {
+  var buffer bytes.Buffer
+
+  buffer.Write( []byte( `kendo.template($('#` ) )
+  buffer.Write( []byte( el.Global.Id ) )
+  buffer.Write( []byte( `').html())` ) )
+
+  return buffer.Bytes()
+}
+//containerCreateTemplateExposedPortsAddNewPort
