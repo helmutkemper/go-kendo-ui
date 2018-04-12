@@ -345,7 +345,7 @@ func ExampleIdea() {
     },
   }
 
-  fmt.Printf( "%s", content.ToJavaScript() )
+  fmt.Printf( "%s\n\n", content.ToJavaScript() )
   fmt.Printf( "%s", content.ToHtml() )
 
   // Output:
