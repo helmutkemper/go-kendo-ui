@@ -111,6 +111,26 @@ func ExampleGetTemplate() {
 
 func ExampleIdea() {
 
+  dataSource := KendoDataSource{
+    VarName: "exposedPortsDataSource",
+    Schema: KendoSchema{
+      Model: KendoDataModel{
+        Id: "Id",
+        Fields: map[string]KendoField{
+          "Id": {
+            Type: JAVASCRIPT_NUMBER,
+          },
+          "Value": {
+            Type: JAVASCRIPT_STRING,
+          },
+          "ImageName": {
+            Type: JAVASCRIPT_STRING,
+          },
+        },
+      },
+    },
+  }
+
   dialogWindow := HtmlElementScript{
     Global: HtmlGlobalAttributes{
       Id: "containerCreateTemplateExposedPortsAddNewPort",
@@ -118,7 +138,7 @@ func ExampleIdea() {
     Type: SCRIPT_TYPE_KENDO_TEMPLATE,
     Content: Content{
 
-      HtmlElementDiv{
+      HtmlElementForm{
         Global: HtmlGlobalAttributes{
           Id: "spanCreateTemplateExposedPortsAddNewPort",
         },
@@ -136,7 +156,7 @@ func ExampleIdea() {
 
               KendoUiNumericTextBox{
                 Html: HtmlInputNumber{
-                  Name: "ExposedPorts",
+                  Name: "ExposedPortsNumber",
                   PlaceHolder: "",
                   AutoComplete: FALSE,
                   Required: TRUE,
@@ -152,53 +172,56 @@ func ExampleIdea() {
                 Format: "#",
               },
 
-            },
-          },
-
-          HtmlElementDiv{
-            Content: Content{
-
-              HtmlElementFormLabel{
-                For: "ExposedPortsProtocol",
+              HtmlElementDiv{
                 Content: Content{
-                  "Port protocol",
-                },
-              },
 
-              KendoUiComboBox{
-                Html: HtmlElementFormSelect{
-                  Global: HtmlGlobalAttributes{
-                    Id: "ExposedPortsProtocol",
-                    Class: "oneThirdSize",
-                  },
-                  Required: TRUE,
-                  Options: []HtmlOptions{
-                    {
-                      Label: "Please, select one",
-                      Key:   "",
-                    },
-                    {
-                      Label: "TCP",
-                      Key:   "TCP",
-                    },
-                    {
-                      Label: "UDP",
-                      Key:   "UDP",
+                  HtmlElementFormLabel{
+                    For: "ExposedPortsProtocol",
+                    Content: Content{
+                      "Port protocol",
                     },
                   },
-                },
 
+                  KendoUiComboBox{
+                    Html: HtmlElementFormSelect{
+                      Global: HtmlGlobalAttributes{
+                        Id: "ExposedPortsProtocol",
+                        Class: "oneThirdSize",
+                      },
+                      Required: TRUE,
+                      Options: []HtmlOptions{
+                        {
+                          Label: "Please, select one",
+                          Key:   "",
+                        },
+                        {
+                          Label: "TCP",
+                          Key:   "TCP",
+                        },
+                        {
+                          Label: "UDP",
+                          Key:   "UDP",
+                        },
+                      },
+                    },
+                  },
+
+                },
               },
 
             },
           },
+
         },
       },
+
     },
   }
 
   content := HtmlContent{
     Content: Content{
+
+      dataSource,
 
       HtmlElementScript{
         Global: HtmlGlobalAttributes{
@@ -286,24 +309,7 @@ func ExampleIdea() {
         },
         DataTextField: "Value",
         DataValueField: "Id",
-        DataSource: KendoDataSource{
-          Schema: KendoSchema{
-            Model: KendoDataModel{
-              Id: "Id",
-              Fields: map[string]KendoField{
-                "Id": {
-                  Type: JAVASCRIPT_NUMBER,
-                },
-                "Value": {
-                  Type: JAVASCRIPT_STRING,
-                },
-                "ImageName": {
-                  Type: JAVASCRIPT_STRING,
-                },
-              },
-            },
-          },
-        },
+        DataSource: dataSource,
       },
 
       KendoUiDialog{
@@ -325,7 +331,34 @@ func ExampleIdea() {
           },
           {
             Action:  JavaScript{
-              Code: "function(input){ if(!$('#spanCreateTemplateExposedPortsAddNewPort').kendoValidator().data('kendoValidator').validate()){ return false; } return false; }",
+              Code: `function(input){ 
+                      if(!$('#spanCreateTemplateExposedPortsAddNewPort').kendoValidator().data('kendoValidator').validate())
+                      { 
+                        return false; 
+                      }
+
+                      dataSource.add({
+                        Id: dataSource.total(),
+                        Value: $('#ExposedPortsNumber').val() + '/' + $('#ExposedPortsProtocol').val(),
+                        ImageName: 'fixme: containerConfigurationImageNameRef.text()'
+                      });
+
+                      dataSource.one('requestEnd', function(args) {
+                        if (args.type !== 'create') {
+                          return;
+                        }
+
+                        dataSource.one('sync', function() {
+                          //$('#containerHostExposedPorts').value($('#containerHostExposedPorts').value().concat([containerHostExposedPortsItemsIdToAdd]));
+                        });
+
+                        $('#ExposedPortsProtocol').data('kendoComboBox').val('')
+                        $('#ExposedPortsNumber').data('kendoNumericTextBox').value('');
+                      });
+
+                      dataSource.sync();
+                      return false; 
+                    }`,
             },
             Text:    "Add",
           },
@@ -347,6 +380,89 @@ func ExampleIdea() {
 
   fmt.Printf( "%s\n\n", content.ToJavaScript() )
   fmt.Printf( "%s", content.ToHtml() )
+
+  // Output:
+  //
+}
+func ExampleSoUmTest() {
+  el :=       HtmlElementForm{
+    Global: HtmlGlobalAttributes{
+      Id: "spanCreateTemplateExposedPortsAddNewPort",
+    },
+    Content: Content{
+
+      HtmlElementDiv{
+        Content: Content{
+
+          HtmlElementFormLabel{
+            For: "ExposedPortsNumber",
+            Content: Content{
+              "Port number",
+            },
+          },
+
+          KendoUiNumericTextBox{
+            Html: HtmlInputNumber{
+              Name: "ExposedPortsNumber",
+              PlaceHolder: "",
+              AutoComplete: FALSE,
+              Required: TRUE,
+              // Pattern: "[^=]*",
+              Global: HtmlGlobalAttributes{
+                Id: "ExposedPortsNumber",
+                Class: "oneThirdSize",
+                Extra: map[string]interface{}{
+                  "validationMessage": "Enter a {0}",
+                },
+              },
+            },
+            Format: "#",
+          },
+
+          HtmlElementDiv{
+            Content: Content{
+
+              HtmlElementFormLabel{
+                For: "ExposedPortsProtocol",
+                Content: Content{
+                  "Port protocol",
+                },
+              },
+
+              KendoUiComboBox{
+                Html: HtmlElementFormSelect{
+                  Global: HtmlGlobalAttributes{
+                    Id: "ExposedPortsProtocol",
+                    Class: "oneThirdSize",
+                  },
+                  Required: TRUE,
+                  Options: []HtmlOptions{
+                    {
+                      Label: "Please, select one",
+                      Key:   "",
+                    },
+                    {
+                      Label: "TCP",
+                      Key:   "TCP",
+                    },
+                    {
+                      Label: "UDP",
+                      Key:   "UDP",
+                    },
+                  },
+                },
+              },
+
+            },
+          },
+
+        },
+      },
+
+    },
+  }
+
+  fmt.Printf( "%s\n", el.MakeJavaScript() )
 
   // Output:
   //

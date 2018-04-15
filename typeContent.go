@@ -20,7 +20,7 @@ func(el Content) ToHtml() []byte {
   for _, k := range keys {
     switch outConverted := el[k].(type) {
     case string:
-      buffer.WriteString( el[k].(string) )
+      buffer.WriteString( outConverted )
     case HtmlElementDiv:
       buffer.Write( outConverted.ToHtml() )
     case HtmlInputGeneric:
@@ -61,6 +61,9 @@ func(el Content) ToHtml() []byte {
       buffer.Write( outConverted.ToHtml() )
     case HtmlScriptType:
       buffer.WriteString( outConverted.String() )
+    case KendoDataSource:
+      //do noting
+
     /*case HtmlElementFormOutput:
       buffer.Write( outConverted.ToHtml() )
     case HtmlElementFormProgress:
@@ -85,6 +88,8 @@ func(el Content) ToJavaScript() []byte {
   for _, k := range keys {
     switch outConverted := el[k].(type) {
     case string:
+      buffer.WriteString( outConverted )
+      //buffer.WriteString( "\n" )
     case KendoUiDialog:
       buffer.Write( outConverted.ToJavaScript() )
       //buffer.WriteString( "\n" )
@@ -156,6 +161,12 @@ func(el Content) ToJavaScript() []byte {
       //buffer.WriteString( "\n" )
     case HtmlElementSpan:
       buffer.Write( outConverted.ToJavaScript() )
+      //buffer.WriteString( "\n" )
+    case KendoDataSource:
+      buffer.Write( outConverted.ToJavaScript() )
+      //buffer.WriteString( "\n" )
+    //case KendoSchema:
+      //buffer.Write( outConverted.ToJavaScript() )
       //buffer.WriteString( "\n" )
     default:
       fmt.Printf("\n\n\nToJavaScript() - typeContent.go: error: type %T not found in typeContent\n\n\n", outConverted)

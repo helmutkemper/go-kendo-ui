@@ -3,6 +3,7 @@ package telerik
 import (
   "bytes"
   "reflect"
+  "fmt"
 )
 
 // The HTML <form> element represents a document section that contains interactive controls to submit information to a
@@ -135,8 +136,15 @@ type HtmlElementForm struct{
 
   *ToJavaScriptConverter                                  `htmlAttr:"-"`
 }
+func(el *HtmlElementForm)SetOmitHtml( value Boolean ) {
+  el.Global.DoNotUseThisFieldOmitHtml = value
+}
 func(el *HtmlElementForm)ToHtml() []byte {
   var buffer bytes.Buffer
+
+  if el.Global.DoNotUseThisFieldOmitHtml == TRUE {
+    return []byte{}
+  }
 
   element := reflect.ValueOf(el).Elem()
   data := el.ToJavaScriptConverter.ToTelerikHtml(element)
@@ -149,4 +157,49 @@ func(el *HtmlElementForm)ToHtml() []byte {
   buffer.Write( []byte( `</form>` ) )
 
   return buffer.Bytes()
+}
+func(el *HtmlElementForm)MakeJavaScript() []byte {
+
+  var contentProcessedList []ContentToProcess
+  var contentUnprocessedList []ContentToProcess
+
+  el.processContent( &contentProcessedList, &contentUnprocessedList, &el.Content)
+  for {
+    var pass= true
+    for contentKey, contentElement := range contentUnprocessedList {
+      if contentElement.Processed == false {
+        el.processContent(&contentList, contentElement.Content)
+
+        pass = false
+      }
+    }
+
+    if pass == true {
+      break
+    }
+  }
+
+  for _, contentElement := range contentList {
+    fmt.Printf( "type: %T\n", *contentElement.Content )
+  }
+
+  return []byte{}
+}
+func(el *HtmlElementForm)processContent( processed, unprocessed *[]ContentToProcess, content *Content ) {
+  el.addContent( processed, content, true )
+  for _, contentElement := range *content {
+    el.addContent( unprocessed, contentElement, false )
+  }
+}
+func(el *HtmlElementForm)addContent( list *[]ContentToProcess, contentElement interface{}, processed bool ) {
+  switch converted := contentElement.(type) {
+  case HtmlElementDiv:
+    *list = append( *list, ContentToProcess{ Processed: processed, Content: &converted.Content } )
+
+  case HtmlElementSpan:
+    *list = append( *list, ContentToProcess{ Processed: processed, Content: &converted.Content } )
+
+  case HtmlElementForm:
+    *list = append( *list, ContentToProcess{ Processed: processed, Content: &converted.Content } )
+  }
 }

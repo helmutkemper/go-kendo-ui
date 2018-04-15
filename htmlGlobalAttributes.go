@@ -14,6 +14,10 @@ import (
 // <foo>, even though <foo> is not a valid HTML element.
 type HtmlGlobalAttributes struct{
   /*
+  This field was created for internal use and should not be accessed directly
+  */
+  DoNotUseThisFieldOmitHtml   Boolean                     `htmlAttr:"-"`
+  /*
   Provides a hint for generating a keyboard shortcut for the current element. This attribute consists of a
   space-separated list of characters. The browser should use the first one that exists on the computer keyboard layout.
   */
