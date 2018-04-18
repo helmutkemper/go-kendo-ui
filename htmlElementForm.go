@@ -160,46 +160,50 @@ func(el *HtmlElementForm)ToHtml() []byte {
 }
 func(el *HtmlElementForm)MakeJavaScript() []byte {
 
-  var contentProcessedList []ContentToProcess
-  var contentUnprocessedList []ContentToProcess
+  var contentProcessedList = make( []interface{}, 0 )
+  var contentUnprocessedList = make( []interface{}, 0 )
+  var contentFoundList = make( []interface{}, 0 )
 
-  el.processContent( &contentProcessedList, &contentUnprocessedList, &el.Content)
+  el.processContent( &contentProcessedList, &contentUnprocessedList, &contentFoundList, el.Content)
   for {
-    var pass= true
-    for contentKey, contentElement := range contentUnprocessedList {
-      if contentElement.Processed == false {
-        el.processContent(&contentList, contentElement.Content)
-
-        pass = false
-      }
-    }
-
-    if pass == true {
+    if len( contentUnprocessedList ) == 0 {
       break
     }
+
+    popElement := contentUnprocessedList[0]
+    contentUnprocessedList = contentUnprocessedList[1:]
+
+    el.processContent(&contentProcessedList, &contentUnprocessedList, &contentFoundList, popElement.(Content))
   }
 
-  for _, contentElement := range contentList {
-    fmt.Printf( "type: %T\n", *contentElement.Content )
+  for _, v := range contentFoundList{
+    fmt.Printf( "%T\n", v )
   }
 
   return []byte{}
 }
-func(el *HtmlElementForm)processContent( processed, unprocessed *[]ContentToProcess, content *Content ) {
-  el.addContent( processed, content, true )
-  for _, contentElement := range *content {
-    el.addContent( unprocessed, contentElement, false )
+func(el *HtmlElementForm)processContent( contentProcessedList, contentUnprocessedList, contentFoundList *[]interface{}, content Content ) {
+  *contentProcessedList  =append( *contentProcessedList, content )
+
+  for _, contentElement := range content {
+    el.addToUnprocessedList(contentUnprocessedList, contentFoundList, contentElement)
   }
 }
-func(el *HtmlElementForm)addContent( list *[]ContentToProcess, contentElement interface{}, processed bool ) {
-  switch converted := contentElement.(type) {
-  case HtmlElementDiv:
-    *list = append( *list, ContentToProcess{ Processed: processed, Content: &converted.Content } )
-
+func(el *HtmlElementForm)addToUnprocessedList( contentUnprocessedList, contentFoundList *[]interface{}, content interface{} ) {
+  switch converted := content.(type) {
+  case *Content:
   case HtmlElementSpan:
-    *list = append( *list, ContentToProcess{ Processed: processed, Content: &converted.Content } )
+    *contentUnprocessedList  =append( *contentUnprocessedList, converted.Content )
+  case HtmlElementDiv:
+    *contentUnprocessedList  =append( *contentUnprocessedList, converted.Content )
 
-  case HtmlElementForm:
-    *list = append( *list, ContentToProcess{ Processed: processed, Content: &converted.Content } )
+  case KendoUiNumericTextBox:
+    *contentFoundList        =append( *contentFoundList, converted )
+  case KendoUiComboBox:
+    *contentFoundList        =append( *contentFoundList, converted )
+
+  case HtmlElementFormLabel:
+  default:
+    fmt.Printf( "type: %T\n", converted )
   }
 }

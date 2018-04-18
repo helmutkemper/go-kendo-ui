@@ -1,6 +1,5 @@
 package telerik
-
-type ContentToProcess struct {
-  Processed         bool
-  Content           *Content
+// fixme: apagar este arquivo
+type __ContentToProcess struct {
+  Content           interface{}
 }
