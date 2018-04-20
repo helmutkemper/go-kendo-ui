@@ -125,3 +125,9 @@ func(el *KendoUiDateInput) GetId() []byte{
   }
   return []byte( el.Html.Global.Id )
 }
+func(el *KendoUiDateInput) GetName() []byte{
+  if el.Html.Name == "" {
+    el.Html.Name = getAutoId()
+  }
+  return []byte( el.Html.Name )
+}

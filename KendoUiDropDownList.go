@@ -619,3 +619,9 @@ func(el *KendoUiDropDownList) GetId() []byte{
   }
   return []byte( el.Html.Global.Id )
 }
+func(el *KendoUiDropDownList) GetName() []byte{
+  if el.Html.Name == "" {
+    el.Html.Name = getAutoId()
+  }
+  return []byte( el.Html.Name )
+}

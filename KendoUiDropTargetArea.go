@@ -166,3 +166,9 @@ func(el *KendoUiDropTargetArea) GetId() []byte{
   }
   return []byte( el.Html.Global.Id )
 }
+func(el *KendoUiDropTargetArea) GetName() []byte{
+  if el.Html.Name == "" {
+    el.Html.Name = getAutoId()
+  }
+  return []byte( el.Html.Name )
+}

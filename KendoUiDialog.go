@@ -633,3 +633,9 @@ func(el *KendoUiDialog) GetGlobalVar() []byte{
 
   return []byte(`var KendoUiGlobalVarFromId` + el.Html.Global.Id + ` = $("#` + el.Html.Global.Id + `").data("kendoDialog");`)
 }
+func(el *KendoUiDialog) GetName() []byte{
+  if el.Html.Name == "" {
+    el.Html.Name = getAutoId()
+  }
+  return []byte( el.Html.Name )
+}
