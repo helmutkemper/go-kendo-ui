@@ -418,45 +418,46 @@ func ExampleSoUmTest() {
             },
             Format: "#",
           },
+        },
+      },
 
-          HtmlElementDiv{
+      HtmlElementDiv{
+        Content: Content{
+
+          HtmlElementFormLabel{
+            For: "ExposedPortsProtocol",
             Content: Content{
+              "Port protocol",
+            },
+          },
 
-              HtmlElementFormLabel{
-                For: "ExposedPortsProtocol",
-                Content: Content{
-                  "Port protocol",
+          KendoUiComboBox{
+            Html: HtmlElementFormSelect{
+              Global: HtmlGlobalAttributes{
+                Id: "ExposedPortsProtocol",
+                Class: "oneThirdSize",
+              },
+              Name: "ExposedPortsProtocol",
+              Required: TRUE,
+              Options: []HtmlOptions{
+                {
+                  Label: "Please, select one",
+                  Key:   "",
+                },
+                {
+                  Label: "TCP",
+                  Key:   "TCP",
+                },
+                {
+                  Label: "UDP",
+                  Key:   "UDP",
                 },
               },
-
-              KendoUiComboBox{
-                Html: HtmlElementFormSelect{
-                  Global: HtmlGlobalAttributes{
-                    Id: "ExposedPortsProtocol",
-                    Class: "oneThirdSize",
-                  },
-                  Required: TRUE,
-                  Options: []HtmlOptions{
-                    {
-                      Label: "Please, select one",
-                      Key:   "",
-                    },
-                    {
-                      Label: "TCP",
-                      Key:   "TCP",
-                    },
-                    {
-                      Label: "UDP",
-                      Key:   "UDP",
-                    },
-                  },
-                },
-              },
-
             },
           },
 
         },
+
       },
 
     },
