@@ -463,7 +463,22 @@ func ExampleSoUmTest() {
     },
   }
 
-  fmt.Printf( "%s\n", el.MakeJavaScript() )
+  //var obj = make( map[string]interface{} )
+  var key, jsCode string
+  fmt.Printf("var obj = {};\n")
+  for _, v := range el.MakeJavaScript(){
+    switch converted := v.(type) {
+    case *KendoUiNumericTextBox:
+      key = converted.Html.Name
+      jsCode = `$("#` + string( converted.GetId() ) + `").data("kendoNumericTextBox").value()`
+    case *KendoUiComboBox:
+      key = converted.Html.Name
+      jsCode = `$("#` + string( converted.GetId() ) + `").data("kendoComboBox").value()`
+    }
+    //fmt.Printf( "%T\n", v )
+    fmt.Printf( "obj['%v'] = %s;\n", key, jsCode )
+  }
+
 
   // Output:
   //

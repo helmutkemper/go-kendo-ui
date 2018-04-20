@@ -158,7 +158,7 @@ func(el *HtmlElementForm)ToHtml() []byte {
 
   return buffer.Bytes()
 }
-func(el *HtmlElementForm)MakeJavaScript() []byte {
+func(el *HtmlElementForm)MakeJavaScript() []interface{} {
 
   var contentProcessedList = make( []interface{}, 0 )
   var contentUnprocessedList = make( []interface{}, 0 )
@@ -176,11 +176,11 @@ func(el *HtmlElementForm)MakeJavaScript() []byte {
     el.processContent(&contentProcessedList, &contentUnprocessedList, &contentFoundList, popElement.(Content))
   }
 
-  for _, v := range contentFoundList{
+  /*for _, v := range contentFoundList{
     fmt.Printf( "%T\n", v )
-  }
+  }*/
 
-  return []byte{}
+  return contentFoundList
 }
 func(el *HtmlElementForm)processContent( contentProcessedList, contentUnprocessedList, contentFoundList *[]interface{}, content Content ) {
   *contentProcessedList  =append( *contentProcessedList, content )
@@ -198,9 +198,9 @@ func(el *HtmlElementForm)addToUnprocessedList( contentUnprocessedList, contentFo
     *contentUnprocessedList  =append( *contentUnprocessedList, converted.Content )
 
   case KendoUiNumericTextBox:
-    *contentFoundList        =append( *contentFoundList, converted )
+    *contentFoundList        =append( *contentFoundList, &converted )
   case KendoUiComboBox:
-    *contentFoundList        =append( *contentFoundList, converted )
+    *contentFoundList        =append( *contentFoundList, &converted )
 
   case HtmlElementFormLabel:
   default:
