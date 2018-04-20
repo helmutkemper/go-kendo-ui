@@ -465,6 +465,8 @@ func ExampleSoUmTest() {
 
   //var obj = make( map[string]interface{} )
   var key, jsCode string
+  // fixme: mfalta um getName() ou algo parecido
+  // fixme: KendoUiCalendar e KendoUiColorPalette devem ter name como obrigatórios
   fmt.Printf("var obj = {};\n")
   for _, v := range el.MakeJavaScript(){
     switch converted := v.(type) {
@@ -504,6 +506,33 @@ func ExampleSoUmTest() {
     case *KendoUiMultiSelect:
       key = converted.Html.Name
       jsCode = `$("#` + string( converted.GetId() ) + `").data("kendoMultiSelect").value()`
+
+    case *HtmlElementFormSelect:
+    case *HtmlElementFormTextArea:
+    case *HtmlInputCheckBox:
+    case *HtmlInputColor:
+    case *HtmlInputDate:
+    case *HtmlInputDateTimeLocal:
+    case *HtmlInputEmail:
+    case *HtmlInputFile:
+    case *HtmlInputGeneric:
+    case *HtmlInputHidden:
+    case *HtmlInputImage:
+    case *HtmlInputMonth:
+    case *HtmlInputNumber:
+    case *HtmlInputPassword:
+    case *HtmlInputRadio:
+    case *HtmlInputRange:
+    case *HtmlInputReset:
+    case *HtmlInputSearch:
+    case *HtmlInputSubmit:
+    case *HtmlInputTel:
+    case *HtmlInputText:
+    case *HtmlInputTime:
+    case *HtmlInputUrl:
+    case *HtmlInputWeek:
+
+
     }
     //fmt.Printf( "%T\n", v )
     fmt.Printf( "obj['%v'] = %s;\n", key, jsCode )
