@@ -20,7 +20,7 @@ type HtmlInputDate struct{
   @see typeNamesForAutocomplete.go
   Ex.: const NAMES_FOR_AUTOCOMPLETE_NAME
   */
-  Name                        String                      `htmlAttr:"name"`
+  Name                        string                      `htmlAttr:"name"`
 
   /*
   The initial value of the control. This attribute is optional except when the value of the type attribute is radio or
@@ -28,7 +28,7 @@ type HtmlInputDate struct{
   Note that when reloading the page, Gecko and IE will ignore the value specified in the HTML source, if the value was
   changed before the reload.
   */
-  Value                       String                      `htmlAttr:"value"`
+  Value                       string                      `htmlAttr:"value"`
 
   /*
   The form element that the input element is associated with (its form owner). The value of the attribute must be an id
@@ -36,7 +36,7 @@ type HtmlInputDate struct{
   descendant of a <form> element. This attribute enables you to place <input> elements anywhere within a document, not
   just as descendants of their form elements. An input can only be associated with one form.
   */
-  Form                        String                      `htmlAttr:"form"`
+  Form                        string                      `htmlAttr:"form"`
 
   /*
   This Boolean attribute indicates that the form control is not available for interaction. In particular, the click
@@ -63,7 +63,7 @@ type HtmlInputDate struct{
   the same document. The browser displays only options that are valid values for this input element. This attribute is
   ignored when the type attribute's value is hidden, checkbox, radio, file, or a button type.
   */
-  List                        String                      `htmlAttr:"list"`
+  List                        string                      `htmlAttr:"list"`
 
   ValueAsDate                 Boolean                     `htmlAttr:"valueAsDate"`
   ValueAsNumber               Boolean                     `htmlAttr:"valueAsNumber"`

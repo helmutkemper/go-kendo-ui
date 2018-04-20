@@ -468,12 +468,42 @@ func ExampleSoUmTest() {
   fmt.Printf("var obj = {};\n")
   for _, v := range el.MakeJavaScript(){
     switch converted := v.(type) {
-    case *KendoUiNumericTextBox:
+    case *KendoUiAutoComplete:
       key = converted.Html.Name
-      jsCode = `$("#` + string( converted.GetId() ) + `").data("kendoNumericTextBox").value()`
+      jsCode = `$("#` + string( converted.GetId() ) + `").data("kendoAutoComplete").value()`
+    case *KendoUiButton:
+      key = converted.Html.Name
+      jsCode = `$("#` + string( converted.GetId() ) + `").data("kendoButton").value()`
+    case *KendoUiCalendar:
+      key = converted.Html.Name
+      jsCode = `$("#` + string( converted.GetId() ) + `").data("kendoCalendar").value()`
+    case *KendoUiColorPalette:
+      key = converted.Html.Name
+      jsCode = `$("#` + string( converted.GetId() ) + `").data("kendoColorPalette").value()`
+    case *KendoUiColorPicker:
+      key = converted.Html.Name
+      jsCode = `$("#` + string( converted.GetId() ) + `").data("kendoColorPicker").value()`
     case *KendoUiComboBox:
       key = converted.Html.Name
       jsCode = `$("#` + string( converted.GetId() ) + `").data("kendoComboBox").value()`
+    case *KendoUiNumericTextBox:
+      key = converted.Html.Name
+      jsCode = `$("#` + string( converted.GetId() ) + `").data("kendoNumericTextBox").value()`
+    case *KendoUiDateInput:
+      key = converted.Html.Name
+      jsCode = `$("#` + string( converted.GetId() ) + `").data("kendoDateInput").value()`
+    case *KendoUiDatePicker:
+      key = converted.Html.Name
+      jsCode = `$("#` + string( converted.GetId() ) + `").data("kendoDatePicker").value()`
+    case *KendoUiDateTimePicker:
+      key = converted.Html.Name
+      jsCode = `$("#` + string( converted.GetId() ) + `").data("kendoDateTimePicker").value()`
+    case *KendoUiDropDownList:
+      key = converted.Html.Name
+      jsCode = `$("#` + string( converted.GetId() ) + `").data("kendoDropDownList").value()`
+    case *KendoUiMultiSelect:
+      key = converted.Html.Name
+      jsCode = `$("#` + string( converted.GetId() ) + `").data("kendoMultiSelect").value()`
     }
     //fmt.Printf( "%T\n", v )
     fmt.Printf( "obj['%v'] = %s;\n", key, jsCode )
