@@ -463,6 +463,73 @@ func ExampleSoUmTest() {
     },
   }
 
+  /*
+  desejado:
+  {
+    "Docker": {
+      "AttachStdin": true,
+      "AttachStdout": true,
+      "AttachStderr": true,
+      "ExposedPorts": {
+        "27018/tcp": {}
+      },
+      "OpenStdin": true,
+      "Cmd": [
+        "bash"
+      ],
+      "Image": "mongo:latest"
+    },
+    "Host": {
+      "PortBindings": {
+        "27017/tcp": [
+          {
+            "HostPort": "27018"
+          }
+        ]
+      }
+    },
+    "Name": "mongo_test"
+  }
+
+  formato:
+  {
+    "root": [
+      "Docker", "AttachStdin"
+    ],
+    "types": [
+      {
+        "name": "Docker",
+        "type": "object",
+        "attributes": [ "ExposedPorts" ]
+      },
+      {
+        "name": "ExposedPortKey",
+        "type": "concat",
+        "attributes": [ "id:ExposedPortNumber", "/", "id:ExposedPortProtocol" ]
+      },
+      {
+        "name": "ExposedPortValue",
+        "type": "object"
+      },
+      {
+        "name": "AttachStdin",
+        "type": "boolean",
+        "souce": {
+          "value": "id:AttachStdin"
+        }
+      },
+      {
+        "name": "ExposedPorts",
+        "type": "object",
+        "source": {
+          "key": "name:ExposedPortKey",
+          "value": "name:ExposedPortValue"
+        }
+      }
+    }
+  ]
+  */
+
   //var obj = make( map[string]interface{} )
   var key, jsCode string
   // fixme: mfalta um getName() ou algo parecido
