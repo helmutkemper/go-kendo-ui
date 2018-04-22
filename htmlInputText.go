@@ -8,6 +8,8 @@ import (
 // <input> elements of type "text" create basic single-line text fields.
 //
 // <input type="text">
+//
+// https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text
 type HtmlInputText struct{
   /*
   The name of the control, which is submitted with the form data.
@@ -97,6 +99,14 @@ type HtmlInputText struct{
   Required                    Boolean                     `htmlAttrSet:"required"`
 
   /*
+  This attribute indicates that the user cannot modify the value of the control. The value of the attribute is
+  irrelevant. If you need read-write access to the input value, do not add the "readonly" attribute. It is ignored if
+  the value of the type attribute is hidden, range, color, checkbox, radio, file, or a button type (such as button or
+  submit).
+  */
+  Readonly                    Boolean                     `htmlAttrSet:"readonly"`
+
+  /*
   The initial size of the control. This value is in pixels unless the value of the type attribute is text or password,
   in which case it is an integer number of characters. Starting in HTML5, this attribute applies only when the type
   attribute is set to text, search, tel, url, email, or password, otherwise it is ignored. In addition, the size must be
@@ -112,9 +122,6 @@ type HtmlInputText struct{
   Global                      HtmlGlobalAttributes        `htmlAttr:"-"`
 
   *ToJavaScriptConverter                                  `htmlAttr:"-"`
-}
-func(el *HtmlInputText)SetOmitHtml( value Boolean ) {
-  el.Global.DoNotUseThisFieldOmitHtml = value
 }
 func(el *HtmlInputText)ToHtml() []byte {
   var buffer bytes.Buffer
@@ -132,4 +139,16 @@ func(el *HtmlInputText)ToHtml() []byte {
   buffer.Write( []byte( `>` ) )
 
   return buffer.Bytes()
+}
+func(el *HtmlInputText)GetId() []byte{
+  if el.Global.Id == "" {
+    el.Global.Id = getAutoId()
+  }
+  return []byte( el.Global.Id )
+}
+func(el *HtmlInputText)GetName() []byte{
+  if el.Name == "" {
+    el.Name = getAutoId()
+  }
+  return []byte( el.Name )
 }

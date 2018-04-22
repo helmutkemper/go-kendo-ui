@@ -1,5 +1,10 @@
 package telerik
 
+import (
+  "bytes"
+  "reflect"
+)
+
 // <input> elements of type time create input fields designed to let the user easily enter a time (hours and minutes,
 // and optionally seconds).
 //
@@ -14,7 +19,7 @@ type HtmlInputTime struct{
   @see typeNamesForAutocomplete.go
   Ex.: const NAMES_FOR_AUTOCOMPLETE_NAME
   */
-  Name                        String
+  Name                        string                      `htmlAttr:"name"`
 
   /*
   The initial value of the control. This attribute is optional except when the value of the type attribute is radio or
@@ -22,7 +27,7 @@ type HtmlInputTime struct{
   Note that when reloading the page, Gecko and IE will ignore the value specified in the HTML source, if the value was
   changed before the reload.
   */
-  Value                       String
+  Value                       string                      `htmlAttr:"value"`
 
   /*
   The form element that the input element is associated with (its form owner). The value of the attribute must be an id
@@ -30,7 +35,7 @@ type HtmlInputTime struct{
   descendant of a <form> element. This attribute enables you to place <input> elements anywhere within a document, not
   just as descendants of their form elements. An input can only be associated with one form.
   */
-  Form                        String
+  Form                        string                      `htmlAttr:"form"`
 
   /*
   This Boolean attribute indicates that the form control is not available for interaction. In particular, the click
@@ -38,7 +43,7 @@ type HtmlInputTime struct{
   Unlike other browsers, Firefox will by default persist the dynamic disabled state of an <input> across page loads. Use
   the autocomplete attribute to control this feature.
   */
-  Disabled                    Boolean
+  Disabled                    Boolean                     `htmlAttrSet:"disabled"`
 
   /*
   This attribute indicates whether the value of the control can be automatically completed by the browser.
@@ -50,14 +55,14 @@ type HtmlInputTime struct{
   to enter.
   @see typeNamesForAutocomplete.go
   */
-  AutoComplete                Boolean
+  AutoComplete                Boolean                     `htmlAttrOnOff:"autocomplete"`
 
   /*
   Identifies a list of pre-defined options to suggest to the user. The value must be the id of a <datalist> element in
   the same document. The browser displays only options that are valid values for this input element. This attribute is
   ignored when the type attribute's value is hidden, checkbox, radio, file, or a button type.
   */
-  List                        String
+  List                        string                      `htmlAttr:"list"`
 
   /*
   This attribute indicates that the user cannot modify the value of the control. The value of the attribute is
@@ -65,20 +70,49 @@ type HtmlInputTime struct{
   the value of the type attribute is hidden, range, color, checkbox, radio, file, or a button type (such as button or
   submit).
   */
-  Readonly                    Boolean
+  Readonly                    Boolean                     `htmlAttrSet:"readonly"`
 
   /*
   Works with the min and max attributes to limit the increments at which a numeric or date-time value can be set. It can
   be the string any or a positive floating point number. If this attribute is not set to any, the control accepts only
   values at multiples of the step value greater than the minimum.
   */
-  Step                        Int
+  Step                        int                         `htmlAttr:"step"`
 
-  ValueAsDate                 Boolean
-  ValueAsNumber               Boolean
+  ValueAsDate                 Boolean                     `htmlAttr:"valueasdate"`
 
-  Global                      HtmlGlobalAttributes
-}/*
-func(el *HtmlInputTime)String() string {
-  return `<input ` + el.Global.String() + ` type="time" ` + el.Name.ToAttr("name") + el.Value.ToAttr("value") + el.Form.ToAttr("form") + el.AutoComplete.ToAttr("autocomplete") + el.List.ToAttr("list") + el.Step.ToAttr("step") + el.ValueAsDate.ToAttr("valueasdate") + el.ValueAsNumber.ToAttr("valueasnumber") + el.Readonly.ToAttrSet("readonly") + el.Disabled.ToAttrSet("disabled") + `>`
-}*/
+  ValueAsNumber               Boolean                     `htmlAttr:"valueasnumber"`
+
+  Global                      HtmlGlobalAttributes        `htmlAttr:"-"`
+
+  *ToJavaScriptConverter                                  `htmlAttr:"-"`
+}
+func(el *HtmlInputTime)ToHtml() []byte {
+  var buffer bytes.Buffer
+
+  if el.Global.DoNotUseThisFieldOmitHtml == TRUE {
+    return []byte{}
+  }
+
+  element := reflect.ValueOf(el).Elem()
+  data := el.ToJavaScriptConverter.ToTelerikHtml(element)
+
+  buffer.Write( []byte( `<input type="time"` ) )
+  buffer.Write( el.Global.ToHtml() )
+  buffer.Write( data )
+  buffer.Write( []byte( `>` ) )
+
+  return buffer.Bytes()
+}
+func(el *HtmlInputTime)GetId() []byte{
+  if el.Global.Id == "" {
+    el.Global.Id = getAutoId()
+  }
+  return []byte( el.Global.Id )
+}
+func(el *HtmlInputTime)GetName() []byte{
+  if el.Name == "" {
+    el.Name = getAutoId()
+  }
+  return []byte( el.Name )
+}

@@ -1,5 +1,10 @@
 package telerik
 
+import (
+  "bytes"
+  "reflect"
+)
+
 // <input> elements of type "color" provide a user interface element that lets a user specify a color, either by using a
 // visual color picker interface or by entering the color into a text field in "#rrggbb" hexadecimal format. Only simple
 // colors (with no alpha channel) are allowed.
@@ -15,7 +20,7 @@ type HtmlInputColor struct{
   @see typeNamesForAutocomplete.go
   Ex.: const NAMES_FOR_AUTOCOMPLETE_NAME
   */
-  Name                        String
+  Name                        string                      `htmlAttr:"name"`
 
   /*
   The initial value of the control. This attribute is optional except when the value of the type attribute is radio or
@@ -23,7 +28,7 @@ type HtmlInputColor struct{
   Note that when reloading the page, Gecko and IE will ignore the value specified in the HTML source, if the value was
   changed before the reload.
   */
-  Value                       String
+  Value                       string                      `htmlAttr:"value"`
 
   /*
   The form element that the input element is associated with (its form owner). The value of the attribute must be an id
@@ -31,7 +36,7 @@ type HtmlInputColor struct{
   descendant of a <form> element. This attribute enables you to place <input> elements anywhere within a document, not
   just as descendants of their form elements. An input can only be associated with one form.
   */
-  Form                        String
+  Form                        string                      `htmlAttr:"form"`
 
   /*
   This Boolean attribute indicates that the form control is not available for interaction. In particular, the click
@@ -39,10 +44,38 @@ type HtmlInputColor struct{
   Unlike other browsers, Firefox will by default persist the dynamic disabled state of an <input> across page loads. Use
   the autocomplete attribute to control this feature.
   */
-  Disabled                    Boolean
+  Disabled                    Boolean                     `htmlAttrSet:"disabled"`
 
-  Global                      HtmlGlobalAttributes
-}/*
-func(el *HtmlInputColor)String() string {
-  return `<input ` + el.Global.String() + ` type="color" ` + el.Name.ToAttr("name") + el.Value.ToAttr("value") + `">`
-}*/
+  Global                      HtmlGlobalAttributes        `htmlAttr:"-"`
+
+  *ToJavaScriptConverter                                  `htmlAttr:"-"`
+}
+func(el *HtmlInputColor)ToHtml() []byte {
+  var buffer bytes.Buffer
+
+  if el.Global.DoNotUseThisFieldOmitHtml == TRUE {
+    return []byte{}
+  }
+
+  element := reflect.ValueOf(el).Elem()
+  data := el.ToJavaScriptConverter.ToTelerikHtml(element)
+
+  buffer.Write( []byte( `<input type="color"` ) )
+  buffer.Write( el.Global.ToHtml() )
+  buffer.Write( data )
+  buffer.Write( []byte( `>` ) )
+
+  return buffer.Bytes()
+}
+func(el *HtmlInputColor)GetId() []byte{
+  if el.Global.Id == "" {
+    el.Global.Id = getAutoId()
+  }
+  return []byte( el.Global.Id )
+}
+func(el *HtmlInputColor)GetName() []byte{
+  if el.Name == "" {
+    el.Name = getAutoId()
+  }
+  return []byte( el.Name )
+}

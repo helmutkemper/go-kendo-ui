@@ -72,9 +72,6 @@ type HtmlInputDate struct{
 
   *ToJavaScriptConverter                                  `htmlAttr:"-"`
 }
-func(el *HtmlInputDate)SetOmitHtml( value Boolean ) {
-  el.Global.DoNotUseThisFieldOmitHtml = value
-}
 func(el *HtmlInputDate)ToHtml() []byte {
   var buffer bytes.Buffer
 
@@ -91,4 +88,16 @@ func(el *HtmlInputDate)ToHtml() []byte {
   buffer.Write( []byte( `>` ) )
 
   return buffer.Bytes()
+}
+func(el *HtmlInputDate)GetId() []byte{
+  if el.Global.Id == "" {
+    el.Global.Id = getAutoId()
+  }
+  return []byte( el.Global.Id )
+}
+func(el *HtmlInputDate)GetName() []byte{
+  if el.Name == "" {
+    el.Name = getAutoId()
+  }
+  return []byte( el.Name )
 }

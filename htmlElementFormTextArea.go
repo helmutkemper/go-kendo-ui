@@ -144,3 +144,15 @@ func(el *HtmlElementFormTextArea)ToHtml() []byte {
 
   return buffer.Bytes()
 }
+func(el *HtmlElementFormTextArea)GetId() []byte{
+  if el.Global.Id == "" {
+    el.Global.Id = getAutoId()
+  }
+  return []byte( el.Global.Id )
+}
+func(el *HtmlElementFormTextArea)GetName() []byte{
+  if el.Name == "" {
+    el.Name = getAutoId()
+  }
+  return []byte( el.Name )
+}

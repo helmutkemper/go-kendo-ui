@@ -117,3 +117,15 @@ func(el *HtmlInputNumber)ToHtml() []byte {
 
   return buffer.Bytes()
 }
+func(el *HtmlInputNumber)GetId() []byte{
+  if el.Global.Id == "" {
+    el.Global.Id = getAutoId()
+  }
+  return []byte( el.Global.Id )
+}
+func(el *HtmlInputNumber)GetName() []byte{
+  if el.Name == "" {
+    el.Name = getAutoId()
+  }
+  return []byte( el.Name )
+}

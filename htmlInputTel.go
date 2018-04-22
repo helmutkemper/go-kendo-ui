@@ -1,5 +1,10 @@
 package telerik
 
+import (
+  "bytes"
+  "reflect"
+)
+
 // <input> elements of type "tel" are used to let the user enter and edit a telephone number. Unlike
 // <input type="email"> and <input type="url"> , the input value is not automatically validated to a particular format
 // before the form can be submitted, because formats for telephone numbers vary so much around the world.
@@ -18,7 +23,7 @@ type HtmlInputTel struct{
   @see typeNamesForAutocomplete.go
   Ex.: const NAMES_FOR_AUTOCOMPLETE_NAME
   */
-  Name                        String
+  Name                        string                      `htmlAttr:"name"`
 
   /*
   The initial value of the control. This attribute is optional except when the value of the type attribute is radio or
@@ -26,7 +31,7 @@ type HtmlInputTel struct{
   Note that when reloading the page, Gecko and IE will ignore the value specified in the HTML source, if the value was
   changed before the reload.
   */
-  Value                       String
+  Value                       string                      `htmlAttr:"value"`
 
   /*
   The form element that the input element is associated with (its form owner). The value of the attribute must be an id
@@ -34,7 +39,7 @@ type HtmlInputTel struct{
   descendant of a <form> element. This attribute enables you to place <input> elements anywhere within a document, not
   just as descendants of their form elements. An input can only be associated with one form.
   */
-  Form                        String
+  Form                        string                      `htmlAttr:"form"`
 
   /*
   This Boolean attribute indicates that the form control is not available for interaction. In particular, the click
@@ -42,7 +47,7 @@ type HtmlInputTel struct{
   Unlike other browsers, Firefox will by default persist the dynamic disabled state of an <input> across page loads. Use
   the autocomplete attribute to control this feature.
   */
-  Disabled                    Boolean
+  Disabled                    Boolean                     `htmlAttrSet:"disabled"`
 
   /*
   This attribute indicates whether the value of the control can be automatically completed by the browser.
@@ -54,14 +59,14 @@ type HtmlInputTel struct{
   to enter.
   @see typeNamesForAutocomplete.go
   */
-  AutoComplete                Boolean
+  AutoComplete                Boolean                     `htmlAttrOnOff:"autocomplete"`
 
   /*
   Identifies a list of pre-defined options to suggest to the user. The value must be the id of a <datalist> element in
   the same document. The browser displays only options that are valid values for this input element. This attribute is
   ignored when the type attribute's value is hidden, checkbox, radio, file, or a button type.
   */
-  List                        String
+  List                        string                      `htmlAttr:"list"`
 
   /*
   If the value of the type attribute is text, email, search, password, tel, or url, this attribute specifies the maximum
@@ -70,13 +75,13 @@ type HtmlInputTel struct{
   Specifying a negative number results in the default behavior (i.e. the user can enter an unlimited number of
   characters). The constraint is evaluated only when the value of the attribute has been changed.
   */
-  MaxLength                   Int
+  MaxLength                   int                         `htmlAttr:"maxlength"`
 
   /*
   If the value of the type attribute is text, email, search, password, tel, or url, this attribute specifies the minimum
   number of characters (in Unicode code points) that the user can enter. For other control types, it is ignored.
   */
-  MinLength                   Int
+  MinLength                   int                         `htmlAttr:"minlength"`
 
   /*
   A regular expression that the control's value is checked against. The pattern must match the entire value, not just
@@ -85,13 +90,13 @@ type HtmlInputTel struct{
   language is the same as JavaScript RegExp algorithm, with the 'u' parameter that makes it treat the pattern as a
   sequence of unicode code points. The pattern is not surrounded by forward slashes.
   */
-  Pattern                     String
+  Pattern                     string                      `htmlAttr:"pattern"`
 
   /*
   A hint to the user of what can be entered in the control . The placeholder text must not contain carriage returns or
   line-feeds.
   */
-  PlaceHolder                 String
+  PlaceHolder                 string                      `htmlAttr:"placeholder"`
 
   /*
   This attribute indicates that the user cannot modify the value of the control. The value of the attribute is
@@ -99,7 +104,14 @@ type HtmlInputTel struct{
   the value of the type attribute is hidden, range, color, checkbox, radio, file, or a button type (such as button or
   submit).
   */
-  Readonly                    Boolean
+  Readonly                    Boolean                     `htmlAttrSet:"readonly"`
+
+  /*
+  This attribute specifies that the user must fill in a value before submitting a form. It cannot be used when the type
+  attribute is hidden, image, or a button type (submit, reset, or button). The :optional and :required CSS
+  pseudo-classes will be applied to the field as appropriate.
+  */
+  Required                    Boolean                     `htmlAttrSet:"required"`
 
   /*
   The initial size of the control. This value is in pixels unless the value of the type attribute is text or password,
@@ -110,10 +122,41 @@ type HtmlInputTel struct{
   certain fonts. In some browsers, a certain string with x characters will not be entirely visible even if size is
   defined to at least x.
   */
-  Size                        Int
+  Size                        int
 
-  Global                      HtmlGlobalAttributes
+  Global                      HtmlGlobalAttributes        `htmlAttr:"-"`
+
+  *ToJavaScriptConverter                                  `htmlAttr:"-"`
+}
+func(el *HtmlInputTel)ToHtml() []byte {
+  var buffer bytes.Buffer
+
+  if el.Global.DoNotUseThisFieldOmitHtml == TRUE {
+    return []byte{}
+  }
+
+  element := reflect.ValueOf(el).Elem()
+  data := el.ToJavaScriptConverter.ToTelerikHtml(element)
+
+  buffer.Write( []byte( `<input type="tel"` ) )
+  buffer.Write( el.Global.ToHtml() )
+  buffer.Write( data )
+  buffer.Write( []byte( `>` ) )
+
+  return buffer.Bytes()
+}
+func(el *HtmlInputTel)GetId() []byte{
+  if el.Global.Id == "" {
+    el.Global.Id = getAutoId()
+  }
+  return []byte( el.Global.Id )
+}
+func(el *HtmlInputTel)GetName() []byte{
+  if el.Name == "" {
+    el.Name = getAutoId()
+  }
+  return []byte( el.Name )
 }/*
-func(el *HtmlInputTel)String() string {
-  return `<input ` + el.Global.String() + ` type="tel" ` + el.Name.ToAttr("name") + el.Value.ToAttr("value") + el.Form.ToAttr("form")+ el.AutoComplete.ToAttr("autocomplete") + el.List.ToAttr("list") + el.MaxLength.ToAttr("maxlength") + el.MinLength.ToAttr("minlength") + el.Pattern.ToAttr("pattern") + el.PlaceHolder.ToAttr("placeholder") + el.Size.ToAttr("size") + el.Readonly.ToAttrSet("readonly") + el.Disabled.ToAttrSet("disabled") + `>`
+func(el *HtmlInputTel)string() string {
+  return `<input ` + el.Global.string() + ` type="tel" ` + el.Name.ToAttr("name") + el.Value.ToAttr("value") + el.Form.ToAttr("form")+ el.AutoComplete.ToAttr("autocomplete") + el.List.ToAttr("list") + el.MaxLength.ToAttr("maxlength") + el.MinLength.ToAttr("minlength") + el.Pattern.ToAttr("pattern") + el.PlaceHolder.ToAttr("placeholder") + el.Size.ToAttr("size") + el.Readonly.ToAttrSet("readonly") + el.Disabled.ToAttrSet("disabled") + `>`
 }*/

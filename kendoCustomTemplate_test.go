@@ -395,6 +395,496 @@ func ExampleSoUmTest() {
         Content: Content{
 
           HtmlElementFormLabel{
+            For: "ConfigHostName",
+            Content: Content{
+              "Host Name",
+            },
+          },
+
+          HtmlInputText{
+            Global: HtmlGlobalAttributes{
+              Id: "ConfigHostName",
+              Class: "k-textbox",
+            },
+            Name: "HostName",
+          },
+
+        },
+      },
+
+      HtmlElementDiv{
+        Content: Content{
+
+          HtmlElementFormLabel{
+            For: "ConfigDomainName",
+            Content: Content{
+              "Domain Name",
+            },
+          },
+
+          HtmlInputText{
+            Global: HtmlGlobalAttributes{
+              Id: "ConfigDomainName",
+              Class: "k-textbox",
+            },
+            Name: "DomainName",
+          },
+
+        },
+      },
+
+      HtmlElementDiv{
+        Content: Content{
+
+          HtmlElementFormLabel{
+            For: "ConfigUser",
+            Content: Content{
+              "User",
+            },
+          },
+
+          HtmlInputText{
+            Global: HtmlGlobalAttributes{
+              Id: "ConfigUser",
+              Class: "k-textbox",
+            },
+            Name: "User",
+          },
+
+        },
+      },
+
+      HtmlElementDiv{
+        Content: Content{
+
+          HtmlElementFormLabel{
+            For: "ConfigAttachStdIn",
+            Content: Content{
+              "Attach Std In",
+            },
+          },
+
+          HtmlInputCheckBox{
+            Global: HtmlGlobalAttributes{
+              Id: "ConfigAttachStdIn",
+              Data: map[string]string{
+                "role": "switch",
+                "off-label": "No",
+                "on-label": "Yes",
+              },
+            },
+            Name: "AttachStdIn",
+          },
+
+        },
+      },
+
+      HtmlElementDiv{
+        Content: Content{
+
+          HtmlElementFormLabel{
+            For: "ConfigAttachStdOut",
+            Content: Content{
+              "Attach Std Out",
+            },
+          },
+
+          HtmlInputCheckBox{
+            Global: HtmlGlobalAttributes{
+              Id: "ConfigAttachStdOut",
+              Data: map[string]string{
+                "role": "switch",
+                "off-label": "No",
+                "on-label": "Yes",
+              },
+            },
+            Name: "AttachStdOut",
+          },
+
+        },
+      },
+
+      HtmlElementDiv{
+        Content: Content{
+
+          HtmlElementFormLabel{
+            For: "ConfigAttachStdErr",
+            Content: Content{
+              "Host Attach Std Err",
+            },
+          },
+
+          HtmlInputCheckBox{
+            Global: HtmlGlobalAttributes{
+              Id: "ConfigAttachStdErr",
+              Data: map[string]string{
+                "role": "switch",
+                "off-label": "No",
+                "on-label": "Yes",
+              },
+            },
+            Name: "AttachStdErr",
+          },
+
+        },
+      },
+
+      HtmlElementDiv{
+        Content: Content{
+
+          HtmlElementFormLabel{
+            For: "ConfigExposedPorts",
+            Content: Content{
+              "Exposed Ports",
+            },
+          },
+
+        },
+      },
+
+      HtmlElementDiv{
+        Content: Content{
+
+          HtmlElementFormLabel{
+            For: "ConfigTry",
+            Content: Content{
+              "Try",
+            },
+          },
+
+          HtmlInputCheckBox{
+            Global: HtmlGlobalAttributes{
+              Id: "ConfigTry",
+              Data: map[string]string{
+                "role": "switch",
+                "off-label": "No",
+                "on-label": "Yes",
+              },
+            },
+            Name: "Try",
+          },
+
+        },
+      },
+
+      HtmlElementDiv{
+        Content: Content{
+
+          HtmlElementFormLabel{
+            For: "ConfigOpenStdIn",
+            Content: Content{
+              "Open Std In",
+            },
+          },
+
+          HtmlInputCheckBox{
+            Global: HtmlGlobalAttributes{
+              Id: "ConfigOpenStdIn",
+              Data: map[string]string{
+                "role": "switch",
+                "off-label": "No",
+                "on-label": "Yes",
+              },
+            },
+            Name: "OpenStdIn",
+          },
+
+        },
+      },
+
+      HtmlElementDiv{
+        Content: Content{
+
+          HtmlElementFormLabel{
+            For: "ConfigStdInOnce",
+            Content: Content{
+              "Std In Once",
+            },
+          },
+
+          HtmlInputCheckBox{
+            Global: HtmlGlobalAttributes{
+              Id: "ConfigStdInOnce",
+              Data: map[string]string{
+                "role": "switch",
+                "off-label": "No",
+                "on-label": "Yes",
+              },
+            },
+            Name: "StdInOnce",
+          },
+
+        },
+      },
+
+      HtmlElementDiv{
+        Content: Content{
+
+          HtmlElementFormLabel{
+            For: "ConfigEnv",
+            Content: Content{
+              "Env",
+            },
+          },
+
+        },
+      },
+
+      HtmlElementDiv{
+        Content: Content{
+
+          HtmlElementFormLabel{
+            For: "ConfigCmd",
+            Content: Content{
+              "Cmd",
+            },
+          },
+
+        },
+      },
+
+      HtmlElementDiv{
+        Content: Content{
+
+          HtmlElementFormLabel{
+            For: "ConfigHealthCheck",
+            Content: Content{
+              "Health Check",
+            },
+          },
+
+        },
+      },
+
+      HtmlElementDiv{
+        Content: Content{
+
+          HtmlElementFormLabel{
+            For: "ConfigArgsEscaped",
+            Content: Content{
+              "Args Escaped",
+            },
+          },
+
+          HtmlInputCheckBox{
+            Global: HtmlGlobalAttributes{
+              Id: "ConfigArgsEscaped",
+              Data: map[string]string{
+                "role": "switch",
+                "off-label": "No",
+                "on-label": "Yes",
+              },
+            },
+            Name: "ArgsEscaped",
+          },
+
+        },
+      },
+
+      HtmlElementDiv{
+        Content: Content{
+
+          HtmlElementFormLabel{
+            For: "ConfigImage",
+            Content: Content{
+              "Image",
+            },
+          },
+
+          HtmlInputText{
+            Global: HtmlGlobalAttributes{
+              Id: "ConfigHostImage",
+              Class: "k-textbox",
+            },
+            Name: "Image",
+          },
+
+        },
+      },
+
+      HtmlElementDiv{
+        Content: Content{
+
+          HtmlElementFormLabel{
+            For: "ConfigVolumes",
+            Content: Content{
+              "Volumes",
+            },
+          },
+
+        },
+      },
+
+      HtmlElementDiv{
+        Content: Content{
+
+          HtmlElementFormLabel{
+            For: "ConfigWorkingDir",
+            Content: Content{
+              "Working Dir",
+            },
+          },
+
+          HtmlInputText{
+            Global: HtmlGlobalAttributes{
+              Id: "ConfigWorkingDir",
+              Class: "k-textbox",
+            },
+            Name: "WorkingDir",
+          },
+
+        },
+      },
+
+      HtmlElementDiv{
+        Content: Content{
+
+          HtmlElementFormLabel{
+            For: "ConfigEntryPoint",
+            Content: Content{
+              "EntryPoint",
+            },
+          },
+
+        },
+      },
+
+      HtmlElementDiv{
+        Content: Content{
+
+          HtmlElementFormLabel{
+            For: "ConfigNetworkDisabled",
+            Content: Content{
+              "Network Disabled",
+            },
+          },
+
+          HtmlInputCheckBox{
+            Global: HtmlGlobalAttributes{
+              Id: "ConfigNetworkDisabled",
+              Data: map[string]string{
+                "role": "switch",
+                "off-label": "No",
+                "on-label": "Yes",
+              },
+            },
+            Name: "NetworkDisabled",
+          },
+
+        },
+      },
+
+      HtmlElementDiv{
+        Content: Content{
+
+          HtmlElementFormLabel{
+            For: "ConfigMacAddress",
+            Content: Content{
+              "Mac Address",
+            },
+          },
+
+          HtmlInputText{
+            Global: HtmlGlobalAttributes{
+              Id: "ConfigMacAddress",
+              Class: "k-textbox",
+            },
+            Name: "MacAddress",
+          },
+
+        },
+      },
+
+      HtmlElementDiv{
+        Content: Content{
+
+          HtmlElementFormLabel{
+            For: "ConfigOnBuild",
+            Content: Content{
+              "On Build",
+            },
+          },
+
+        },
+      },
+
+      HtmlElementDiv{
+        Content: Content{
+
+          HtmlElementFormLabel{
+            For: "ConfigLabels",
+            Content: Content{
+              "Labels",
+            },
+          },
+
+        },
+      },
+
+      HtmlElementDiv{
+        Content: Content{
+
+          HtmlElementFormLabel{
+            For: "ConfigStopSignal",
+            Content: Content{
+              "Stop Signal",
+            },
+          },
+
+          HtmlInputText{
+            Global: HtmlGlobalAttributes{
+              Id: "ConfigStopSignal",
+              Class: "k-textbox",
+            },
+            Name: "StopSignal",
+          },
+
+        },
+      },
+
+      HtmlElementDiv{
+        Content: Content{
+
+          HtmlElementFormLabel{
+            For: "ConfigStopTimeout",
+            Content: Content{
+              "Stop Timeout",
+            },
+          },
+
+        },
+      },
+
+      HtmlElementDiv{
+        Content: Content{
+
+          HtmlElementFormLabel{
+            For: "ConfigShell",
+            Content: Content{
+              "Shell",
+            },
+          },
+
+        },
+      },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      HtmlElementDiv{
+        Content: Content{
+
+          HtmlElementFormLabel{
             For: "ExposedPortsNumber",
             Content: Content{
               "Port number",
@@ -534,77 +1024,116 @@ func ExampleSoUmTest() {
   var key, jsCode string
   // fixme: mfalta um getName() ou algo parecido
   // fixme: KendoUiCalendar e KendoUiColorPalette devem ter name como obrigatórios
-  fmt.Printf("var obj = {};\n")
+  fmt.Printf("var obj = {\n")
   for _, v := range el.MakeJavaScript(){
     switch converted := v.(type) {
     case *KendoUiAutoComplete:
       key = converted.Html.Name
-      jsCode = `$("#` + string( converted.GetId() ) + `").data("kendoAutoComplete").value()`
+      jsCode = `$('#` + string( converted.GetId() ) + `').data('kendoAutoComplete').value()`
     case *KendoUiButton:
       key = converted.Html.Name
-      jsCode = `$("#` + string( converted.GetId() ) + `").data("kendoButton").value()`
+      jsCode = `$('#` + string( converted.GetId() ) + `').data('kendoButton').value()`
     case *KendoUiCalendar:
       key = converted.Html.Name
-      jsCode = `$("#` + string( converted.GetId() ) + `").data("kendoCalendar").value()`
+      jsCode = `$('#` + string( converted.GetId() ) + `').data('kendoCalendar').value()`
     case *KendoUiColorPalette:
       key = converted.Html.Name
-      jsCode = `$("#` + string( converted.GetId() ) + `").data("kendoColorPalette").value()`
+      jsCode = `$('#` + string( converted.GetId() ) + `').data('kendoColorPalette').value()`
     case *KendoUiColorPicker:
       key = converted.Html.Name
-      jsCode = `$("#` + string( converted.GetId() ) + `").data("kendoColorPicker").value()`
+      jsCode = `$('#` + string( converted.GetId() ) + `').data('kendoColorPicker').value()`
     case *KendoUiComboBox:
       key = converted.Html.Name
-      jsCode = `$("#` + string( converted.GetId() ) + `").data("kendoComboBox").value()`
+      jsCode = `$('#` + string( converted.GetId() ) + `').data('kendoComboBox').value()`
     case *KendoUiNumericTextBox:
       key = converted.Html.Name
-      jsCode = `$("#` + string( converted.GetId() ) + `").data("kendoNumericTextBox").value()`
+      jsCode = `$('#` + string( converted.GetId() ) + `').data('kendoNumericTextBox').value()`
     case *KendoUiDateInput:
       key = converted.Html.Name
-      jsCode = `$("#` + string( converted.GetId() ) + `").data("kendoDateInput").value()`
+      jsCode = `$('#` + string( converted.GetId() ) + `').data('kendoDateInput').value()`
     case *KendoUiDatePicker:
       key = converted.Html.Name
-      jsCode = `$("#` + string( converted.GetId() ) + `").data("kendoDatePicker").value()`
+      jsCode = `$('#` + string( converted.GetId() ) + `').data('kendoDatePicker').value()`
     case *KendoUiDateTimePicker:
       key = converted.Html.Name
-      jsCode = `$("#` + string( converted.GetId() ) + `").data("kendoDateTimePicker").value()`
+      jsCode = `$('#` + string( converted.GetId() ) + `').data('kendoDateTimePicker').value()`
     case *KendoUiDropDownList:
       key = converted.Html.Name
-      jsCode = `$("#` + string( converted.GetId() ) + `").data("kendoDropDownList").value()`
+      jsCode = `$('#` + string( converted.GetId() ) + `').data('kendoDropDownList').value()`
     case *KendoUiMultiSelect:
       key = converted.Html.Name
-      jsCode = `$("#` + string( converted.GetId() ) + `").data("kendoMultiSelect").value()`
-
+      jsCode = `$('#` + string( converted.GetId() ) + `').data('kendoMultiSelect').value()`
     case *HtmlElementFormSelect:
+      key = converted.Name
+      jsCode = `$('#` + string( converted.GetId() ) + `').value()`
     case *HtmlElementFormTextArea:
+      key = converted.Name
+      jsCode = `$('#` + string( converted.GetId() ) + `').value()`
     case *HtmlInputCheckBox:
+      key = converted.Name
+      jsCode = `$('#` + string( converted.GetId() ) + `').value()`
     case *HtmlInputColor:
+      key = converted.Name
+      jsCode = `$('#` + string( converted.GetId() ) + `').value()`
     case *HtmlInputDate:
+      key = converted.Name
+      jsCode = `$('#` + string( converted.GetId() ) + `').value()`
     case *HtmlInputDateTimeLocal:
+      key = converted.Name
+      jsCode = `$('#` + string( converted.GetId() ) + `').value()`
     case *HtmlInputEmail:
+      key = converted.Name
+      jsCode = `$('#` + string( converted.GetId() ) + `').value()`
     case *HtmlInputFile:
+      key = converted.Name
+      jsCode = `$('#` + string( converted.GetId() ) + `').value()`
     case *HtmlInputGeneric:
+      key = converted.Name
+      jsCode = `$('#` + string( converted.GetId() ) + `').value()`
     case *HtmlInputHidden:
+      key = converted.Name
+      jsCode = `$('#` + string( converted.GetId() ) + `').value()`
     case *HtmlInputImage:
+      key = converted.Name
+      jsCode = `$('#` + string( converted.GetId() ) + `').value()`
     case *HtmlInputMonth:
+      key = converted.Name
+      jsCode = `$('#` + string( converted.GetId() ) + `').value()`
     case *HtmlInputNumber:
+      key = converted.Name
+      jsCode = `$('#` + string( converted.GetId() ) + `').value()`
     case *HtmlInputPassword:
+      key = converted.Name
+      jsCode = `$('#` + string( converted.GetId() ) + `').value()`
     case *HtmlInputRadio:
+      key = converted.Name
+      jsCode = `$('#` + string( converted.GetId() ) + `').value()`
     case *HtmlInputRange:
-    case *HtmlInputReset:
+      key = converted.Name
+      jsCode = `$('#` + string( converted.GetId() ) + `').value()`
     case *HtmlInputSearch:
-    case *HtmlInputSubmit:
+      key = converted.Name
+      jsCode = `$('#` + string( converted.GetId() ) + `').value()`
     case *HtmlInputTel:
+      key = converted.Name
+      jsCode = `$('#` + string( converted.GetId() ) + `').value()`
     case *HtmlInputText:
+      key = converted.Name
+      jsCode = `$('#` + string( converted.GetId() ) + `').value()`
     case *HtmlInputTime:
+      key = converted.Name
+      jsCode = `$('#` + string( converted.GetId() ) + `').value()`
     case *HtmlInputUrl:
+      key = converted.Name
+      jsCode = `$('#` + string( converted.GetId() ) + `').value()`
     case *HtmlInputWeek:
-
-
+      key = converted.Name
+      jsCode = `$('#` + string( converted.GetId() ) + `').value()`
     }
     //fmt.Printf( "%T\n", v )
-    fmt.Printf( "obj['%v'] = %s;\n", key, jsCode )
+    fmt.Printf( "  'id:%v': %s,\n", key, jsCode )
   }
-
+  fmt.Printf( "};\n" )
 
   // Output:
   //

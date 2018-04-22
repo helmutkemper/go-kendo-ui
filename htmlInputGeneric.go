@@ -139,3 +139,15 @@ func(el *HtmlInputGeneric)ToHtml() []byte {
 
   return buffer.Bytes()
 }
+func(el *HtmlInputGeneric)GetId() []byte{
+  if el.Global.Id == "" {
+    el.Global.Id = getAutoId()
+  }
+  return []byte( el.Global.Id )
+}
+func(el *HtmlInputGeneric)GetName() []byte{
+  if el.Name == "" {
+    el.Name = getAutoId()
+  }
+  return []byte( el.Name )
+}

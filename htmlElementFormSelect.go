@@ -120,3 +120,15 @@ func(el *HtmlElementFormSelect)ToHtml() []byte {
 func(el *HtmlElementFormSelect)ToJavaScript() []byte {
   return []byte{}
 }
+func(el *HtmlElementFormSelect)GetId() []byte{
+  if el.Global.Id == "" {
+    el.Global.Id = getAutoId()
+  }
+  return []byte( el.Global.Id )
+}
+func(el *HtmlElementFormSelect)GetName() []byte{
+  if el.Name == "" {
+    el.Name = getAutoId()
+  }
+  return []byte( el.Name )
+}

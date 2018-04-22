@@ -1,5 +1,10 @@
 package telerik
 
+import (
+  "bytes"
+  "reflect"
+)
+
 // <input> elements of type month create input fields that let the user enter a month and year allowing a month and year
 // to be easily entered. The value is a string whose value is in the format "YYYY-MM", where YYYY is the four-digit year
 // and MM is the month number.
@@ -16,7 +21,7 @@ type HtmlInputMonth struct{
   @see typeNamesForAutocomplete.go
   Ex.: const NAMES_FOR_AUTOCOMPLETE_NAME
   */
-  Name                        String
+  Name                        string                      `htmlAttr:"name"`
 
   /*
   The initial value of the control. This attribute is optional except when the value of the type attribute is radio or
@@ -24,7 +29,7 @@ type HtmlInputMonth struct{
   Note that when reloading the page, Gecko and IE will ignore the value specified in the HTML source, if the value was
   changed before the reload.
   */
-  Value                       String
+  Value                       string                      `htmlAttr:"value"`
 
   /*
   The form element that the input element is associated with (its form owner). The value of the attribute must be an id
@@ -32,7 +37,7 @@ type HtmlInputMonth struct{
   descendant of a <form> element. This attribute enables you to place <input> elements anywhere within a document, not
   just as descendants of their form elements. An input can only be associated with one form.
   */
-  Form                        String
+  Form                        string                      `htmlAttr:"form"`
 
   /*
   This Boolean attribute indicates that the form control is not available for interaction. In particular, the click
@@ -40,7 +45,7 @@ type HtmlInputMonth struct{
   Unlike other browsers, Firefox will by default persist the dynamic disabled state of an <input> across page loads. Use
   the autocomplete attribute to control this feature.
   */
-  Disabled                    Boolean
+  Disabled                    Boolean                     `htmlAttrSet:"disabled"`
 
   /*
   This attribute indicates whether the value of the control can be automatically completed by the browser.
@@ -52,7 +57,7 @@ type HtmlInputMonth struct{
   to enter.
   @see typeNamesForAutocomplete.go
   */
-  AutoComplete                Boolean
+  AutoComplete                Boolean                     `htmlAttrOnOff:"autocomplete"`
 
   /*
   This attribute indicates that the user cannot modify the value of the control. The value of the attribute is
@@ -60,17 +65,48 @@ type HtmlInputMonth struct{
   the value of the type attribute is hidden, range, color, checkbox, radio, file, or a button type (such as button or
   submit).
   */
-  Readonly                    Boolean
+  Readonly                    Boolean                     `htmlAttrSet:"readonly"`
 
   /*
   Identifies a list of pre-defined options to suggest to the user. The value must be the id of a <datalist> element in
   the same document. The browser displays only options that are valid values for this input element. This attribute is
   ignored when the type attribute's value is hidden, checkbox, radio, file, or a button type.
   */
-  List                        String
+  List                        string                      `htmlAttr:"list"`
 
-  Global                      HtmlGlobalAttributes
+  Global                      HtmlGlobalAttributes        `htmlAttr:"-"`
+
+  *ToJavaScriptConverter                                  `htmlAttr:"-"`
+}
+func(el *HtmlInputMonth)ToHtml() []byte {
+  var buffer bytes.Buffer
+
+  if el.Global.DoNotUseThisFieldOmitHtml == TRUE {
+    return []byte{}
+  }
+
+  element := reflect.ValueOf(el).Elem()
+  data := el.ToJavaScriptConverter.ToTelerikHtml(element)
+
+  buffer.Write( []byte( `<input type="text"` ) )
+  buffer.Write( el.Global.ToHtml() )
+  buffer.Write( data )
+  buffer.Write( []byte( `>` ) )
+
+  return buffer.Bytes()
+}
+func(el *HtmlInputMonth)GetId() []byte{
+  if el.Global.Id == "" {
+    el.Global.Id = getAutoId()
+  }
+  return []byte( el.Global.Id )
+}
+func(el *HtmlInputMonth)GetName() []byte{
+  if el.Name == "" {
+    el.Name = getAutoId()
+  }
+  return []byte( el.Name )
 }/*
-func(el *HtmlInputMonth)String() string {
-  return `<input ` + el.Global.String() + ` type="month" ` + el.Name.ToAttr("name") + el.Value.ToAttr("value") + el.Form.ToAttr("form") + el.Disabled.ToAttrSet("disabled") + el.Readonly.ToAttrSet("readonly") + el.List.ToAttr("list") + el.AutoComplete.ToAttr("autocomplete") + `>`
+func(el *HtmlInputMonth)string() string {
+  return `<input ` + el.Global.string() + ` type="month" ` + el.Name.ToAttr("name") + el.Value.ToAttr("value") + el.Form.ToAttr("form") + el.Disabled.ToAttrSet("disabled") + el.Readonly.ToAttrSet("readonly") + el.List.ToAttr("list") + el.AutoComplete.ToAttr("autocomplete") + `>`
 }*/

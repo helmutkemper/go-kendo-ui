@@ -197,13 +197,81 @@ func(el *HtmlElementForm)addToUnprocessedList( contentUnprocessedList, contentFo
   case HtmlElementDiv:
     *contentUnprocessedList  =append( *contentUnprocessedList, converted.Content )
 
+    // Elementos de formulário que necessitam de javascript - início
+
   case KendoUiNumericTextBox:
     *contentFoundList        =append( *contentFoundList, &converted )
   case KendoUiComboBox:
     *contentFoundList        =append( *contentFoundList, &converted )
+  case KendoUiAutoComplete:
+    *contentFoundList        =append( *contentFoundList, &converted )
+  case KendoUiButton:
+    *contentFoundList        =append( *contentFoundList, &converted )
+  case KendoUiCalendar:
+    *contentFoundList        =append( *contentFoundList, &converted )
+  case KendoUiColorPalette:
+    *contentFoundList        =append( *contentFoundList, &converted )
+  case KendoUiColorPicker:
+    *contentFoundList        =append( *contentFoundList, &converted )
+  case KendoUiDateInput:
+    *contentFoundList        =append( *contentFoundList, &converted )
+  case KendoUiDatePicker:
+    *contentFoundList        =append( *contentFoundList, &converted )
+  case KendoUiDateTimePicker:
+    *contentFoundList        =append( *contentFoundList, &converted )
+  case KendoUiDropDownList:
+    *contentFoundList        =append( *contentFoundList, &converted )
+  case KendoUiMultiSelect:
+    *contentFoundList        =append( *contentFoundList, &converted )
+  case HtmlElementFormSelect:
+    *contentFoundList        =append( *contentFoundList, &converted )
+  case HtmlElementFormTextArea:
+    *contentFoundList        =append( *contentFoundList, &converted )
+  case HtmlInputCheckBox:
+    *contentFoundList        =append( *contentFoundList, &converted )
+  case HtmlInputColor:
+    *contentFoundList        =append( *contentFoundList, &converted )
+  case HtmlInputDate:
+    *contentFoundList        =append( *contentFoundList, &converted )
+  case HtmlInputDateTimeLocal:
+    *contentFoundList        =append( *contentFoundList, &converted )
+  case HtmlInputEmail:
+    *contentFoundList        =append( *contentFoundList, &converted )
+  case HtmlInputFile:
+    *contentFoundList        =append( *contentFoundList, &converted )
+  case HtmlInputGeneric:
+    *contentFoundList        =append( *contentFoundList, &converted )
+  case HtmlInputHidden:
+    *contentFoundList        =append( *contentFoundList, &converted )
+  case HtmlInputImage:
+    *contentFoundList        =append( *contentFoundList, &converted )
+  case HtmlInputMonth:
+    *contentFoundList        =append( *contentFoundList, &converted )
+  case HtmlInputNumber:
+    *contentFoundList        =append( *contentFoundList, &converted )
+  case HtmlInputPassword:
+    *contentFoundList        =append( *contentFoundList, &converted )
+  case HtmlInputRadio:
+    *contentFoundList        =append( *contentFoundList, &converted )
+  case HtmlInputRange:
+    *contentFoundList        =append( *contentFoundList, &converted )
+  case HtmlInputSearch:
+    *contentFoundList        =append( *contentFoundList, &converted )
+  case HtmlInputTel:
+    *contentFoundList        =append( *contentFoundList, &converted )
+  case HtmlInputText:
+    *contentFoundList        =append( *contentFoundList, &converted )
+  case HtmlInputTime:
+    *contentFoundList        =append( *contentFoundList, &converted )
+  case HtmlInputUrl:
+    *contentFoundList        =append( *contentFoundList, &converted )
+  case HtmlInputWeek:
+    *contentFoundList        =append( *contentFoundList, &converted )
+
+    // Elementos de formulário que necessitam de javascript - fim
 
   case HtmlElementFormLabel:
   default:
-    fmt.Printf( "type: %T\n", converted )
+    fmt.Printf( "HtmlElementForm.addToUnprocessedList().type: %T\n", converted )
   }
 }
