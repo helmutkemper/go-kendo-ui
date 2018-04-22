@@ -190,6 +190,7 @@ func(el *KendoUiColorPicker) ToJavaScript() []byte {
   ret.Write( []byte(`$("#` + el.Html.Global.Id + `").kendoColorPicker({`) )
   ret.Write( data )
   ret.Write( []byte(`});`) )
+  ret.Write( []byte{ 0x0D } )
 
   return ret.Bytes()
 }

@@ -572,6 +572,7 @@ func(el *KendoUiAutoComplete) ToJavaScript() []byte {
   ret.Write( []byte(`$("#` + el.Html.Global.Id + `").kendoAutoComplete({`) )
   ret.Write( data )
   ret.Write( []byte(`});`) )
+  ret.Write( []byte{ 0x0D } )
 
   return ret.Bytes()
 }

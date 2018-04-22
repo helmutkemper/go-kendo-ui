@@ -156,6 +156,17 @@ func(el *HtmlInputTel)GetName() []byte{
     el.Name = getAutoId()
   }
   return []byte( el.Name )
+}
+func(el *HtmlInputTel)ToJavaScript() []byte {
+  var ret bytes.Buffer
+  if el.Global.Id == "" {
+    el.Global.Id = getAutoId()
+  }
+
+  ret.Write( []byte(`$("#` + el.Global.Id + `").addClass('k-textbox');`) )
+  ret.Write( []byte{ 0x0D } )
+
+  return ret.Bytes()
 }/*
 func(el *HtmlInputTel)string() string {
   return `<input ` + el.Global.string() + ` type="tel" ` + el.Name.ToAttr("name") + el.Value.ToAttr("value") + el.Form.ToAttr("form")+ el.AutoComplete.ToAttr("autocomplete") + el.List.ToAttr("list") + el.MaxLength.ToAttr("maxlength") + el.MinLength.ToAttr("minlength") + el.Pattern.ToAttr("pattern") + el.PlaceHolder.ToAttr("placeholder") + el.Size.ToAttr("size") + el.Readonly.ToAttrSet("readonly") + el.Disabled.ToAttrSet("disabled") + `>`

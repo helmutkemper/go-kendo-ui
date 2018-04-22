@@ -159,3 +159,14 @@ func(el *HtmlInputEmail)GetName() []byte{
   }
   return []byte( el.Name )
 }
+func(el *HtmlInputEmail)ToJavaScript() []byte {
+  var ret bytes.Buffer
+  if el.Global.Id == "" {
+    el.Global.Id = getAutoId()
+  }
+
+  ret.Write( []byte(`$("#` + el.Global.Id + `").addClass('k-textbox');`) )
+  ret.Write( []byte{ 0x0D } )
+
+  return ret.Bytes()
+}

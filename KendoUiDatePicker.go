@@ -303,6 +303,7 @@ func(el *KendoUiDatePicker) ToJavaScript() []byte {
   ret.Write( []byte(`$("#` + el.Html.Global.Id + `").kendoDatePicker({`) )
   ret.Write( data )
   ret.Write( []byte(`});`) )
+  ret.Write( []byte{ 0x0D } )
 
   return ret.Bytes()
 }

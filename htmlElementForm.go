@@ -3,7 +3,7 @@ package telerik
 import (
   "bytes"
   "reflect"
-  "fmt"
+  log "github.com/helmutkemper/seelog"
 )
 
 // The HTML <form> element represents a document section that contains interactive controls to submit information to a
@@ -139,6 +139,29 @@ type HtmlElementForm struct{
 func(el *HtmlElementForm)SetOmitHtml( value Boolean ) {
   el.Global.DoNotUseThisFieldOmitHtml = value
 }
+func(el *HtmlElementForm)ToJavaScript() []byte {
+  var ret bytes.Buffer
+  if el.Global.Id == "" {
+    el.Global.Id = getAutoId()
+  }
+
+  el.Content.FilterFormElements()
+
+
+
+  element := reflect.ValueOf(el).Elem()
+  data, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
+  if err != nil {
+    log.Criticalf( "kendoMultiSelect.Error: %v", err.Error() )
+    return []byte{}
+  }
+
+  ret.Write( []byte(`$("#` + el.Global.Id + `").kendoMultiSelect({`) )
+  ret.Write( data )
+  ret.Write( []byte(`});`) )
+
+  return ret.Bytes()
+}
 func(el *HtmlElementForm)ToHtml() []byte {
   var buffer bytes.Buffer
 
@@ -157,121 +180,4 @@ func(el *HtmlElementForm)ToHtml() []byte {
   buffer.Write( []byte( `</form>` ) )
 
   return buffer.Bytes()
-}
-func(el *HtmlElementForm)MakeJavaScript() []interface{} {
-
-  var contentProcessedList = make( []interface{}, 0 )
-  var contentUnprocessedList = make( []interface{}, 0 )
-  var contentFoundList = make( []interface{}, 0 )
-
-  el.processContent( &contentProcessedList, &contentUnprocessedList, &contentFoundList, el.Content)
-  for {
-    if len( contentUnprocessedList ) == 0 {
-      break
-    }
-
-    popElement := contentUnprocessedList[0]
-    contentUnprocessedList = contentUnprocessedList[1:]
-
-    el.processContent(&contentProcessedList, &contentUnprocessedList, &contentFoundList, popElement.(Content))
-  }
-
-  /*for _, v := range contentFoundList{
-    fmt.Printf( "%T\n", v )
-  }*/
-
-  return contentFoundList
-}
-func(el *HtmlElementForm)processContent( contentProcessedList, contentUnprocessedList, contentFoundList *[]interface{}, content Content ) {
-  *contentProcessedList  =append( *contentProcessedList, content )
-
-  for _, contentElement := range content {
-    el.addToUnprocessedList(contentUnprocessedList, contentFoundList, contentElement)
-  }
-}
-func(el *HtmlElementForm)addToUnprocessedList( contentUnprocessedList, contentFoundList *[]interface{}, content interface{} ) {
-  switch converted := content.(type) {
-  case *Content:
-  case HtmlElementSpan:
-    *contentUnprocessedList  =append( *contentUnprocessedList, converted.Content )
-  case HtmlElementDiv:
-    *contentUnprocessedList  =append( *contentUnprocessedList, converted.Content )
-
-    // Elementos de formulário que necessitam de javascript - início
-
-  case KendoUiNumericTextBox:
-    *contentFoundList        =append( *contentFoundList, &converted )
-  case KendoUiComboBox:
-    *contentFoundList        =append( *contentFoundList, &converted )
-  case KendoUiAutoComplete:
-    *contentFoundList        =append( *contentFoundList, &converted )
-  case KendoUiButton:
-    *contentFoundList        =append( *contentFoundList, &converted )
-  case KendoUiCalendar:
-    *contentFoundList        =append( *contentFoundList, &converted )
-  case KendoUiColorPalette:
-    *contentFoundList        =append( *contentFoundList, &converted )
-  case KendoUiColorPicker:
-    *contentFoundList        =append( *contentFoundList, &converted )
-  case KendoUiDateInput:
-    *contentFoundList        =append( *contentFoundList, &converted )
-  case KendoUiDatePicker:
-    *contentFoundList        =append( *contentFoundList, &converted )
-  case KendoUiDateTimePicker:
-    *contentFoundList        =append( *contentFoundList, &converted )
-  case KendoUiDropDownList:
-    *contentFoundList        =append( *contentFoundList, &converted )
-  case KendoUiMultiSelect:
-    *contentFoundList        =append( *contentFoundList, &converted )
-  case HtmlElementFormSelect:
-    *contentFoundList        =append( *contentFoundList, &converted )
-  case HtmlElementFormTextArea:
-    *contentFoundList        =append( *contentFoundList, &converted )
-  case HtmlInputCheckBox:
-    *contentFoundList        =append( *contentFoundList, &converted )
-  case HtmlInputColor:
-    *contentFoundList        =append( *contentFoundList, &converted )
-  case HtmlInputDate:
-    *contentFoundList        =append( *contentFoundList, &converted )
-  case HtmlInputDateTimeLocal:
-    *contentFoundList        =append( *contentFoundList, &converted )
-  case HtmlInputEmail:
-    *contentFoundList        =append( *contentFoundList, &converted )
-  case HtmlInputFile:
-    *contentFoundList        =append( *contentFoundList, &converted )
-  case HtmlInputGeneric:
-    *contentFoundList        =append( *contentFoundList, &converted )
-  case HtmlInputHidden:
-    *contentFoundList        =append( *contentFoundList, &converted )
-  case HtmlInputImage:
-    *contentFoundList        =append( *contentFoundList, &converted )
-  case HtmlInputMonth:
-    *contentFoundList        =append( *contentFoundList, &converted )
-  case HtmlInputNumber:
-    *contentFoundList        =append( *contentFoundList, &converted )
-  case HtmlInputPassword:
-    *contentFoundList        =append( *contentFoundList, &converted )
-  case HtmlInputRadio:
-    *contentFoundList        =append( *contentFoundList, &converted )
-  case HtmlInputRange:
-    *contentFoundList        =append( *contentFoundList, &converted )
-  case HtmlInputSearch:
-    *contentFoundList        =append( *contentFoundList, &converted )
-  case HtmlInputTel:
-    *contentFoundList        =append( *contentFoundList, &converted )
-  case HtmlInputText:
-    *contentFoundList        =append( *contentFoundList, &converted )
-  case HtmlInputTime:
-    *contentFoundList        =append( *contentFoundList, &converted )
-  case HtmlInputUrl:
-    *contentFoundList        =append( *contentFoundList, &converted )
-  case HtmlInputWeek:
-    *contentFoundList        =append( *contentFoundList, &converted )
-
-    // Elementos de formulário que necessitam de javascript - fim
-
-  case HtmlElementFormLabel:
-  default:
-    fmt.Printf( "HtmlElementForm.addToUnprocessedList().type: %T\n", converted )
-  }
 }

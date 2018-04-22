@@ -539,6 +539,15 @@ func ExampleSoUmTest() {
             },
           },
 
+          KendoUiMultiSelect{
+            Html: HtmlElementFormSelect{
+              Global: HtmlGlobalAttributes{
+                Id: "ConfigExposedPorts",
+              },
+              Name: "ExposedPorts",
+            },
+          },
+
         },
       },
 
@@ -627,6 +636,15 @@ func ExampleSoUmTest() {
             },
           },
 
+          KendoUiMultiSelect{
+            Html: HtmlElementFormSelect{
+              Global: HtmlGlobalAttributes{
+                Id: "ConfigEnv",
+              },
+              Name: "Env",
+            },
+          },
+
         },
       },
 
@@ -637,6 +655,15 @@ func ExampleSoUmTest() {
             For: "ConfigCmd",
             Content: Content{
               "Cmd",
+            },
+          },
+
+          KendoUiMultiSelect{
+            Html: HtmlElementFormSelect{
+              Global: HtmlGlobalAttributes{
+                Id: "ConfigCmd",
+              },
+              Name: "Cmd",
             },
           },
 
@@ -712,6 +739,15 @@ func ExampleSoUmTest() {
             },
           },
 
+          KendoUiMultiSelect{
+            Html: HtmlElementFormSelect{
+              Global: HtmlGlobalAttributes{
+                Id: "ConfigVolumes",
+              },
+              Name: "Volumes",
+            },
+          },
+
         },
       },
 
@@ -743,6 +779,15 @@ func ExampleSoUmTest() {
             For: "ConfigEntryPoint",
             Content: Content{
               "EntryPoint",
+            },
+          },
+
+          KendoUiMultiSelect{
+            Html: HtmlElementFormSelect{
+              Global: HtmlGlobalAttributes{
+                Id: "ConfigEntryPoint",
+              },
+              Name: "EntryPoint",
             },
           },
 
@@ -805,6 +850,15 @@ func ExampleSoUmTest() {
             },
           },
 
+          KendoUiMultiSelect{
+            Html: HtmlElementFormSelect{
+              Global: HtmlGlobalAttributes{
+                Id: "ConfigOnBuild",
+              },
+              Name: "OnBuild",
+            },
+          },
+
         },
       },
 
@@ -815,6 +869,15 @@ func ExampleSoUmTest() {
             For: "ConfigLabels",
             Content: Content{
               "Labels",
+            },
+          },
+
+          KendoUiMultiSelect{
+            Html: HtmlElementFormSelect{
+              Global: HtmlGlobalAttributes{
+                Id: "ConfigLabels",
+              },
+              Name: "Labels",
             },
           },
 
@@ -852,6 +915,15 @@ func ExampleSoUmTest() {
             },
           },
 
+          KendoUiNumericTextBox{
+            Html: HtmlInputNumber{
+              Global: HtmlGlobalAttributes{
+                Id: "ConfigStopTimeout",
+              },
+              Name: "StopTimeout",
+            },
+          },
+
         },
       },
 
@@ -862,6 +934,15 @@ func ExampleSoUmTest() {
             For: "ConfigShell",
             Content: Content{
               "Shell",
+            },
+          },
+
+          KendoUiMultiSelect{
+            Html: HtmlElementFormSelect{
+              Global: HtmlGlobalAttributes{
+                Id: "ConfigShell",
+              },
+              Name: "Shell",
             },
           },
 
@@ -881,7 +962,7 @@ func ExampleSoUmTest() {
 
 
 
-      HtmlElementDiv{
+      /*HtmlElementDiv{
         Content: Content{
 
           HtmlElementFormLabel{
@@ -948,7 +1029,7 @@ func ExampleSoUmTest() {
 
         },
 
-      },
+      },*/
 
     },
   }
@@ -1021,119 +1102,9 @@ func ExampleSoUmTest() {
   */
 
   //var obj = make( map[string]interface{} )
-  var key, jsCode string
-  // fixme: mfalta um getName() ou algo parecido
-  // fixme: KendoUiCalendar e KendoUiColorPalette devem ter name como obrigatórios
-  fmt.Printf("var obj = {\n")
-  for _, v := range el.MakeJavaScript(){
-    switch converted := v.(type) {
-    case *KendoUiAutoComplete:
-      key = converted.Html.Name
-      jsCode = `$('#` + string( converted.GetId() ) + `').data('kendoAutoComplete').value()`
-    case *KendoUiButton:
-      key = converted.Html.Name
-      jsCode = `$('#` + string( converted.GetId() ) + `').data('kendoButton').value()`
-    case *KendoUiCalendar:
-      key = converted.Html.Name
-      jsCode = `$('#` + string( converted.GetId() ) + `').data('kendoCalendar').value()`
-    case *KendoUiColorPalette:
-      key = converted.Html.Name
-      jsCode = `$('#` + string( converted.GetId() ) + `').data('kendoColorPalette').value()`
-    case *KendoUiColorPicker:
-      key = converted.Html.Name
-      jsCode = `$('#` + string( converted.GetId() ) + `').data('kendoColorPicker').value()`
-    case *KendoUiComboBox:
-      key = converted.Html.Name
-      jsCode = `$('#` + string( converted.GetId() ) + `').data('kendoComboBox').value()`
-    case *KendoUiNumericTextBox:
-      key = converted.Html.Name
-      jsCode = `$('#` + string( converted.GetId() ) + `').data('kendoNumericTextBox').value()`
-    case *KendoUiDateInput:
-      key = converted.Html.Name
-      jsCode = `$('#` + string( converted.GetId() ) + `').data('kendoDateInput').value()`
-    case *KendoUiDatePicker:
-      key = converted.Html.Name
-      jsCode = `$('#` + string( converted.GetId() ) + `').data('kendoDatePicker').value()`
-    case *KendoUiDateTimePicker:
-      key = converted.Html.Name
-      jsCode = `$('#` + string( converted.GetId() ) + `').data('kendoDateTimePicker').value()`
-    case *KendoUiDropDownList:
-      key = converted.Html.Name
-      jsCode = `$('#` + string( converted.GetId() ) + `').data('kendoDropDownList').value()`
-    case *KendoUiMultiSelect:
-      key = converted.Html.Name
-      jsCode = `$('#` + string( converted.GetId() ) + `').data('kendoMultiSelect').value()`
-    case *HtmlElementFormSelect:
-      key = converted.Name
-      jsCode = `$('#` + string( converted.GetId() ) + `').value()`
-    case *HtmlElementFormTextArea:
-      key = converted.Name
-      jsCode = `$('#` + string( converted.GetId() ) + `').value()`
-    case *HtmlInputCheckBox:
-      key = converted.Name
-      jsCode = `$('#` + string( converted.GetId() ) + `').value()`
-    case *HtmlInputColor:
-      key = converted.Name
-      jsCode = `$('#` + string( converted.GetId() ) + `').value()`
-    case *HtmlInputDate:
-      key = converted.Name
-      jsCode = `$('#` + string( converted.GetId() ) + `').value()`
-    case *HtmlInputDateTimeLocal:
-      key = converted.Name
-      jsCode = `$('#` + string( converted.GetId() ) + `').value()`
-    case *HtmlInputEmail:
-      key = converted.Name
-      jsCode = `$('#` + string( converted.GetId() ) + `').value()`
-    case *HtmlInputFile:
-      key = converted.Name
-      jsCode = `$('#` + string( converted.GetId() ) + `').value()`
-    case *HtmlInputGeneric:
-      key = converted.Name
-      jsCode = `$('#` + string( converted.GetId() ) + `').value()`
-    case *HtmlInputHidden:
-      key = converted.Name
-      jsCode = `$('#` + string( converted.GetId() ) + `').value()`
-    case *HtmlInputImage:
-      key = converted.Name
-      jsCode = `$('#` + string( converted.GetId() ) + `').value()`
-    case *HtmlInputMonth:
-      key = converted.Name
-      jsCode = `$('#` + string( converted.GetId() ) + `').value()`
-    case *HtmlInputNumber:
-      key = converted.Name
-      jsCode = `$('#` + string( converted.GetId() ) + `').value()`
-    case *HtmlInputPassword:
-      key = converted.Name
-      jsCode = `$('#` + string( converted.GetId() ) + `').value()`
-    case *HtmlInputRadio:
-      key = converted.Name
-      jsCode = `$('#` + string( converted.GetId() ) + `').value()`
-    case *HtmlInputRange:
-      key = converted.Name
-      jsCode = `$('#` + string( converted.GetId() ) + `').value()`
-    case *HtmlInputSearch:
-      key = converted.Name
-      jsCode = `$('#` + string( converted.GetId() ) + `').value()`
-    case *HtmlInputTel:
-      key = converted.Name
-      jsCode = `$('#` + string( converted.GetId() ) + `').value()`
-    case *HtmlInputText:
-      key = converted.Name
-      jsCode = `$('#` + string( converted.GetId() ) + `').value()`
-    case *HtmlInputTime:
-      key = converted.Name
-      jsCode = `$('#` + string( converted.GetId() ) + `').value()`
-    case *HtmlInputUrl:
-      key = converted.Name
-      jsCode = `$('#` + string( converted.GetId() ) + `').value()`
-    case *HtmlInputWeek:
-      key = converted.Name
-      jsCode = `$('#` + string( converted.GetId() ) + `').value()`
-    }
-    //fmt.Printf( "%T\n", v )
-    fmt.Printf( "  'id:%v': %s,\n", key, jsCode )
-  }
-  fmt.Printf( "};\n" )
+  //el.Content.MakeJsObject()
+  fmt.Printf( "%s\n\n", el.Content.ToJavaScript() )
+  //fmt.Printf( "%s", el.ToHtml() )
 
   // Output:
   //

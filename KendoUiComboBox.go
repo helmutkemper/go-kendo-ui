@@ -618,6 +618,7 @@ func(el *KendoUiComboBox) ToJavaScript() []byte {
   ret.Write( []byte(`$("#` + el.Html.Global.Id + `").kendoComboBox({`) )
   ret.Write( data )
   ret.Write( []byte(`});`) )
+  ret.Write( []byte{ 0x0D } )
 
   return ret.Bytes()
 }
