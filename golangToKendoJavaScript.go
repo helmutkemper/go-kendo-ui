@@ -210,8 +210,28 @@ func(el *ToJavaScriptConverter) ToTelerikHtml( element reflect.Value ) []byte {
 
 
 
+
+
+    case "[]string":
+      if len( field.Interface().([]string) ) == 0 {
+        continue
+      }
+
+      buffer.WriteString(` ` + tagValue + `="`)
+
+      for k, v := range field.Interface().([]string) {
+        if k != 0 {
+          buffer.WriteString(`,`)
+        }
+        buffer.WriteString(v)
+      }
+
+      buffer.WriteString(`"`)
+
+
+
     default:
-      fmt.Printf("\nhtmlTag(): %d: %s - %s = %v\n", i, field.Type(), field.Interface(), tagName)
+      fmt.Printf("\nhtmlTag(): %v[ %d ]: %s - %s = %v\n", tagValue, i, field.Type(), field.Interface(), tagName)
     }
   }
 

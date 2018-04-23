@@ -159,7 +159,7 @@ func(el *HtmlInputPassword)ToJavaScript() []byte {
   }
 
   ret.Write( []byte(`$("#` + el.Global.Id + `").addClass('k-textbox');`) )
-  ret.Write( []byte{ 0x0D } )
+  ret.Write( []byte{ 0x0A } )
 
   return ret.Bytes()
 }

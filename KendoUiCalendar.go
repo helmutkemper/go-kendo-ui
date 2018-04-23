@@ -291,7 +291,7 @@ func(el *KendoUiCalendar) ToJavaScript() []byte {
   ret.Write( []byte(`$("#` + el.Html.Global.Id + `").kendoCalendar({`) )
   ret.Write( data )
   ret.Write( []byte(`});`) )
-  ret.Write( []byte{ 0x0D } )
+  ret.Write( []byte{ 0x0A } )
 
   return ret.Bytes()
 }

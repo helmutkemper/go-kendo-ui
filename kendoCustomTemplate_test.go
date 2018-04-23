@@ -464,16 +464,15 @@ func ExampleSoUmTest() {
             },
           },
 
-          HtmlInputCheckBox{
-            Global: HtmlGlobalAttributes{
-              Id: "ConfigAttachStdIn",
-              Data: map[string]string{
-                "role": "switch",
-                "off-label": "No",
-                "on-label": "Yes",
+          KendoUiMobileSwitch{
+            Html: HtmlInputCheckBox{
+              Global: HtmlGlobalAttributes{
+                Id: "ConfigAttachStdIn",
               },
+              Name: "AttachStdIn",
             },
-            Name: "AttachStdIn",
+            OnLabel: "Yes",
+            OffLabel: "No",
           },
 
         },
@@ -489,16 +488,15 @@ func ExampleSoUmTest() {
             },
           },
 
-          HtmlInputCheckBox{
-            Global: HtmlGlobalAttributes{
-              Id: "ConfigAttachStdOut",
-              Data: map[string]string{
-                "role": "switch",
-                "off-label": "No",
-                "on-label": "Yes",
+          KendoUiMobileSwitch{
+            Html: HtmlInputCheckBox{
+              Global: HtmlGlobalAttributes{
+                Id: "ConfigAttachStdOut",
               },
+              Name: "AttachStdOut",
             },
-            Name: "AttachStdOut",
+            OnLabel: "Yes",
+            OffLabel: "No",
           },
 
         },
@@ -514,16 +512,15 @@ func ExampleSoUmTest() {
             },
           },
 
-          HtmlInputCheckBox{
-            Global: HtmlGlobalAttributes{
-              Id: "ConfigAttachStdErr",
-              Data: map[string]string{
-                "role": "switch",
-                "off-label": "No",
-                "on-label": "Yes",
+          KendoUiMobileSwitch{
+            Html: HtmlInputCheckBox{
+              Global: HtmlGlobalAttributes{
+                Id: "ConfigAttachStdErr",
               },
+              Name: "AttachStdErr",
             },
-            Name: "AttachStdErr",
+            OnLabel: "Yes",
+            OffLabel: "No",
           },
 
         },
@@ -561,16 +558,15 @@ func ExampleSoUmTest() {
             },
           },
 
-          HtmlInputCheckBox{
-            Global: HtmlGlobalAttributes{
-              Id: "ConfigTry",
-              Data: map[string]string{
-                "role": "switch",
-                "off-label": "No",
-                "on-label": "Yes",
+          KendoUiMobileSwitch{
+            Html: HtmlInputCheckBox{
+              Global: HtmlGlobalAttributes{
+                Id: "ConfigTry",
               },
+              Name: "Try",
             },
-            Name: "Try",
+            OnLabel: "Yes",
+            OffLabel: "No",
           },
 
         },
@@ -586,16 +582,15 @@ func ExampleSoUmTest() {
             },
           },
 
-          HtmlInputCheckBox{
-            Global: HtmlGlobalAttributes{
-              Id: "ConfigOpenStdIn",
-              Data: map[string]string{
-                "role": "switch",
-                "off-label": "No",
-                "on-label": "Yes",
+          KendoUiMobileSwitch{
+            Html: HtmlInputCheckBox{
+              Global: HtmlGlobalAttributes{
+                Id: "ConfigOpenStdIn",
               },
+              Name: "OpenStdIn",
             },
-            Name: "OpenStdIn",
+            OnLabel: "Yes",
+            OffLabel: "No",
           },
 
         },
@@ -611,16 +606,15 @@ func ExampleSoUmTest() {
             },
           },
 
-          HtmlInputCheckBox{
-            Global: HtmlGlobalAttributes{
-              Id: "ConfigStdInOnce",
-              Data: map[string]string{
-                "role": "switch",
-                "off-label": "No",
-                "on-label": "Yes",
+          KendoUiMobileSwitch{
+            Html: HtmlInputCheckBox{
+              Global: HtmlGlobalAttributes{
+                Id: "ConfigStdInOnce",
               },
+              Name: "StdInOnce",
             },
-            Name: "StdInOnce",
+            OnLabel: "Yes",
+            OffLabel: "No",
           },
 
         },
@@ -693,16 +687,15 @@ func ExampleSoUmTest() {
             },
           },
 
-          HtmlInputCheckBox{
-            Global: HtmlGlobalAttributes{
-              Id: "ConfigArgsEscaped",
-              Data: map[string]string{
-                "role": "switch",
-                "off-label": "No",
-                "on-label": "Yes",
+          KendoUiMobileSwitch{
+            Html: HtmlInputCheckBox{
+              Global: HtmlGlobalAttributes{
+                Id: "ConfigArgsEscaped",
               },
+              Name: "ArgsEscaped",
             },
-            Name: "ArgsEscaped",
+            OnLabel: "Yes",
+            OffLabel: "No",
           },
 
         },
@@ -718,12 +711,14 @@ func ExampleSoUmTest() {
             },
           },
 
-          HtmlInputText{
-            Global: HtmlGlobalAttributes{
-              Id: "ConfigHostImage",
-              Class: "k-textbox",
+          KendoUiAutoComplete{
+            Html: HtmlInputText{
+              Global: HtmlGlobalAttributes{
+                Id: "ConfigHostImage",
+                Class: "k-textbox",
+              },
+              Name: "Image",
             },
-            Name: "Image",
           },
 
         },
@@ -804,16 +799,15 @@ func ExampleSoUmTest() {
             },
           },
 
-          HtmlInputCheckBox{
-            Global: HtmlGlobalAttributes{
-              Id: "ConfigNetworkDisabled",
-              Data: map[string]string{
-                "role": "switch",
-                "off-label": "No",
-                "on-label": "Yes",
+          KendoUiMobileSwitch{
+            Html: HtmlInputCheckBox{
+              Global: HtmlGlobalAttributes{
+                Id: "ConfigNetworkDisabled",
               },
+              Name: "NetworkDisabled",
             },
-            Name: "NetworkDisabled",
+            OnLabel: "Yes",
+            OffLabel: "No",
           },
 
         },
@@ -922,6 +916,7 @@ func ExampleSoUmTest() {
               },
               Name: "StopTimeout",
             },
+            Format: "#s",
           },
 
         },
@@ -1102,9 +1097,9 @@ func ExampleSoUmTest() {
   */
 
   //var obj = make( map[string]interface{} )
-  //el.Content.MakeJsObject()
+  el.Content.MakeJsObject()
   fmt.Printf( "%s\n\n", el.Content.ToJavaScript() )
-  //fmt.Printf( "%s", el.ToHtml() )
+  fmt.Printf( "%s", el.ToHtml() )
 
   // Output:
   //

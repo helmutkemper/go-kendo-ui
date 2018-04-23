@@ -104,7 +104,7 @@ func(el *KendoUiColorPalette) ToJavaScript() []byte {
   ret.Write( []byte(`$("#` + el.Html.Global.Id + `").kendoColorPalette({`) )
   ret.Write( data )
   ret.Write( []byte(`});`) )
-  ret.Write( []byte{ 0x0D } )
+  ret.Write( []byte{ 0x0A } )
 
   return ret.Bytes()
 }

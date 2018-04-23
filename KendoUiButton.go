@@ -91,7 +91,7 @@ func(el *KendoUiButton) ToJavaScript() []byte {
   ret.Write( []byte(`$("#` + el.Html.Global.Id + `").kendoButton({`) )
   ret.Write( data )
   ret.Write( []byte(`});`) )
-  ret.Write( []byte{ 0x0D } )
+  ret.Write( []byte{ 0x0A } )
 
   return ret.Bytes()
 }
