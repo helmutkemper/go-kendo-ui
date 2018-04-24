@@ -543,6 +543,33 @@ func ExampleSoUmTest() {
               },
               Name: "ExposedPorts",
             },
+            NoDataTemplate: HtmlElementScript{
+              Global: HtmlGlobalAttributes{
+                Id: getAutoId(),
+              },
+              Type: SCRIPT_TYPE_KENDO_TEMPLATE,
+              Content: Content{
+
+                HtmlElementDiv{
+                  Content: Content{
+                    "No data found. Do you want to add new item?",
+                  },
+                },
+
+                "<br>",
+
+                HtmlElementFormButton{
+                  Global: HtmlGlobalAttributes{
+                    Class: "k-button",
+                    OnClick: "addNew('#: instance.element[0].id #')",
+                  },
+                  Content: Content{
+                    "Add new item",
+                  },
+                },
+
+              },
+            },
           },
 
         },
@@ -1096,10 +1123,37 @@ func ExampleSoUmTest() {
   ]
   */
 
-  //var obj = make( map[string]interface{} )
-  el.Content.MakeJsObject()
-  fmt.Printf( "%s\n\n", el.Content.ToJavaScript() )
-  fmt.Printf( "%s", el.ToHtml() )
+  fmt.Printf( `<!DOCTYPE html>
+<html>
+<head>
+    <base href="https://demos.telerik.com/kendo-ui/grid/index">
+    <style>
+      html { 
+        font-size: 14px; 
+        font-family: Arial, Helvetica, sans-serif; 
+      }
+    </style>
+    <title></title>
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.1.221/styles/kendo.common-material.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.1.221/styles/kendo.material.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.1.221/styles/kendo.material.mobile.min.css" />
+
+    <script src="https://kendo.cdn.telerik.com/2018.1.221/js/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2018.1.221/js/kendo.all.min.js"></script>
+    %s
+    <script>
+      %s
+      $(document).ready(function () {
+        %s
+      });
+    </script>
+</head>
+<body>
+  <div id="example">
+    %s
+  </div>
+</body>
+</html>`, el.Content.MakeJsScript(), el.Content.MakeJsObject(), el.Content.ToJavaScript(), el.ToHtml() )
 
   // Output:
   //

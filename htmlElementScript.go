@@ -77,6 +77,25 @@ func(el *HtmlElementScript)ToHtml() []byte {
 
   return buffer.Bytes()
 }
+func(el *HtmlElementScript)ToElementScriptTag() []byte {
+  var buffer bytes.Buffer
+
+  if el.Global.Id == "" {
+    el.Global.Id = getAutoId()
+  }
+
+  element := reflect.ValueOf(el).Elem()
+  data := el.ToJavaScriptConverter.ToTelerikHtml(element)
+
+  buffer.Write( []byte( `<script` ) )
+  buffer.Write( el.Global.ToHtml() )
+  buffer.Write( data )
+  buffer.Write( []byte( `>` ) )
+  buffer.Write( el.Content.ToHtml() )
+  buffer.Write( []byte( `</script>` ) )
+
+  return buffer.Bytes()
+}
 func(el *HtmlElementScript)ToJavaScript() []byte {
   var buffer bytes.Buffer
 
@@ -93,10 +112,21 @@ func(el *HtmlElementScript)ToJavaScript() []byte {
 func(el *HtmlElementScript)ToKendoTemplate() []byte {
   var buffer bytes.Buffer
 
+  if el.Global.Id == "" {
+    el.Global.Id = getAutoId()
+  }
+
   buffer.Write( []byte( `kendo.template($('#` ) )
   buffer.Write( []byte( el.Global.Id ) )
   buffer.Write( []byte( `').html())` ) )
 
   return buffer.Bytes()
 }
+func(el *HtmlElementScript)GetId() []byte{
+  if el.Global.Id == "" {
+    el.Global.Id = getAutoId()
+  }
+  return []byte( el.Global.Id )
+}
+
 //containerCreateTemplateExposedPortsAddNewPort

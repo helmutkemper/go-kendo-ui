@@ -820,6 +820,12 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
         buffer.Write( convertedFromInterface.ToJavaScript() )
         buffer.WriteString(`},`)
 
+      case HtmlElementScript:
+        if convertedFromInterface.Type == SCRIPT_TYPE_KENDO_TEMPLATE {
+          buffer.WriteString(tag.Get("jsObject") + `: ` + `$("#` + string( convertedFromInterface.GetId() ) + `").html(),`)
+          continue
+        }
+
       case JavaScript:
         if reflect.DeepEqual(convertedFromInterface, JavaScript{}) == true {
           continue
