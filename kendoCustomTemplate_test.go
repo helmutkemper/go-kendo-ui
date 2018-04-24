@@ -543,6 +543,87 @@ func ExampleSoUmTest() {
               },
               Name: "ExposedPorts",
             },
+            Dialog: KendoUiDialog{
+              Html: HtmlElementDiv{
+                Global: HtmlGlobalAttributes{
+                  Id: getAutoId(),
+                },
+              },
+              Title: "Add new port.",
+              Content: Content{
+
+                HtmlElementDiv{
+                  Content: Content{
+
+                    HtmlElementFormLabel{
+                      For: "ExposedPortsNumber",
+                      Content: Content{
+                        "Port number",
+                      },
+                    },
+
+                    KendoUiNumericTextBox{
+                      Html: HtmlInputNumber{
+                        Name: "ExposedPortsNumber",
+                        PlaceHolder: "",
+                        AutoComplete: FALSE,
+                        Required: TRUE,
+                        // Pattern: "[^=]*",
+                        Global: HtmlGlobalAttributes{
+                          Id: "ExposedPortsNumber",
+                          Class: "oneThirdSize",
+                          Extra: map[string]interface{}{
+                            "validationMessage": "Enter a {0}",
+                          },
+                        },
+                      },
+                      Format: "#",
+                    },
+                  },
+                },
+
+                HtmlElementDiv{
+                  Content: Content{
+
+                    HtmlElementFormLabel{
+                      For: "ExposedPortsProtocol",
+                      Content: Content{
+                        "Port protocol",
+                      },
+                    },
+
+                    KendoUiComboBox{
+                      Html: HtmlElementFormSelect{
+                        Global: HtmlGlobalAttributes{
+                          Id: "ExposedPortsProtocol",
+                          Class: "oneThirdSize",
+                        },
+                        Name: "ExposedPortsProtocol",
+                        Required: TRUE,
+                        Options: []HtmlOptions{
+                          {
+                            Label: "Please, select one",
+                            Key:   "",
+                          },
+                          {
+                            Label: "TCP",
+                            Key:   "TCP",
+                          },
+                          {
+                            Label: "UDP",
+                            Key:   "UDP",
+                          },
+                        },
+                      },
+                    },
+
+                  },
+
+                },
+
+              },
+              Visible: FALSE,
+            },
             NoDataTemplate: HtmlElementScript{
               Global: HtmlGlobalAttributes{
                 Id: getAutoId(),
@@ -984,74 +1065,7 @@ func ExampleSoUmTest() {
 
 
 
-      /*HtmlElementDiv{
-        Content: Content{
 
-          HtmlElementFormLabel{
-            For: "ExposedPortsNumber",
-            Content: Content{
-              "Port number",
-            },
-          },
-
-          KendoUiNumericTextBox{
-            Html: HtmlInputNumber{
-              Name: "ExposedPortsNumber",
-              PlaceHolder: "",
-              AutoComplete: FALSE,
-              Required: TRUE,
-              // Pattern: "[^=]*",
-              Global: HtmlGlobalAttributes{
-                Id: "ExposedPortsNumber",
-                Class: "oneThirdSize",
-                Extra: map[string]interface{}{
-                  "validationMessage": "Enter a {0}",
-                },
-              },
-            },
-            Format: "#",
-          },
-        },
-      },
-
-      HtmlElementDiv{
-        Content: Content{
-
-          HtmlElementFormLabel{
-            For: "ExposedPortsProtocol",
-            Content: Content{
-              "Port protocol",
-            },
-          },
-
-          KendoUiComboBox{
-            Html: HtmlElementFormSelect{
-              Global: HtmlGlobalAttributes{
-                Id: "ExposedPortsProtocol",
-                Class: "oneThirdSize",
-              },
-              Name: "ExposedPortsProtocol",
-              Required: TRUE,
-              Options: []HtmlOptions{
-                {
-                  Label: "Please, select one",
-                  Key:   "",
-                },
-                {
-                  Label: "TCP",
-                  Key:   "TCP",
-                },
-                {
-                  Label: "UDP",
-                  Key:   "UDP",
-                },
-              },
-            },
-          },
-
-        },
-
-      },*/
 
     },
   }
