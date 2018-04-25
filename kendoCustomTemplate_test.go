@@ -558,68 +558,75 @@ func ExampleSoUmTest() {
                   },
                   Content: Content{
 
-                    HtmlElementFormLabel{
-                      For: "ExposedPortsNumber",
+                    HtmlElementDiv{
                       Content: Content{
-                        "Port number",
+
+                        HtmlElementFormLabel{
+                          For: "ExposedPortsNumber",
+                          Content: Content{
+                            "Port number",
+                          },
+                        },
+
+                        KendoUiNumericTextBox{
+                          Html: HtmlInputNumber{
+                            Name:         "ExposedPortsNumber",
+                            PlaceHolder:  "",
+                            AutoComplete: FALSE,
+                            Required:     TRUE,
+                            // Pattern: "[^=]*",
+                            Global: HtmlGlobalAttributes{
+                              Id:    "ExposedPortsNumber",
+                              Class: "oneThirdSize",
+                              Extra: map[string]interface{}{
+                                "validationMessage": "Enter a {0}",
+                              },
+                            },
+                          },
+                          Format: "#",
+                        },
                       },
                     },
 
-                    KendoUiNumericTextBox{
-                      Html: HtmlInputNumber{
-                        Name: "ExposedPortsNumber",
-                        PlaceHolder: "",
-                        AutoComplete: FALSE,
-                        Required: TRUE,
-                        // Pattern: "[^=]*",
-                        Global: HtmlGlobalAttributes{
-                          Id: "ExposedPortsNumber",
-                          Class: "oneThirdSize",
-                          Extra: map[string]interface{}{
-                            "validationMessage": "Enter a {0}",
+                    HtmlElementDiv{
+                      Content: Content{
+
+                        HtmlElementFormLabel{
+                          For: "ExposedPortsProtocol",
+                          Content: Content{
+                            "Port protocol",
+                          },
+                        },
+
+                        KendoUiComboBox{
+                          Html: HtmlElementFormSelect{
+                            Global: HtmlGlobalAttributes{
+                              Id:    "ExposedPortsProtocol",
+                              Class: "oneThirdSize",
+                              Data:  map[string]string{"required-msg": "Select start time"},
+                            },
+                            Name:     "ExposedPortsProtocol",
+                            Required: TRUE,
+                            Options: []HtmlOptions{
+                              {
+                                Label: "Please, select one",
+                                Key:   "",
+                              },
+                              {
+                                Label: "TCP",
+                                Key:   "TCP",
+                              },
+                              {
+                                Label: "UDP",
+                                Key:   "UDP",
+                              },
+                            },
                           },
                         },
                       },
-                      Format: "#",
                     },
                   },
                 },
-
-                HtmlElementDiv{
-                  Content: Content{
-
-                    HtmlElementFormLabel{
-                      For: "ExposedPortsProtocol",
-                      Content: Content{
-                        "Port protocol",
-                      },
-                    },
-
-                    KendoUiComboBox{
-                      Html: HtmlElementFormSelect{
-                        Global: HtmlGlobalAttributes{
-                          Id: "ExposedPortsProtocol",
-                          Class: "oneThirdSize",
-                        },
-                        Name: "ExposedPortsProtocol",
-                        // Required: TRUE, // fixme: não funcionou
-                        Options: []HtmlOptions{
-                          {
-                            Label: "TCP",
-                            Key:   "TCP",
-                          },
-                          {
-                            Label: "UDP",
-                            Key:   "UDP",
-                          },
-                        },
-                      },
-                    },
-
-                  },
-
-                },
-
               },
               Visible: FALSE,
               Width: 400,

@@ -238,6 +238,8 @@ func(el *Content) ToJavaScript() []byte {
     case HtmlInputTime:
     case HtmlInputUrl:
       buffer.Write( outConverted.ToJavaScript() )
+    case HtmlElementForm:
+      buffer.Write( outConverted.ToJavaScript() )
     case HtmlInputWeek:
 
     default:
@@ -385,15 +387,24 @@ func (el *Content)MakeJsObject() []byte {
 
       key = []byte( converted.Html.GetId() )
       jsCode = []byte( `$('#` + string( converted.Dialog.GetId() ) + `').data('kendoDialog').open()` )
+      buffer.Write( []byte( "    case 'id:" ) )
+      buffer.Write( key )
+      buffer.Write( []byte( "': " ) )
+      buffer.Write( jsCode )
+      buffer.Write( []byte( ";\n" ) )
+
+      switch convertedFromInterface := converted.Dialog.Content.(type) {
+      case Content:
+        buffer.Write( []byte( "      " ) )
+        buffer.Write( convertedFromInterface.ToJavaScript() )
+        buffer.Write( []byte( "      break;\n" ) )
+      }
+
+
+      //buffer.Write( []byte( ";\n" ) )
 
     default: continue
     }
-
-    buffer.Write( []byte( "    case 'id:" ) )
-    buffer.Write( key )
-    buffer.Write( []byte( "': " ) )
-    buffer.Write( jsCode )
-    buffer.Write( []byte( ";\n" ) )
   }
   buffer.Write( []byte( "  }\n" ) )
   buffer.Write( []byte( "}\n" ) )
