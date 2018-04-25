@@ -5,9 +5,32 @@ import (
   "fmt"
   "bytes"
   "sort"
+  "reflect"
 )
 
 type Content []interface{}
+
+func(el Content) ToHtmlSupport() []byte {
+  var buffer bytes.Buffer
+
+  keys := make([]int, 0)
+  for k := range el {
+    keys = append(keys, k)
+  }
+  sort.Ints(keys)
+  for _, k := range keys {
+    switch outConverted := el[k].(type) {
+    case KendoUiMultiSelect:
+      buffer.Write( outConverted.ToHtml() )
+
+      if !reflect.DeepEqual( outConverted.Dialog, KendoUiDialog{} ) {
+        buffer.Write( outConverted.Dialog.ToHtml() )
+      }
+    }
+  }
+
+  return buffer.Bytes()
+}
 
 func(el Content) ToHtml() []byte {
   var buffer bytes.Buffer
@@ -63,6 +86,11 @@ func(el Content) ToHtml() []byte {
       buffer.Write( outConverted.ToHtml() )
     case KendoUiMultiSelect:
       buffer.Write( outConverted.ToHtml() )
+
+      if !reflect.DeepEqual( outConverted.Dialog, KendoUiDialog{} ) {
+        buffer.Write( outConverted.Dialog.ToHtml() )
+      }
+
     case HtmlScriptType:
       buffer.WriteString( outConverted.String() )
     case KendoDataSource:
@@ -132,6 +160,11 @@ func(el *Content) ToJavaScript() []byte {
       //buffer.WriteString( "\n" )
     case KendoUiMultiSelect:
       buffer.Write( outConverted.ToJavaScript() )
+
+      if !reflect.DeepEqual( outConverted.Dialog, KendoUiDialog{} ) {
+        buffer.Write( outConverted.Dialog.ToJavaScript() )
+      }
+
       //buffer.WriteString( "\n" )
     case KendoUiAutoComplete:
       buffer.Write( outConverted.ToJavaScript() )
@@ -336,13 +369,40 @@ func(el *Content)addToUnprocessedList( contentUnprocessedList, contentFoundList 
 func (el *Content)MakeJsObject() []byte {
   var buffer bytes.Buffer
   var key, jsCode []byte
-
+  var formElements = el.FilterFormElements()
   // fixme: mfalta um getName() ou algo parecido
   // fixme: KendoUiCalendar e KendoUiColorPalette devem ter name como obrigatórios
 
+  buffer.Write( []byte( "function addNewItemToKendoDataSource( id ){\n" ) )
+  buffer.Write( []byte( "  console.log('id: ', id);\n" ) )
+  buffer.Write( []byte( "  switch( id ){\n" ) )
+  for _, v := range formElements {
+    switch converted := v.(type) {
+    case *KendoUiMultiSelect:
+      if reflect.DeepEqual( converted.Dialog, KendoUiDialog{} ) {
+        continue
+      }
+
+      key = []byte( converted.Html.GetId() )
+      jsCode = []byte( `$('#` + string( converted.Dialog.GetId() ) + `').data('kendoDialog').open()` )
+
+    default: continue
+    }
+
+    buffer.Write( []byte( "    case 'id:" ) )
+    buffer.Write( key )
+    buffer.Write( []byte( "': " ) )
+    buffer.Write( jsCode )
+    buffer.Write( []byte( ";\n" ) )
+  }
+  buffer.Write( []byte( "  }\n" ) )
+  buffer.Write( []byte( "}\n" ) )
+
+
+
   buffer.Write( []byte( "function getFormValue( id ){\n" ) )
   buffer.Write( []byte( "  switch( id ){\n" ) )
-  for _, v := range el.FilterFormElements(){
+  for _, v := range formElements {
     switch converted := v.(type) {
     case *KendoUiAutoComplete:
       key = []byte( converted.Html.Name )
@@ -377,7 +437,7 @@ func (el *Content)MakeJsObject() []byte {
     case *KendoUiDropDownList:
       key = []byte( converted.Html.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').data('kendoDropDownList').value()` )
-    case *KendoUiMultiSelect:
+    case *KendoUiMultiSelect: // fixme: colocar o conteúdo da janela aqui também
       key = []byte( converted.Html.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').data('kendoMultiSelect').value()` )
     case *HtmlElementFormSelect:

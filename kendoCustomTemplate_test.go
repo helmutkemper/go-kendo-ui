@@ -553,6 +553,9 @@ func ExampleSoUmTest() {
               Content: Content{
 
                 HtmlElementDiv{
+                  Global: HtmlGlobalAttributes{
+                    Id: "ConfigExposedPortsDialogContent",
+                  },
                   Content: Content{
 
                     HtmlElementFormLabel{
@@ -599,12 +602,8 @@ func ExampleSoUmTest() {
                           Class: "oneThirdSize",
                         },
                         Name: "ExposedPortsProtocol",
-                        Required: TRUE,
+                        // Required: TRUE, // fixme: não funcionou
                         Options: []HtmlOptions{
-                          {
-                            Label: "Please, select one",
-                            Key:   "",
-                          },
                           {
                             Label: "TCP",
                             Key:   "TCP",
@@ -623,6 +622,20 @@ func ExampleSoUmTest() {
 
               },
               Visible: FALSE,
+              Width: 400,
+              Actions: []KendoActions{
+                {
+                  Primary: FALSE,
+                  Text:    "Close",
+                },
+                {
+                  Action:  JavaScript{
+                    Code: "function(){ if( $('#ConfigExposedPortsDialogContent').kendoValidator().data('kendoValidator').validate() == false ){ return false } }",
+                  },
+                  Primary: TRUE,
+                  Text:    "Add",
+                },
+              },
             },
             NoDataTemplate: HtmlElementScript{
               Global: HtmlGlobalAttributes{
@@ -638,11 +651,12 @@ func ExampleSoUmTest() {
                 },
 
                 "<br>",
+                "<br>",
 
                 HtmlElementFormButton{
                   Global: HtmlGlobalAttributes{
                     Class: "k-button",
-                    OnClick: "addNew('#: instance.element[0].id #')",
+                    OnClick: "addNewItemToKendoDataSource('id:#: instance.element[0].id #')",
                   },
                   Content: Content{
                     "Add new item",
@@ -1167,7 +1181,8 @@ func ExampleSoUmTest() {
     %s
   </div>
 </body>
-</html>`, el.Content.MakeJsScript(), el.Content.MakeJsObject(), el.Content.ToJavaScript(), el.ToHtml() )
+</html>
+%s`, el.Content.MakeJsScript(), el.Content.MakeJsObject(), el.Content.ToJavaScript(), el.ToHtml(), el.ToHtmlSupport() )
 
   // Output:
   //

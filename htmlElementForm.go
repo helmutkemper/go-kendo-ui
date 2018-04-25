@@ -181,3 +181,6 @@ func(el *HtmlElementForm)ToHtml() []byte {
 
   return buffer.Bytes()
 }
+func(el *HtmlElementForm)ToHtmlSupport() []byte {
+  return el.Content.ToHtmlSupport()
+}

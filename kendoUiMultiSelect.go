@@ -10,6 +10,13 @@ type KendoUiMultiSelect struct {
   Html                                    HtmlElementFormSelect                   `jsObject:"-"`
 
   /*
+  @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog
+
+  This kendo dialog has been placed here to create a dialog window when you need to add more data to the data source
+  */
+  Dialog                                  KendoUiDialog                           `jsObject:"-"`
+
+  /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/animation
 
   Configures the opening and closing animations of the suggestion popup. Setting the <b><u>animation</u></b> option to <b><u>false</u></b> will disable the opening and closing animations. As a result the suggestion popup will open and close instantly.

@@ -934,6 +934,27 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
         }
         buffer.WriteString(`},`)
 
+      case Content:
+        if reflect.DeepEqual(convertedFromInterface, Content{}) == true {
+          continue
+        }
+
+        switch typeOfT.String() {
+        case "telerik.KendoUiDialog":
+          buffer.WriteString(tag.Get("jsObject") + `: ' `)
+          buffer.Write( convertedFromInterface.ToHtml() )
+          buffer.WriteString(`',`)
+          buffer.WriteString(`open: function(){ `)
+          buffer.Write( convertedFromInterface.ToJavaScript() )
+          buffer.WriteString(`},`)
+
+        default:
+          buffer.WriteString(tag.Get("jsObject") + `: { `)
+          buffer.Write( convertedFromInterface.ToJavaScript() )
+          buffer.WriteString(`},`)
+        }
+
+
       case KendoCreate:
         if reflect.DeepEqual(convertedFromInterface, KendoCreate{}) == true {
           continue
