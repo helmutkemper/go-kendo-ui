@@ -385,7 +385,7 @@ func ExampleIdea() {
   //
 }
 func ExampleSoUmTest() {
-  el :=       HtmlElementForm{
+  el :=       HtmlElementDiv{
     Global: HtmlGlobalAttributes{
       Id: "spanCreateTemplateExposedPortsAddNewPort",
     },

@@ -52,3 +52,7 @@ func(el *HtmlElementDiv)ToJavaScript() []byte {
 
   return buffer.Bytes()
 }
+
+func(el *HtmlElementDiv)ToHtmlSupport() []byte {
+  return el.Content.ToHtmlSupport()
+}
