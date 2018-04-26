@@ -543,6 +543,35 @@ func ExampleSoUmTest() {
               },
               Name: "ExposedPorts",
             },
+            DataValueField: "ProductID",
+            DataTextField: "ProductName",
+            DataSource: KendoDataSource{
+              //Type: KENDO_TYPE_DATA_JSON,
+              Transport: KendoTransport{
+                Read: KendoRead{
+                  // dado lido: {"itemsCount": 2,"items": [{"ProductID": 1,"ProductName": "Chai","UnitPrice": 18,"UnitsInStock": 39,"Discontinued": false},{"ProductID": 2,"ProductName": "Chang","UnitPrice": 19,"UnitsInStock": 17,"Discontinued": false}]}
+                  Url: "/static/test/read",
+                  Type: HTML_METHOD_GET,
+                  DataType: KENDO_TYPE_DATA_JSON_JSON,
+                },
+              },
+              Schema: KendoSchema{
+                Data:  "items",
+                Total: "itemsCount",
+                Model: KendoDataModel{
+                  Id: "ProductID",
+                  Fields: map[string]KendoField{
+                    "ProductID": {
+                      Type: JAVASCRIPT_NUMBER,
+                    },
+                    "ProductName": {
+                      Type: JAVASCRIPT_STRING,
+                    },
+                  },
+                },
+              },
+              ServerPaging: TRUE,
+            },
             Dialog: KendoUiDialog{
               Html: HtmlElementDiv{
                 Global: HtmlGlobalAttributes{
@@ -1161,7 +1190,7 @@ func ExampleSoUmTest() {
   fmt.Printf( `<!DOCTYPE html>
 <html>
 <head>
-    <base href="https://demos.telerik.com/kendo-ui/grid/index">
+    <!--base href="https://demos.telerik.com/kendo-ui/grid/index"-->
     <style>
       html { 
         font-size: 14px; 
@@ -1169,12 +1198,12 @@ func ExampleSoUmTest() {
       }
     </style>
     <title></title>
-    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.1.221/styles/kendo.common-material.min.css" />
-    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.1.221/styles/kendo.material.min.css" />
-    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.1.221/styles/kendo.material.mobile.min.css" />
+    <link rel="stylesheet" href="http://localhost:8888/static/pessoal/kendo-ui/styles/kendo.common-material.min.css" />
+    <link rel="stylesheet" href="http://localhost:8888/static/pessoal/kendo-ui/styles/kendo.material.min.css" />
+    <link rel="stylesheet" href="http://localhost:8888/static/pessoal/kendo-ui/styles/kendo.material.mobile.min.css" />
 
-    <script src="https://kendo.cdn.telerik.com/2018.1.221/js/jquery.min.js"></script>
-    <script src="https://kendo.cdn.telerik.com/2018.1.221/js/kendo.all.min.js"></script>
+    <script src="http://localhost:8888/static/pessoal/kendo-ui/js/jquery.min.js"></script>
+    <script src="http://localhost:8888/static/pessoal/kendo-ui/js/kendo.all.min.js"></script>
     %s
     <script>
       %s
