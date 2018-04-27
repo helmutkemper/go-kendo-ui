@@ -360,6 +360,8 @@ func(el *Content)addToUnprocessedList( contentUnprocessedList, contentFoundList 
     *contentFoundList        =append( *contentFoundList, &converted )
   case HtmlInputWeek:
     *contentFoundList        =append( *contentFoundList, &converted )
+  case KendoDataSource:
+    *contentFoundList        =append( *contentFoundList, &converted )
 
     // Elementos de formulário que necessitam de javascript - fim
 
