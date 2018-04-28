@@ -371,11 +371,22 @@ func(el *Content)addToUnprocessedList( contentUnprocessedList, contentFoundList 
   }
 }
 func (el *Content)MakeJsObject() []byte {
+  var pass = false
   var buffer bytes.Buffer
   var key, jsCode []byte
   var formElements = el.FilterFormElements()
   // fixme: mfalta um getName() ou algo parecido
   // fixme: KendoUiCalendar e KendoUiColorPalette devem ter name como obrigatórios
+
+  for _, v := range formElements {
+    switch converted := v.(type) {
+    case *KendoDataSource:
+      buffer.Write( []byte( "var " ) )
+      buffer.Write( []byte( converted.VarName ) )
+      buffer.Write( []byte( ";\n" ) )
+    default: continue
+    }
+  }
 
   buffer.Write( []byte( "function addNewItemToKendoDataSource( id ){\n" ) )
   buffer.Write( []byte( "  console.log('id: ', id);\n" ) )
@@ -416,116 +427,161 @@ func (el *Content)MakeJsObject() []byte {
   buffer.Write( []byte( "function getFormValue( id ){\n" ) )
   buffer.Write( []byte( "  switch( id ){\n" ) )
   for _, v := range formElements {
+    pass = false
     switch converted := v.(type) {
     case *KendoUiAutoComplete:
+      pass = true
       key = []byte( converted.Html.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').data('kendoAutoComplete').value()` )
     case *KendoUiButton:
+      pass = true
       key = []byte( converted.Html.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').data('kendoButton').value()` )
     case *KendoUiCalendar:
+      pass = true
       key = []byte( converted.Html.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').data('kendoCalendar').value()` )
     case *KendoUiColorPalette:
+      pass = true
       key = []byte( converted.Html.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').data('kendoColorPalette').value()` )
     case *KendoUiColorPicker:
+      pass = true
       key = []byte( converted.Html.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').data('kendoColorPicker').value()` )
     case *KendoUiComboBox:
+      pass = true
       key = []byte( converted.Html.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').data('kendoComboBox').value()` )
     case *KendoUiNumericTextBox:
+      pass = true
       key = []byte( converted.Html.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').data('kendoNumericTextBox').value()` )
     case *KendoUiDateInput:
+      pass = true
       key = []byte( converted.Html.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').data('kendoDateInput').value()` )
     case *KendoUiDatePicker:
+      pass = true
       key = []byte( converted.Html.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').data('kendoDatePicker').value()` )
     case *KendoUiDateTimePicker:
+      pass = true
       key = []byte( converted.Html.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').data('kendoDateTimePicker').value()` )
     case *KendoUiDropDownList:
+      pass = true
       key = []byte( converted.Html.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').data('kendoDropDownList').value()` )
     case *KendoUiMultiSelect: // fixme: colocar o conteúdo da janela aqui também
+      pass = true
       key = []byte( converted.Html.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').data('kendoMultiSelect').value()` )
     case *HtmlElementFormSelect:
+      pass = true
       key = []byte( converted.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').value()` )
     case *HtmlElementFormTextArea:
+      pass = true
       key = []byte( converted.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').value()` )
     case *HtmlInputCheckBox:
+      pass = true
       key = []byte( converted.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').value()` )
     case *HtmlInputColor:
+      pass = true
       key = []byte( converted.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').value()` )
     case *HtmlInputDate:
+      pass = true
       key = []byte( converted.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').value()` )
     case *HtmlInputDateTimeLocal:
+      pass = true
       key = []byte( converted.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').value()` )
     case *HtmlInputEmail:
+      pass = true
       key = []byte( converted.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').value()` )
     case *HtmlInputFile:
+      pass = true
       key = []byte( converted.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').value()` )
     case *HtmlInputGeneric:
+      pass = true
       key = []byte( converted.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').value()` )
     case *HtmlInputHidden:
+      pass = true
       key = []byte( converted.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').value()` )
     case *HtmlInputImage:
+      pass = true
       key = []byte( converted.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').value()` )
     case *HtmlInputMonth:
+      pass = true
       key = []byte( converted.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').value()` )
     case *HtmlInputNumber:
+      pass = true
       key = []byte( converted.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').value()` )
     case *HtmlInputPassword:
+      pass = true
       key = []byte( converted.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').value()` )
     case *HtmlInputRadio:
+      pass = true
       key = []byte( converted.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').value()` )
     case *HtmlInputRange:
+      pass = true
       key = []byte( converted.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').value()` )
     case *HtmlInputSearch:
+      pass = true
       key = []byte( converted.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').value()` )
     case *HtmlInputTel:
+      pass = true
       key = []byte( converted.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').value()` )
     case *HtmlInputText:
+      pass = true
       key = []byte( converted.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').value()` )
     case *HtmlInputTime:
+      pass = true
       key = []byte( converted.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').value()` )
     case *HtmlInputUrl:
+      pass = true
       key = []byte( converted.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').value()` )
     case *HtmlInputWeek:
+      pass = true
       key = []byte( converted.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').value()` )
+    case *KendoUiMobileSwitch:
+      pass = true
+      key = []byte( converted.Html.Name )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').value()` )
+
+    case *KendoDataSource:
+    default:
+      fmt.Printf( "\n\n\ngetFormValue.id.type.%T.not.found.\n\n\n", converted )
     }
 
-    buffer.Write( []byte( "    case 'id:" ) )
-    buffer.Write( key )
-    buffer.Write( []byte( "': return " ) )
-    buffer.Write( jsCode )
-    buffer.Write( []byte( ";\n" ) )
+    if pass == true {
+      buffer.Write([]byte( "    case 'id:" ))
+      buffer.Write(key)
+      buffer.Write([]byte( "': return " ))
+      buffer.Write(jsCode)
+      buffer.Write([]byte( ";\n" ))
+    }
   }
   buffer.Write( []byte( "  }\n" ) )
   buffer.Write( []byte( "}\n" ) )

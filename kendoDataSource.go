@@ -635,7 +635,7 @@ func(el *KendoDataSource) ToJavaScript() []byte {
     ret.Write( data )
     ret.Write( []byte(`}),`) )
   } else {
-    ret.Write( []byte(`var ` + el.VarName + ` = new kendo.data.DataSource({`) )
+    ret.Write( []byte(`` + el.VarName + ` = new kendo.data.DataSource({`) )
     ret.Write( data )
     ret.Write( []byte(`});`) )
   }
