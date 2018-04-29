@@ -138,7 +138,7 @@ func ExampleIdea() {
     Type: SCRIPT_TYPE_KENDO_TEMPLATE,
     Content: Content{
 
-      HtmlElementForm{
+      HtmlElementDiv{
         Global: HtmlGlobalAttributes{
           Id: "spanCreateTemplateExposedPortsAddNewPort",
         },
@@ -543,8 +543,8 @@ func ExampleSoUmTest() {
               },
               Name: "ExposedPorts",
             },
-            DataValueField: "ProductID",
-            DataTextField: "ProductName",
+            DataValueField: "id",
+            DataTextField: "ExposedPortsShow",
             DataSource: KendoDataSource{
               //VarName: "testDataSource",
               //Type: KENDO_TYPE_DATA_JSON,
@@ -562,8 +562,8 @@ func ExampleSoUmTest() {
                 },
               },
               Schema: KendoSchema{
-                Data:  "items",
-                Total: "itemsCount",
+                Data:  "Objects",
+                Total: "Total",
                 Model: KendoDataModel{
                   Id: "id",
                   Fields: map[string]KendoField{
@@ -574,6 +574,9 @@ func ExampleSoUmTest() {
                       Type: JAVASCRIPT_NUMBER,
                     },
                     "ExposedPortsProtocol": {
+                      Type: JAVASCRIPT_STRING,
+                    },
+                    "ExposedPortsShow": {
                       Type: JAVASCRIPT_STRING,
                     },
                   },
@@ -592,7 +595,7 @@ func ExampleSoUmTest() {
               Content: Content{
 
                 // regra, o form valida automaticamente
-                HtmlElementForm{
+                HtmlElementDiv{
                   Global: HtmlGlobalAttributes{
                     Id: "ConfigExposedPortsDialogContent",
                   },
@@ -684,12 +687,9 @@ func ExampleSoUmTest() {
                   Text:    "Close",
                 },
                 {
-                  Action:  JavaScript{
-                    Code: "function(){ if( $('#ConfigExposedPortsDialogContent').kendoValidator().data('kendoValidator').validate() == false ){ return false } }",
-                  },
                   Primary: TRUE,
                   Text:    "Add",
-                  ButtonType: BUTTON_ADD_AND_CLOSE,
+                  ButtonType: BUTTON_TYPE_ADD_AND_CLOSE,
                 },
               },
             },

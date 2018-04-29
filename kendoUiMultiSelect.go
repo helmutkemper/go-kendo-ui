@@ -896,6 +896,28 @@ func(el *KendoUiMultiSelect) ToJavaScript() []byte {
     el.Html.Global.Id = getAutoId()
   }
 
+  if reflect.DeepEqual( el.DataSource, KendoDataSource{} ) == false && reflect.DeepEqual( el.Dialog, KendoUiDialog{} ) == false {
+
+    for k := range el.Dialog.Actions {
+
+      if el.Dialog.Actions[ k ].ButtonType == BUTTON_TYPE_ADD_AND_CLOSE {
+
+        el.Dialog.Actions[ k ].Action = JavaScript{
+          Code: string( el.GetId() ) + "AddAndCloseButton",
+        }
+
+      } else if el.Dialog.Actions[ k ].ButtonType == BUTTON_TYPE_ADD {
+
+        el.Dialog.Actions[ k ].Action = JavaScript{
+          Code: string( el.GetId() ) + "AddButton",
+        }
+
+      }
+
+    }
+
+  }
+
   element := reflect.ValueOf(el).Elem()
   data, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
   if err != nil {

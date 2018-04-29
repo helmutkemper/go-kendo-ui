@@ -249,6 +249,36 @@ func(el *Content) ToJavaScript() []byte {
     }
   }
 
+  var formElements = el.FilterFormElements()
+  for _, v := range formElements {
+    switch converted := v.(type) {
+
+    case *KendoUiMultiSelect:
+
+      if !reflect.DeepEqual( (*converted).DataSource, KendoDataSource{} ) {
+
+        switch (*converted).DataSource.(type) {
+        case KendoDataSource:
+          // Widget
+          buffer.Write( []byte( "        " ) )
+          buffer.Write( []byte( (*converted).Html.GetId() ) )
+          buffer.Write( []byte( "Widget = $('#" ) )
+          buffer.Write( []byte( (*converted).Html.GetId() ) )
+          buffer.Write( []byte( "').getKendoMultiSelect();\n" ) )
+
+          // DataSource
+          buffer.Write( []byte( "        " ) )
+          buffer.Write( []byte( (*converted).Html.GetId() ) )
+          buffer.Write( []byte( "DataSource = " ) )
+          buffer.Write( []byte( (*converted).Html.GetId() ) )
+          buffer.Write( []byte( "Widget.dataSource;\n" ) )
+        }
+      }
+
+    default: continue
+    }
+  }
+
   return buffer.Bytes()
 }
 func(el *Content)FilterFormElements() []interface{} {
@@ -654,16 +684,12 @@ func (el *Content)MakeJsObject() []byte {
           // Widget
           buffer.Write( []byte( "      var " ) )
           buffer.Write( []byte( (*converted).Html.GetId() ) )
-          buffer.Write( []byte( "Widget = $('#" ) )
-          buffer.Write( []byte( (*converted).Html.GetId() ) )
-          buffer.Write( []byte( "').getKendoMultiSelect();\n" ) )
+          buffer.Write( []byte( "Widget;\n" ) )
 
           // DataSource
           buffer.Write( []byte( "      var " ) )
           buffer.Write( []byte( (*converted).Html.GetId() ) )
-          buffer.Write( []byte( "DataSource = " ) )
-          buffer.Write( []byte( (*converted).Html.GetId() ) )
-          buffer.Write( []byte( "Widget.dataSource;\n" ) )
+          buffer.Write( []byte( "DataSource\n" ) )
         }
       }
 
@@ -682,7 +708,9 @@ func (el *Content)MakeJsObject() []byte {
         var mainElementDataSourceDataKeyId = []byte( (*converted).DataValueField )
         for _, action := range (*converted).Dialog.Actions {
 
-          if action.ButtonType == BUTTON_ADD_AND_CLOSE {
+          if action.ButtonType == BUTTON_TYPE_ADD_AND_CLOSE {
+
+            action.Action.Code = string( (*converted).GetId() ) + "AddAndCloseButton"
 
             buffer.Write([]byte( "      function " ))
             buffer.Write([]byte( (*converted).GetId() ))
@@ -706,9 +734,15 @@ func (el *Content)MakeJsObject() []byte {
                   contentToFind = convertedElement.Content.GetNamesAndIds()
 
                 case HtmlElementDiv:
+                  elementId = []byte( convertedElement.Global.Id )
+                  dataSourceName = (*converted).Html.GetId()
+                  contentToFind = convertedElement.Content.GetNamesAndIds()
                   pass = true
 
                 case HtmlElementSpan:
+                  elementId = []byte( convertedElement.Global.Id )
+                  dataSourceName = (*converted).Html.GetId()
+                  contentToFind = convertedElement.Content.GetNamesAndIds()
                   pass = true
 
                 }
@@ -757,7 +791,9 @@ func (el *Content)MakeJsObject() []byte {
 
                   buffer.Write([]byte( "            " ))
                   buffer.Write( dataSourceName )
-                  buffer.Write([]byte( "Widget.value(widget.value().concat([newValue]));\n" ))
+                  buffer.Write([]byte( "Widget.value(" ))
+                  buffer.Write( dataSourceName )
+                  buffer.Write([]byte( "Widget.value().concat([newValue]));\n" ))
 
                   buffer.Write([]byte( "          " ))
                   buffer.Write([]byte( "});\n" ))
@@ -925,7 +961,7 @@ func (el *Content)MakeJsObject() []byte {
     case *HtmlInputHidden:
       pass = true
       key = []byte( converted.Name )
-      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').value()` )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val()` )
     case *HtmlInputImage:
       pass = true
       key = []byte( converted.Name )
