@@ -708,13 +708,20 @@ func (el *Content)MakeJsObject() []byte {
         var mainElementDataSourceDataKeyId = []byte( (*converted).DataValueField )
         for _, action := range (*converted).Dialog.Actions {
 
-          if action.ButtonType == BUTTON_TYPE_ADD_AND_CLOSE {
-
-            action.Action.Code = string( (*converted).GetId() ) + "AddAndCloseButton"
+          if action.ButtonType == BUTTON_TYPE_ADD_AND_CLOSE || action.ButtonType == BUTTON_TYPE_ADD {
 
             buffer.Write([]byte( "      function " ))
             buffer.Write([]byte( (*converted).GetId() ))
-            buffer.Write([]byte( "AddAndCloseButton() {\n" ))
+
+            if action.ButtonType == BUTTON_TYPE_ADD_AND_CLOSE {
+
+              buffer.Write([]byte( "AddAndCloseButton() {\n" ))
+
+            } else if action.ButtonType == BUTTON_TYPE_ADD {
+
+              buffer.Write([]byte( "AddButton() {\n" ))
+
+            }
 
             var elementId []byte
             var dataSourceName []byte
@@ -806,9 +813,18 @@ func (el *Content)MakeJsObject() []byte {
                   buffer.Write( dataSourceName )
                   buffer.Write([]byte( "DataSource.sync();\n" ))
 
-                  buffer.Write([]byte( "        " ))
-                  buffer.Write( dataSourceName )
-                  buffer.Write([]byte( "Widget.close();\n" ))
+                  if action.ButtonType == BUTTON_TYPE_ADD_AND_CLOSE {
+
+                    buffer.Write([]byte( "        " ))
+                    buffer.Write(dataSourceName)
+                    buffer.Write([]byte( "Widget.close();\n" ))
+
+                  } else if action.ButtonType == BUTTON_TYPE_ADD {
+
+                    buffer.Write([]byte( "        " ))
+                    buffer.Write([]byte( "return false;\n" ))
+
+                  }
                 }
               }
 

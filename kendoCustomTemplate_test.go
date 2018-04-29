@@ -687,8 +687,13 @@ func ExampleSoUmTest() {
                   Text:    "Close",
                 },
                 {
-                  Primary: TRUE,
+                  Primary: FALSE,
                   Text:    "Add",
+                  ButtonType: BUTTON_TYPE_ADD,
+                },
+                {
+                  Primary: TRUE,
+                  Text:    "Add and close",
                   ButtonType: BUTTON_TYPE_ADD_AND_CLOSE,
                 },
               },
