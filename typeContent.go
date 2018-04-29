@@ -842,13 +842,6 @@ func (el *Content)MakeJsObject() []byte {
     }
   }
 
-
-
-
-
-
-
-
   buffer.Write( []byte( "      function addNewItemToKendoDataSource( id ){\n" ) )
   buffer.Write( []byte( "        console.log('id: ', id);\n" ) )
   buffer.Write( []byte( "        switch( id ){\n" ) )
