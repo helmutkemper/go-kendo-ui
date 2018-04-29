@@ -4,7 +4,7 @@ import "fmt"
 
 func ExampleKendoDataSource_ToJavaScript_OfflineStorage_1() {
   javaScript := KendoDataSource{
-    VarName: "dataSource",
+    //VarName: "dataSource",
     Aggregate: []KendoAggregates{
       {
         Aggregate: AGGREGATE_SUM,
@@ -43,7 +43,7 @@ func ExampleKendoDataSource_ToJavaScript_OfflineStorage_1() {
 
 func ExampleKendoDataSource_ToJavaScript_OfflineStorage_2() {
   javaScript := KendoDataSource{
-    VarName: "dataSource",
+    //VarName: "dataSource",
     Aggregate: []KendoAggregates{
       {
         Aggregate: AGGREGATE_SUM,
@@ -85,7 +85,7 @@ func ExampleKendoDataSource_ToJavaScript_OfflineStorage_2() {
 
 func ExampleKendoDataSource_ToJavaScript_OfflineStorage_3() {
   javaScript := KendoDataSource{
-    VarName: "dataSource",
+    //VarName: "dataSource",
     Aggregate: []KendoAggregates{
       {
         Aggregate: AGGREGATE_SUM,
@@ -126,7 +126,7 @@ func ExampleKendoDataSource_ToJavaScript_OfflineStorage_3() {
 
 func ExampleKendoDataSource_ToJavaScript_Filter_Array() {
   javaScript := KendoDataSource{
-    VarName: "dataSource",
+    //VarName: "dataSource",
     Aggregate: []KendoAggregates{
       {
         Aggregate: AGGREGATE_SUM,
@@ -283,7 +283,7 @@ func ExampleKendoDataSource_ToJavaScript_Filter_Array() {
 
 func ExampleKendoDataSource_ToJavaScript_Filter_Object() {
   javaScript := KendoDataSource{
-    VarName: "dataSource",
+    //VarName: "dataSource",
     Aggregate: []KendoAggregates{
       {
         Aggregate: AGGREGATE_SUM,

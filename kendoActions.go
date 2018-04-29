@@ -6,6 +6,7 @@ import (
 )
 
 type KendoActions struct{
+  ButtonType                              SupportCustomButtonType `jsObject:"-"`
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog#configuration-actions.text  The text to be shown in the action's button.
   Example

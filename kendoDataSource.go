@@ -7,7 +7,7 @@ import (
 )
 
 type KendoDataSource struct {
-  VarName                                 string              `jsObject:"-"`
+  //VarName                                 string              `jsObject:"-"`
 
   /*
   @sse https://docs.telerik.com/kendo-ui/api/javascript/data/datasource#configuration-aggregate
@@ -630,15 +630,15 @@ func(el *KendoDataSource) ToJavaScript() []byte {
     return []byte{}
   }
 
-  if el.VarName == "" {
+  //if el.VarName == "" {
     ret.Write( []byte(` new kendo.data.DataSource({`) )
     ret.Write( data )
     ret.Write( []byte(`}),`) )
-  } else {
-    ret.Write( []byte(`` + el.VarName + ` = new kendo.data.DataSource({`) )
-    ret.Write( data )
-    ret.Write( []byte(`});`) )
-  }
+  //} else {
+  //  ret.Write( []byte(`` + el.VarName + ` = new kendo.data.DataSource({`) )
+  //  ret.Write( data )
+  //  ret.Write( []byte(`});`) )
+  //}
 
   return ret.Bytes()
 }

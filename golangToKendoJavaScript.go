@@ -366,7 +366,13 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
         continue
       }
 
+
+
       switch convertedFromInterface := converted.(type) {
+      case HtmlGlobalAttributes:
+        //fixme: isto está correto?
+        continue
+
       case KendoMonth:
         if reflect.DeepEqual(convertedFromInterface, KendoMonth{}) == true {
           continue
@@ -887,6 +893,13 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
         }
 
         buffer.WriteString(tag.Get("jsObject") + `: ` + convertedFromInterface.String() + `,`)
+
+      case AutoCapitalize:
+        if convertedFromInterface == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: "` + convertedFromInterface.String() + `",` )
 
       case KendoComplexFilter:
         if reflect.DeepEqual(converted.(KendoComplexFilter), KendoComplexFilter{}) == true {

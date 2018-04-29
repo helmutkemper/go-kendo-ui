@@ -112,7 +112,7 @@ func ExampleGetTemplate() {
 func ExampleIdea() {
 
   dataSource := KendoDataSource{
-    VarName: "exposedPortsDataSource",
+    //VarName: "exposedPortsDataSource",
     Schema: KendoSchema{
       Model: KendoDataModel{
         Id: "Id",
@@ -391,36 +391,7 @@ func ExampleSoUmTest() {
     },
     Content: Content{
 
-      KendoDataSource{
-        VarName: "testDataSource",
-        //Type: KENDO_TYPE_DATA_JSON,
-        Transport: KendoTransport{
-          Read: KendoRead{
-            // dado lido: {"itemsCount": 2,"items": [{"ProductID": 1,"ProductName": "Chai","UnitPrice": 18,"UnitsInStock": 39,"Discontinued": false},{"ProductID": 2,"ProductName": "Chang","UnitPrice": 19,"UnitsInStock": 17,"Discontinued": false}]}
-            Url: "/static/test/read",
-            Type: HTML_METHOD_GET,
-            DataType: KENDO_TYPE_DATA_JSON_JSON,
-          },
-        },
-        Schema: KendoSchema{
-          Data:  "items",
-          Total: "itemsCount",
-          Model: KendoDataModel{
-            Id: "ProductID",
-            Fields: map[string]KendoField{
-              "ProductID": {
-                Type: JAVASCRIPT_NUMBER,
-              },
-              "ProductName": {
-                Type: JAVASCRIPT_STRING,
-              },
-            },
-          },
-        },
-        ServerPaging: TRUE,
-      },
-
-      /*HtmlElementDiv{
+      HtmlElementDiv{
         Content: Content{
 
           HtmlElementFormLabel{
@@ -553,7 +524,7 @@ func ExampleSoUmTest() {
           },
 
         },
-      },*/
+      },
 
       HtmlElementDiv{
         Content: Content{
@@ -574,8 +545,42 @@ func ExampleSoUmTest() {
             },
             DataValueField: "ProductID",
             DataTextField: "ProductName",
-            DataSource: JavaScript{
-              Code: "testDataSource",
+            DataSource: KendoDataSource{
+              //VarName: "testDataSource",
+              //Type: KENDO_TYPE_DATA_JSON,
+              Transport: KendoTransport{
+                Read: KendoRead{
+                  // dado lido: {"itemsCount": 2,"items": [{"ProductID": 1,"ProductName": "Chai","UnitPrice": 18,"UnitsInStock": 39,"Discontinued": false},{"ProductID": 2,"ProductName": "Chang","UnitPrice": 19,"UnitsInStock": 17,"Discontinued": false}]}
+                  Url: "/static/test/read",
+                  Type: HTML_METHOD_GET,
+                  DataType: KENDO_TYPE_DATA_JSON_JSON,
+                },
+                Create: KendoCreate{
+                  Url: "/static/test/create",
+                  Type: HTML_METHOD_POST,
+                  DataType: KENDO_TYPE_DATA_JSON_JSON,
+                },
+              },
+              Schema: KendoSchema{
+                Data:  "items",
+                Total: "itemsCount",
+                Model: KendoDataModel{
+                  Id: "id",
+                  Fields: map[string]KendoField{
+                    "id": {
+                      Type: JAVASCRIPT_NUMBER,
+                    },
+                    "ExposedPortsNumber": {
+                      Type: JAVASCRIPT_NUMBER,
+                    },
+                    "ExposedPortsProtocol": {
+                      Type: JAVASCRIPT_STRING,
+                    },
+                  },
+                },
+              },
+              //PageSize: 10,
+              ServerPaging: TRUE,
             },
             Dialog: KendoUiDialog{
               Html: HtmlElementDiv{
@@ -586,7 +591,8 @@ func ExampleSoUmTest() {
               Title: "Add new port.",
               Content: Content{
 
-                HtmlElementDiv{
+                // regra, o form valida automaticamente
+                HtmlElementForm{
                   Global: HtmlGlobalAttributes{
                     Id: "ConfigExposedPortsDialogContent",
                   },
@@ -659,6 +665,14 @@ func ExampleSoUmTest() {
                         },
                       },
                     },
+
+                    HtmlInputHidden{
+                      Global: HtmlGlobalAttributes{
+                        Id: "ExposedPortsShow",
+                      },
+                      Name: "ExposedPortsShow",
+                    },
+
                   },
                 },
               },
@@ -675,6 +689,7 @@ func ExampleSoUmTest() {
                   },
                   Primary: TRUE,
                   Text:    "Add",
+                  ButtonType: BUTTON_ADD_AND_CLOSE,
                 },
               },
             },
@@ -735,7 +750,7 @@ func ExampleSoUmTest() {
         },
       },
 
-      /*HtmlElementDiv{
+      HtmlElementDiv{
         Content: Content{
 
           HtmlElementFormLabel{
@@ -1105,7 +1120,7 @@ func ExampleSoUmTest() {
           },
 
         },
-      },*/
+      },
 
     },
   }
