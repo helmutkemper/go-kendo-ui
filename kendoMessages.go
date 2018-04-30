@@ -18,7 +18,7 @@ type KendoMessages struct{
    });
    </script>
   */
-  Close                                   String                  `jsObject:"close"`
+  Close                                   string                  `jsObject:"close"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog#configuration-messages.promptInput  The title of the prompt input.
@@ -32,7 +32,7 @@ type KendoMessages struct{
    });
    </script>
   */
-  PromptInput                             String                  `jsObject:"promptinput"`
+  PromptInput                             string                  `jsObject:"promptinput"`
 
   *ToJavaScriptConverter
 }

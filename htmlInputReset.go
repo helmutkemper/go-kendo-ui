@@ -10,7 +10,7 @@ type HtmlInputReset struct{
   @see typeNamesForAutocomplete.go
   Ex.: const NAMES_FOR_AUTOCOMPLETE_NAME
   */
-  Name                        String
+  Name                        string
 
   /*
   The initial value of the control. This attribute is optional except when the value of the type attribute is radio or
@@ -18,7 +18,7 @@ type HtmlInputReset struct{
   Note that when reloading the page, Gecko and IE will ignore the value specified in the HTML source, if the value was
   changed before the reload.
   */
-  Value                       String
+  Value                       string
 
   /*
   The form element that the input element is associated with (its form owner). The value of the attribute must be an id
@@ -26,7 +26,7 @@ type HtmlInputReset struct{
   descendant of a <form> element. This attribute enables you to place <input> elements anywhere within a document, not
   just as descendants of their form elements. An input can only be associated with one form.
   */
-  Form                        String
+  Form                        string
 
   /*
   This Boolean attribute indicates that the form control is not available for interaction. In particular, the click

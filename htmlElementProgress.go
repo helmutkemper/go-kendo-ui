@@ -11,7 +11,7 @@ type HtmlElementFormProgress struct{
   Note that when reloading the page, Gecko and IE will ignore the value specified in the HTML source, if the value was
   changed before the reload.
   */
-  Value                       String
+  Value                       string
 
   /*
   The maximum (numeric or date-time) value for this item, which must not be less than its minimum (min attribute) value.
@@ -21,7 +21,7 @@ type HtmlElementFormProgress struct{
   /*
   Content inside html tag
   */
-  Content                     String
+  Content                     string
 
   Global                      HtmlGlobalAttributes
 }/*

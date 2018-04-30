@@ -86,6 +86,8 @@ func(el Content) ToHtml() []byte {
       buffer.Write( outConverted.ToHtml() )
     case HtmlElementScript:
       buffer.Write( outConverted.ToHtml() )
+    case KendoUiDropDownList:
+      buffer.Write( outConverted.ToHtml() )
     case KendoUiMultiSelect:
       buffer.Write( outConverted.ToHtml() )
 
@@ -689,7 +691,7 @@ func (el *Content)MakeJsObject() []byte {
           // DataSource
           buffer.Write( []byte( "      var " ) )
           buffer.Write( []byte( (*converted).Html.GetId() ) )
-          buffer.Write( []byte( "DataSource\n" ) )
+          buffer.Write( []byte( "DataSource;\n" ) )
         }
       }
 
@@ -934,39 +936,39 @@ func (el *Content)MakeJsObject() []byte {
     case *HtmlElementFormSelect:
       pass = true
       key = []byte( converted.Name )
-      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').value()` )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val()` )
     case *HtmlElementFormTextArea:
       pass = true
       key = []byte( converted.Name )
-      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').value()` )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val()` )
     case *HtmlInputCheckBox:
       pass = true
       key = []byte( converted.Name )
-      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').value()` )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val()` )
     case *HtmlInputColor:
       pass = true
       key = []byte( converted.Name )
-      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').value()` )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val()` )
     case *HtmlInputDate:
       pass = true
       key = []byte( converted.Name )
-      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').value()` )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val()` )
     case *HtmlInputDateTimeLocal:
       pass = true
       key = []byte( converted.Name )
-      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').value()` )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val()` )
     case *HtmlInputEmail:
       pass = true
       key = []byte( converted.Name )
-      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').value()` )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val()` )
     case *HtmlInputFile:
       pass = true
       key = []byte( converted.Name )
-      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').value()` )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val()` )
     case *HtmlInputGeneric:
       pass = true
       key = []byte( converted.Name )
-      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').value()` )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val()` )
     case *HtmlInputHidden:
       pass = true
       key = []byte( converted.Name )
@@ -974,55 +976,55 @@ func (el *Content)MakeJsObject() []byte {
     case *HtmlInputImage:
       pass = true
       key = []byte( converted.Name )
-      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').value()` )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val()` )
     case *HtmlInputMonth:
       pass = true
       key = []byte( converted.Name )
-      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').value()` )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val()` )
     case *HtmlInputNumber:
       pass = true
       key = []byte( converted.Name )
-      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').value()` )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val()` )
     case *HtmlInputPassword:
       pass = true
       key = []byte( converted.Name )
-      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').value()` )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val()` )
     case *HtmlInputRadio:
       pass = true
       key = []byte( converted.Name )
-      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').value()` )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val()` )
     case *HtmlInputRange:
       pass = true
       key = []byte( converted.Name )
-      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').value()` )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val()` )
     case *HtmlInputSearch:
       pass = true
       key = []byte( converted.Name )
-      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').value()` )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val()` )
     case *HtmlInputTel:
       pass = true
       key = []byte( converted.Name )
-      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').value()` )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val()` )
     case *HtmlInputText:
       pass = true
       key = []byte( converted.Name )
-      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').value()` )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val()` )
     case *HtmlInputTime:
       pass = true
       key = []byte( converted.Name )
-      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').value()` )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val()` )
     case *HtmlInputUrl:
       pass = true
       key = []byte( converted.Name )
-      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').value()` )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val()` )
     case *HtmlInputWeek:
       pass = true
       key = []byte( converted.Name )
-      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').value()` )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val()` )
     case *KendoUiMobileSwitch:
       pass = true
       key = []byte( converted.Html.Name )
-      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').value()` )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val()` )
 
 
 

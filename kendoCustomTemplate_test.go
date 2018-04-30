@@ -388,6 +388,8 @@ func ExampleSoUmTest() {
   el :=       HtmlElementDiv{
     Global: HtmlGlobalAttributes{
       Id: "spanCreateTemplateExposedPortsAddNewPort",
+      Class: "k-content",
+      Style: "width: 300px !important;",
     },
     Content: Content{
 
@@ -398,6 +400,9 @@ func ExampleSoUmTest() {
             For: "ConfigHostName",
             Content: Content{
               "Host Name",
+            },
+            Global: HtmlGlobalAttributes{
+              Style: "width: 200px important!;",
             },
           },
 
@@ -464,7 +469,33 @@ func ExampleSoUmTest() {
             },
           },
 
-          KendoUiMobileSwitch{
+          KendoUiDropDownList{
+            Html: HtmlInputText{
+              Global: HtmlGlobalAttributes{
+                Id: "ConfigAttachStdIn",
+              },
+              Name: "AttachStdIn",
+            },
+            DataValueField: "key",
+            DataTextField: "value",
+
+            DataSource: []map[string]interface{}{
+              {
+                "key": -1,
+                "value": "Default",
+              },
+              {
+                "key": 0,
+                "value": "No",
+              },
+              {
+                "key": 1,
+                "value": "Yes",
+              },
+            },
+          },
+
+          /*KendoUiMobileSwitch{
             Html: HtmlInputCheckBox{
               Global: HtmlGlobalAttributes{
                 Id: "ConfigAttachStdIn",
@@ -473,7 +504,7 @@ func ExampleSoUmTest() {
             },
             OnLabel: "Yes",
             OffLabel: "No",
-          },
+          },*/
 
         },
       },
@@ -543,6 +574,7 @@ func ExampleSoUmTest() {
               },
               Name: "ExposedPorts",
             },
+            ClearButton: FALSE,
             DataValueField: "id",
             DataTextField: "ExposedPortsShow",
             DataSource: KendoDataSource{
@@ -902,6 +934,47 @@ func ExampleSoUmTest() {
               },
               Name: "Image",
             },
+            DataTextField: "ExposedPortsShow",
+            ClearButton: FALSE,
+            DataSource: KendoDataSource{
+              //VarName: "testDataSource",
+              //Type: KENDO_TYPE_DATA_JSON,
+              Transport: KendoTransport{
+                Read: KendoRead{
+                  Url: "/static/test/read",
+                  Type: HTML_METHOD_GET,
+                  DataType: KENDO_TYPE_DATA_JSON_JSON,
+                },
+                Create: KendoCreate{
+                  Url: "/static/test/create",
+                  Type: HTML_METHOD_POST,
+                  DataType: KENDO_TYPE_DATA_JSON_JSON,
+                },
+              },
+              Schema: KendoSchema{
+                Data:  "Objects",
+                Total: "Total",
+                Model: KendoDataModel{
+                  Id: "id",
+                  Fields: map[string]KendoField{
+                    "id": {
+                      Type: JAVASCRIPT_NUMBER,
+                    },
+                    "ExposedPortsNumber": {
+                      Type: JAVASCRIPT_NUMBER,
+                    },
+                    "ExposedPortsProtocol": {
+                      Type: JAVASCRIPT_STRING,
+                    },
+                    "ExposedPortsShow": {
+                      Type: JAVASCRIPT_STRING,
+                    },
+                  },
+                },
+              },
+              //PageSize: 10,
+              ServerPaging: TRUE,
+            },
           },
 
         },
@@ -1211,7 +1284,44 @@ func ExampleSoUmTest() {
     <link rel="stylesheet" href="http://localhost:8888/static/pessoal/kendo-ui/styles/kendo.common-material.min.css" />
     <link rel="stylesheet" href="http://localhost:8888/static/pessoal/kendo-ui/styles/kendo.material.min.css" />
     <link rel="stylesheet" href="http://localhost:8888/static/pessoal/kendo-ui/styles/kendo.material.mobile.min.css" />
+    <style>
+      .k-content {
+        width: 500px;
+      }
+      input[type=text], .k-multiselect-wrap, .k-textbox, .k-numerictextbox, .k-combobox {
+        width: 100%%;
+        padding: 5px 5px;
+        margin: 10px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
 
+      input[type=text], .k-multiselect-wrap, .k-textbox, .k-numerictextbox, .k-combobox, .k-dropdown {
+        width: 100%%;
+        padding: 5px 5px;
+        margin: 10px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    .k-multiselect.k-header, .k-switch.k-header, .k-dropdown {
+      border-color: #ffffff;
+      background: #ffffff;
+    }
+
+    .k-multiselect.k-header.k-state-focused, .k-dropdown {
+      background-color: #ffffff;
+    }
+
+      .k-switch, .km-switch {
+        margin: 5px 0;
+        display: block;
+      }
+    </style>
     <script src="http://localhost:8888/static/pessoal/kendo-ui/js/jquery.min.js"></script>
     <script src="http://localhost:8888/static/pessoal/kendo-ui/js/kendo.all.min.js"></script>
     %s
@@ -1220,6 +1330,34 @@ func ExampleSoUmTest() {
       $(document).ready(function () {
         %s
       });
+
+    function getData(){
+      var ConfigExposedPorts = [];
+
+      var data = ConfigExposedPortsDataSource.data();
+      var value = getFormValue( 'id:ExposedPorts' );
+
+      for( var kValue in value ){
+        if( !value.hasOwnProperty( kValue ) ){
+          continue;
+        }
+
+        for( var kData in data ){
+          if( !data.hasOwnProperty( kData ) ){
+            continue;
+          }
+
+          if( data[ kData ].id === value[ kValue ] ){
+            ConfigExposedPorts.push( data[ kData ] );
+          }
+
+        }
+      }
+
+      console.log( 'ConfigHostName:', getFormValue( 'id:HostName' ) );
+      console.log( 'data to send:', ConfigExposedPorts );
+      console.log( 'data to send:', ConfigExposedPorts );
+    }
     </script>
 </head>
 <body>
