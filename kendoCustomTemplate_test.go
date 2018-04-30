@@ -623,13 +623,14 @@ func ExampleSoUmTest() {
                   Id: getAutoId(),
                 },
               },
-              Title: "Add new port.",
+              Title: "Add new exposed port.",
               Content: Content{
 
                 // regra, o form valida automaticamente
                 HtmlElementDiv{
                   Global: HtmlGlobalAttributes{
                     Id: "ConfigExposedPortsDialogContent",
+                    Class: "k-content",
                   },
                   Content: Content{
 
@@ -749,6 +750,7 @@ func ExampleSoUmTest() {
                 HtmlElementFormButton{
                   Global: HtmlGlobalAttributes{
                     Class: "k-button",
+                    // fixme: isto tem que ser automático
                     OnClick: "addNewItemToKendoDataSource('id:#: instance.element[0].id #')",
                   },
                   Content: Content{
