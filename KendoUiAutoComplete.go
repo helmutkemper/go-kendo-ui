@@ -12,8 +12,9 @@ type KendoUiAutoComplete struct{
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-animation
 
-  Configures the opening and closing animations of the suggestion popup. Setting the **animation** option to <b><u>false</u></b> will disable the opening and closing animations. As a result the suggestion popup will open and close instantly.
-  <b><u>animation:true</u></b> is not a valid configuration.
+  Configures the opening and closing animations of the suggestion popup. Setting the **animation** option to **false**
+  will disable the opening and closing animations. As a result the suggestion popup will open and close instantly.
+  **animation:true** is not a valid configuration.
   */
   //  Example - disable open and close animations
   //   <input id="autocomplete" />
