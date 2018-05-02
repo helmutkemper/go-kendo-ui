@@ -916,6 +916,26 @@ func(el *KendoUiMultiSelect) ToJavaScript() []byte {
 
     }
 
+    /*if el.NoDataTemplate != nil {
+      switch el.NoDataTemplate.(type) {
+      case HtmlElementScript:
+
+        for k := range el.NoDataTemplate.(HtmlElementScript).Content {
+
+          switch el.NoDataTemplate.(HtmlElementScript).Content[ k ].(type) {
+          case HtmlElementFormButton:
+
+            if el.NoDataTemplate.(HtmlElementScript).Content[ k ].(HtmlElementFormButton).ButtonType == BUTTON_TYPE_ADD_IN_TEMPLATE {
+              el.NoDataTemplate.(HtmlElementScript).Content[ k ].(HtmlElementFormButton).Global.OnClick = "addNewItemToKendoDataSource('id:#: instance.element[0].id #')"
+            }
+
+          }
+
+        }
+
+      }
+    }*/
+
   }
 
   element := reflect.ValueOf(el).Elem()
