@@ -748,6 +748,7 @@ func ExampleSoUmTest() {
                 "<br>",
 
                 HtmlElementFormButton{
+                  //ButtonType: BUTTON_TYPE_ADD_AND_CLOSE,
                   Global: HtmlGlobalAttributes{
                     Class: "k-button",
                     // fixme: isto tem que ser automático
