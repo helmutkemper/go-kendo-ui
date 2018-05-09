@@ -923,10 +923,17 @@ func(el *KendoUiMultiSelect) ToJavaScript() []byte {
         for k := range el.NoDataTemplate.(HtmlElementScript).Content {
 
           switch el.NoDataTemplate.(HtmlElementScript).Content[ k ].(type) {
-          case HtmlElementFormButton:
+          case *HtmlElementFormButton:
 
-            if el.NoDataTemplate.(HtmlElementScript).Content[ k ].(HtmlElementFormButton).ButtonType == BUTTON_TYPE_ADD_IN_TEMPLATE {
-              el.NoDataTemplate.(HtmlElementScript).Content[ k ].(HtmlElementFormButton).Global.OnClick = "addNewItemToKendoDataSource('id:#: instance.element[0].id #')"
+            if el.NoDataTemplate.(HtmlElementScript).Content[ k ].(*HtmlElementFormButton).ButtonType == BUTTON_TYPE_ADD_IN_TEMPLATE {
+              //el.NoDataTemplate.(HtmlElementScript).Content[ k ].(HtmlElementFormButton).Global.OnClick = "addNewItemToKendoDataSource('id:#: instance.element[0].id #')"
+
+              //reflect.ValueOf(&el.NoDataTemplate.(HtmlElementScript).Content[ k ].(*HtmlElementFormButton).Global).FieldByName("OnClick").SetString("esta vivo")
+              p := reflect.ValueOf(&el.NoDataTemplate.(HtmlElementScript).Content[ k ].(*HtmlElementFormButton).Global.OnClick)
+              p.Elem().SetString("esta vivo")
+              //fmt.Printf( "------%v\n\n\n\n\n\n\n\n", p.Elem().CanSet() )
+              fmt.Printf( "------%v--------\n\n\n\n\n\n\n\n", el.NoDataTemplate.(HtmlElementScript).Content[ k ].(*HtmlElementFormButton).Global.OnClick )
+              //el.NoDataTemplate.(HtmlElementScript).Content[ k ].(HtmlElementFormButton).Global.OnClick = "esta vivo"
             }
 
           }

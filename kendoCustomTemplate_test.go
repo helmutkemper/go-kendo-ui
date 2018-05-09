@@ -393,10 +393,10 @@ func ExampleSoUmTest() {
     },
     Content: Content{
 
-      HtmlElementDiv{
+      &HtmlElementDiv{
         Content: Content{
 
-          HtmlElementFormLabel{
+          &HtmlElementFormLabel{
             For: "ConfigHostName",
             Content: Content{
               "Host Name",
@@ -406,7 +406,7 @@ func ExampleSoUmTest() {
             },
           },
 
-          HtmlInputText{
+          &HtmlInputText{
             Global: HtmlGlobalAttributes{
               Id: "ConfigHostName",
               Class: "k-textbox",
@@ -417,17 +417,17 @@ func ExampleSoUmTest() {
         },
       },
 
-      HtmlElementDiv{
+      &HtmlElementDiv{
         Content: Content{
 
-          HtmlElementFormLabel{
+          &HtmlElementFormLabel{
             For: "ConfigDomainName",
             Content: Content{
               "Domain Name",
             },
           },
 
-          HtmlInputText{
+          &HtmlInputText{
             Global: HtmlGlobalAttributes{
               Id: "ConfigDomainName",
               Class: "k-textbox",
@@ -438,17 +438,17 @@ func ExampleSoUmTest() {
         },
       },
 
-      HtmlElementDiv{
+      &HtmlElementDiv{
         Content: Content{
 
-          HtmlElementFormLabel{
+          &HtmlElementFormLabel{
             For: "ConfigUser",
             Content: Content{
               "User",
             },
           },
 
-          HtmlInputText{
+          &HtmlInputText{
             Global: HtmlGlobalAttributes{
               Id: "ConfigUser",
               Class: "k-textbox",
@@ -459,17 +459,17 @@ func ExampleSoUmTest() {
         },
       },
 
-      HtmlElementDiv{
+      &HtmlElementDiv{
         Content: Content{
 
-          HtmlElementFormLabel{
+          &HtmlElementFormLabel{
             For: "ConfigAttachStdIn",
             Content: Content{
               "Attach Std In",
             },
           },
 
-          KendoUiDropDownList{
+          &KendoUiDropDownList{
             Html: HtmlInputText{
               Global: HtmlGlobalAttributes{
                 Id: "ConfigAttachStdIn",
@@ -509,17 +509,17 @@ func ExampleSoUmTest() {
         },
       },
 
-      HtmlElementDiv{
+      &HtmlElementDiv{
         Content: Content{
 
-          HtmlElementFormLabel{
+          &HtmlElementFormLabel{
             For: "ConfigAttachStdOut",
             Content: Content{
               "Attach Std Out",
             },
           },
 
-          KendoUiMobileSwitch{
+          &KendoUiMobileSwitch{
             Html: HtmlInputCheckBox{
               Global: HtmlGlobalAttributes{
                 Id: "ConfigAttachStdOut",
@@ -533,17 +533,17 @@ func ExampleSoUmTest() {
         },
       },
 
-      HtmlElementDiv{
+      &HtmlElementDiv{
         Content: Content{
 
-          HtmlElementFormLabel{
+          &HtmlElementFormLabel{
             For: "ConfigAttachStdErr",
             Content: Content{
               "Host Attach Std Err",
             },
           },
 
-          KendoUiMobileSwitch{
+          &KendoUiMobileSwitch{
             Html: HtmlInputCheckBox{
               Global: HtmlGlobalAttributes{
                 Id: "ConfigAttachStdErr",
@@ -557,17 +557,17 @@ func ExampleSoUmTest() {
         },
       },
 
-      HtmlElementDiv{
+      &HtmlElementDiv{
         Content: Content{
 
-          HtmlElementFormLabel{
+          &HtmlElementFormLabel{
             For: "ConfigExposedPorts",
             Content: Content{
               "Exposed Ports",
             },
           },
 
-          KendoUiMultiSelect{
+          &KendoUiMultiSelect{
             Html: HtmlElementFormSelect{
               Global: HtmlGlobalAttributes{
                 Id: "ConfigExposedPorts",
@@ -627,24 +627,24 @@ func ExampleSoUmTest() {
               Content: Content{
 
                 // regra, o form valida automaticamente
-                HtmlElementDiv{
+                &HtmlElementDiv{
                   Global: HtmlGlobalAttributes{
                     Id: "ConfigExposedPortsDialogContent",
                     Class: "k-content",
                   },
                   Content: Content{
 
-                    HtmlElementDiv{
+                    &HtmlElementDiv{
                       Content: Content{
 
-                        HtmlElementFormLabel{
+                        &HtmlElementFormLabel{
                           For: "ExposedPortsNumber",
                           Content: Content{
                             "Port number",
                           },
                         },
 
-                        KendoUiNumericTextBox{
+                        &KendoUiNumericTextBox{
                           Html: HtmlInputNumber{
                             Name:         "ExposedPortsNumber",
                             PlaceHolder:  "",
@@ -664,17 +664,17 @@ func ExampleSoUmTest() {
                       },
                     },
 
-                    HtmlElementDiv{
+                    &HtmlElementDiv{
                       Content: Content{
 
-                        HtmlElementFormLabel{
+                        &HtmlElementFormLabel{
                           For: "ExposedPortsProtocol",
                           Content: Content{
                             "Port protocol",
                           },
                         },
 
-                        KendoUiComboBox{
+                        &KendoUiComboBox{
                           Html: HtmlElementFormSelect{
                             Global: HtmlGlobalAttributes{
                               Id:    "ExposedPortsProtocol",
@@ -702,7 +702,7 @@ func ExampleSoUmTest() {
                       },
                     },
 
-                    HtmlInputHidden{
+                    &HtmlInputHidden{
                       Global: HtmlGlobalAttributes{
                         Id: "ExposedPortsShow",
                       },
@@ -738,7 +738,7 @@ func ExampleSoUmTest() {
               Type: SCRIPT_TYPE_KENDO_TEMPLATE,
               Content: Content{
 
-                HtmlElementDiv{
+                &HtmlElementDiv{
                   Content: Content{
                     "No data found. Do you want to add new item?",
                   },
@@ -747,12 +747,14 @@ func ExampleSoUmTest() {
                 "<br>",
                 "<br>",
 
-                HtmlElementFormButton{
-                  //ButtonType: BUTTON_TYPE_ADD_AND_CLOSE,
+                &HtmlElementFormButton{
+                  ButtonType: BUTTON_TYPE_ADD_IN_TEMPLATE,
                   Global: HtmlGlobalAttributes{
+                    Id: getAutoId(),
                     Class: "k-button",
                     // fixme: isto tem que ser automático
                     OnClick: "addNewItemToKendoDataSource('id:#: instance.element[0].id #')",
+                    //OnClick: "addToDataSource",
                   },
                   Content: Content{
                     "Add new item",
@@ -766,17 +768,17 @@ func ExampleSoUmTest() {
         },
       },
 
-      HtmlElementDiv{
+      &HtmlElementDiv{
         Content: Content{
 
-          HtmlElementFormLabel{
+          &HtmlElementFormLabel{
             For: "ConfigTry",
             Content: Content{
               "Try",
             },
           },
 
-          KendoUiMobileSwitch{
+          &KendoUiMobileSwitch{
             Html: HtmlInputCheckBox{
               Global: HtmlGlobalAttributes{
                 Id: "ConfigTry",
@@ -790,17 +792,17 @@ func ExampleSoUmTest() {
         },
       },
 
-      HtmlElementDiv{
+      &HtmlElementDiv{
         Content: Content{
 
-          HtmlElementFormLabel{
+          &HtmlElementFormLabel{
             For: "ConfigOpenStdIn",
             Content: Content{
               "Open Std In",
             },
           },
 
-          KendoUiMobileSwitch{
+          &KendoUiMobileSwitch{
             Html: HtmlInputCheckBox{
               Global: HtmlGlobalAttributes{
                 Id: "ConfigOpenStdIn",
@@ -814,17 +816,17 @@ func ExampleSoUmTest() {
         },
       },
 
-      HtmlElementDiv{
+      &HtmlElementDiv{
         Content: Content{
 
-          HtmlElementFormLabel{
+          &HtmlElementFormLabel{
             For: "ConfigStdInOnce",
             Content: Content{
               "Std In Once",
             },
           },
 
-          KendoUiMobileSwitch{
+          &KendoUiMobileSwitch{
             Html: HtmlInputCheckBox{
               Global: HtmlGlobalAttributes{
                 Id: "ConfigStdInOnce",
@@ -838,17 +840,17 @@ func ExampleSoUmTest() {
         },
       },
 
-      HtmlElementDiv{
+      &HtmlElementDiv{
         Content: Content{
 
-          HtmlElementFormLabel{
+          &HtmlElementFormLabel{
             For: "ConfigEnv",
             Content: Content{
               "Env",
             },
           },
 
-          KendoUiMultiSelect{
+          &KendoUiMultiSelect{
             Html: HtmlElementFormSelect{
               Global: HtmlGlobalAttributes{
                 Id: "ConfigEnv",
@@ -860,17 +862,17 @@ func ExampleSoUmTest() {
         },
       },
 
-      HtmlElementDiv{
+      &HtmlElementDiv{
         Content: Content{
 
-          HtmlElementFormLabel{
+          &HtmlElementFormLabel{
             For: "ConfigCmd",
             Content: Content{
               "Cmd",
             },
           },
 
-          KendoUiMultiSelect{
+          &KendoUiMultiSelect{
             Html: HtmlElementFormSelect{
               Global: HtmlGlobalAttributes{
                 Id: "ConfigCmd",
@@ -882,10 +884,10 @@ func ExampleSoUmTest() {
         },
       },
 
-      HtmlElementDiv{
+      &HtmlElementDiv{
         Content: Content{
 
-          HtmlElementFormLabel{
+          &HtmlElementFormLabel{
             For: "ConfigHealthCheck",
             Content: Content{
               "Health Check",
@@ -895,17 +897,17 @@ func ExampleSoUmTest() {
         },
       },
 
-      HtmlElementDiv{
+      &HtmlElementDiv{
         Content: Content{
 
-          HtmlElementFormLabel{
+          &HtmlElementFormLabel{
             For: "ConfigArgsEscaped",
             Content: Content{
               "Args Escaped",
             },
           },
 
-          KendoUiMobileSwitch{
+          &KendoUiMobileSwitch{
             Html: HtmlInputCheckBox{
               Global: HtmlGlobalAttributes{
                 Id: "ConfigArgsEscaped",
@@ -919,17 +921,17 @@ func ExampleSoUmTest() {
         },
       },
 
-      HtmlElementDiv{
+      &HtmlElementDiv{
         Content: Content{
 
-          HtmlElementFormLabel{
+          &HtmlElementFormLabel{
             For: "ConfigImage",
             Content: Content{
               "Image",
             },
           },
 
-          KendoUiAutoComplete{
+          &KendoUiAutoComplete{
             Html: HtmlInputText{
               Global: HtmlGlobalAttributes{
                 Id: "ConfigHostImage",
@@ -983,17 +985,17 @@ func ExampleSoUmTest() {
         },
       },
 
-      HtmlElementDiv{
+      &HtmlElementDiv{
         Content: Content{
 
-          HtmlElementFormLabel{
+          &HtmlElementFormLabel{
             For: "ConfigVolumes",
             Content: Content{
               "Volumes",
             },
           },
 
-          KendoUiMultiSelect{
+          &KendoUiMultiSelect{
             Html: HtmlElementFormSelect{
               Global: HtmlGlobalAttributes{
                 Id: "ConfigVolumes",
@@ -1005,17 +1007,17 @@ func ExampleSoUmTest() {
         },
       },
 
-      HtmlElementDiv{
+      &HtmlElementDiv{
         Content: Content{
 
-          HtmlElementFormLabel{
+          &HtmlElementFormLabel{
             For: "ConfigWorkingDir",
             Content: Content{
               "Working Dir",
             },
           },
 
-          HtmlInputText{
+          &HtmlInputText{
             Global: HtmlGlobalAttributes{
               Id: "ConfigWorkingDir",
               Class: "k-textbox",
@@ -1026,17 +1028,17 @@ func ExampleSoUmTest() {
         },
       },
 
-      HtmlElementDiv{
+      &HtmlElementDiv{
         Content: Content{
 
-          HtmlElementFormLabel{
+          &HtmlElementFormLabel{
             For: "ConfigEntryPoint",
             Content: Content{
               "EntryPoint",
             },
           },
 
-          KendoUiMultiSelect{
+          &KendoUiMultiSelect{
             Html: HtmlElementFormSelect{
               Global: HtmlGlobalAttributes{
                 Id: "ConfigEntryPoint",
@@ -1048,17 +1050,17 @@ func ExampleSoUmTest() {
         },
       },
 
-      HtmlElementDiv{
+      &HtmlElementDiv{
         Content: Content{
 
-          HtmlElementFormLabel{
+          &HtmlElementFormLabel{
             For: "ConfigNetworkDisabled",
             Content: Content{
               "Network Disabled",
             },
           },
 
-          KendoUiMobileSwitch{
+          &KendoUiMobileSwitch{
             Html: HtmlInputCheckBox{
               Global: HtmlGlobalAttributes{
                 Id: "ConfigNetworkDisabled",
@@ -1072,17 +1074,17 @@ func ExampleSoUmTest() {
         },
       },
 
-      HtmlElementDiv{
+      &HtmlElementDiv{
         Content: Content{
 
-          HtmlElementFormLabel{
+          &HtmlElementFormLabel{
             For: "ConfigMacAddress",
             Content: Content{
               "Mac Address",
             },
           },
 
-          HtmlInputText{
+          &HtmlInputText{
             Global: HtmlGlobalAttributes{
               Id: "ConfigMacAddress",
               Class: "k-textbox",
@@ -1093,17 +1095,17 @@ func ExampleSoUmTest() {
         },
       },
 
-      HtmlElementDiv{
+      &HtmlElementDiv{
         Content: Content{
 
-          HtmlElementFormLabel{
+          &HtmlElementFormLabel{
             For: "ConfigOnBuild",
             Content: Content{
               "On Build",
             },
           },
 
-          KendoUiMultiSelect{
+          &KendoUiMultiSelect{
             Html: HtmlElementFormSelect{
               Global: HtmlGlobalAttributes{
                 Id: "ConfigOnBuild",
@@ -1115,17 +1117,17 @@ func ExampleSoUmTest() {
         },
       },
 
-      HtmlElementDiv{
+      &HtmlElementDiv{
         Content: Content{
 
-          HtmlElementFormLabel{
+          &HtmlElementFormLabel{
             For: "ConfigLabels",
             Content: Content{
               "Labels",
             },
           },
 
-          KendoUiMultiSelect{
+          &KendoUiMultiSelect{
             Html: HtmlElementFormSelect{
               Global: HtmlGlobalAttributes{
                 Id: "ConfigLabels",
@@ -1137,17 +1139,17 @@ func ExampleSoUmTest() {
         },
       },
 
-      HtmlElementDiv{
+      &HtmlElementDiv{
         Content: Content{
 
-          HtmlElementFormLabel{
+          &HtmlElementFormLabel{
             For: "ConfigStopSignal",
             Content: Content{
               "Stop Signal",
             },
           },
 
-          HtmlInputText{
+          &HtmlInputText{
             Global: HtmlGlobalAttributes{
               Id: "ConfigStopSignal",
               Class: "k-textbox",
@@ -1158,17 +1160,17 @@ func ExampleSoUmTest() {
         },
       },
 
-      HtmlElementDiv{
+      &HtmlElementDiv{
         Content: Content{
 
-          HtmlElementFormLabel{
+          &HtmlElementFormLabel{
             For: "ConfigStopTimeout",
             Content: Content{
               "Stop Timeout",
             },
           },
 
-          KendoUiNumericTextBox{
+          &KendoUiNumericTextBox{
             Html: HtmlInputNumber{
               Global: HtmlGlobalAttributes{
                 Id: "ConfigStopTimeout",
@@ -1181,17 +1183,17 @@ func ExampleSoUmTest() {
         },
       },
 
-      HtmlElementDiv{
+      &HtmlElementDiv{
         Content: Content{
 
-          HtmlElementFormLabel{
+          &HtmlElementFormLabel{
             For: "ConfigShell",
             Content: Content{
               "Shell",
             },
           },
 
-          KendoUiMultiSelect{
+          &KendoUiMultiSelect{
             Html: HtmlElementFormSelect{
               Global: HtmlGlobalAttributes{
                 Id: "ConfigShell",

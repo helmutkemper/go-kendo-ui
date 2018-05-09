@@ -44,63 +44,63 @@ func(el Content) ToHtml() []byte {
     switch outConverted := el[k].(type) {
     case string:
       buffer.WriteString( outConverted )
-    case HtmlElementDiv:
+    case *HtmlElementDiv:
       buffer.Write( outConverted.ToHtml() )
-    case HtmlInputHidden:
+    case *HtmlInputHidden:
       buffer.Write( outConverted.ToHtml() )
-    case HtmlInputGeneric:
+    case *HtmlInputGeneric:
       buffer.Write( outConverted.ToHtml() )
-    case HtmlInputNumber:
+    case *HtmlInputNumber:
       buffer.Write( outConverted.ToHtml() )
-    case HtmlElementSpan:
+    case *HtmlElementSpan:
       buffer.Write( outConverted.ToHtml() )
-    case HtmlElementFormLabel:
+    case *HtmlElementFormLabel:
       buffer.Write( outConverted.ToHtml() )
-    case HtmlInputText:
+    case *HtmlInputText:
       buffer.Write( outConverted.ToHtml() )
-    case HtmlElementFormLegend:
+    case *HtmlElementFormLegend:
       buffer.Write( outConverted.ToHtml() )
-    case HtmlElementFormFieldSet:
+    case *HtmlElementFormFieldSet:
       buffer.Write( outConverted.ToHtml() )
-    case HtmlElementForm:
+    case *HtmlElementForm:
       buffer.Write( outConverted.ToHtml() )
-    case HtmlElementFormSelect:
+    case *HtmlElementFormSelect:
       buffer.Write( outConverted.ToHtml() )
-    case HtmlElementFormTextArea:
+    case *HtmlElementFormTextArea:
       buffer.Write( outConverted.ToHtml() )
-    case HtmlElementFormMeter:
+    case *HtmlElementFormMeter:
       buffer.Write( outConverted.ToHtml() )
-    case HtmlElementFormButton:
+    case *HtmlElementFormButton:
       buffer.Write( outConverted.ToHtml() )
-    case HtmlElementFormDataList:
+    case *HtmlElementFormDataList:
       buffer.Write( outConverted.ToHtml() )
-    case KendoUiAutoComplete:
+    case *KendoUiAutoComplete:
       buffer.Write( outConverted.ToHtml() )
-    case KendoUiMobileSwitch:
+    case *KendoUiMobileSwitch:
       buffer.Write( outConverted.ToHtml() )
-    case KendoUiNumericTextBox:
+    case *KendoUiNumericTextBox:
       buffer.Write( outConverted.ToHtml() )
-    case KendoUiComboBox:
+    case *KendoUiComboBox:
       buffer.Write( outConverted.ToHtml() )
-    case KendoUiDialog:
+    case *KendoUiDialog:
       buffer.Write( outConverted.ToHtml() )
-    case HtmlElementScript:
+    case *HtmlElementScript:
       buffer.Write( outConverted.ToHtml() )
-    case KendoUiDropDownList:
+    case *KendoUiDropDownList:
       buffer.Write( outConverted.ToHtml() )
-    case KendoUiMultiSelect:
+    case *KendoUiMultiSelect:
       buffer.Write( outConverted.ToHtml() )
 
       if !reflect.DeepEqual( outConverted.Dialog, KendoUiDialog{} ) {
         buffer.Write( outConverted.Dialog.ToHtml() )
       }
 
-    case HtmlScriptType:
+    case *HtmlScriptType:
       buffer.WriteString( outConverted.String() )
     case KendoDataSource:
       //do noting
 
-    case HtmlInputCheckBox:
+    case *HtmlInputCheckBox:
       buffer.Write( outConverted.ToHtml() )
 
     /*case HtmlElementFormOutput:
@@ -129,40 +129,40 @@ func(el *Content) ToJavaScript() []byte {
     case string:
       buffer.WriteString( outConverted )
       //buffer.WriteString( "\n" )
-    case KendoUiDialog:
+    case *KendoUiDialog:
       buffer.Write( outConverted.ToJavaScript() )
       //buffer.WriteString( "\n" )
-    case KendoUiDateTimePicker:
+    case *KendoUiDateTimePicker:
       buffer.Write( outConverted.ToJavaScript() )
       //buffer.WriteString( "\n" )
-    case KendoUiDatePicker:
+    case *KendoUiDatePicker:
       buffer.Write( outConverted.ToJavaScript() )
       //buffer.WriteString( "\n" )
-    case KendoUiDateInput:
+    case *KendoUiDateInput:
       buffer.Write( outConverted.ToJavaScript() )
       //buffer.WriteString( "\n" )
-    case KendoUiContextMenu:
+    case *KendoUiContextMenu:
       buffer.Write( outConverted.ToJavaScript() )
       //buffer.WriteString( "\n" )
-    case KendoUiConfirm:
+    case *KendoUiConfirm:
       buffer.Write( outConverted.ToJavaScript() )
       //buffer.WriteString( "\n" )
-    case KendoUiComboBox:
+    case *KendoUiComboBox:
       buffer.Write( outConverted.ToJavaScript() )
       //buffer.WriteString( "\n" )
-    case KendoUiColorPicker:
+    case *KendoUiColorPicker:
       buffer.Write( outConverted.ToJavaScript() )
       //buffer.WriteString( "\n" )
-    case KendoUiColorPalette:
+    case *KendoUiColorPalette:
       buffer.Write( outConverted.ToJavaScript() )
       //buffer.WriteString( "\n" )
-    case KendoUiCalendar:
+    case *KendoUiCalendar:
       buffer.Write( outConverted.ToJavaScript() )
       //buffer.WriteString( "\n" )
-    case KendoUiButton:
+    case *KendoUiButton:
       buffer.Write( outConverted.ToJavaScript() )
       //buffer.WriteString( "\n" )
-    case KendoUiMultiSelect:
+    case *KendoUiMultiSelect:
       buffer.Write( outConverted.ToJavaScript() )
 
       if !reflect.DeepEqual( outConverted.Dialog, KendoUiDialog{} ) {
@@ -170,81 +170,81 @@ func(el *Content) ToJavaScript() []byte {
       }
 
       //buffer.WriteString( "\n" )
-    case KendoUiAutoComplete:
+    case *KendoUiAutoComplete:
       buffer.Write( outConverted.ToJavaScript() )
-    case KendoUiMobileSwitch:
-      buffer.Write( outConverted.ToJavaScript() )
-      //buffer.WriteString( "\n" )
-    case KendoUiDraggable:
+    case *KendoUiMobileSwitch:
       buffer.Write( outConverted.ToJavaScript() )
       //buffer.WriteString( "\n" )
-    case KendoUiDropDownList:
+    case *KendoUiDraggable:
       buffer.Write( outConverted.ToJavaScript() )
       //buffer.WriteString( "\n" )
-    case KendoUiDropTarget:
+    case *KendoUiDropDownList:
       buffer.Write( outConverted.ToJavaScript() )
       //buffer.WriteString( "\n" )
-    case KendoUiDropTargetArea:
+    case *KendoUiDropTarget:
       buffer.Write( outConverted.ToJavaScript() )
       //buffer.WriteString( "\n" )
-    case HtmlElementDiv:
+    case *KendoUiDropTargetArea:
+      buffer.Write( outConverted.ToJavaScript() )
+      //buffer.WriteString( "\n" )
+    case *HtmlElementDiv:
       buffer.Write( outConverted.ToJavaScript() )
     //  //buffer.WriteString( "\n" )
-    case HtmlElementFormLabel:
+    case *HtmlElementFormLabel:
       buffer.Write( outConverted.ToJavaScript() )
       //buffer.WriteString( "\n" )
-    case KendoUiNumericTextBox:
+    case *KendoUiNumericTextBox:
       buffer.Write( outConverted.ToJavaScript() )
       //buffer.WriteString( "\n" )
-    case HtmlElementFormSelect:
+    case *HtmlElementFormSelect:
       buffer.Write( outConverted.ToJavaScript() )
       //buffer.WriteString( "\n" )
-    case HtmlElementScript:
+    case *HtmlElementScript:
       buffer.Write( outConverted.ToJavaScript() )
       //buffer.WriteString( "\n" )
-    case HtmlElementFormButton:
+    case *HtmlElementFormButton:
       buffer.Write( outConverted.ToJavaScript() )
       //buffer.WriteString( "\n" )
-    case HtmlElementSpan:
+    case *HtmlElementSpan:
       buffer.Write( outConverted.ToJavaScript() )
       //buffer.WriteString( "\n" )
-    case KendoDataSource:
+    case *KendoDataSource:
       buffer.Write( outConverted.ToJavaScript() )
       //buffer.WriteString( "\n" )
     //case KendoSchema:
       //buffer.Write( outConverted.ToJavaScript() )
       //buffer.WriteString( "\n" )
 
-    case HtmlElementFormTextArea:
-    case HtmlInputCheckBox:
-    case HtmlInputColor:
-    case HtmlInputDate:
-    case HtmlInputDateTimeLocal:
-    case HtmlInputEmail:
+    case *HtmlElementFormTextArea:
+    case *HtmlInputCheckBox:
+    case *HtmlInputColor:
+    case *HtmlInputDate:
+    case *HtmlInputDateTimeLocal:
+    case *HtmlInputEmail:
       buffer.Write( outConverted.ToJavaScript() )
-    case HtmlInputFile:
-    case HtmlInputGeneric:
+    case *HtmlInputFile:
+    case *HtmlInputGeneric:
       buffer.Write( outConverted.ToJavaScript() )
-    case HtmlInputHidden:
-    case HtmlInputImage:
-    case HtmlInputMonth:
-    case HtmlInputNumber:
-    case HtmlInputPassword:
+    case *HtmlInputHidden:
+    case *HtmlInputImage:
+    case *HtmlInputMonth:
+    case *HtmlInputNumber:
+    case *HtmlInputPassword:
       buffer.Write( outConverted.ToJavaScript() )
-    case HtmlInputRadio:
-    case HtmlInputRange:
-    case HtmlInputSearch:
+    case *HtmlInputRadio:
+    case *HtmlInputRange:
+    case *HtmlInputSearch:
       buffer.Write( outConverted.ToJavaScript() )
-    case HtmlInputTel:
+    case *HtmlInputTel:
       buffer.Write( outConverted.ToJavaScript() )
-    case HtmlInputText:
+    case *HtmlInputText:
       buffer.Write( outConverted.ToJavaScript() )
-    case HtmlInputTime:
-    case HtmlInputUrl:
+    case *HtmlInputTime:
+    case *HtmlInputUrl:
       buffer.Write( outConverted.ToJavaScript() )
-    case HtmlElementForm:
+    case *HtmlElementForm:
       buffer.Write( outConverted.ToJavaScript() )
-    case HtmlInputWeek:
+    case *HtmlInputWeek:
 
     default:
       fmt.Printf("\n\n\nToJavaScript() - typeContent.go: error: type %T not found in typeContent\n\n\n", outConverted)
@@ -317,74 +317,42 @@ func(el *Content)processContent( contentProcessedList, contentUnprocessedList, c
 func(el *Content)addToUnprocessedList( contentUnprocessedList, contentFoundList *[]interface{}, content interface{} ) {
   switch converted := content.(type) {
   case *Content:
-  case HtmlElementSpan:
+  case *HtmlElementSpan:
     *contentUnprocessedList  =append( *contentUnprocessedList, converted.Content )
-  case HtmlElementDiv:
+  case *HtmlElementDiv:
     *contentUnprocessedList  =append( *contentUnprocessedList, converted.Content )
-  case HtmlElementForm:
+  case *HtmlElementForm:
     *contentUnprocessedList  =append( *contentUnprocessedList, converted.Content )
 
     // Elementos de formulário que necessitam de javascript - início
 
   case *KendoUiNumericTextBox:
     *contentFoundList        =append( *contentFoundList, converted )
-  case KendoUiNumericTextBox:
+  case **KendoUiComboBox:
     *contentFoundList        =append( *contentFoundList, &converted )
   case *KendoUiComboBox:
-    *contentFoundList        =append( *contentFoundList, converted )
-  case KendoUiComboBox:
     *contentFoundList        =append( *contentFoundList, &converted )
   case *KendoUiAutoComplete:
-    *contentFoundList        =append( *contentFoundList, converted )
-  case KendoUiAutoComplete:
     *contentFoundList        =append( *contentFoundList, &converted )
   case *KendoUiButton:
-    *contentFoundList        =append( *contentFoundList, converted )
-  case KendoUiButton:
     *contentFoundList        =append( *contentFoundList, &converted )
   case *KendoUiCalendar:
-    *contentFoundList        =append( *contentFoundList, converted )
-  case KendoUiCalendar:
     *contentFoundList        =append( *contentFoundList, &converted )
   case *KendoUiColorPalette:
-    *contentFoundList        =append( *contentFoundList, converted )
-  case KendoUiColorPalette:
     *contentFoundList        =append( *contentFoundList, &converted )
   case *KendoUiColorPicker:
-    *contentFoundList        =append( *contentFoundList, converted )
-  case KendoUiColorPicker:
     *contentFoundList        =append( *contentFoundList, &converted )
   case *KendoUiDateInput:
-    *contentFoundList        =append( *contentFoundList, converted )
-  case KendoUiDateInput:
     *contentFoundList        =append( *contentFoundList, &converted )
   case *KendoUiDatePicker:
     *contentFoundList        =append( *contentFoundList, converted )
-  case KendoUiDatePicker:
-    *contentFoundList        =append( *contentFoundList, &converted )
   case *KendoUiDateTimePicker:
     *contentFoundList        =append( *contentFoundList, converted )
   case KendoUiDateTimePicker:
     *contentFoundList        =append( *contentFoundList, &converted )
   case *KendoUiDropDownList:
-    *contentFoundList        =append( *contentFoundList, converted )
-  case KendoUiDropDownList:
     *contentFoundList        =append( *contentFoundList, &converted )
   case *KendoUiMultiSelect:
-    *contentFoundList        =append( *contentFoundList, converted )
-
-    if reflect.DeepEqual( (*converted).Dialog, KendoUiDialog{} ) == false {
-
-      switch convertedInternal := (*converted).Dialog.Content.(type) {
-      case Content:
-        for _, subContent := range convertedInternal.FilterFormElements() {
-          el.addToUnprocessedList( contentUnprocessedList, contentFoundList, subContent )
-          //*contentFoundList        =append( *contentFoundList, &subContent )
-        }
-      }
-    }
-
-  case KendoUiMultiSelect:
     *contentFoundList        =append( *contentFoundList, &converted )
 
     if reflect.DeepEqual( converted.Dialog, KendoUiDialog{} ) == false {
@@ -400,103 +368,58 @@ func(el *Content)addToUnprocessedList( contentUnprocessedList, contentFoundList 
 
   case *KendoUiMobileSwitch:
     *contentFoundList        =append( *contentFoundList, converted )
-  case KendoUiMobileSwitch:
-    *contentFoundList        =append( *contentFoundList, &converted )
   case *HtmlElementFormSelect:
-    *contentFoundList        =append( *contentFoundList, converted )
-  case HtmlElementFormSelect:
     *contentFoundList        =append( *contentFoundList, &converted )
   case *HtmlElementFormTextArea:
-    *contentFoundList        =append( *contentFoundList, converted )
-  case HtmlElementFormTextArea:
     *contentFoundList        =append( *contentFoundList, &converted )
   case *HtmlInputCheckBox:
-    *contentFoundList        =append( *contentFoundList, converted )
-  case HtmlInputCheckBox:
     *contentFoundList        =append( *contentFoundList, &converted )
   case *HtmlInputColor:
-    *contentFoundList        =append( *contentFoundList, converted )
-  case HtmlInputColor:
     *contentFoundList        =append( *contentFoundList, &converted )
   case *HtmlInputDate:
-    *contentFoundList        =append( *contentFoundList, converted )
-  case HtmlInputDate:
     *contentFoundList        =append( *contentFoundList, &converted )
   case *HtmlInputDateTimeLocal:
-    *contentFoundList        =append( *contentFoundList, converted )
-  case HtmlInputDateTimeLocal:
     *contentFoundList        =append( *contentFoundList, &converted )
   case *HtmlInputEmail:
-    *contentFoundList        =append( *contentFoundList, converted )
-  case HtmlInputEmail:
     *contentFoundList        =append( *contentFoundList, &converted )
   case *HtmlInputFile:
-    *contentFoundList        =append( *contentFoundList, converted )
-  case HtmlInputFile:
     *contentFoundList        =append( *contentFoundList, &converted )
   case *HtmlInputGeneric:
-    *contentFoundList        =append( *contentFoundList, converted )
-  case HtmlInputGeneric:
     *contentFoundList        =append( *contentFoundList, &converted )
   case *HtmlInputHidden:
-    *contentFoundList        =append( *contentFoundList, converted )
-  case HtmlInputHidden:
+    *contentFoundList        =append( *contentFoundList, &converted )
+  case **HtmlInputHidden:
     *contentFoundList        =append( *contentFoundList, &converted )
   case *HtmlInputImage:
-    *contentFoundList        =append( *contentFoundList, converted )
-  case HtmlInputImage:
     *contentFoundList        =append( *contentFoundList, &converted )
   case *HtmlInputMonth:
-    *contentFoundList        =append( *contentFoundList, converted )
-  case HtmlInputMonth:
     *contentFoundList        =append( *contentFoundList, &converted )
   case *HtmlInputNumber:
     *contentFoundList        =append( *contentFoundList, converted )
-  case HtmlInputNumber:
-    *contentFoundList        =append( *contentFoundList, &converted )
   case *HtmlInputPassword:
-    *contentFoundList        =append( *contentFoundList, converted )
-  case HtmlInputPassword:
     *contentFoundList        =append( *contentFoundList, &converted )
   case *HtmlInputRadio:
-    *contentFoundList        =append( *contentFoundList, converted )
-  case HtmlInputRadio:
     *contentFoundList        =append( *contentFoundList, &converted )
-  case HtmlInputRange:
+  case *HtmlInputRange:
     *contentFoundList        =append( *contentFoundList, &converted )
   case *HtmlInputSearch:
-    *contentFoundList        =append( *contentFoundList, converted )
-  case HtmlInputSearch:
     *contentFoundList        =append( *contentFoundList, &converted )
   case *HtmlInputTel:
-    *contentFoundList        =append( *contentFoundList, converted )
-  case HtmlInputTel:
     *contentFoundList        =append( *contentFoundList, &converted )
   case *HtmlInputText:
-    *contentFoundList        =append( *contentFoundList, converted )
-  case HtmlInputText:
     *contentFoundList        =append( *contentFoundList, &converted )
   case *HtmlInputTime:
-    *contentFoundList        =append( *contentFoundList, converted )
-  case HtmlInputTime:
     *contentFoundList        =append( *contentFoundList, &converted )
   case *HtmlInputUrl:
-    *contentFoundList        =append( *contentFoundList, converted )
-  case HtmlInputUrl:
     *contentFoundList        =append( *contentFoundList, &converted )
   case *HtmlInputWeek:
-    *contentFoundList        =append( *contentFoundList, converted )
-  case HtmlInputWeek:
     *contentFoundList        =append( *contentFoundList, &converted )
   case *KendoDataSource:
-    *contentFoundList        =append( *contentFoundList, converted )
-  case KendoDataSource:
     *contentFoundList        =append( *contentFoundList, &converted )
 
     // Elementos de formulário que necessitam de javascript - fim
 
   case *HtmlElementFormLabel:
-  case HtmlElementFormLabel:
   default:
     fmt.Printf( "HtmlElementForm.addToUnprocessedList().type: %T\n", converted )
   }
@@ -533,6 +456,10 @@ func (el *Content)GetNamesAndIds() []map[string][]byte {
       pass = true
       name = []byte( converted.Html.Name )
       id = converted.GetId()
+    case **KendoUiComboBox:
+      pass = true
+      name = []byte( (*(*v.(**KendoUiComboBox))).Html.Name )
+      id = (*(*v.(**KendoUiComboBox))).GetId()
     case *KendoUiNumericTextBox:
       pass = true
       name = []byte( converted.Html.Name )
@@ -597,6 +524,10 @@ func (el *Content)GetNamesAndIds() []map[string][]byte {
       pass = true
       name = []byte( converted.Name )
       id = converted.GetId()
+    case **HtmlInputHidden:
+      pass = true
+      name = []byte( (*(*v.(**HtmlInputHidden))).Name )
+      id = (*(*v.(**HtmlInputHidden))).GetId()
     case *HtmlInputImage:
       pass = true
       name = []byte( converted.Name )
@@ -633,6 +564,10 @@ func (el *Content)GetNamesAndIds() []map[string][]byte {
       pass = true
       name = []byte( converted.Name )
       id = converted.GetId()
+    case **HtmlInputText:
+      pass = true
+      name = []byte( (*(*v.(**HtmlInputText))).Name )
+      id = (*(*v.(**HtmlInputText))).GetId()
     case *HtmlInputTime:
       pass = true
       name = []byte( converted.Name )
@@ -890,6 +825,14 @@ func (el *Content)MakeJsObject() []byte {
       pass = true
       key = []byte( converted.Html.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').data('kendoAutoComplete').value()` )
+    case **KendoUiAutoComplete:
+      pass = true
+      key = []byte( (*(*v.(**KendoUiAutoComplete))).Html.Name )
+      jsCode = []byte( `$('#` + string( (*(*v.(**KendoUiAutoComplete))).GetId() ) + `').data('kendoAutoComplete').value()` )
+    case ***KendoUiAutoComplete:
+      pass = true
+      key = []byte( (*(*(*v.(***KendoUiAutoComplete)))).Html.Name )
+      jsCode = []byte( `$('#` + string( (*(*(*v.(***KendoUiAutoComplete)))).GetId() ) + `').data('kendoAutoComplete').value()` )
     case *KendoUiButton:
       pass = true
       key = []byte( converted.Html.Name )
@@ -910,6 +853,10 @@ func (el *Content)MakeJsObject() []byte {
       pass = true
       key = []byte( converted.Html.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').data('kendoComboBox').value()` )
+    case ***KendoUiComboBox:
+      pass = true
+      key = []byte( (*(*(*v.(***KendoUiComboBox)))).Html.Name )
+      jsCode = []byte( `$('#` + string( (*(*(*v.(***KendoUiComboBox)))).GetId() ) + `').data('kendoComboBox').value()` )
     case *KendoUiNumericTextBox:
       pass = true
       key = []byte( converted.Html.Name )
@@ -930,10 +877,18 @@ func (el *Content)MakeJsObject() []byte {
       pass = true
       key = []byte( converted.Html.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').data('kendoDropDownList').value()` )
+    case **KendoUiDropDownList:
+      pass = true
+      key = []byte( (*(*v.(**KendoUiDropDownList))).Html.Name )
+      jsCode = []byte( `$('#` + string( (*(*v.(**KendoUiDropDownList))).GetId() ) + `').data('kendoDropDownList').value()` )
     case *KendoUiMultiSelect: // fixme: colocar o conteúdo da janela aqui também
       pass = true
       key = []byte( converted.Html.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').data('kendoMultiSelect').value()` )
+    case **KendoUiMultiSelect: // fixme: colocar o conteúdo da janela aqui também
+      pass = true
+      key = []byte( (*(*v.(**KendoUiMultiSelect))).Html.Name )
+      jsCode = []byte( `$('#` + string( (*(*v.(**KendoUiMultiSelect))).GetId() ) + `').data('kendoMultiSelect').value()` )
     case *HtmlElementFormSelect:
       pass = true
       key = []byte( converted.Name )
@@ -974,6 +929,14 @@ func (el *Content)MakeJsObject() []byte {
       pass = true
       key = []byte( converted.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val()` )
+    case **HtmlInputHidden:
+      pass = true
+      key = []byte( (*(*v.(**HtmlInputHidden))).Name )
+      jsCode = []byte( `$('#` + string( (*(*v.(**HtmlInputHidden))).GetId() ) + `').val()` )
+    case ***HtmlInputHidden:
+      pass = true
+      key = []byte( (*(*(*v.(***HtmlInputHidden)))).Name )
+      jsCode = []byte( `$('#` + string( (*(*(*v.(***HtmlInputHidden)))).GetId() ) + `').val()` )
     case *HtmlInputImage:
       pass = true
       key = []byte( converted.Name )
@@ -1010,6 +973,10 @@ func (el *Content)MakeJsObject() []byte {
       pass = true
       key = []byte( converted.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val()` )
+    case **HtmlInputText:
+      pass = true
+      key = []byte( (*(*v.(**HtmlInputText))).Name )
+      jsCode = []byte( `$('#` + string( (*(*v.(**HtmlInputText))).GetId() ) + `').val()` )
     case *HtmlInputTime:
       pass = true
       key = []byte( converted.Name )
@@ -1032,7 +999,7 @@ func (el *Content)MakeJsObject() []byte {
     case *Content:
     case *KendoDataSource:
     default:
-      fmt.Printf( "\n\n\ngetFormValue.id.type.%T.not.found.\n\n\n", converted )
+      fmt.Printf( "\n\n\n-getFormValue.id.type.%T.not.found.\n\n\n", converted )
     }
 
     if pass == true {
@@ -1052,25 +1019,109 @@ func (el *Content)MakeJsScript() []byte {
   var buffer bytes.Buffer
 
   var elementList = el.FilterFormElements()
-  for k, v := range elementList {
-    switch converted := v.(type) {
-    case *KendoUiMultiSelect:
+  for keyElementList := range elementList {
+    switch converted := elementList[ keyElementList ].(type) {
+    default:
+      fmt.Printf( "%T\n\n\n\n", converted )
+    }
+    switch elementList[ keyElementList ].(type) {
+    case **KendoUiMultiSelect:
 
-      elementList[k].(*KendoUiMultiSelect).Html.Global.Id = string( converted.GetId() )
+      (*(*elementList[ keyElementList ].(**KendoUiMultiSelect))).Html.Global.Id = string( (*(*elementList[ keyElementList ].(**KendoUiMultiSelect))).GetId() )
 
-      switch tplConverted := converted.FooterTemplate.(type) {
+      if reflect.DeepEqual( (*(*elementList[ keyElementList ].(**KendoUiMultiSelect))).DataSource, KendoDataSource{} ) == false && reflect.DeepEqual( (*(*elementList[ keyElementList ].(**KendoUiMultiSelect))).Dialog, KendoUiDialog{} ) == false {
+
+
+          switch (*(*elementList[ keyElementList ].(**KendoUiMultiSelect))).NoDataTemplate.(type) {
+          case HtmlElementScript:
+
+            for k := range (*(*elementList[ keyElementList ].(**KendoUiMultiSelect))).NoDataTemplate.(HtmlElementScript).Content {
+
+              switch (*(*elementList[ keyElementList ].(**KendoUiMultiSelect))).NoDataTemplate.(HtmlElementScript).Content[ k ].(type) {
+              case *HtmlElementFormButton:
+
+                if (*(*elementList[ keyElementList ].(**KendoUiMultiSelect))).NoDataTemplate.(HtmlElementScript).Content[ k ].(*HtmlElementFormButton).ButtonType == BUTTON_TYPE_ADD_IN_TEMPLATE {
+                  //el.NoDataTemplate.(HtmlElementScript).Content[ k ].(HtmlElementFormButton).Global.OnClick = "addNewItemToKendoDataSource('id:#: instance.element[0].id #')"
+
+                  //reflect.ValueOf(&el.NoDataTemplate.(HtmlElementScript).Content[ k ].(*HtmlElementFormButton).Global).FieldByName("OnClick").SetString("esta vivo")
+                  p := reflect.ValueOf(&(*(*elementList[ keyElementList ].(**KendoUiMultiSelect))).NoDataTemplate.(HtmlElementScript).Content[ k ].(*HtmlElementFormButton).Global.OnClick)
+                  p.Elem().SetString("esta vivo")
+                  //fmt.Printf( "------%v\n\n\n\n\n\n\n\n", p.Elem().CanSet() )
+                  fmt.Printf( "------%v--------\n\n\n\n\n\n\n\n", (*(*elementList[ keyElementList ].(**KendoUiMultiSelect))).NoDataTemplate.(HtmlElementScript).Content[ k ].(*HtmlElementFormButton).Global.OnClick )
+                  //el.NoDataTemplate.(HtmlElementScript).Content[ k ].(HtmlElementFormButton).Global.OnClick = "esta vivo"
+                }
+
+              }
+
+            }
+
+          }
+
+
+        /*if elementList[ keyElementList ].(*KendoUiMultiSelect).NoDataTemplate != nil {
+          switch elementList[ keyElementList ].(*KendoUiMultiSelect).NoDataTemplate.(type) {
+          case HtmlElementScript:
+
+            for keyContent := range elementList[ keyElementList ].(*KendoUiMultiSelect).NoDataTemplate.(HtmlElementScript).Content {
+
+              switch elementList[ keyElementList ].(*KendoUiMultiSelect).NoDataTemplate.(HtmlElementScript).Content[ keyContent ].(type) {
+              case HtmlElementFormButton:
+
+                if elementList[ keyElementList ].(*KendoUiMultiSelect).NoDataTemplate.(HtmlElementScript).Content[ keyContent ].(HtmlElementFormButton).ButtonType == BUTTON_TYPE_ADD_IN_TEMPLATE {
+
+                  relation.Add(
+                    "dataSource",
+                    elementList[ keyElementList ].(*KendoUiMultiSelect).Html.Global.Id,
+                    elementList[ keyElementList ].(*KendoUiMultiSelect).NoDataTemplate.(HtmlElementScript).Content[ keyContent ].(HtmlElementFormButton).Global.Id,
+                  )
+
+
+                  //inte := unsafe.Pointer(elementList[ keyElementList ].(*KendoUiMultiSelect))
+                  //s  := reflect.ValueOf((*KendoUiMultiSelect)(unsafe.Pointer(ps))).Elem().FieldByName("NoDataTemplate").Interface().(HtmlElementScript)
+                  //s := reflect.ValueOf(ele).FieldByName("Content")
+
+
+                  inte2 := reflect.Indirect(reflect.ValueOf(&elementList[ keyElementList ])).Interface()
+                  inte3 := reflect.ValueOf(inte2.(*KendoUiMultiSelect))
+
+                  //inte2.Elem().SetString("vivp")
+                  fmt.Printf( ">>%v\n\n\n\n", inte3.CanAddr() )
+                  //fmt.Printf( ">>>>%v\n\n\n\n", reflect.ValueOf(ele1).Field(keyContent).CanSet() )
+
+                  //*(inter.(*KendoUiMultiSelect)).NoDataTemplate.(HtmlElementScript).Content[ keyContent ].(HtmlElementFormButton).Global.OnClick
+                  //inter.Elem().SetString("está vivo")
+                  //inter.SetString( "está vivo" )
+                  //fmt.Printf( "%v\n",inter )
+
+                  fmt.Printf( "\n\n\n\n\n\n\n\n\n\n------ %v ------\n\n\n\n\n\n\n\n\n\n", elementList[ keyElementList ].(*KendoUiMultiSelect).NoDataTemplate.(HtmlElementScript).Content[ keyContent ].(HtmlElementFormButton).Global.OnClick )
+                  //fmt.Printf( "%v", elementList[ keyElementList ].(*KendoUiMultiSelect).NoDataTemplate.(HtmlElementScript).Content[ keyContent ].(HtmlElementFormButton).Global.OnClick )
+
+                  //fmt.Printf( "\n\n\n\n%s\n\n\n\n", elementList[ keyElementList ].(*KendoUiMultiSelect).NoDataTemplate.(HtmlElementScript).Content[ keyContent ].(HtmlElementFormButton).Global.Id )
+                  //elementList[ keyElementList ].(*KendoUiMultiSelect).NoDataTemplate.(HtmlElementScript).Content[ keyContent ].(HtmlElementFormButton).Global.OnClick = "addNewItemToKendoDataSource('id:#: instance.element[0].id #')"
+
+                }
+
+              }
+
+            }
+          }
+        }*/
+
+      }
+
+      switch tplConverted := (*(*elementList[ keyElementList ].(**KendoUiMultiSelect))).FooterTemplate.(type) {
       case HtmlElementScript:
         if tplConverted.Type == SCRIPT_TYPE_KENDO_TEMPLATE {
           buffer.Write( tplConverted.ToElementScriptTag() )
         }
       }
-      switch tplConverted := converted.NoDataTemplate.(type) {
+      switch tplConverted := (*(*elementList[ keyElementList ].(**KendoUiMultiSelect))).NoDataTemplate.(type) {
       case HtmlElementScript:
         if tplConverted.Type == SCRIPT_TYPE_KENDO_TEMPLATE {
           buffer.Write( tplConverted.ToElementScriptTag() )
         }
       }
-      switch tplConverted := converted.HeaderTemplate.(type) {
+      switch tplConverted := (*(*elementList[ keyElementList ].(**KendoUiMultiSelect))).HeaderTemplate.(type) {
       case HtmlElementScript:
         if tplConverted.Type == SCRIPT_TYPE_KENDO_TEMPLATE {
           buffer.Write( tplConverted.ToElementScriptTag() )
