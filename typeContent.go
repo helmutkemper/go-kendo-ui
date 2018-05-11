@@ -432,6 +432,158 @@ func (el *Content)GetNamesAndIds() []map[string][]byte {
   for _, v := range formElements {
     pass = false
     switch converted := v.(type) {
+    case **HtmlInputText:
+      pass = true
+      name = []byte( (*(*v.(**HtmlInputText))).Name )
+      id = (*(*v.(**HtmlInputText))).GetId()
+    case **HtmlInputHidden:
+      pass = true
+      name = []byte( (*(*v.(**HtmlInputHidden))).Name )
+      id = (*(*v.(**HtmlInputHidden))).GetId()
+    case **KendoUiComboBox:
+      pass = true
+      name = []byte( (*(*v.(**KendoUiComboBox))).Html.Name )
+      id = (*(*v.(**KendoUiComboBox))).GetId()
+    case **KendoUiAutoComplete:
+      pass = true
+      name = []byte( (*(*v.(**KendoUiAutoComplete))).Html.Name )
+      id = (*(*v.(**KendoUiAutoComplete))).GetId()
+    case **KendoUiButton:
+      pass = true
+      name = []byte( (*(*v.(**KendoUiButton))).Html.Name )
+      id = (*(*v.(**KendoUiButton))).GetId()
+    case **KendoUiCalendar:
+      pass = true
+      name = []byte( (*(*v.(**KendoUiCalendar))).Html.Name )
+      id = (*(*v.(**KendoUiCalendar))).GetId()
+    case **KendoUiColorPalette:
+      pass = true
+      name = []byte( (*(*v.(**KendoUiColorPalette))).Html.Name )
+      id = (*(*v.(**KendoUiColorPalette))).GetId()
+    case **KendoUiColorPicker:
+      pass = true
+      name = []byte( (*(*v.(**KendoUiColorPicker))).Html.Name )
+      id = (*(*v.(**KendoUiColorPicker))).GetId()
+    case **KendoUiNumericTextBox:
+      pass = true
+      name = []byte( (*(*v.(**KendoUiNumericTextBox))).Html.Name )
+      id = (*(*v.(**KendoUiNumericTextBox))).GetId()
+    case **KendoUiDateInput:
+      pass = true
+      name = []byte( (*(*v.(**KendoUiDateInput))).Html.Name )
+      id = (*(*v.(**KendoUiDateInput))).GetId()
+    case **KendoUiDatePicker:
+      pass = true
+      name = []byte( (*(*v.(**KendoUiDatePicker))).Html.Name )
+      id = (*(*v.(**KendoUiDatePicker))).GetId()
+    case **KendoUiDateTimePicker:
+      pass = true
+      name = []byte( (*(*v.(**KendoUiDateTimePicker))).Html.Name )
+      id = (*(*v.(**KendoUiDateTimePicker))).GetId()
+    case **KendoUiDropDownList:
+      pass = true
+      name = []byte( (*(*v.(**KendoUiDropDownList))).Html.Name )
+      id = (*(*v.(**KendoUiDropDownList))).GetId()
+    case **KendoUiMultiSelect:
+      pass = true
+      name = []byte( (*(*v.(**KendoUiMultiSelect))).Html.Name )
+      id = (*(*v.(**KendoUiMultiSelect))).GetId()
+    case **HtmlElementFormSelect:
+      pass = true
+      name = []byte( (*(*v.(**HtmlElementFormSelect))).Name )
+      id = (*(*v.(**HtmlElementFormSelect))).GetId()
+    case **HtmlElementFormTextArea:
+      pass = true
+      name = []byte( (*(*v.(**HtmlElementFormTextArea))).Name )
+      id = (*(*v.(**HtmlElementFormTextArea))).GetId()
+    case **HtmlInputCheckBox:
+      pass = true
+      name = []byte( (*(*v.(**HtmlInputCheckBox))).Name )
+      id = (*(*v.(**HtmlInputCheckBox))).GetId()
+    case **HtmlInputColor:
+      pass = true
+      name = []byte( (*(*v.(**HtmlInputColor))).Name )
+      id = (*(*v.(**HtmlInputColor))).GetId()
+    case **HtmlInputDate:
+      pass = true
+      name = []byte( (*(*v.(**HtmlInputDate))).Name )
+      id = (*(*v.(**HtmlInputDate))).GetId()
+    case **HtmlInputDateTimeLocal:
+      pass = true
+      name = []byte( (*(*v.(**HtmlInputDateTimeLocal))).Name )
+      id = (*(*v.(**HtmlInputDateTimeLocal))).GetId()
+    case **HtmlInputEmail:
+      pass = true
+      name = []byte( (*(*v.(**HtmlInputEmail))).Name )
+      id = (*(*v.(**HtmlInputEmail))).GetId()
+    case **HtmlInputFile:
+      pass = true
+      name = []byte( (*(*v.(**HtmlInputFile))).Name )
+      id = (*(*v.(**HtmlInputFile))).GetId()
+    case **HtmlInputGeneric:
+      pass = true
+      name = []byte( (*(*v.(**HtmlInputGeneric))).Name )
+      id = (*(*v.(**HtmlInputGeneric))).GetId()
+    case **HtmlInputImage:
+      pass = true
+      name = []byte( (*(*v.(**HtmlInputImage))).Name )
+      id = (*(*v.(**HtmlInputImage))).GetId()
+    case **HtmlInputMonth:
+      pass = true
+      name = []byte( (*(*v.(**HtmlInputMonth))).Name )
+      id = (*(*v.(**HtmlInputMonth))).GetId()
+    case **HtmlInputNumber:
+      pass = true
+      name = []byte( (*(*v.(**HtmlInputNumber))).Name )
+      id = (*(*v.(**HtmlInputNumber))).GetId()
+    case **HtmlInputPassword:
+      pass = true
+      name = []byte( (*(*v.(**HtmlInputPassword))).Name )
+      id = (*(*v.(**HtmlInputPassword))).GetId()
+    case **HtmlInputRadio:
+      pass = true
+      name = []byte( (*(*v.(**HtmlInputRadio))).Name )
+      id = (*(*v.(**HtmlInputRadio))).GetId()
+    case **HtmlInputRange:
+      pass = true
+      name = []byte( (*(*v.(**HtmlInputRange))).Name )
+      id = (*(*v.(**HtmlInputRange))).GetId()
+    case **HtmlInputSearch:
+      pass = true
+      name = []byte( (*(*v.(**HtmlInputSearch))).Name )
+      id = (*(*v.(**HtmlInputSearch))).GetId()
+    case **HtmlInputTel:
+      pass = true
+      name = []byte( (*(*v.(**HtmlInputTel))).Name )
+      id = (*(*v.(**HtmlInputTel))).GetId()
+    case **HtmlInputTime:
+      pass = true
+      name = []byte( (*(*v.(**HtmlInputTime))).Name )
+      id = (*(*v.(**HtmlInputTime))).GetId()
+    case **HtmlInputUrl:
+      pass = true
+      name = []byte( (*(*v.(**HtmlInputUrl))).Name )
+      id = (*(*v.(**HtmlInputUrl))).GetId()
+    case **HtmlInputWeek:
+      pass = true
+      name = []byte( (*(*v.(**HtmlInputWeek))).Name )
+      id = (*(*v.(**HtmlInputWeek))).GetId()
+    case **KendoUiMobileSwitch:
+      pass = true
+      name = []byte( (*(*v.(**KendoUiMobileSwitch))).Html.Name )
+      id = (*(*v.(**KendoUiMobileSwitch))).GetId()
+    case *HtmlInputText:
+      pass = true
+      name = []byte( converted.Name )
+      id = converted.GetId()
+    case *HtmlInputHidden:
+      pass = true
+      name = []byte( converted.Name )
+      id = converted.GetId()
+    case *KendoUiComboBox:
+      pass = true
+      name = []byte( converted.Html.Name )
+      id = converted.GetId()
     case *KendoUiAutoComplete:
       pass = true
       name = []byte( converted.Html.Name )
@@ -452,14 +604,6 @@ func (el *Content)GetNamesAndIds() []map[string][]byte {
       pass = true
       name = []byte( converted.Html.Name )
       id = converted.GetId()
-    case *KendoUiComboBox:
-      pass = true
-      name = []byte( converted.Html.Name )
-      id = converted.GetId()
-    case **KendoUiComboBox:
-      pass = true
-      name = []byte( (*(*v.(**KendoUiComboBox))).Html.Name )
-      id = (*(*v.(**KendoUiComboBox))).GetId()
     case *KendoUiNumericTextBox:
       pass = true
       name = []byte( converted.Html.Name )
@@ -520,14 +664,6 @@ func (el *Content)GetNamesAndIds() []map[string][]byte {
       pass = true
       name = []byte( converted.Name )
       id = converted.GetId()
-    case *HtmlInputHidden:
-      pass = true
-      name = []byte( converted.Name )
-      id = converted.GetId()
-    case **HtmlInputHidden:
-      pass = true
-      name = []byte( (*(*v.(**HtmlInputHidden))).Name )
-      id = (*(*v.(**HtmlInputHidden))).GetId()
     case *HtmlInputImage:
       pass = true
       name = []byte( converted.Name )
@@ -560,14 +696,6 @@ func (el *Content)GetNamesAndIds() []map[string][]byte {
       pass = true
       name = []byte( converted.Name )
       id = converted.GetId()
-    case *HtmlInputText:
-      pass = true
-      name = []byte( converted.Name )
-      id = converted.GetId()
-    case **HtmlInputText:
-      pass = true
-      name = []byte( (*(*v.(**HtmlInputText))).Name )
-      id = (*(*v.(**HtmlInputText))).GetId()
     case *HtmlInputTime:
       pass = true
       name = []byte( converted.Name )
@@ -821,6 +949,50 @@ func (el *Content)MakeJsObject() []byte {
   for _, v := range formElements {
     pass = false
     switch converted := v.(type) {
+    case *KendoUiComboBox:
+      pass = true
+      key = []byte( converted.Html.Name )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').data('kendoComboBox').value()` )
+    case ***KendoUiComboBox:
+      pass = true
+      key = []byte( (*(*(*v.(***KendoUiComboBox)))).Html.Name )
+      jsCode = []byte( `$('#` + string( (*(*(*v.(***KendoUiComboBox)))).GetId() ) + `').data('kendoComboBox').value()` )
+    case *HtmlInputText:
+      pass = true
+      key = []byte( converted.Name )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val()` )
+    case **HtmlInputText:
+      pass = true
+      key = []byte( (*(*v.(**HtmlInputText))).Name )
+      jsCode = []byte( `$('#` + string( (*(*v.(**HtmlInputText))).GetId() ) + `').val()` )
+    case *HtmlInputHidden:
+      pass = true
+      key = []byte( converted.Name )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val()` )
+    case **HtmlInputHidden:
+      pass = true
+      key = []byte( (*(*v.(**HtmlInputHidden))).Name )
+      jsCode = []byte( `$('#` + string( (*(*v.(**HtmlInputHidden))).GetId() ) + `').val()` )
+    case ***HtmlInputHidden:
+      pass = true
+      key = []byte( (*(*(*v.(***HtmlInputHidden)))).Name )
+      jsCode = []byte( `$('#` + string( (*(*(*v.(***HtmlInputHidden)))).GetId() ) + `').val()` )
+    case *KendoUiDropDownList:
+      pass = true
+      key = []byte( converted.Html.Name )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').data('kendoDropDownList').value()` )
+    case **KendoUiDropDownList:
+      pass = true
+      key = []byte( (*(*v.(**KendoUiDropDownList))).Html.Name )
+      jsCode = []byte( `$('#` + string( (*(*v.(**KendoUiDropDownList))).GetId() ) + `').data('kendoDropDownList').value()` )
+    case *KendoUiMultiSelect: // fixme: colocar o conteúdo da janela aqui também
+      pass = true
+      key = []byte( converted.Html.Name )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').data('kendoMultiSelect').value()` )
+    case **KendoUiMultiSelect: // fixme: colocar o conteúdo da janela aqui também
+      pass = true
+      key = []byte( (*(*v.(**KendoUiMultiSelect))).Html.Name )
+      jsCode = []byte( `$('#` + string( (*(*v.(**KendoUiMultiSelect))).GetId() ) + `').data('kendoMultiSelect').value()` )
     case *KendoUiAutoComplete:
       pass = true
       key = []byte( converted.Html.Name )
@@ -849,14 +1021,6 @@ func (el *Content)MakeJsObject() []byte {
       pass = true
       key = []byte( converted.Html.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').data('kendoColorPicker').value()` )
-    case *KendoUiComboBox:
-      pass = true
-      key = []byte( converted.Html.Name )
-      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').data('kendoComboBox').value()` )
-    case ***KendoUiComboBox:
-      pass = true
-      key = []byte( (*(*(*v.(***KendoUiComboBox)))).Html.Name )
-      jsCode = []byte( `$('#` + string( (*(*(*v.(***KendoUiComboBox)))).GetId() ) + `').data('kendoComboBox').value()` )
     case *KendoUiNumericTextBox:
       pass = true
       key = []byte( converted.Html.Name )
@@ -873,22 +1037,6 @@ func (el *Content)MakeJsObject() []byte {
       pass = true
       key = []byte( converted.Html.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').data('kendoDateTimePicker').value()` )
-    case *KendoUiDropDownList:
-      pass = true
-      key = []byte( converted.Html.Name )
-      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').data('kendoDropDownList').value()` )
-    case **KendoUiDropDownList:
-      pass = true
-      key = []byte( (*(*v.(**KendoUiDropDownList))).Html.Name )
-      jsCode = []byte( `$('#` + string( (*(*v.(**KendoUiDropDownList))).GetId() ) + `').data('kendoDropDownList').value()` )
-    case *KendoUiMultiSelect: // fixme: colocar o conteúdo da janela aqui também
-      pass = true
-      key = []byte( converted.Html.Name )
-      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').data('kendoMultiSelect').value()` )
-    case **KendoUiMultiSelect: // fixme: colocar o conteúdo da janela aqui também
-      pass = true
-      key = []byte( (*(*v.(**KendoUiMultiSelect))).Html.Name )
-      jsCode = []byte( `$('#` + string( (*(*v.(**KendoUiMultiSelect))).GetId() ) + `').data('kendoMultiSelect').value()` )
     case *HtmlElementFormSelect:
       pass = true
       key = []byte( converted.Name )
@@ -925,18 +1073,6 @@ func (el *Content)MakeJsObject() []byte {
       pass = true
       key = []byte( converted.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val()` )
-    case *HtmlInputHidden:
-      pass = true
-      key = []byte( converted.Name )
-      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val()` )
-    case **HtmlInputHidden:
-      pass = true
-      key = []byte( (*(*v.(**HtmlInputHidden))).Name )
-      jsCode = []byte( `$('#` + string( (*(*v.(**HtmlInputHidden))).GetId() ) + `').val()` )
-    case ***HtmlInputHidden:
-      pass = true
-      key = []byte( (*(*(*v.(***HtmlInputHidden)))).Name )
-      jsCode = []byte( `$('#` + string( (*(*(*v.(***HtmlInputHidden)))).GetId() ) + `').val()` )
     case *HtmlInputImage:
       pass = true
       key = []byte( converted.Name )
@@ -969,14 +1105,6 @@ func (el *Content)MakeJsObject() []byte {
       pass = true
       key = []byte( converted.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val()` )
-    case *HtmlInputText:
-      pass = true
-      key = []byte( converted.Name )
-      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val()` )
-    case **HtmlInputText:
-      pass = true
-      key = []byte( (*(*v.(**HtmlInputText))).Name )
-      jsCode = []byte( `$('#` + string( (*(*v.(**HtmlInputText))).GetId() ) + `').val()` )
     case *HtmlInputTime:
       pass = true
       key = []byte( converted.Name )

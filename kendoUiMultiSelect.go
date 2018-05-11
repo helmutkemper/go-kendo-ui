@@ -4,6 +4,7 @@ import (
   "bytes"
   "reflect"
   log "github.com/helmutkemper/seelog"
+  "fmt"
 )
 
 type KendoUiMultiSelect struct {
@@ -916,7 +917,7 @@ func(el *KendoUiMultiSelect) ToJavaScript() []byte {
 
     }
 
-    /*if el.NoDataTemplate != nil {
+    if el.NoDataTemplate != nil {
       switch el.NoDataTemplate.(type) {
       case HtmlElementScript:
 
@@ -930,7 +931,7 @@ func(el *KendoUiMultiSelect) ToJavaScript() []byte {
 
               //reflect.ValueOf(&el.NoDataTemplate.(HtmlElementScript).Content[ k ].(*HtmlElementFormButton).Global).FieldByName("OnClick").SetString("esta vivo")
               p := reflect.ValueOf(&el.NoDataTemplate.(HtmlElementScript).Content[ k ].(*HtmlElementFormButton).Global.OnClick)
-              p.Elem().SetString("esta vivo")
+              p.Elem().SetString("esta vivo!!!!!!!!")
               //fmt.Printf( "------%v\n\n\n\n\n\n\n\n", p.Elem().CanSet() )
               fmt.Printf( "------%v--------\n\n\n\n\n\n\n\n", el.NoDataTemplate.(HtmlElementScript).Content[ k ].(*HtmlElementFormButton).Global.OnClick )
               //el.NoDataTemplate.(HtmlElementScript).Content[ k ].(HtmlElementFormButton).Global.OnClick = "esta vivo"
@@ -941,7 +942,7 @@ func(el *KendoUiMultiSelect) ToJavaScript() []byte {
         }
 
       }
-    }*/
+    }
 
   }
 
