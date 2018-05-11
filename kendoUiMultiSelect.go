@@ -4,7 +4,6 @@ import (
   "bytes"
   "reflect"
   log "github.com/helmutkemper/seelog"
-  "fmt"
 )
 
 type KendoUiMultiSelect struct {
@@ -917,7 +916,7 @@ func(el *KendoUiMultiSelect) ToJavaScript() []byte {
 
     }
 
-    if el.NoDataTemplate != nil {
+    /*if el.NoDataTemplate != nil {
       switch el.NoDataTemplate.(type) {
       case HtmlElementScript:
 
@@ -942,7 +941,7 @@ func(el *KendoUiMultiSelect) ToJavaScript() []byte {
         }
 
       }
-    }
+    }*/
 
   }
 
