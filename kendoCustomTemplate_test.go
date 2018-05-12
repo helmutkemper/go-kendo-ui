@@ -1286,9 +1286,9 @@ func ExampleSoUmTest() {
       }
     </style>
     <title></title>
-    <link rel="stylesheet" href="http://localhost:8888/static/pessoal/kendo-ui/styles/kendo.common-material.min.css" />
-    <link rel="stylesheet" href="http://localhost:8888/static/pessoal/kendo-ui/styles/kendo.material.min.css" />
-    <link rel="stylesheet" href="http://localhost:8888/static/pessoal/kendo-ui/styles/kendo.material.mobile.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.1.221/styles/kendo.common-material.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.1.221/styles/kendo.material.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.1.221/styles/kendo.material.mobile.min.css" />
     <style>
       .k-content {
         width: 500px;
@@ -1327,8 +1327,8 @@ func ExampleSoUmTest() {
         display: block;
       }
     </style>
-    <script src="http://localhost:8888/static/pessoal/kendo-ui/js/jquery.min.js"></script>
-    <script src="http://localhost:8888/static/pessoal/kendo-ui/js/kendo.all.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2018.1.221/js/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2018.1.221/js/kendo.all.min.js"></script>
     %s
     <script>
       %s

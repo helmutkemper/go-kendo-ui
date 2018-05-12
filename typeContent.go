@@ -253,26 +253,26 @@ func(el *Content) ToJavaScript() []byte {
 
   var formElements = el.FilterFormElements()
   for _, v := range formElements {
-    switch converted := v.(type) {
+    switch v.(type) {
 
-    case *KendoUiMultiSelect:
+    case **KendoUiMultiSelect:
 
-      if !reflect.DeepEqual( (*converted).DataSource, KendoDataSource{} ) {
+      if !reflect.DeepEqual( (*(*v.(**KendoUiMultiSelect))).DataSource, KendoDataSource{} ) {
 
-        switch (*converted).DataSource.(type) {
+        switch (*(*v.(**KendoUiMultiSelect))).DataSource.(type) {
         case KendoDataSource:
           // Widget
           buffer.Write( []byte( "        " ) )
-          buffer.Write( []byte( (*converted).Html.GetId() ) )
+          buffer.Write( []byte( (*(*v.(**KendoUiMultiSelect))).Html.GetId() ) )
           buffer.Write( []byte( "Widget = $('#" ) )
-          buffer.Write( []byte( (*converted).Html.GetId() ) )
+          buffer.Write( []byte( (*(*v.(**KendoUiMultiSelect))).Html.GetId() ) )
           buffer.Write( []byte( "').getKendoMultiSelect();\n" ) )
 
           // DataSource
           buffer.Write( []byte( "        " ) )
-          buffer.Write( []byte( (*converted).Html.GetId() ) )
+          buffer.Write( []byte( (*(*v.(**KendoUiMultiSelect))).Html.GetId() ) )
           buffer.Write( []byte( "DataSource = " ) )
-          buffer.Write( []byte( (*converted).Html.GetId() ) )
+          buffer.Write( []byte( (*(*v.(**KendoUiMultiSelect))).Html.GetId() ) )
           buffer.Write( []byte( "Widget.dataSource;\n" ) )
         }
       }
@@ -738,22 +738,22 @@ func (el *Content)MakeJsObject() []byte {
   // fixme: KendoUiCalendar e KendoUiColorPalette devem ter name como obrigatórios
 
   for _, v := range formElements {
-    switch converted := v.(type) {
+    switch v.(type) {
 
-    case *KendoUiMultiSelect:
+    case **KendoUiMultiSelect:
 
-      if !reflect.DeepEqual( (*converted).DataSource, KendoDataSource{} ) {
+      if !reflect.DeepEqual( (*(*v.(**KendoUiMultiSelect))).DataSource, KendoDataSource{} ) {
 
-        switch (*converted).DataSource.(type) {
+        switch (*(*v.(**KendoUiMultiSelect))).DataSource.(type) {
         case KendoDataSource:
           // Widget
           buffer.Write( []byte( "      var " ) )
-          buffer.Write( []byte( (*converted).Html.GetId() ) )
+          buffer.Write( []byte( (*(*v.(**KendoUiMultiSelect))).Html.GetId() ) )
           buffer.Write( []byte( "Widget;\n" ) )
 
           // DataSource
           buffer.Write( []byte( "      var " ) )
-          buffer.Write( []byte( (*converted).Html.GetId() ) )
+          buffer.Write( []byte( (*(*v.(**KendoUiMultiSelect))).Html.GetId() ) )
           buffer.Write( []byte( "DataSource;\n" ) )
         }
       }
@@ -765,18 +765,18 @@ func (el *Content)MakeJsObject() []byte {
   for _, v := range formElements {
     switch converted := v.(type) {
 
-    case *KendoUiMultiSelect:
+    case **KendoUiMultiSelect:
 
       var pass = false
       var contentToFind []map[string][]byte
-      if !reflect.DeepEqual( (*converted).Dialog, KendoUiDialog{} ) {
-        var mainElementDataSourceDataKeyId = []byte( (*converted).DataValueField )
-        for _, action := range (*converted).Dialog.Actions {
+      if !reflect.DeepEqual( (*(*v.(**KendoUiMultiSelect))).Dialog, KendoUiDialog{} ) {
+        var mainElementDataSourceDataKeyId = []byte( (*(*v.(**KendoUiMultiSelect))).DataValueField )
+        for _, action := range (*(*v.(**KendoUiMultiSelect))).Dialog.Actions {
 
           if action.ButtonType == BUTTON_TYPE_ADD_AND_CLOSE || action.ButtonType == BUTTON_TYPE_ADD {
 
             buffer.Write([]byte( "      function " ))
-            buffer.Write([]byte( (*converted).GetId() ))
+            buffer.Write([]byte( (*(*v.(**KendoUiMultiSelect))).GetId() ))
 
             if action.ButtonType == BUTTON_TYPE_ADD_AND_CLOSE {
 
@@ -790,7 +790,7 @@ func (el *Content)MakeJsObject() []byte {
 
             var elementId []byte
             var dataSourceName []byte
-            switch convertedContent := (*converted).Dialog.Content.(type) {
+            switch convertedContent := (*(*v.(**KendoUiMultiSelect))).Dialog.Content.(type) {
 
             case Content:
 
@@ -799,19 +799,19 @@ func (el *Content)MakeJsObject() []byte {
                 pass = false
                 switch convertedElement := element.(type) {
 
-                case HtmlElementForm:
+                case *HtmlElementForm:
                   pass = true
                   elementId = []byte( convertedElement.Global.Id )
                   dataSourceName = (*converted).Html.GetId()
                   contentToFind = convertedElement.Content.GetNamesAndIds()
 
-                case HtmlElementDiv:
+                case *HtmlElementDiv:
                   elementId = []byte( convertedElement.Global.Id )
                   dataSourceName = (*converted).Html.GetId()
                   contentToFind = convertedElement.Content.GetNamesAndIds()
                   pass = true
 
-                case HtmlElementSpan:
+                case *HtmlElementSpan:
                   elementId = []byte( convertedElement.Global.Id )
                   dataSourceName = (*converted).Html.GetId()
                   contentToFind = convertedElement.Content.GetNamesAndIds()
@@ -927,6 +927,29 @@ func (el *Content)MakeJsObject() []byte {
       buffer.Write( []byte( ";\n" ) )
 
       switch convertedFromInterface := converted.Dialog.Content.(type) {
+      case Content:
+        buffer.Write( []byte( "            " ) )
+        buffer.Write( convertedFromInterface.ToJavaScript() )
+        buffer.Write( []byte( "       break;\n" ) )
+      }
+
+
+      //buffer.Write( []byte( ";\n" ) )
+
+    case **KendoUiMultiSelect:
+      if reflect.DeepEqual( (*(*v.(**KendoUiMultiSelect))).Dialog, KendoUiDialog{} ) {
+        continue
+      }
+
+      key = []byte( (*(*v.(**KendoUiMultiSelect))).Html.GetId() )
+      jsCode = []byte( `$('#` + string( (*(*v.(**KendoUiMultiSelect))).Dialog.GetId() ) + `').data('kendoDialog').open()` )
+      buffer.Write( []byte( "          case 'id:" ) )
+      buffer.Write( key )
+      buffer.Write( []byte( "': " ) )
+      buffer.Write( jsCode )
+      buffer.Write( []byte( ";\n" ) )
+
+      switch convertedFromInterface := (*(*v.(**KendoUiMultiSelect))).Dialog.Content.(type) {
       case Content:
         buffer.Write( []byte( "            " ) )
         buffer.Write( convertedFromInterface.ToJavaScript() )
@@ -1148,10 +1171,10 @@ func (el *Content)MakeJsScript() []byte {
 
   var elementList = el.FilterFormElements()
   for keyElementList := range elementList {
-    switch converted := elementList[ keyElementList ].(type) {
-    default:
-      fmt.Printf( "%T\n\n\n\n", converted )
-    }
+    //switch converted := elementList[ keyElementList ].(type) {
+    //default:
+    //  fmt.Printf( "%T\n\n\n\n", converted )
+    //}
     switch elementList[ keyElementList ].(type) {
     case **KendoUiMultiSelect:
 
@@ -1159,82 +1182,30 @@ func (el *Content)MakeJsScript() []byte {
 
       if reflect.DeepEqual( (*(*elementList[ keyElementList ].(**KendoUiMultiSelect))).DataSource, KendoDataSource{} ) == false && reflect.DeepEqual( (*(*elementList[ keyElementList ].(**KendoUiMultiSelect))).Dialog, KendoUiDialog{} ) == false {
 
+        switch (*(*elementList[ keyElementList ].(**KendoUiMultiSelect))).NoDataTemplate.(type) {
+        case HtmlElementScript:
 
-          switch (*(*elementList[ keyElementList ].(**KendoUiMultiSelect))).NoDataTemplate.(type) {
-          case HtmlElementScript:
+          for k := range (*(*elementList[ keyElementList ].(**KendoUiMultiSelect))).NoDataTemplate.(HtmlElementScript).Content {
 
-            for k := range (*(*elementList[ keyElementList ].(**KendoUiMultiSelect))).NoDataTemplate.(HtmlElementScript).Content {
+            switch (*(*elementList[ keyElementList ].(**KendoUiMultiSelect))).NoDataTemplate.(HtmlElementScript).Content[ k ].(type) {
+            case *HtmlElementFormButton:
 
-              switch (*(*elementList[ keyElementList ].(**KendoUiMultiSelect))).NoDataTemplate.(HtmlElementScript).Content[ k ].(type) {
-              case *HtmlElementFormButton:
+              if (*(*elementList[ keyElementList ].(**KendoUiMultiSelect))).NoDataTemplate.(HtmlElementScript).Content[ k ].(*HtmlElementFormButton).ButtonType == BUTTON_TYPE_ADD_IN_TEMPLATE {
+                //el.NoDataTemplate.(HtmlElementScript).Content[ k ].(HtmlElementFormButton).Global.OnClick = "addNewItemToKendoDataSource('id:#: instance.element[0].id #')"
 
-                if (*(*elementList[ keyElementList ].(**KendoUiMultiSelect))).NoDataTemplate.(HtmlElementScript).Content[ k ].(*HtmlElementFormButton).ButtonType == BUTTON_TYPE_ADD_IN_TEMPLATE {
-                  //el.NoDataTemplate.(HtmlElementScript).Content[ k ].(HtmlElementFormButton).Global.OnClick = "addNewItemToKendoDataSource('id:#: instance.element[0].id #')"
-
-                  //reflect.ValueOf(&el.NoDataTemplate.(HtmlElementScript).Content[ k ].(*HtmlElementFormButton).Global).FieldByName("OnClick").SetString("esta vivo")
-                  p := reflect.ValueOf(&(*(*elementList[ keyElementList ].(**KendoUiMultiSelect))).NoDataTemplate.(HtmlElementScript).Content[ k ].(*HtmlElementFormButton).Global.OnClick)
-                  p.Elem().SetString("esta vivo")
-                  //fmt.Printf( "------%v\n\n\n\n\n\n\n\n", p.Elem().CanSet() )
-                  fmt.Printf( "------%v--------\n\n\n\n\n\n\n\n", (*(*elementList[ keyElementList ].(**KendoUiMultiSelect))).NoDataTemplate.(HtmlElementScript).Content[ k ].(*HtmlElementFormButton).Global.OnClick )
-                  //el.NoDataTemplate.(HtmlElementScript).Content[ k ].(HtmlElementFormButton).Global.OnClick = "esta vivo"
-                }
-
+                //reflect.ValueOf(&el.NoDataTemplate.(HtmlElementScript).Content[ k ].(*HtmlElementFormButton).Global).FieldByName("OnClick").SetString("esta vivo")
+                p := reflect.ValueOf(&(*(*elementList[ keyElementList ].(**KendoUiMultiSelect))).NoDataTemplate.(HtmlElementScript).Content[ k ].(*HtmlElementFormButton).Global.OnClick)
+                p.Elem().SetString("addNewItemToKendoDataSource('id:#: instance.element[0].id #')")
+                //fmt.Printf( "------%v\n\n\n\n\n\n\n\n", p.Elem().CanSet() )
+                //fmt.Printf( "------%v--------\n\n\n\n\n\n\n\n", (*(*elementList[ keyElementList ].(**KendoUiMultiSelect))).NoDataTemplate.(HtmlElementScript).Content[ k ].(*HtmlElementFormButton).Global.OnClick )
+                //el.NoDataTemplate.(HtmlElementScript).Content[ k ].(HtmlElementFormButton).Global.OnClick = "esta vivo"
               }
 
             }
 
           }
 
-
-        /*if elementList[ keyElementList ].(*KendoUiMultiSelect).NoDataTemplate != nil {
-          switch elementList[ keyElementList ].(*KendoUiMultiSelect).NoDataTemplate.(type) {
-          case HtmlElementScript:
-
-            for keyContent := range elementList[ keyElementList ].(*KendoUiMultiSelect).NoDataTemplate.(HtmlElementScript).Content {
-
-              switch elementList[ keyElementList ].(*KendoUiMultiSelect).NoDataTemplate.(HtmlElementScript).Content[ keyContent ].(type) {
-              case HtmlElementFormButton:
-
-                if elementList[ keyElementList ].(*KendoUiMultiSelect).NoDataTemplate.(HtmlElementScript).Content[ keyContent ].(HtmlElementFormButton).ButtonType == BUTTON_TYPE_ADD_IN_TEMPLATE {
-
-                  relation.Add(
-                    "dataSource",
-                    elementList[ keyElementList ].(*KendoUiMultiSelect).Html.Global.Id,
-                    elementList[ keyElementList ].(*KendoUiMultiSelect).NoDataTemplate.(HtmlElementScript).Content[ keyContent ].(HtmlElementFormButton).Global.Id,
-                  )
-
-
-                  //inte := unsafe.Pointer(elementList[ keyElementList ].(*KendoUiMultiSelect))
-                  //s  := reflect.ValueOf((*KendoUiMultiSelect)(unsafe.Pointer(ps))).Elem().FieldByName("NoDataTemplate").Interface().(HtmlElementScript)
-                  //s := reflect.ValueOf(ele).FieldByName("Content")
-
-
-                  inte2 := reflect.Indirect(reflect.ValueOf(&elementList[ keyElementList ])).Interface()
-                  inte3 := reflect.ValueOf(inte2.(*KendoUiMultiSelect))
-
-                  //inte2.Elem().SetString("vivp")
-                  fmt.Printf( ">>%v\n\n\n\n", inte3.CanAddr() )
-                  //fmt.Printf( ">>>>%v\n\n\n\n", reflect.ValueOf(ele1).Field(keyContent).CanSet() )
-
-                  //*(inter.(*KendoUiMultiSelect)).NoDataTemplate.(HtmlElementScript).Content[ keyContent ].(HtmlElementFormButton).Global.OnClick
-                  //inter.Elem().SetString("está vivo")
-                  //inter.SetString( "está vivo" )
-                  //fmt.Printf( "%v\n",inter )
-
-                  fmt.Printf( "\n\n\n\n\n\n\n\n\n\n------ %v ------\n\n\n\n\n\n\n\n\n\n", elementList[ keyElementList ].(*KendoUiMultiSelect).NoDataTemplate.(HtmlElementScript).Content[ keyContent ].(HtmlElementFormButton).Global.OnClick )
-                  //fmt.Printf( "%v", elementList[ keyElementList ].(*KendoUiMultiSelect).NoDataTemplate.(HtmlElementScript).Content[ keyContent ].(HtmlElementFormButton).Global.OnClick )
-
-                  //fmt.Printf( "\n\n\n\n%s\n\n\n\n", elementList[ keyElementList ].(*KendoUiMultiSelect).NoDataTemplate.(HtmlElementScript).Content[ keyContent ].(HtmlElementFormButton).Global.Id )
-                  //elementList[ keyElementList ].(*KendoUiMultiSelect).NoDataTemplate.(HtmlElementScript).Content[ keyContent ].(HtmlElementFormButton).Global.OnClick = "addNewItemToKendoDataSource('id:#: instance.element[0].id #')"
-
-                }
-
-              }
-
-            }
-          }
-        }*/
-
+        }
       }
 
       switch tplConverted := (*(*elementList[ keyElementList ].(**KendoUiMultiSelect))).FooterTemplate.(type) {
