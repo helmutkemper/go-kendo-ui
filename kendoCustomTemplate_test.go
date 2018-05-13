@@ -327,11 +327,11 @@ func ExampleIdea() {
         },
         Actions: []KendoActions{
           {
-            Text: "Close",
+            Text: "--Close",
           },
           {
-            Action:  JavaScript{
-              Code: `function(input){ 
+            /*Action:  JavaScript{
+              Code: `function(input){
                       if(!$('#spanCreateTemplateExposedPortsAddNewPort').kendoValidator().data('kendoValidator').validate())
                       { 
                         return false; 
@@ -359,15 +359,15 @@ func ExampleIdea() {
                       dataSource.sync();
                       return false; 
                     }`,
-            },
-            Text:    "Add",
+            },*/
+            Text:    "--Add",
           },
           {
-            Action:  JavaScript{
+            /*Action:  JavaScript{
               Code: "function(input){ if(!$('#spanCreateTemplateExposedPortsAddNewPort').kendoValidator().data('kendoValidator').validate()){ return false; } }",
-            },
+            },*/
             Primary: TRUE,
-            Text:    "Add and close",
+            Text:    "--Add and close",
           },
         },
         EventOpen: JavaScript{
@@ -385,7 +385,7 @@ func ExampleIdea() {
   //
 }
 func ExampleSoUmTest() {
-  el :=       HtmlElementDiv{
+  el := HtmlElementDiv{
     Global: HtmlGlobalAttributes{
       Id: "spanCreateTemplateExposedPortsAddNewPort",
       Class: "k-content",
@@ -495,17 +495,6 @@ func ExampleSoUmTest() {
             },
           },
 
-          /*KendoUiMobileSwitch{
-            Html: HtmlInputCheckBox{
-              Global: HtmlGlobalAttributes{
-                Id: "ConfigAttachStdIn",
-              },
-              Name: "AttachStdIn",
-            },
-            OnLabel: "Yes",
-            OffLabel: "No",
-          },*/
-
         },
       },
 
@@ -578,7 +567,6 @@ func ExampleSoUmTest() {
             DataValueField: "id",
             DataTextField: "ExposedPortsShow",
             DataSource: KendoDataSource{
-              //VarName: "testDataSource",
               //Type: KENDO_TYPE_DATA_JSON,
               Transport: KendoTransport{
                 Read: KendoRead{
@@ -752,9 +740,6 @@ func ExampleSoUmTest() {
                   Global: HtmlGlobalAttributes{
                     Id: getAutoId(),
                     Class: "k-button",
-                    // fixme: isto tem que ser automático
-                    OnClick: "addNewItemToKendoDataSource('id:#: instance.element[0].id #')",
-                    //OnClick: "addToDataSource",
                   },
                   Content: Content{
                     "Add new item",
