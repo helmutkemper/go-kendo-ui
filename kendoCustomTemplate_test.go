@@ -570,7 +570,6 @@ func ExampleSoUmTest() {
               //Type: KENDO_TYPE_DATA_JSON,
               Transport: KendoTransport{
                 Read: KendoRead{
-                  // dado lido: {"itemsCount": 2,"items": [{"ProductID": 1,"ProductName": "Chai","UnitPrice": 18,"UnitsInStock": 39,"Discontinued": false},{"ProductID": 2,"ProductName": "Chang","UnitPrice": 19,"UnitsInStock": 17,"Discontinued": false}]}
                   Url: "/static/test/read",
                   Type: HTML_METHOD_GET,
                   DataType: KENDO_TYPE_DATA_JSON_JSON,
@@ -1263,7 +1262,7 @@ func ExampleSoUmTest() {
   fmt.Printf( `<!DOCTYPE html>
 <html>
 <head>
-    <!--base href="https://demos.telerik.com/kendo-ui/grid/index"-->
+    <!--base href="http://localhost:8888/static/js/kendo-ui/"-->
     <style>
       html { 
         font-size: 14px; 
@@ -1271,9 +1270,9 @@ func ExampleSoUmTest() {
       }
     </style>
     <title></title>
-    <link rel="stylesheet" href="http://localhost:8888/static/js/kendo-ui/styles/kendo.common-material.min.css" />
-    <link rel="stylesheet" href="http://localhost:8888/static/js/kendo-ui/styles/kendo.material.min.css" />
-    <link rel="stylesheet" href="http://localhost:8888/static/js/kendo-ui/styles/kendo.material.mobile.min.css" />
+    <link rel="stylesheet" href="./styles/kendo.common-material.min.css" />
+    <link rel="stylesheet" href="./styles/kendo.material.min.css" />
+    <link rel="stylesheet" href="./styles/kendo.material.mobile.min.css" />
     <style>
       .k-content {
         width: 500px;
@@ -1312,8 +1311,8 @@ func ExampleSoUmTest() {
         display: block;
       }
     </style>
-    <script src="http://localhost:8888/static/js/kendo-ui/js/jquery.min.js"></script>
-    <script src="http://localhost:8888/static/js/kendo-ui/js/kendo.all.min.js"></script>
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/kendo.all.min.js"></script>
     %s
     <script>
       %s
