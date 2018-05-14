@@ -835,7 +835,7 @@ func (el *Content)MakeJsObject() []byte {
                   for _, element := range contentToFind {
                     buffer.Write([]byte( "          '" ))
                     buffer.Write( element["name"] )
-                    buffer.Write([]byte( "': getFormValue('id:" ))
+                    buffer.Write([]byte( "': getValueById('id:" ))
                     buffer.Write( element["id"] )
                     buffer.Write([]byte( "'),\n" ))
                   }
@@ -965,9 +965,7 @@ func (el *Content)MakeJsObject() []byte {
   buffer.Write( []byte( "        }\n" ) )
   buffer.Write( []byte( "      }\n" ) )
 
-
-
-  buffer.Write( []byte( "      function getFormValue( id ){\n" ) )
+  buffer.Write( []byte( "      function getValueById( id ){\n" ) )
   buffer.Write( []byte( "        switch( id ){\n" ) )
   for _, v := range formElements {
     pass = false
@@ -1400,7 +1398,467 @@ func (el *Content)MakeJsObject() []byte {
     case *Content:
     case *KendoDataSource:
     default:
-      fmt.Printf( "\n\n\n-getFormValue.id.type.%T.not.found.\n\n\n", converted )
+      fmt.Printf( "\n\n\n-getValueById.id.type.%T.not.found.\n\n\n", converted )
+    }
+
+    if pass == true {
+      buffer.Write([]byte( "          case 'id:" ))
+      buffer.Write(key)
+      buffer.Write([]byte( "': return " ))
+      buffer.Write(jsCode)
+      buffer.Write([]byte( ";\n" ))
+    }
+  }
+  buffer.Write( []byte( "        }\n" ) )
+  buffer.Write( []byte( "      }\n" ) )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  buffer.Write( []byte( "      function setValueById( id, value ){\n" ) )
+  buffer.Write( []byte( "        switch( id ){\n" ) )
+  for _, v := range formElements {
+    pass = false
+    switch converted := v.(type) {
+    case ***KendoUiComboBox:
+      pass = true
+      key = []byte( (*(*(*v.(***KendoUiComboBox)))).Html.Name )
+      jsCode = []byte( `$('#` + string( (*(*(*v.(***KendoUiComboBox)))).GetId() ) + `').data('kendoComboBox').value( value )` )
+    case ***HtmlInputText:
+      pass = true
+      key = []byte( (*(*(*v.(***HtmlInputText)))).Name )
+      jsCode = []byte( `$('#` + string( (*(*(*v.(***HtmlInputText)))).GetId() ) + `').val( value )` )
+    case ***HtmlInputHidden:
+      pass = true
+      key = []byte( (*(*(*v.(***HtmlInputHidden)))).Name )
+      jsCode = []byte( `$('#` + string( (*(*(*v.(***HtmlInputHidden)))).GetId() ) + `').val( value )` )
+    case ***KendoUiDropDownList:
+      pass = true
+      key = []byte( (*(*(*v.(***KendoUiDropDownList)))).Html.Name )
+      jsCode = []byte( `$('#` + string( (*(*(*v.(***KendoUiDropDownList)))).GetId() ) + `').data('kendoDropDownList').value( value )` )
+    case ***KendoUiMultiSelect: // fixme: colocar o conteúdo da janela aqui também
+      pass = true
+      key = []byte( (*(*(*v.(***KendoUiMultiSelect)))).Html.Name )
+      jsCode = []byte( `$('#` + string( (*(*(*v.(***KendoUiMultiSelect)))).GetId() ) + `').data('kendoMultiSelect').value( value )` )
+    case ***KendoUiAutoComplete:
+      pass = true
+      key = []byte( (*(*(*v.(***KendoUiAutoComplete)))).Html.Name )
+      jsCode = []byte( `$('#` + string( (*(*(*v.(***KendoUiAutoComplete)))).GetId() ) + `').data('kendoAutoComplete').value( value )` )
+    case ***KendoUiButton:
+      pass = true
+      key = []byte( (*(*(*v.(***KendoUiButton)))).Html.Name )
+      jsCode = []byte( `$('#` + string( (*(*(*v.(***KendoUiButton)))).GetId() ) + `').data('kendoButton').value( value )` )
+    case ***KendoUiCalendar:
+      pass = true
+      key = []byte( (*(*(*v.(***KendoUiCalendar)))).Html.Name )
+      jsCode = []byte( `$('#` + string( (*(*(*v.(***KendoUiCalendar)))).GetId() ) + `').data('kendoCalendar').value( value )` )
+    case ***KendoUiColorPalette:
+      pass = true
+      key = []byte( (*(*(*v.(***KendoUiColorPalette)))).Html.Name )
+      jsCode = []byte( `$('#` + string( (*(*(*v.(***KendoUiColorPalette)))).GetId() ) + `').data('kendoColorPalette').value( value )` )
+    case ***KendoUiColorPicker:
+      pass = true
+      key = []byte( (*(*(*v.(***KendoUiColorPicker)))).Html.Name )
+      jsCode = []byte( `$('#` + string( (*(*(*v.(***KendoUiColorPicker)))).GetId() ) + `').data('kendoColorPicker').value( value )` )
+    case ***KendoUiNumericTextBox:
+      pass = true
+      key = []byte( (*(*(*v.(***KendoUiNumericTextBox)))).Html.Name )
+      jsCode = []byte( `$('#` + string( (*(*(*v.(***KendoUiNumericTextBox)))).GetId() ) + `').data('kendoNumericTextBox').value( value )` )
+    case ***KendoUiDateInput:
+      pass = true
+      key = []byte( (*(*(*v.(***KendoUiDateInput)))).Html.Name )
+      jsCode = []byte( `$('#` + string( (*(*(*v.(***KendoUiDateInput)))).GetId() ) + `').data('kendoDateInput').value( value )` )
+    case ***KendoUiDatePicker:
+      pass = true
+      key = []byte( (*(*(*v.(***KendoUiDatePicker)))).Html.Name )
+      jsCode = []byte( `$('#` + string( (*(*(*v.(***KendoUiDatePicker)))).GetId() ) + `').data('kendoDatePicker').value( value )` )
+    case ***KendoUiDateTimePicker:
+      pass = true
+      key = []byte( (*(*(*v.(***KendoUiDateTimePicker)))).Html.Name )
+      jsCode = []byte( `$('#` + string( (*(*(*v.(***KendoUiDateTimePicker)))).GetId() ) + `').data('kendoDateTimePicker').value( value )` )
+    case ***HtmlElementFormSelect:
+      pass = true
+      key = []byte( (*(*(*v.(***HtmlElementFormSelect)))).Name )
+      jsCode = []byte( `$('#` + string( (*(*(*v.(***HtmlElementFormSelect)))).GetId() ) + `').val( value )` )
+    case ***HtmlElementFormTextArea:
+      pass = true
+      key = []byte( (*(*(*v.(***HtmlElementFormTextArea)))).Name )
+      jsCode = []byte( `$('#` + string( (*(*(*v.(***HtmlElementFormTextArea)))).GetId() ) + `').val( value )` )
+    case ***HtmlInputCheckBox:
+      pass = true
+      key = []byte( (*(*(*v.(***HtmlInputCheckBox)))).Name )
+      jsCode = []byte( `$('#` + string( (*(*(*v.(***HtmlInputCheckBox)))).GetId() ) + `').val( value )` )
+    case ***HtmlInputColor:
+      pass = true
+      key = []byte( (*(*(*v.(***HtmlInputColor)))).Name )
+      jsCode = []byte( `$('#` + string( (*(*(*v.(***HtmlInputColor)))).GetId() ) + `').val( value )` )
+    case ***HtmlInputDate:
+      pass = true
+      key = []byte( (*(*(*v.(***HtmlInputDate)))).Name )
+      jsCode = []byte( `$('#` + string( (*(*(*v.(***HtmlInputDate)))).GetId() ) + `').val( value )` )
+    case ***HtmlInputDateTimeLocal:
+      pass = true
+      key = []byte( (*(*(*v.(***HtmlInputDateTimeLocal)))).Name )
+      jsCode = []byte( `$('#` + string( (*(*(*v.(***HtmlInputDateTimeLocal)))).GetId() ) + `').val( value )` )
+    case ***HtmlInputEmail:
+      pass = true
+      key = []byte( (*(*(*v.(***HtmlInputEmail)))).Name )
+      jsCode = []byte( `$('#` + string( (*(*(*v.(***HtmlInputEmail)))).GetId() ) + `').val( value )` )
+    case ***HtmlInputFile:
+      pass = true
+      key = []byte( (*(*(*v.(***HtmlInputFile)))).Name )
+      jsCode = []byte( `$('#` + string( (*(*(*v.(***HtmlInputFile)))).GetId() ) + `').val( value )` )
+    case ***HtmlInputGeneric:
+      pass = true
+      key = []byte( (*(*(*v.(***HtmlInputGeneric)))).Name )
+      jsCode = []byte( `$('#` + string( (*(*(*v.(***HtmlInputGeneric)))).GetId() ) + `').val( value )` )
+    case ***HtmlInputImage:
+      pass = true
+      key = []byte( (*(*(*v.(***HtmlInputImage)))).Name )
+      jsCode = []byte( `$('#` + string( (*(*(*v.(***HtmlInputImage)))).GetId() ) + `').val( value )` )
+    case ***HtmlInputMonth:
+      pass = true
+      key = []byte( (*(*(*v.(***HtmlInputMonth)))).Name )
+      jsCode = []byte( `$('#` + string( (*(*(*v.(***HtmlInputMonth)))).GetId() ) + `').val( value )` )
+    case ***HtmlInputNumber:
+      pass = true
+      key = []byte( (*(*(*v.(***HtmlInputNumber)))).Name )
+      jsCode = []byte( `$('#` + string( (*(*(*v.(***HtmlInputNumber)))).GetId() ) + `').val( value )` )
+    case ***HtmlInputPassword:
+      pass = true
+      key = []byte( (*(*(*v.(***HtmlInputPassword)))).Name )
+      jsCode = []byte( `$('#` + string( (*(*(*v.(***HtmlInputPassword)))).GetId() ) + `').val( value )` )
+    case ***HtmlInputRadio:
+      pass = true
+      key = []byte( (*(*(*v.(***HtmlInputRadio)))).Name )
+      jsCode = []byte( `$('#` + string( (*(*(*v.(***HtmlInputRadio)))).GetId() ) + `').val( value )` )
+    case ***HtmlInputRange:
+      pass = true
+      key = []byte( (*(*(*v.(***HtmlInputRange)))).Name )
+      jsCode = []byte( `$('#` + string( (*(*(*v.(***HtmlInputRange)))).GetId() ) + `').val( value )` )
+    case ***HtmlInputSearch:
+      pass = true
+      key = []byte( (*(*(*v.(***HtmlInputSearch)))).Name )
+      jsCode = []byte( `$('#` + string( (*(*(*v.(***HtmlInputSearch)))).GetId() ) + `').val( value )` )
+    case ***HtmlInputTel:
+      pass = true
+      key = []byte( (*(*(*v.(***HtmlInputTel)))).Name )
+      jsCode = []byte( `$('#` + string( (*(*(*v.(***HtmlInputTel)))).GetId() ) + `').val( value )` )
+    case ***HtmlInputTime:
+      pass = true
+      key = []byte( (*(*(*v.(***HtmlInputTime)))).Name )
+      jsCode = []byte( `$('#` + string( (*(*(*v.(***HtmlInputTime)))).GetId() ) + `').val( value )` )
+    case ***HtmlInputUrl:
+      pass = true
+      key = []byte( (*(*(*v.(***HtmlInputUrl)))).Name )
+      jsCode = []byte( `$('#` + string( (*(*(*v.(***HtmlInputUrl)))).GetId() ) + `').val( value )` )
+    case ***HtmlInputWeek:
+      pass = true
+      key = []byte( (*(*(*v.(***HtmlInputWeek)))).Name )
+      jsCode = []byte( `$('#` + string( (*(*(*v.(***HtmlInputWeek)))).GetId() ) + `').val( value )` )
+    case ***KendoUiMobileSwitch:
+      pass = true
+      key = []byte( (*(*(*v.(***KendoUiMobileSwitch)))).Html.Name )
+      jsCode = []byte( `$('#` + string( (*(*(*v.(***KendoUiMobileSwitch)))).GetId() ) + `').val( value )` )
+
+    case **KendoUiComboBox:
+      pass = true
+      key = []byte( (*(*v.(**KendoUiComboBox))).Html.Name )
+      jsCode = []byte( `$('#` + string( (*(*v.(**KendoUiComboBox))).GetId() ) + `').data('kendoComboBox').value( value )` )
+    case **HtmlInputText:
+      pass = true
+      key = []byte( (*(*v.(**HtmlInputText))).Name )
+      jsCode = []byte( `$('#` + string( (*(*v.(**HtmlInputText))).GetId() ) + `').val( value )` )
+    case **HtmlInputHidden:
+      pass = true
+      key = []byte( (*(*v.(**HtmlInputHidden))).Name )
+      jsCode = []byte( `$('#` + string( (*(*v.(**HtmlInputHidden))).GetId() ) + `').val( value )` )
+    case **KendoUiDropDownList:
+      pass = true
+      key = []byte( (*(*v.(**KendoUiDropDownList))).Html.Name )
+      jsCode = []byte( `$('#` + string( (*(*v.(**KendoUiDropDownList))).GetId() ) + `').data('kendoDropDownList').value( value )` )
+    case **KendoUiMultiSelect: // fixme: colocar o conteúdo da janela aqui também
+      pass = true
+      key = []byte( (*(*v.(**KendoUiMultiSelect))).Html.Name )
+      jsCode = []byte( `$('#` + string( (*(*v.(**KendoUiMultiSelect))).GetId() ) + `').data('kendoMultiSelect').value( value )` )
+    case **KendoUiAutoComplete:
+      pass = true
+      key = []byte( (*(*v.(**KendoUiAutoComplete))).Html.Name )
+      jsCode = []byte( `$('#` + string( (*(*v.(**KendoUiAutoComplete))).GetId() ) + `').data('kendoAutoComplete').value( value )` )
+    case **KendoUiButton:
+      pass = true
+      key = []byte( (*(*v.(**KendoUiButton))).Html.Name )
+      jsCode = []byte( `$('#` + string( (*(*v.(**KendoUiButton))).GetId() ) + `').data('kendoButton').value( value )` )
+    case **KendoUiCalendar:
+      pass = true
+      key = []byte( (*(*v.(**KendoUiCalendar))).Html.Name )
+      jsCode = []byte( `$('#` + string( (*(*v.(**KendoUiCalendar))).GetId() ) + `').data('kendoCalendar').value( value )` )
+    case **KendoUiColorPalette:
+      pass = true
+      key = []byte( (*(*v.(**KendoUiColorPalette))).Html.Name )
+      jsCode = []byte( `$('#` + string( (*(*v.(**KendoUiColorPalette))).GetId() ) + `').data('kendoColorPalette').value( value )` )
+    case **KendoUiColorPicker:
+      pass = true
+      key = []byte( (*(*v.(**KendoUiColorPicker))).Html.Name )
+      jsCode = []byte( `$('#` + string( (*(*v.(**KendoUiColorPicker))).GetId() ) + `').data('kendoColorPicker').value( value )` )
+    case **KendoUiNumericTextBox:
+      pass = true
+      key = []byte( (*(*v.(**KendoUiNumericTextBox))).Html.Name )
+      jsCode = []byte( `$('#` + string( (*(*v.(**KendoUiNumericTextBox))).GetId() ) + `').data('kendoNumericTextBox').value( value )` )
+    case **KendoUiDateInput:
+      pass = true
+      key = []byte( (*(*v.(**KendoUiDateInput))).Html.Name )
+      jsCode = []byte( `$('#` + string( (*(*v.(**KendoUiDateInput))).GetId() ) + `').data('kendoDateInput').value( value )` )
+    case **KendoUiDatePicker:
+      pass = true
+      key = []byte( (*(*v.(**KendoUiDatePicker))).Html.Name )
+      jsCode = []byte( `$('#` + string( (*(*v.(**KendoUiDatePicker))).GetId() ) + `').data('kendoDatePicker').value( value )` )
+    case **KendoUiDateTimePicker:
+      pass = true
+      key = []byte( (*(*v.(**KendoUiDateTimePicker))).Html.Name )
+      jsCode = []byte( `$('#` + string( (*(*v.(**KendoUiDateTimePicker))).GetId() ) + `').data('kendoDateTimePicker').value( value )` )
+    case **HtmlElementFormSelect:
+      pass = true
+      key = []byte( (*(*v.(**HtmlElementFormSelect))).Name )
+      jsCode = []byte( `$('#` + string( (*(*v.(**HtmlElementFormSelect))).GetId() ) + `').val( value )` )
+    case **HtmlElementFormTextArea:
+      pass = true
+      key = []byte( (*(*v.(**HtmlElementFormTextArea))).Name )
+      jsCode = []byte( `$('#` + string( (*(*v.(**HtmlElementFormTextArea))).GetId() ) + `').val( value )` )
+    case **HtmlInputCheckBox:
+      pass = true
+      key = []byte( (*(*v.(**HtmlInputCheckBox))).Name )
+      jsCode = []byte( `$('#` + string( (*(*v.(**HtmlInputCheckBox))).GetId() ) + `').val( value )` )
+    case **HtmlInputColor:
+      pass = true
+      key = []byte( (*(*v.(**HtmlInputColor))).Name )
+      jsCode = []byte( `$('#` + string( (*(*v.(**HtmlInputColor))).GetId() ) + `').val( value )` )
+    case **HtmlInputDate:
+      pass = true
+      key = []byte( (*(*v.(**HtmlInputDate))).Name )
+      jsCode = []byte( `$('#` + string( (*(*v.(**HtmlInputDate))).GetId() ) + `').val( value )` )
+    case **HtmlInputDateTimeLocal:
+      pass = true
+      key = []byte( (*(*v.(**HtmlInputDateTimeLocal))).Name )
+      jsCode = []byte( `$('#` + string( (*(*v.(**HtmlInputDateTimeLocal))).GetId() ) + `').val( value )` )
+    case **HtmlInputEmail:
+      pass = true
+      key = []byte( (*(*v.(**HtmlInputEmail))).Name )
+      jsCode = []byte( `$('#` + string( (*(*v.(**HtmlInputEmail))).GetId() ) + `').val( value )` )
+    case **HtmlInputFile:
+      pass = true
+      key = []byte( (*(*v.(**HtmlInputFile))).Name )
+      jsCode = []byte( `$('#` + string( (*(*v.(**HtmlInputFile))).GetId() ) + `').val( value )` )
+    case **HtmlInputGeneric:
+      pass = true
+      key = []byte( (*(*v.(***HtmlInputGeneric))).Name )
+      jsCode = []byte( `$('#` + string( (*(*v.(**HtmlInputGeneric))).GetId() ) + `').val( value )` )
+    case **HtmlInputImage:
+      pass = true
+      key = []byte( (*(*v.(**HtmlInputImage))).Name )
+      jsCode = []byte( `$('#` + string( (*(*v.(**HtmlInputImage))).GetId() ) + `').val( value )` )
+    case **HtmlInputMonth:
+      pass = true
+      key = []byte( (*(*v.(**HtmlInputMonth))).Name )
+      jsCode = []byte( `$('#` + string( (*(*v.(**HtmlInputMonth))).GetId() ) + `').val( value )` )
+    case **HtmlInputNumber:
+      pass = true
+      key = []byte( (*(*v.(**HtmlInputNumber))).Name )
+      jsCode = []byte( `$('#` + string( (*(*v.(**HtmlInputNumber))).GetId() ) + `').val( value )` )
+    case **HtmlInputPassword:
+      pass = true
+      key = []byte( (*(*v.(**HtmlInputPassword))).Name )
+      jsCode = []byte( `$('#` + string( (*(*v.(**HtmlInputPassword))).GetId() ) + `').val( value )` )
+    case **HtmlInputRadio:
+      pass = true
+      key = []byte( (*(*v.(**HtmlInputRadio))).Name )
+      jsCode = []byte( `$('#` + string( (*(*v.(**HtmlInputRadio))).GetId() ) + `').val( value )` )
+    case **HtmlInputRange:
+      pass = true
+      key = []byte( (*(*v.(**HtmlInputRange))).Name )
+      jsCode = []byte( `$('#` + string( (*(*v.(**HtmlInputRange))).GetId() ) + `').val( value )` )
+    case **HtmlInputSearch:
+      pass = true
+      key = []byte( (*(*v.(**HtmlInputSearch))).Name )
+      jsCode = []byte( `$('#` + string( (*(*v.(**HtmlInputSearch))).GetId() ) + `').val( value )` )
+    case **HtmlInputTel:
+      pass = true
+      key = []byte( (*(*v.(**HtmlInputTel))).Name )
+      jsCode = []byte( `$('#` + string( (*(*v.(**HtmlInputTel))).GetId() ) + `').val( value )` )
+    case **HtmlInputTime:
+      pass = true
+      key = []byte( (*(*v.(**HtmlInputTime))).Name )
+      jsCode = []byte( `$('#` + string( (*(*v.(**HtmlInputTime))).GetId() ) + `').val( value )` )
+    case **HtmlInputUrl:
+      pass = true
+      key = []byte( (*(*v.(**HtmlInputUrl))).Name )
+      jsCode = []byte( `$('#` + string( (*(*v.(**HtmlInputUrl))).GetId() ) + `').val( value )` )
+    case **HtmlInputWeek:
+      pass = true
+      key = []byte( (*(*v.(**HtmlInputWeek))).Name )
+      jsCode = []byte( `$('#` + string( (*(*v.(**HtmlInputWeek))).GetId() ) + `').val( value )` )
+    case **KendoUiMobileSwitch:
+      pass = true
+      key = []byte( (*(*v.(**KendoUiMobileSwitch))).Html.Name )
+      jsCode = []byte( `$('#` + string( (*(*v.(**KendoUiMobileSwitch))).GetId() ) + `').val( value )` )
+
+    case *KendoUiComboBox:
+      pass = true
+      key = []byte( converted.Html.Name )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').data('kendoComboBox').value( value )` )
+    case *HtmlInputText:
+      pass = true
+      key = []byte( converted.Name )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val( value )` )
+    case *HtmlInputHidden:
+      pass = true
+      key = []byte( converted.Name )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val( value )` )
+    case *KendoUiDropDownList:
+      pass = true
+      key = []byte( converted.Html.Name )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').data('kendoDropDownList').value( value )` )
+    case *KendoUiMultiSelect: // fixme: colocar o conteúdo da janela aqui também
+      pass = true
+      key = []byte( converted.Html.Name )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').data('kendoMultiSelect').value( value )` )
+    case *KendoUiAutoComplete:
+      pass = true
+      key = []byte( converted.Html.Name )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').data('kendoAutoComplete').value( value )` )
+    case *KendoUiButton:
+      pass = true
+      key = []byte( converted.Html.Name )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').data('kendoButton').value( value )` )
+    case *KendoUiCalendar:
+      pass = true
+      key = []byte( converted.Html.Name )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').data('kendoCalendar').value( value )` )
+    case *KendoUiColorPalette:
+      pass = true
+      key = []byte( converted.Html.Name )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').data('kendoColorPalette').value( value )` )
+    case *KendoUiColorPicker:
+      pass = true
+      key = []byte( converted.Html.Name )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').data('kendoColorPicker').value( value )` )
+    case *KendoUiNumericTextBox:
+      pass = true
+      key = []byte( converted.Html.Name )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').data('kendoNumericTextBox').value( value )` )
+    case *KendoUiDateInput:
+      pass = true
+      key = []byte( converted.Html.Name )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').data('kendoDateInput').value( value )` )
+    case *KendoUiDatePicker:
+      pass = true
+      key = []byte( converted.Html.Name )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').data('kendoDatePicker').value( value )` )
+    case *KendoUiDateTimePicker:
+      pass = true
+      key = []byte( converted.Html.Name )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').data('kendoDateTimePicker').value( value )` )
+    case *HtmlElementFormSelect:
+      pass = true
+      key = []byte( converted.Name )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val( value )` )
+    case *HtmlElementFormTextArea:
+      pass = true
+      key = []byte( converted.Name )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val( value )` )
+    case *HtmlInputCheckBox:
+      pass = true
+      key = []byte( converted.Name )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val( value )` )
+    case *HtmlInputColor:
+      pass = true
+      key = []byte( converted.Name )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val( value )` )
+    case *HtmlInputDate:
+      pass = true
+      key = []byte( converted.Name )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val( value )` )
+    case *HtmlInputDateTimeLocal:
+      pass = true
+      key = []byte( converted.Name )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val( value )` )
+    case *HtmlInputEmail:
+      pass = true
+      key = []byte( converted.Name )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val( value )` )
+    case *HtmlInputFile:
+      pass = true
+      key = []byte( converted.Name )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val( value )` )
+    case *HtmlInputGeneric:
+      pass = true
+      key = []byte( converted.Name )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val( value )` )
+    case *HtmlInputImage:
+      pass = true
+      key = []byte( converted.Name )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val( value )` )
+    case *HtmlInputMonth:
+      pass = true
+      key = []byte( converted.Name )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val( value )` )
+    case *HtmlInputNumber:
+      pass = true
+      key = []byte( converted.Name )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val( value )` )
+    case *HtmlInputPassword:
+      pass = true
+      key = []byte( converted.Name )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val( value )` )
+    case *HtmlInputRadio:
+      pass = true
+      key = []byte( converted.Name )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val( value )` )
+    case *HtmlInputRange:
+      pass = true
+      key = []byte( converted.Name )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val( value )` )
+    case *HtmlInputSearch:
+      pass = true
+      key = []byte( converted.Name )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val( value )` )
+    case *HtmlInputTel:
+      pass = true
+      key = []byte( converted.Name )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val( value )` )
+    case *HtmlInputTime:
+      pass = true
+      key = []byte( converted.Name )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val( value )` )
+    case *HtmlInputUrl:
+      pass = true
+      key = []byte( converted.Name )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val( value )` )
+    case *HtmlInputWeek:
+      pass = true
+      key = []byte( converted.Name )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val( value )` )
+    case *KendoUiMobileSwitch:
+      pass = true
+      key = []byte( converted.Html.Name )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val( value )` )
+
+
+
+    case *Content:
+    case *KendoDataSource:
+    default:
+      fmt.Printf( "\n\n\n-setValueById.id.type.%T.not.found.\n\n\n", converted )
     }
 
     if pass == true {
