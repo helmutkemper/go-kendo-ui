@@ -1113,19 +1113,6 @@ func (el *Content)MakeJsObject() []byte {
       key = []byte( (*(*(*v.(***KendoUiMobileSwitch)))).Html.Name )
       jsCode = []byte( `$('#` + string( (*(*(*v.(***KendoUiMobileSwitch)))).GetId() ) + `').val()` )
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     case **KendoUiComboBox:
       pass = true
       key = []byte( (*(*v.(**KendoUiComboBox))).Html.Name )
