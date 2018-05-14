@@ -54,7 +54,7 @@ Afther this, **DataSource: KendoDataSource** -> **Transport: KendoTransport** ->
 
 returns:
 
-```
+```json
 {
     "Meta": {
         "Total": 3
@@ -84,7 +84,7 @@ returns:
 
 Example:
 
-```go
+```golang
   el := HtmlElementDiv{
     Global: HtmlGlobalAttributes{
       Id: "spanCreateTemplateExposedPortsAddNewPort",
