@@ -816,7 +816,6 @@ telerik kendo ui for golang
   fmt.Printf( `<!DOCTYPE html>
 <html>
 <head>
-    <!--base href="https://demos.telerik.com/kendo-ui/grid/index"-->
     <style>
       html { 
         font-size: 14px; 
@@ -824,9 +823,9 @@ telerik kendo ui for golang
       }
     </style>
     <title></title>
-    <link rel="stylesheet" href="href="https://demos.telerik.com/kendo-ui/kendo-ui/styles/kendo.common-material.min.css" />
-    <link rel="stylesheet" href="href="https://demos.telerik.com/kendo-ui/kendo-ui/styles/kendo.material.min.css" />
-    <link rel="stylesheet" href="href="https://demos.telerik.com/kendo-ui/kendo-ui/styles/kendo.material.mobile.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.1.221/styles/kendo.common-material.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.1.221/styles/kendo.material.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.1.221/styles/kendo.material.mobile.min.css" />
     <style>
       .k-content {
         width: 500px;
@@ -865,8 +864,8 @@ telerik kendo ui for golang
         display: block;
       }
     </style>
-    <script src="href="https://demos.telerik.com/kendo-ui/kendo-ui/js/jquery.min.js"></script>
-    <script src="href="https://demos.telerik.com/kendo-ui/kendo-ui/js/kendo.all.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2018.1.221/js/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2018.1.221/js/kendo.all.min.js"></script>
     %s
     <script>
       %s
