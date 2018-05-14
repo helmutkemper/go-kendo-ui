@@ -270,7 +270,6 @@ Example:
               //Type: KENDO_TYPE_DATA_JSON,
               Transport: KendoTransport{
                 Read: KendoRead{
-                  // dado lido: {"itemsCount": 2,"items": [{"ProductID": 1,"ProductName": "Chai","UnitPrice": 18,"UnitsInStock": 39,"Discontinued": false},{"ProductID": 2,"ProductName": "Chang","UnitPrice": 19,"UnitsInStock": 17,"Discontinued": false}]}
                   Url: "/static/test/read",
                   Type: HTML_METHOD_GET,
                   DataType: KENDO_TYPE_DATA_JSON_JSON,
@@ -990,3 +989,8 @@ Example:
 </html>
 %s`, el.Content.MakeJsScript(), el.Content.MakeJsObject(), el.Content.ToJavaScript(), el.ToHtml(), el.ToHtmlSupport() )
 ```
+
+
+if you're wondering, why do it this way? the answer is simple, a complex, handmade form took a few hours to get ready. The same form done this way took about ten minutes to get ready.
+
+Briefly I put the complete example with Bank CRUD for mongodb
