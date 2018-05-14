@@ -4,7 +4,87 @@ telerik kendo ui for golang
 
 #### this package is still under development, so it still contains bugs.
 
-```golag
+For this example, I am have:
+**DataSource: KendoDataSource** -> **Transport: KendoTransport** -> **Read: KendoRead** -> **Url: "/static/test/read"**. 
+
+returns:
+
+```json
+{
+    "Meta": {
+        "Total": 2
+    },
+    "Objects": [
+         {
+             "id": 1,
+             "ExposedPortsNumber": 80,
+             "ExposedPortsProtocol": "TCP",
+             "ExposedPortsShow": "80/TCP"
+         },
+         {
+             "id": 2,
+             "ExposedPortsNumber": 8080,
+             "ExposedPortsProtocol": "TCP",
+             "ExposedPortsShow": "8080/TCP"
+         }
+     ]
+}
+```
+**DataSource: KendoDataSource** -> **Transport: KendoTransport** -> **Create: KendoCreate** -> **Url: "/static/test/create"**.
+
+returns:
+
+```json
+{
+    "Meta": {
+        "Total": 1
+    },
+    "Objects": [
+         {
+             "id": 3,
+             "ExposedPortsNumber": 90,
+             "ExposedPortsProtocol": "UDP",
+             "ExposedPortsShow": "90/UDP"
+         }
+     ]
+}
+```
+
+Afther this, **DataSource: KendoDataSource** -> **Transport: KendoTransport** -> **Read: KendoRead** -> **Url: "/static/test/read"**. 
+
+returns:
+
+```
+{
+    "Meta": {
+        "Total": 3
+    },
+    "Objects": [
+         {
+             "id": 1,
+             "ExposedPortsNumber": 80,
+             "ExposedPortsProtocol": "TCP",
+             "ExposedPortsShow": "80/TCP"
+         },
+         {
+             "id": 2,
+             "ExposedPortsNumber": 8080,
+             "ExposedPortsProtocol": "TCP",
+             "ExposedPortsShow": "8080/TCP"
+         },
+         {
+             "id": 3,
+             "ExposedPortsNumber": 90,
+             "ExposedPortsProtocol": "UDP",
+             "ExposedPortsShow": "90/UDP"
+         }
+     ]
+}
+```
+
+Example:
+
+```go
   el := HtmlElementDiv{
     Global: HtmlGlobalAttributes{
       Id: "spanCreateTemplateExposedPortsAddNewPort",
