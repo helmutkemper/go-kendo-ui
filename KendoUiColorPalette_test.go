@@ -10,7 +10,7 @@ func ExampleKendoUiColorPalette_ToJavaScript() {
       },
     },
     Columns: 4,
-    TileSize: &KendoTileSize{
+    TileSize: KendoTileSize{
       Width: 34,
       Height: 19,
     },

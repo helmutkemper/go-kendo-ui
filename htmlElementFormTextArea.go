@@ -122,8 +122,15 @@ type HtmlElementFormTextArea struct{
 
   *ToJavaScriptConverter                                  `htmlAttr:"-"`
 }
+func(el *HtmlElementFormTextArea)SetOmitHtml( value Boolean ) {
+  el.Global.DoNotUseThisFieldOmitHtml = value
+}
 func(el *HtmlElementFormTextArea)ToHtml() []byte {
   var buffer bytes.Buffer
+
+  if el.Global.DoNotUseThisFieldOmitHtml == TRUE {
+    return []byte{}
+  }
 
   element := reflect.ValueOf(el).Elem()
   data := el.ToJavaScriptConverter.ToTelerikHtml(element)
@@ -132,8 +139,20 @@ func(el *HtmlElementFormTextArea)ToHtml() []byte {
   buffer.Write( el.Global.ToHtml() )
   buffer.Write( data )
   buffer.Write( []byte( `>` ) )
-  buffer.Write( el.Content.Bytes() )
+  buffer.Write( el.Content.ToHtml() )
   buffer.Write( []byte( `</textarea>` ) )
 
   return buffer.Bytes()
+}
+func(el *HtmlElementFormTextArea)GetId() []byte{
+  if el.Global.Id == "" {
+    el.Global.Id = getAutoId()
+  }
+  return []byte( el.Global.Id )
+}
+func(el *HtmlElementFormTextArea)GetName() []byte{
+  if el.Name == "" {
+    el.Name = getAutoId()
+  }
+  return []byte( el.Name )
 }

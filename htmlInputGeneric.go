@@ -119,16 +119,46 @@ type HtmlInputGeneric struct{
 
   *ToJavaScriptConverter                                  `htmlAttr:"-"`
 }
+func(el *HtmlInputGeneric)SetOmitHtml( value Boolean ) {
+  el.Global.DoNotUseThisFieldOmitHtml = value
+}
 func(el *HtmlInputGeneric)ToHtml() []byte {
   var buffer bytes.Buffer
+
+  if el.Global.DoNotUseThisFieldOmitHtml == TRUE {
+    return []byte{}
+  }
 
   element := reflect.ValueOf(el).Elem()
   data := el.ToJavaScriptConverter.ToTelerikHtml(element)
 
-  buffer.Write( []byte( `<input type="text"` ) )
+  buffer.Write( []byte( `<input ` ) )
   buffer.Write( el.Global.ToHtml() )
   buffer.Write( data )
   buffer.Write( []byte( `>` ) )
 
   return buffer.Bytes()
+}
+func(el *HtmlInputGeneric)GetId() []byte{
+  if el.Global.Id == "" {
+    el.Global.Id = getAutoId()
+  }
+  return []byte( el.Global.Id )
+}
+func(el *HtmlInputGeneric)GetName() []byte{
+  if el.Name == "" {
+    el.Name = getAutoId()
+  }
+  return []byte( el.Name )
+}
+func(el *HtmlInputGeneric)ToJavaScript() []byte {
+  var ret bytes.Buffer
+  if el.Global.Id == "" {
+    el.Global.Id = getAutoId()
+  }
+
+  ret.Write( []byte(`$("#` + el.Global.Id + `").addClass('k-textbox');`) )
+  ret.Write( []byte{ 0x0A } )
+
+  return ret.Bytes()
 }

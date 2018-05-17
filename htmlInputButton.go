@@ -46,8 +46,15 @@ type HtmlInputButton struct{
 
   *ToJavaScriptConverter
 }
+func(el *HtmlInputButton)SetOmitHtml( value Boolean ) {
+  el.Global.DoNotUseThisFieldOmitHtml = value
+}
 func(el *HtmlInputButton)ToHtml() []byte {
   var buffer bytes.Buffer
+
+  if el.Global.DoNotUseThisFieldOmitHtml == TRUE {
+    return []byte{}
+  }
 
   element := reflect.ValueOf(el).Elem()
   data := el.ToJavaScriptConverter.ToTelerikHtml(element)

@@ -1,9 +1,6 @@
 package telerik
 
 import (
-  "fmt"
-  "html/template"
-  "bytes"
   "reflect"
   log "github.com/helmutkemper/seelog"
 )
@@ -157,26 +154,9 @@ type KendoVirtual struct{
   As of the Kendo UI R3 2016 release, the implementation of the <b><u>valueMapper</u></b> function is optional. It is required only if the widget contains an initial value or if the <b><u>value</u></b> method is used.
   
   */
-  ValueMapper                             *JavaScript                             `jsObject:"valueMapper"`
+  ValueMapper                             JavaScript                              `jsObject:"valueMapper"`
 
   *ToJavaScriptConverter
-}
-func(el *KendoVirtual) IsSet() bool {
-  return el != nil
-}
-func(el *KendoVirtual) String() string {
-  var buffer bytes.Buffer
-  tmpl := template.Must(template.New("").Funcs(template.FuncMap{
-    "safeHTML": func(s interface{}) template.HTML {
-      return template.HTML(fmt.Sprint(s))
-    },
-  }).Parse(GetTemplate()))
-  err := tmpl.ExecuteTemplate(&buffer, "Virtual", *(el))
-  if err != nil {
-    fmt.Println(err.Error())
-  }
-  
-  return buffer.String()
 }
 func(el *KendoVirtual) ToJavaScript() []byte {
   element := reflect.ValueOf(el).Elem()

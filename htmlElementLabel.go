@@ -32,8 +32,15 @@ type HtmlElementFormLabel struct{
 
   *ToJavaScriptConverter                                  `htmlAttr:"-"`
 }
+func(el *HtmlElementFormLabel)SetOmitHtml( value Boolean ) {
+  el.Global.DoNotUseThisFieldOmitHtml = value
+}
 func(el *HtmlElementFormLabel)ToHtml() []byte {
   var buffer bytes.Buffer
+
+  if el.Global.DoNotUseThisFieldOmitHtml == TRUE {
+    return []byte{}
+  }
 
   element := reflect.ValueOf(el).Elem()
   data := el.ToJavaScriptConverter.ToTelerikHtml(element)
@@ -42,8 +49,11 @@ func(el *HtmlElementFormLabel)ToHtml() []byte {
   buffer.Write( el.Global.ToHtml() )
   buffer.Write( data )
   buffer.Write( []byte( `>` ) )
-  buffer.Write( el.Content.Bytes() )
+  buffer.Write( el.Content.ToHtml() )
   buffer.Write( []byte( `</label>` ) )
 
   return buffer.Bytes()
+}
+func(el *HtmlElementFormLabel)ToJavaScript() []byte {
+  return []byte{}
 }

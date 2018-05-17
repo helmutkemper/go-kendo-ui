@@ -221,7 +221,7 @@ type KendoUiDatePicker struct{
 
   Templates for the cells rendered in the calendar "month" view.
   */
-  Month                                   *KendoMonth                             `jsObject:"month"`
+  Month                                   KendoMonth                              `jsObject:"month"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/datepicker#configuration-weekNumber
@@ -290,8 +290,7 @@ type KendoUiDatePicker struct{
 func(el *KendoUiDatePicker) ToJavaScript() []byte {
   var ret bytes.Buffer
   if el.Html.Global.Id == "" {
-    log.Critical("kendoDatePicker not have a html id for mount JavaScript code.")
-    return []byte{}
+    el.Html.Global.Id = getAutoId()
   }
 
   element := reflect.ValueOf(el).Elem()
@@ -304,9 +303,22 @@ func(el *KendoUiDatePicker) ToJavaScript() []byte {
   ret.Write( []byte(`$("#` + el.Html.Global.Id + `").kendoDatePicker({`) )
   ret.Write( data )
   ret.Write( []byte(`});`) )
+  ret.Write( []byte{ 0x0A } )
 
   return ret.Bytes()
 }
 func(el *KendoUiDatePicker) ToHtml() []byte{
   return el.Html.ToHtml()
+}
+func(el *KendoUiDatePicker) GetId() []byte{
+  if el.Html.Global.Id == "" {
+    el.Html.Global.Id = getAutoId()
+  }
+  return []byte( el.Html.Global.Id )
+}
+func(el *KendoUiDatePicker) GetName() []byte{
+  if el.Html.Name == "" {
+    el.Html.Name = getAutoId()
+  }
+  return []byte( el.Html.Name )
 }

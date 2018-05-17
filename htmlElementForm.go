@@ -3,6 +3,7 @@ package telerik
 import (
   "bytes"
   "reflect"
+  log "github.com/helmutkemper/seelog"
 )
 
 // The HTML <form> element represents a document section that contains interactive controls to submit information to a
@@ -135,8 +136,38 @@ type HtmlElementForm struct{
 
   *ToJavaScriptConverter                                  `htmlAttr:"-"`
 }
+func(el *HtmlElementForm)SetOmitHtml( value Boolean ) {
+  el.Global.DoNotUseThisFieldOmitHtml = value
+}
+func(el *HtmlElementForm)ToJavaScript() []byte {
+  var ret bytes.Buffer
+  if el.Global.Id == "" {
+    el.Global.Id = getAutoId()
+  }
+
+  el.Content.FilterFormElements()
+
+
+
+  element := reflect.ValueOf(el).Elem()
+  data, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
+  if err != nil {
+    log.Criticalf( "kendoMultiSelect.Error: %v", err.Error() )
+    return []byte{}
+  }
+
+  ret.Write( []byte(`$("#` + el.Global.Id + `").kendoMultiSelect({`) )
+  ret.Write( data )
+  ret.Write( []byte(`});`) )
+
+  return ret.Bytes()
+}
 func(el *HtmlElementForm)ToHtml() []byte {
   var buffer bytes.Buffer
+
+  if el.Global.DoNotUseThisFieldOmitHtml == TRUE {
+    return []byte{}
+  }
 
   element := reflect.ValueOf(el).Elem()
   data := el.ToJavaScriptConverter.ToTelerikHtml(element)
@@ -145,8 +176,11 @@ func(el *HtmlElementForm)ToHtml() []byte {
   buffer.Write( el.Global.ToHtml() )
   buffer.Write( data )
   buffer.Write( []byte( `>` ) )
-  buffer.Write( el.Content.Bytes() )
+  buffer.Write( el.Content.ToHtml() )
   buffer.Write( []byte( `</form>` ) )
 
   return buffer.Bytes()
+}
+func(el *HtmlElementForm)ToHtmlSupport() []byte {
+  return el.Content.ToHtmlSupport()
 }

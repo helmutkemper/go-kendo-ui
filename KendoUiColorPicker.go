@@ -71,7 +71,7 @@ type KendoUiColorPicker struct{
    });
    </script>
   */
-  TileSize                                *KendoTileSize                        `jsObject:"tileSize"`
+  TileSize                                KendoTileSize                         `jsObject:"tileSize"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/colorpicker#configuration-messages
@@ -89,7 +89,7 @@ type KendoUiColorPicker struct{
    })
    </script>
   */
-  Messages                                *KendoColorMessages                   `jsObject:"messages"`
+  Messages                                KendoColorMessages                    `jsObject:"messages"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/colorpicker#configuration-palette
@@ -177,8 +177,7 @@ func(el *KendoUiColorPicker) ToJavaScript() []byte {
   var ret bytes.Buffer
 
   if el.Html.Global.Id == "" {
-    log.Critical("kendoColorPicker not have a html id for mount JavaScript code.")
-    return []byte{}
+    el.Html.Global.Id = getAutoId()
   }
 
   element := reflect.ValueOf(el).Elem()
@@ -191,9 +190,22 @@ func(el *KendoUiColorPicker) ToJavaScript() []byte {
   ret.Write( []byte(`$("#` + el.Html.Global.Id + `").kendoColorPicker({`) )
   ret.Write( data )
   ret.Write( []byte(`});`) )
+  ret.Write( []byte{ 0x0A } )
 
   return ret.Bytes()
 }
 func(el *KendoUiColorPicker) ToHtml() []byte{
   return el.Html.ToHtml()
+}
+func(el *KendoUiColorPicker) GetId() []byte{
+  if el.Html.Global.Id == "" {
+    el.Html.Global.Id = getAutoId()
+  }
+  return []byte( el.Html.Global.Id )
+}
+func(el *KendoUiColorPicker) GetName() []byte{
+  if el.Html.Name == "" {
+    el.Html.Name = getAutoId()
+  }
+  return []byte( el.Html.Name )
 }

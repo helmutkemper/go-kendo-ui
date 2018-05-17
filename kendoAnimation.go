@@ -1,9 +1,6 @@
 package telerik
 
 import (
-  "fmt"
-  "html/template"
-  "bytes"
   log "github.com/helmutkemper/seelog"
   "reflect"
 )
@@ -25,7 +22,7 @@ type KendoAnimation struct{
    });
    </script>
   */
-  Close                                   *KendoClose                 `jsObject:"close"`
+  Close                                   KendoClose                  `jsObject:"close"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dropdownlist#configuration-animation.open  The animation played when the suggestion popup is opened.
@@ -42,26 +39,9 @@ type KendoAnimation struct{
    });
    </script>
   */
-  Open                                    *KendoOpen                  `jsObject:"open"`
+  Open                                    KendoOpen                   `jsObject:"open"`
 
   *ToJavaScriptConverter
-}
-func(el *KendoAnimation) IsSet() bool {
-  return el != nil
-}
-func(el *KendoAnimation) String() string {
-  var buffer bytes.Buffer
-  tmpl := template.Must(template.New("").Funcs(template.FuncMap{
-    "safeHTML": func(s interface{}) template.HTML {
-      return template.HTML(s.(string))
-    },
-  }).Parse(GetTemplate()))
-  err := tmpl.ExecuteTemplate(&buffer, "Animation", *(el))
-  if err != nil {
-    fmt.Println(err.Error())
-  }
-  
-  return buffer.String()
 }
 func(el *KendoAnimation) ToJavaScript() ([]byte) {
   element := reflect.ValueOf(el).Elem()

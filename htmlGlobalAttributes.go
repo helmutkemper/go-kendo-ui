@@ -14,6 +14,10 @@ import (
 // <foo>, even though <foo> is not a valid HTML element.
 type HtmlGlobalAttributes struct{
   /*
+  This field was created for internal use and should not be accessed directly
+  */
+  DoNotUseThisFieldOmitHtml   Boolean                     `htmlAttr:"-"`
+  /*
   Provides a hint for generating a keyboard shortcut for the current element. This attribute consists of a
   space-separated list of characters. The browser should use the first one that exists on the computer keyboard layout.
   */
@@ -241,6 +245,10 @@ type HtmlGlobalAttributes struct{
 func(el *HtmlGlobalAttributes)ToHtml() []byte {
   var buffer bytes.Buffer
 
+  if el.Id == "" {
+    el.Id = getAutoId()
+  }
+
   element := reflect.ValueOf(el).Elem()
   data := el.ToJavaScriptConverter.ToTelerikHtml(element)
   buffer.Write( data )
@@ -249,7 +257,12 @@ func(el *HtmlGlobalAttributes)ToHtml() []byte {
 }
 func(el *HtmlGlobalAttributes)GetId() []byte {
   var buffer bytes.Buffer
-      buffer.WriteString( el.Id )
+
+  if el.Id == "" {
+    el.Id = getAutoId()
+  }
+
+  buffer.WriteString( el.Id )
 
   return buffer.Bytes()
 }

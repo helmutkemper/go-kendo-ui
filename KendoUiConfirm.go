@@ -25,7 +25,7 @@ type KendoUiConfirm struct{
    }).data("kendoConfirm").open();
    </script>
   */
-  Messages                                *KendoConfirmMessages                 `jsObject:"messages"`
+  Messages                                KendoConfirmMessages                  `jsObject:"messages"`
 
   *ToJavaScriptConverter
 }
@@ -33,8 +33,7 @@ func(el *KendoUiConfirm) ToJavaScript() []byte {
   var ret bytes.Buffer
 
   if el.Html.Global.Id == "" {
-    log.Critical("KendoUiConfirm not have a html id for mount JavaScript code.")
-    return []byte{}
+    el.Html.Global.Id = getAutoId()
   }
 
   element := reflect.ValueOf(el).Elem()
@@ -47,9 +46,22 @@ func(el *KendoUiConfirm) ToJavaScript() []byte {
   ret.Write( []byte(`$("#` + el.Html.Global.Id + `").kendoConfirm({`) )
   ret.Write( data )
   ret.Write( []byte(`});`) )
+  ret.Write( []byte{ 0x0A } )
 
   return ret.Bytes()
 }
 func(el *KendoUiConfirm) ToHtml() []byte{
   return el.Html.ToHtml()
+}
+func(el *KendoUiConfirm) GetId() []byte{
+  if el.Html.Global.Id == "" {
+    el.Html.Global.Id = getAutoId()
+  }
+  return []byte( el.Html.Global.Id )
+}
+func(el *KendoUiConfirm) GetName() []byte{
+  if el.Html.Name == "" {
+    el.Html.Name = getAutoId()
+  }
+  return []byte( el.Html.Name )
 }

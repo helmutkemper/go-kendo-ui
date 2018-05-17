@@ -97,7 +97,7 @@ type KendoSort struct{
     });
   </script>
   */
-  Compare                                       *JavaScript                                         `jsObject:"compare"`
+  Compare                                       JavaScript                                          `jsObject:"compare"`
 
   *ToJavaScriptConverter
 }

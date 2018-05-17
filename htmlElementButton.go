@@ -9,6 +9,8 @@ import (
 // needs simple, standard button functionality. By default, HTML buttons are typically presented in a style similar to
 // that of the host platform the user agent is running on, but you can change the appearance of the button using CSS.
 type HtmlElementFormButton struct{
+  ButtonType                  SupportCustomButtonType     `htmlAttr:"-"`
+
   /*
   The name of the control, which is submitted with the form data.
   */
@@ -84,8 +86,15 @@ type HtmlElementFormButton struct{
 
   *ToJavaScriptConverter                                  `htmlAttr:"-"`
 }
+func(el *HtmlElementFormButton)SetOmitHtml( value Boolean ) {
+  el.Global.DoNotUseThisFieldOmitHtml = value
+}
 func(el *HtmlElementFormButton)ToHtml() []byte {
   var buffer bytes.Buffer
+
+  if el.Global.DoNotUseThisFieldOmitHtml == TRUE {
+    return []byte{}
+  }
 
   element := reflect.ValueOf(el).Elem()
   data := el.ToJavaScriptConverter.ToTelerikHtml(element)
@@ -94,8 +103,15 @@ func(el *HtmlElementFormButton)ToHtml() []byte {
   buffer.Write( el.Global.ToHtml() )
   buffer.Write( data )
   buffer.Write( []byte( `>` ) )
-  buffer.Write( el.Content.Bytes() )
+  buffer.Write( el.Content.ToHtml() )
   buffer.Write( []byte( `</button>` ) )
+
+  return buffer.Bytes()
+}
+func(el *HtmlElementFormButton)ToJavaScript() []byte {
+  var buffer bytes.Buffer
+
+  buffer.Write( el.Content.ToJavaScript() )
 
   return buffer.Bytes()
 }

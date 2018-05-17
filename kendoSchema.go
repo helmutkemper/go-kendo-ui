@@ -294,7 +294,7 @@ type KendoSchema struct{
   });
   </script>
   */
-  Model                                      *KendoDataModel                                      `jsObject:"model"`
+  Model                                      KendoDataModel                                       `jsObject:"model"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/schema#schema.parse
@@ -338,7 +338,7 @@ type KendoSchema struct{
   });
   </script>
   */
-  Parser                                      *JavaScript                                         `jsObject:"groups"`
+  Parser                                      JavaScript                                          `jsObject:"groups"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/schema#schema.total

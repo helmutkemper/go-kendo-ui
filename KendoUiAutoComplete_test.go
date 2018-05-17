@@ -9,12 +9,12 @@ func ExampleKendoUiAutoComplete_ToJavaScript_1() {
         Id: "auto_complete",
       },
     },
-    Animation: &KendoAnimation{
-      Open: &KendoOpen{
+    Animation: KendoAnimation{
+      Open: KendoOpen{
         Duration: 300,
         Effects: EFFECT_EXPAND_IN,
       },
-      Close: &KendoClose{
+      Close: KendoClose{
         Duration: 300,
         Effects: EFFECT_EXPAND_OUT,
       },
@@ -22,7 +22,7 @@ func ExampleKendoUiAutoComplete_ToJavaScript_1() {
     AutoWidth: FALSE,
     ClearButton: TRUE,
     DataTextField: "name",
-    DataSource: &[]map[string]interface{}{
+    DataSource: []map[string]interface{}{
       {
         "id": 1,
         "name": "Apples",
@@ -42,15 +42,15 @@ func ExampleKendoUiAutoComplete_ToJavaScript_1() {
     MinLength: 3,
     NoDataTemplate: "No Data!",
     Placeholder: "Enter value ...",
-    Popup: &KendoPopup{
-      AppendTo: &JavaScript{
+    Popup: KendoPopup{
+      AppendTo: JavaScript{
         Code: "$('#container')",
       },
     },
     Separator: ", ",
     Suggest: TRUE,
     HeaderTemplate: "<div><h2>Fruits</h2></div>",
-    Template: &JavaScript{
+    Template: JavaScript{
       Code: "kendo.template($('#template').html())",
     },
     Value: "Oranges",
@@ -137,8 +137,8 @@ func ExampleKendoUiAutoComplete_ToJavaScript_3() {
         Id: "auto_complete",
       },
     },
-    DataSource: &KendoDataSource{
-      Aggregate: &[]KendoAggregates{
+    DataSource: KendoDataSource{
+      Aggregate: []KendoAggregates{
         {
           Aggregate: AGGREGATE_SUM,
           Field: "age",
@@ -154,7 +154,7 @@ func ExampleKendoUiAutoComplete_ToJavaScript_3() {
       },
       AutoSync: TRUE,
       Batch: TRUE,
-      Data: &[]map[string]interface{}{
+      Data: []map[string]interface{}{
         {
           "name": "Jane Doe",
           "age": 30,
@@ -172,5 +172,5 @@ func ExampleKendoUiAutoComplete_ToJavaScript_3() {
   fmt.Printf( "%s", html.ToJavaScript() )
 
   // Output:
-  // $("#auto_complete").kendoAutoComplete({dataSource: ["Albania","Andorra","Armenia","Austria","Azerbaijan","Belarus","Belgium","Bosnia & Herzegovina","Bulgaria","Croatia","Cyprus","Czech Republic","Denmark","Estonia","Finland","France","Georgia","Germany","Greece","Hungary","Iceland","Ireland","Italy","Kosovo","Latvia","Liechtenstein","Lithuania","Luxembourg","Macedonia","Malta","Moldova","Monaco","Montenegro","Netherlands","Norway","Poland","Portugal","Romania","Russia","San Marino","Serbia","Slovakia","Slovenia","Spain","Sweden","Switzerland","Turkey","Ukraine","United Kingdom","Vatican City",],});
+  // $("#auto_complete").kendoAutoComplete({dataSource:  new kendo.data.DataSource({aggregate: [{aggregate: "sum",field: "age",},{aggregate: "min",field: "age",},{aggregate: "max",field: "age",},],autoSync: true,batch: true,data: [{"name": "Jane Doe","age": 30,},{"age": 33,"name": "Jane Doe",},],inPlaceSort: false,offlineStorage: "products-offline",});});
 }

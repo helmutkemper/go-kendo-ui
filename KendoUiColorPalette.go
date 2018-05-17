@@ -68,7 +68,7 @@ type KendoUiColorPalette struct{
    });
    </script>
   */
-  TileSize                                *KendoTileSize                            `jsObject:"tileSize"`
+  TileSize                                KendoTileSize                             `jsObject:"tileSize"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/colorpalette#configuration-value
@@ -88,26 +88,38 @@ type KendoUiColorPalette struct{
 
   *ToJavaScriptConverter                                                            `jsObject:"-"`
 }
-func(el *KendoUiColorPalette) ToJavaScript() string {
+func(el *KendoUiColorPalette) ToJavaScript() []byte {
   var ret bytes.Buffer
   if el.Html.Global.Id == "" {
-    log.Critical("KendoUiColorPalette not have a html id for mount JavaScript code.")
-    return ""
+    el.Html.Global.Id = getAutoId()
   }
 
   element := reflect.ValueOf(el).Elem()
   data, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
   if err != nil {
     log.Criticalf( "KendoUiColorPalette.Error: %v", err.Error() )
-    return ""
+    return []byte{}
   }
 
   ret.Write( []byte(`$("#` + el.Html.Global.Id + `").kendoColorPalette({`) )
   ret.Write( data )
   ret.Write( []byte(`});`) )
+  ret.Write( []byte{ 0x0A } )
 
-  return ret.String()
+  return ret.Bytes()
 }
 func(el *KendoUiColorPalette) ToHtml() []byte {
   return el.Html.ToHtml()
+}
+func(el *KendoUiColorPalette) GetId() []byte{
+  if el.Html.Global.Id == "" {
+    el.Html.Global.Id = getAutoId()
+  }
+  return []byte( el.Html.Global.Id )
+}
+func(el *KendoUiColorPalette) GetName() []byte{
+  if el.Html.Name == "" {
+    el.Html.Name = getAutoId()
+  }
+  return []byte( el.Html.Name )
 }

@@ -7,7 +7,14 @@ import (
 )
 
 type KendoUiMultiSelect struct {
-  HtmlId                                  string                                  `jsObject:"htmlId"`
+  Html                                    HtmlElementFormSelect                   `jsObject:"-"`
+
+  /*
+  @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog
+
+  This kendo dialog has been placed here to create a dialog window when you need to add more data to the data source
+  */
+  Dialog                                  KendoUiDialog                           `jsObject:"-"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/animation
@@ -305,7 +312,7 @@ type KendoUiMultiSelect struct {
       });
   </script>
   */
-  FixedGroupTemplate                      string                                  `jsObject:"fixedGroupTemplate" jsType:"*JavaScript,string"`
+  FixedGroupTemplate                      interface{}                             `jsObject:"fixedGroupTemplate" jsType:"*JavaScript,string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/footertemplate
@@ -329,7 +336,7 @@ type KendoUiMultiSelect struct {
   });
   </script>
   */
-  FooterTemplate                          string                                  `jsObject:"footerTemplate" jsType:"*JavaScript,string"`
+  FooterTemplate                          interface{}                             `jsObject:"footerTemplate" jsType:"*JavaScript,string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/grouptemplate
@@ -357,7 +364,7 @@ type KendoUiMultiSelect struct {
       });
   </script>
   */
-  GroupTemplate                           string                                  `jsObject:"groupTemplate" jsType:"*JavaScript,string"`
+  GroupTemplate                           interface{}                             `jsObject:"groupTemplate" jsType:"*JavaScript,string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/height
@@ -472,7 +479,7 @@ type KendoUiMultiSelect struct {
   });
   </script>
   */
-  NoDataTemplate                          string                                  `jsObject:"noDataTemplate" jsType:"*JavaScript,string"`
+  NoDataTemplate                          interface{}                             `jsObject:"noDataTemplate" jsType:"*JavaScript,string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/placeholder
@@ -525,7 +532,7 @@ type KendoUiMultiSelect struct {
   });
   </script>
   */
-  Popup                                  *KendoPopup                              `jsObject:"popup"`
+  Popup                                  KendoPopup                               `jsObject:"popup"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/headertemplate
@@ -549,7 +556,7 @@ type KendoUiMultiSelect struct {
   });
   </script>
   */
-  HeaderTemplate                          string                                  `jsObject:"headerTemplate" jsType:"*JavaScript,string"`
+  HeaderTemplate                          interface{}                             `jsObject:"headerTemplate" jsType:"*JavaScript,string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/itemtemplate
@@ -590,7 +597,7 @@ type KendoUiMultiSelect struct {
   });
   </script>
   */
-  ItemTemplate                            string                                  `jsObject:"itemTemplate" jsType:"*JavaScript,string"`
+  ItemTemplate                            interface{}                             `jsObject:"itemTemplate" jsType:"*JavaScript,string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/tagtemplate
@@ -674,7 +681,7 @@ type KendoUiMultiSelect struct {
   });
   </script>
   */
-  TagTemplate                            *JavaScript                              `jsObject:"tagTemplate" jsType:"*JavaScript,string"`
+  TagTemplate                            interface{}                              `jsObject:"tagTemplate" jsType:"*JavaScript,string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/multiselect/configuration/tagmode
@@ -883,34 +890,59 @@ type KendoUiMultiSelect struct {
 
   *ToJavaScriptConverter
 }
-/*func(el *KendoUiMultiSelect) IsSet() bool {
-  return el != nil
-}
-func(el *KendoUiMultiSelect) string() string {
-  var buffer bytes.Buffer
-
-  switch data := el.DataSource.(type) {
-  case []string:
-    el.DataSource = `["` + strings.Join(data, `","`) + `"]`
-  }
-
-  tmpl := template.Must(template.New("").Funcs(template.FuncMap{
-    "safeHTML": func(s interface{}) template.HTML {
-      return template.HTML(fmt.Sprint(s))
-    },
-  }).Parse(GetTemplate()))
-  err := tmpl.ExecuteTemplate(&buffer, "KendoUiMultiSelect", *(el))
-  if err != nil {
-    fmt.Println(err.Error())
-  }
-
-  return buffer.String()
-}*/
 func(el *KendoUiMultiSelect) ToJavaScript() []byte {
   var ret bytes.Buffer
-  if el.HtmlId == "" {
-    log.Critical("kendoMultiSelect not have a html id for mount JavaScript code.")
-    return []byte{}
+  if el.Html.Global.Id == "" {
+    el.Html.Global.Id = getAutoId()
+  }
+
+  if reflect.DeepEqual( el.DataSource, KendoDataSource{} ) == false && reflect.DeepEqual( el.Dialog, KendoUiDialog{} ) == false {
+
+    for k := range el.Dialog.Actions {
+
+      if el.Dialog.Actions[ k ].ButtonType == BUTTON_TYPE_ADD_AND_CLOSE {
+
+        el.Dialog.Actions[ k ].Action = JavaScript{
+          Code: string( el.GetId() ) + "AddAndCloseButton",
+        }
+
+      } else if el.Dialog.Actions[ k ].ButtonType == BUTTON_TYPE_ADD {
+
+        el.Dialog.Actions[ k ].Action = JavaScript{
+          Code: string( el.GetId() ) + "AddButton",
+        }
+
+      }
+
+    }
+
+    /*if el.NoDataTemplate != nil {
+      switch el.NoDataTemplate.(type) {
+      case HtmlElementScript:
+
+        for k := range el.NoDataTemplate.(HtmlElementScript).Content {
+
+          switch el.NoDataTemplate.(HtmlElementScript).Content[ k ].(type) {
+          case *HtmlElementFormButton:
+
+            if el.NoDataTemplate.(HtmlElementScript).Content[ k ].(*HtmlElementFormButton).ButtonType == BUTTON_TYPE_ADD_IN_TEMPLATE {
+              //el.NoDataTemplate.(HtmlElementScript).Content[ k ].(HtmlElementFormButton).Global.OnClick = "addNewItemToKendoDataSource('id:#: instance.element[0].id #')"
+
+              //reflect.ValueOf(&el.NoDataTemplate.(HtmlElementScript).Content[ k ].(*HtmlElementFormButton).Global).FieldByName("OnClick").SetString("esta vivo")
+              p := reflect.ValueOf(&el.NoDataTemplate.(HtmlElementScript).Content[ k ].(*HtmlElementFormButton).Global.OnClick)
+              p.Elem().SetString("esta vivo!!!!!!!!")
+              //fmt.Printf( "------%v\n\n\n\n\n\n\n\n", p.Elem().CanSet() )
+              fmt.Printf( "------%v--------\n\n\n\n\n\n\n\n", el.NoDataTemplate.(HtmlElementScript).Content[ k ].(*HtmlElementFormButton).Global.OnClick )
+              //el.NoDataTemplate.(HtmlElementScript).Content[ k ].(HtmlElementFormButton).Global.OnClick = "esta vivo"
+            }
+
+          }
+
+        }
+
+      }
+    }*/
+
   }
 
   element := reflect.ValueOf(el).Elem()
@@ -920,9 +952,25 @@ func(el *KendoUiMultiSelect) ToJavaScript() []byte {
     return []byte{}
   }
 
-  ret.Write( []byte(`$("` + el.HtmlId + `")kendoMultiSelect({`) )
+  ret.Write( []byte(`$("#` + el.Html.Global.Id + `").kendoMultiSelect({`) )
   ret.Write( data )
   ret.Write( []byte(`});`) )
+  ret.Write( []byte{ 0x0A } )
 
   return ret.Bytes()
+}
+func(el *KendoUiMultiSelect) ToHtml() []byte{
+  return el.Html.ToHtml()
+}
+func(el *KendoUiMultiSelect) GetId() []byte{
+  if el.Html.Global.Id == "" {
+    el.Html.Global.Id = getAutoId()
+  }
+  return []byte( el.Html.Global.Id )
+}
+func(el *KendoUiMultiSelect) GetName() []byte{
+  if el.Html.Name == "" {
+    el.Html.Name = getAutoId()
+  }
+  return []byte( el.Html.Name )
 }

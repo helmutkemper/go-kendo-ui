@@ -7,6 +7,8 @@ import (
 )
 
 // The HTML <select> element represents a control that provides a menu
+// Fixme: rever!
+// @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select
 type HtmlElementFormSelect struct{
   /*
   The name of the control, which is submitted with the form data.
@@ -68,8 +70,15 @@ type HtmlElementFormSelect struct{
 
   *ToJavaScriptConverter                                  `htmlAttr:"-"`
 }
+func(el *HtmlElementFormSelect)SetOmitHtml( value Boolean ) {
+  el.Global.DoNotUseThisFieldOmitHtml = value
+}
 func(el *HtmlElementFormSelect)ToHtml() []byte {
   var buffer bytes.Buffer
+
+  if el.Global.DoNotUseThisFieldOmitHtml == TRUE {
+    return []byte{}
+  }
 
   element := reflect.ValueOf(el).Elem()
   data := el.ToJavaScriptConverter.ToTelerikHtml(element)
@@ -107,17 +116,19 @@ func(el *HtmlElementFormSelect)ToHtml() []byte {
   buffer.WriteString( `</select>` )
 
   return buffer.Bytes()
-}/*
-func(el *HtmlElementFormSelect)string() string {
-  out := `<select ` + el.Global.string() + el.Name.ToAttr("name") + el.Form.ToAttr("form") + el.Multiple.ToAttr("multiple") + el.Size.ToAttr("size") + el.Required.ToAttrSet("required") + el.Disabled.ToAttrSet("disabled") + `>`
-  for k, v := range el.Options{
-    if v == "" {
-      out += `<option value="` + k + `">`
-    } else {
-      out += `<option value="` + k + `">` + k + `</option>`
-    }
+}
+func(el *HtmlElementFormSelect)ToJavaScript() []byte {
+  return []byte{}
+}
+func(el *HtmlElementFormSelect)GetId() []byte{
+  if el.Global.Id == "" {
+    el.Global.Id = getAutoId()
   }
-  out += `</select>`
-
-  return out
-}*/
+  return []byte( el.Global.Id )
+}
+func(el *HtmlElementFormSelect)GetName() []byte{
+  if el.Name == "" {
+    el.Name = getAutoId()
+  }
+  return []byte( el.Name )
+}

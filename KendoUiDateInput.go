@@ -92,7 +92,7 @@ type KendoUiDateInput struct{
    });
    </script>
   */
-  Messages                                *KendoCalendarMessages                 `jsObject:"messages"`
+  Messages                                KendoCalendarMessages                  `jsObject:"messages"`
 
   *ToJavaScriptConverter
 }
@@ -100,8 +100,7 @@ func(el *KendoUiDateInput) ToJavaScript() []byte {
   var ret bytes.Buffer
 
   if el.Html.Global.Id == "" {
-    log.Critical("kendoDateInput not have a html id for mount JavaScript code.")
-    return []byte{}
+    el.Html.Global.Id = getAutoId()
   }
 
   element := reflect.ValueOf(el).Elem()
@@ -114,9 +113,22 @@ func(el *KendoUiDateInput) ToJavaScript() []byte {
   ret.Write( []byte(`$("#` + el.Html.Global.Id + `").kendoDateInput({`) )
   ret.Write( data )
   ret.Write( []byte(`});`) )
+  ret.Write( []byte{ 0x0A } )
 
   return ret.Bytes()
 }
 func(el *KendoUiDateInput) ToHtml() []byte{
   return el.Html.ToHtml()
+}
+func(el *KendoUiDateInput) GetId() []byte{
+  if el.Html.Global.Id == "" {
+    el.Html.Global.Id = getAutoId()
+  }
+  return []byte( el.Html.Global.Id )
+}
+func(el *KendoUiDateInput) GetName() []byte{
+  if el.Html.Name == "" {
+    el.Html.Name = getAutoId()
+  }
+  return []byte( el.Html.Name )
 }

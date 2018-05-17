@@ -87,11 +87,11 @@ func ExampleKendoUiCalendar_ToTelerikTemplate() {
     Footer: `kendo.template($('#footer-template').html())`,
     Format: `yyyy/MM/dd`,
     Max: time.Date(2019, 2, 28, 23, 59, 59, 0, time.UTC),
-    Messages: &KendoCalendarMessages{
+    Messages: KendoCalendarMessages{
       WeekColumnHeader: "W",
     },
     Min: time.Date(2018, 2, 28, 0, 0, 0, 0, time.UTC),
-    Month: &KendoMonth{
+    Month: KendoMonth{
       Content: `$('#cell-template').html()`,
       WeekNumber: `$('#week-template').html()`,
       Empty: `-`,
@@ -151,7 +151,7 @@ $(document).ready(function() {
   //<script>
   //$(document).ready(function() {
   //// create Calendar from div HTML element
-  //$("#calendar").kendoCalendar({culture: "en-US",dates: [new Date(2018, 2, 28),new Date(2019, 2, 28, 23, 59),new Date(2019, 2, 28, 23, 59, 59)],depth: "day",disableDates: ["we","th",],footer: "kendo.template($('#footer-template').html())",format: "yyyy/MM/dd",max: new Date(2019, 2, 28, 23, 59, 59),messages: {weekColumnHeader: "W",},min: new Date(2018, 2, 28),month: { content: "$('#cell-template').html()",weekNumber: "$('#week-template').html()",empty: "-",},selectable: "multiple",selectDates: [new Date(2018, 2, 28),new Date(2019, 2, 28)],weekNumber: true,start: "year",value: new Date(2018, 3, 5, 22, 44),});
+  //$("#calendar").kendoCalendar({culture: "en-US",dates: [new Date(2018, 2, 28),new Date(2019, 2, 28, 23, 59),new Date(2019, 2, 28, 23, 59, 59)],depth: "day",disableDates: ["sa","su",],footer: "kendo.template($('#footer-template').html())",format: "yyyy/MM/dd",max: new Date(2019, 2, 28, 23, 59, 59),messages: {weekColumnHeader: "W",},min: new Date(2018, 2, 28),month: { content: "$('#cell-template').html()",weekNumber: "$('#week-template').html()",empty: "-",},selectable: "multiple",selectDates: [new Date(2018, 2, 28),new Date(2019, 2, 28)],weekNumber: true,start: "year",value: new Date(2018, 3, 5, 22, 44),});
   //});
   //</script>
   //</div>

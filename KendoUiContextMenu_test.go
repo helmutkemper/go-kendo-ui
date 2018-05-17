@@ -10,12 +10,12 @@ func ExampleKendoUiContextMenu_ToHtml() {
       },
     },
     AlignToAnchor: TRUE,
-    Animation: &KendoAnimation{
-      Open: &KendoOpen{
+    Animation: KendoAnimation{
+      Open: KendoOpen{
         Duration: 500,
         Effects: EFFECT_EXPAND_IN,
       },
-      Close: &KendoClose{
+      Close: KendoClose{
         Duration: 500,
         Effects: EFFECT_EXPAND_OUT,
       },
@@ -23,7 +23,7 @@ func ExampleKendoUiContextMenu_ToHtml() {
     AppendTo: "#container",
     CloseOnClick: TRUE,
     CopyAnchorStyles: TRUE,
-    DataSource: &[]map[string]interface{}{
+    DataSource: []map[string]interface{}{
       {
         "text": "Item 1",
         "cssClass": "myClass",

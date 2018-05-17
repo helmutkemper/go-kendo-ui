@@ -1,9 +1,6 @@
 package telerik
 
 import (
-  "fmt"
-  "html/template"
-  "bytes"
   "reflect"
   log "github.com/helmutkemper/seelog"
 )
@@ -36,7 +33,7 @@ type KendoPopup struct{
     }).data("kendoPopup").open();
   </script>
   */
-  AdjustSize                              *KendoAdjustSize                        `jsObject:"adjustSize"`
+  AdjustSize                              KendoAdjustSize                         `jsObject:"adjustSize"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/popup/configuration/anchor#anchor
@@ -90,7 +87,7 @@ type KendoPopup struct{
    });
    </script>
   */
-  AppendTo                               *JavaScript                              `jsObject:"appendTo"`
+  AppendTo                               JavaScript                               `jsObject:"appendTo"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/popup/configuration/collision#collision
@@ -164,23 +161,6 @@ type KendoPopup struct{
   Position                                KendoPosition                           `jsObject:"position"`
 
   *ToJavaScriptConverter
-}
-func(el *KendoPopup) IsSet() bool {
-  return el != nil
-}
-func(el *KendoPopup) String() string {
-  var buffer bytes.Buffer
-  tmpl := template.Must(template.New("").Funcs(template.FuncMap{
-    "safeHTML": func(s interface{}) template.HTML {
-      return template.HTML(s.(string))
-    },
-  }).Parse(GetTemplate()))
-  err := tmpl.ExecuteTemplate(&buffer, "Popup", *(el))
-  if err != nil {
-    fmt.Println(err.Error())
-  }
-  
-  return buffer.String()
 }
 func(el *KendoPopup) ToJavaScript() []byte {
   element := reflect.ValueOf(el).Elem()

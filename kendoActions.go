@@ -6,6 +6,7 @@ import (
 )
 
 type KendoActions struct{
+  ButtonType                              SupportCustomButtonType `jsObject:"-"`
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog#configuration-actions.text  The text to be shown in the action's button.
   Example
@@ -38,7 +39,7 @@ type KendoActions struct{
        });
    </script>
   */
-  Action                                  *JavaScript             `jsObject:"action"`
+  Action                                  JavaScript              `jsObject:"action"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog#configuration-actions.primary  A boolean property indicating whether the action button will be decorated as primary button or not.

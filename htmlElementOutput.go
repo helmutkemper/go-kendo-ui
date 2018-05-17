@@ -6,7 +6,7 @@ type HtmlElementFormOutput struct{
   /*
   The name of the control, which is submitted with the form data.
   */
-  Name                        String
+  Name                        string
 
   /*
   Content inside html tag
@@ -19,7 +19,7 @@ type HtmlElementFormOutput struct{
   descendant of a <form> element. This attribute enables you to place <input> elements anywhere within a document, not
   just as descendants of their form elements. An input can only be associated with one form.
   */
-  Form                        String
+  Form                        string
 
   /*
   The id of a labelable form-related element in the same document as the label element. The first such element in the
@@ -27,7 +27,7 @@ type HtmlElementFormOutput struct{
   A label element can have both a for attribute and a contained control element, as long as the for attribute points to
   the contained control element.
   */
-  For                         String
+  For                         string
 
   Global                      HtmlGlobalAttributes
 }/*

@@ -7,7 +7,7 @@ import (
 )
 
 type KendoDataSource struct {
-  VarName                                 string              `jsObject:"-"`
+  //VarName                                 string              `jsObject:"-"`
 
   /*
   @sse https://docs.telerik.com/kendo-ui/api/javascript/data/datasource#configuration-aggregate
@@ -44,7 +44,7 @@ type KendoDataSource struct {
   </script>
   */
 
-  Aggregate                               *[]KendoAggregates                  `jsObject:"aggregate"`
+  Aggregate                               []KendoAggregates                   `jsObject:"aggregate"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/autosync#autoSync
@@ -373,7 +373,7 @@ type KendoDataSource struct {
   });
   </script>
   */
-  Schema                                 *KendoSchema                       `jsObject:"schema"`
+  Schema                                 KendoSchema                        `jsObject:"schema"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/serveraggregates#serverAggregates
@@ -561,7 +561,7 @@ type KendoDataSource struct {
   });
   </script>
   */
-  Sort                                    *KendoSort                        `jsObject:"sort"`
+  Sort                                    KendoSort                         `jsObject:"sort"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/transport#transport
@@ -588,7 +588,7 @@ type KendoDataSource struct {
   });
   </script>
   */
-  Transport                               *KendoTransport                   `jsObject:"transport"`
+  Transport                               KendoTransport                    `jsObject:"transport"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/type#type
@@ -630,15 +630,15 @@ func(el *KendoDataSource) ToJavaScript() []byte {
     return []byte{}
   }
 
-  if el.VarName == "" {
+  //if el.VarName == "" {
     ret.Write( []byte(` new kendo.data.DataSource({`) )
     ret.Write( data )
-    ret.Write( []byte(`});`) )
-  } else {
-    ret.Write( []byte(`var ` + el.VarName + ` = new kendo.data.DataSource({`) )
-    ret.Write( data )
-    ret.Write( []byte(`});`) )
-  }
+    ret.Write( []byte(`}),`) )
+  //} else {
+  //  ret.Write( []byte(`` + el.VarName + ` = new kendo.data.DataSource({`) )
+  //  ret.Write( data )
+  //  ret.Write( []byte(`});`) )
+  //}
 
   return ret.Bytes()
 }

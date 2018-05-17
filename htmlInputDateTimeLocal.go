@@ -1,5 +1,10 @@
 package telerik
 
+import (
+  "bytes"
+  "reflect"
+)
+
 // <input> elements of type datetime-local create input controls that let the user easily enter both a date and a time,
 // including the year, month, and day as well as the time in hours and minutes. The user's local time zone is used. The
 // control's UI varies in general from browser to browser; at the moment support is patchy, with only Chrome/Opera and
@@ -17,13 +22,15 @@ package telerik
 // easily predict it.
 //
 // <input id="datetime" type="datetime-local">
+//
+// https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/datetime-local
 type HtmlInputDateTimeLocal struct{
   /*
   The name of the control, which is submitted with the form data.
   @see typeNamesForAutocomplete.go
   Ex.: const NAMES_FOR_AUTOCOMPLETE_NAME
   */
-  Name                        String
+  Name                        string                      `htmlAttr:"name"`
 
   /*
   The initial value of the control. This attribute is optional except when the value of the type attribute is radio or
@@ -31,7 +38,7 @@ type HtmlInputDateTimeLocal struct{
   Note that when reloading the page, Gecko and IE will ignore the value specified in the HTML source, if the value was
   changed before the reload.
   */
-  Value                       String
+  Value                       string                      `htmlAttr:"value"`
 
   /*
   The form element that the input element is associated with (its form owner). The value of the attribute must be an id
@@ -39,7 +46,7 @@ type HtmlInputDateTimeLocal struct{
   descendant of a <form> element. This attribute enables you to place <input> elements anywhere within a document, not
   just as descendants of their form elements. An input can only be associated with one form.
   */
-  Form                        String
+  Form                        string                      `htmlAttr:"form"`
 
   /*
   This Boolean attribute indicates that the form control is not available for interaction. In particular, the click
@@ -47,19 +54,49 @@ type HtmlInputDateTimeLocal struct{
   Unlike other browsers, Firefox will by default persist the dynamic disabled state of an <input> across page loads. Use
   the autocomplete attribute to control this feature.
   */
-  Disabled                    Boolean
+  Disabled                    Boolean                     `htmlAttrSet:"disabled"`
 
   /*
   Identifies a list of pre-defined options to suggest to the user. The value must be the id of a <datalist> element in
   the same document. The browser displays only options that are valid values for this input element. This attribute is
   ignored when the type attribute's value is hidden, checkbox, radio, file, or a button type.
   */
-  List                        String
+  List                        string                      `htmlAttr:"list"`
 
-  ValueAsDate                 Boolean
-  ValueAsNumber               Boolean
-  Global                      HtmlGlobalAttributes
-}/*
-func(el *HtmlInputDateTimeLocal)String() string {
-  return `<input ` + el.Global.String() + ` type="datetime-local" ` + el.Name.ToAttr("name") + el.List.ToAttr("list") + el.ValueAsDate.ToAttr("valueasdate") + el.ValueAsNumber.ToAttr("valueasnumber") + el.Value.ToAttr("value") + `>`
-}*/
+  ValueAsDate                 Boolean                     `htmlAttr:"valueasdate"`
+  
+  ValueAsNumber               Boolean                     `htmlAttr:"valueasnumber"`
+  
+  Global                      HtmlGlobalAttributes        `htmlAttr:"-"`
+
+  *ToJavaScriptConverter                                  `htmlAttr:"-"`
+}
+func(el *HtmlInputDateTimeLocal)ToHtml() []byte {
+  var buffer bytes.Buffer
+
+  if el.Global.DoNotUseThisFieldOmitHtml == TRUE {
+    return []byte{}
+  }
+
+  element := reflect.ValueOf(el).Elem()
+  data := el.ToJavaScriptConverter.ToTelerikHtml(element)
+
+  buffer.Write( []byte( `<input type="datetime-local"` ) )
+  buffer.Write( el.Global.ToHtml() )
+  buffer.Write( data )
+  buffer.Write( []byte( `>` ) )
+
+  return buffer.Bytes()
+}
+func(el *HtmlInputDateTimeLocal)GetId() []byte{
+  if el.Global.Id == "" {
+    el.Global.Id = getAutoId()
+  }
+  return []byte( el.Global.Id )
+}
+func(el *HtmlInputDateTimeLocal)GetName() []byte{
+  if el.Name == "" {
+    el.Name = getAutoId()
+  }
+  return []byte( el.Name )
+}

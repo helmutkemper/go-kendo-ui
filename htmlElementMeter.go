@@ -51,8 +51,15 @@ type HtmlElementFormMeter struct{
 
   *ToJavaScriptConverter                                  `htmlAttr:"-"`
 }
+func(el *HtmlElementFormMeter)SetOmitHtml( value Boolean ) {
+  el.Global.DoNotUseThisFieldOmitHtml = value
+}
 func(el *HtmlElementFormMeter)ToHtml() []byte {
   var buffer bytes.Buffer
+
+  if el.Global.DoNotUseThisFieldOmitHtml == TRUE {
+    return []byte{}
+  }
 
   element := reflect.ValueOf(el).Elem()
   data := el.ToJavaScriptConverter.ToTelerikHtml(element)
@@ -61,7 +68,7 @@ func(el *HtmlElementFormMeter)ToHtml() []byte {
   buffer.Write( el.Global.ToHtml() )
   buffer.Write( data )
   buffer.Write( []byte( `>` ) )
-  buffer.Write( el.Content.Bytes() )
+  buffer.Write( el.Content.ToHtml() )
   buffer.Write( []byte( `</meter>` ) )
 
   return buffer.Bytes()

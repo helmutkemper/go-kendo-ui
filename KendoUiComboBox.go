@@ -7,7 +7,7 @@ import (
 )
 
 type KendoUiComboBox struct{
-  Html                                  HtmlInputText                           `jsObject:"-"`
+  Html                                  HtmlElementFormSelect                   `jsObject:"-"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-animation
@@ -449,7 +449,7 @@ type KendoUiComboBox struct{
    });
    </script>
   */
-  Popup                                   *KendoPopup                           `jsObject:"popup"`
+  Popup                                   KendoPopup                            `jsObject:"popup"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/combobox#configuration-suggest
@@ -597,7 +597,7 @@ type KendoUiComboBox struct{
   Enables the virtualization feature of the widget. The configuration can be set on an object, which contains two properties - <b><u>itemHeight</u></b> and <b><u>valueMapper</u></b>.
   For detailed information, refer to the <a href="/kendo-ui/controls/editors/combobox/virtualization">article on virtualization</a>.
   */
-  Virtual                                 *KendoVirtual                         `jsObject:"virtual"`
+  Virtual                                 KendoVirtual                          `jsObject:"virtual"`
 
   *ToJavaScriptConverter
 }
@@ -605,8 +605,7 @@ func(el *KendoUiComboBox) ToJavaScript() []byte {
   var ret bytes.Buffer
 
   if el.Html.Global.Id == "" {
-    log.Critical("KendoUiComboBox not have a html id for mount JavaScript code.")
-    return []byte{}
+    el.Html.Global.Id = getAutoId()
   }
 
   element := reflect.ValueOf(el).Elem()
@@ -619,9 +618,22 @@ func(el *KendoUiComboBox) ToJavaScript() []byte {
   ret.Write( []byte(`$("#` + el.Html.Global.Id + `").kendoComboBox({`) )
   ret.Write( data )
   ret.Write( []byte(`});`) )
+  ret.Write( []byte{ 0x0A } )
 
   return ret.Bytes()
 }
 func(el *KendoUiComboBox) ToHtml() []byte{
   return el.Html.ToHtml()
+}
+func(el *KendoUiComboBox) GetId() []byte{
+  if el.Html.Global.Id == "" {
+    el.Html.Global.Id = getAutoId()
+  }
+  return []byte( el.Html.Global.Id )
+}
+func(el *KendoUiComboBox) GetName() []byte{
+  if el.Html.Name == "" {
+    el.Html.Name = getAutoId()
+  }
+  return []byte( el.Html.Name )
 }

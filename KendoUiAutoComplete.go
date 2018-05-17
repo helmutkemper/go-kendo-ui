@@ -12,17 +12,18 @@ type KendoUiAutoComplete struct{
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-animation
 
-  Configures the opening and closing animations of the suggestion popup. Setting the <b><u>animation</u></b> option to <b><u>false</u></b> will disable the opening and closing animations. As a result the suggestion popup will open and close instantly.
-  <b><u>animation:true</u></b> is not a valid configuration.
-
-  Example - disable open and close animations
-   <input id="autocomplete" />
-   <script>
-   $("#autocomplete").kendoAutoComplete({
-     animation: false
-   });
-   </script>
+  Configures the opening and closing animations of the suggestion popup. Setting the **animation** option to **false**
+  will disable the opening and closing animations. As a result the suggestion popup will open and close instantly.
+  **animation:true** is not a valid configuration.
   */
+  //  Example - disable open and close animations
+  //   <input id="autocomplete" />
+  //   <script>
+  //   $("#autocomplete").kendoAutoComplete({
+  //     animation: false
+  //   });
+  //   </script>
+  //
   Animation                               interface{}                             `jsObject:"animation" jsType:"*KendoAnimation,Boolean"`
 
   /*
@@ -378,7 +379,7 @@ type KendoUiAutoComplete struct{
    });
    </script>
   */
-  Popup                                   *KendoPopup                             `jsObject:"popup"`
+  Popup                                   KendoPopup                              `jsObject:"popup"`
 
   /*
   @see http://docs.telerik.com/kendo-ui/api/javascript/ui/autocomplete#configuration-separator
@@ -552,15 +553,14 @@ type KendoUiAutoComplete struct{
        });
    </script>
   */
-  Virtual                                 *KendoVirtual                           `jsObject:"virtual"`
+  Virtual                                 KendoVirtual                            `jsObject:"virtual"`
 
   *ToJavaScriptConverter
 }
 func(el *KendoUiAutoComplete) ToJavaScript() []byte {
   var ret bytes.Buffer
   if el.Html.Global.Id == "" {
-    log.Critical("kendoUiAutoComplete not have a html id for mount JavaScript code.")
-    return []byte{}
+    el.Html.Global.Id = getAutoId()
   }
 
   element := reflect.ValueOf(el).Elem()
@@ -573,9 +573,22 @@ func(el *KendoUiAutoComplete) ToJavaScript() []byte {
   ret.Write( []byte(`$("#` + el.Html.Global.Id + `").kendoAutoComplete({`) )
   ret.Write( data )
   ret.Write( []byte(`});`) )
+  ret.Write( []byte{ 0x0A } )
 
   return ret.Bytes()
 }
 func(el *KendoUiAutoComplete) ToHtml() []byte{
   return el.Html.ToHtml()
+}
+func(el *KendoUiAutoComplete) GetId() []byte{
+  if el.Html.Global.Id == "" {
+    el.Html.Global.Id = getAutoId()
+  }
+  return []byte( el.Html.Global.Id )
+}
+func(el *KendoUiAutoComplete) GetName() []byte{
+  if el.Html.Name == "" {
+    el.Html.Name = getAutoId()
+  }
+  return []byte( el.Html.Name )
 }

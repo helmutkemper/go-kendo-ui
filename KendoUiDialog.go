@@ -35,7 +35,7 @@ type KendoUiDialog struct{
        });
    </script>
   */
-  Actions                                 *[]KendoActions                         `jsObject:"actions"`
+  Actions                                 []KendoActions                          `jsObject:"actions"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog#configuration-animation
@@ -97,7 +97,7 @@ type KendoUiDialog struct{
    });
    </script>
   */
-  Content                                 interface{}                             `jsObject:"content" jsType:"*JavaScript,JavaScript,string"`
+  Content                                 interface{}                             `jsObject:"content" jsType:"*JavaScript,JavaScript,string,Content"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog#configuration-height
@@ -159,7 +159,7 @@ type KendoUiDialog struct{
    });
    </script>
   */
-  Messages                                *KendoMessages                          `jsObject:"messages"`
+  Messages                                KendoMessages                           `jsObject:"messages"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog#configuration-minHeight
@@ -283,7 +283,7 @@ type KendoUiDialog struct{
     dialog.bind("close", dialog_close);
   </script>
   */
-  EventClose                              *JavaScript                             `jsObject:"close"`
+  EventClose                              JavaScript                              `jsObject:"close"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog/events/hide#hide
@@ -311,7 +311,7 @@ type KendoUiDialog struct{
     dialog.bind("hide", dialog_hide);
   </script>
   */
-  EventHide                               *JavaScript                             `jsObject:"hide"`
+  EventHide                               JavaScript                              `jsObject:"hide"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog/events/initopen#initOpen
@@ -340,7 +340,7 @@ type KendoUiDialog struct{
     dialog.open();
   </script>
   */
-  EventInitOpen                           *JavaScript                             `jsObject:"initOpen"`
+  EventInitOpen                           JavaScript                              `jsObject:"initOpen"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog/events/open#open
@@ -368,7 +368,7 @@ type KendoUiDialog struct{
     dialog.bind("open", dialog_open);
   </script>
   */
-  EventOpen                               *JavaScript                             `jsObject:"open"`
+  EventOpen                               JavaScript                              `jsObject:"open"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/dialog/events/show#show
@@ -396,7 +396,7 @@ type KendoUiDialog struct{
     dialog.bind("show", dialog_show);
   </script>
   */
-  EventShow                               *JavaScript                             `jsObject:"show"`
+  EventShow                               JavaScript                              `jsObject:"show"`
 
   *ToJavaScriptConverter
 }
@@ -404,8 +404,7 @@ type KendoUiDialog struct{
 func(el *KendoUiDialog) ToJavaScript() []byte {
   var ret bytes.Buffer
   if el.Html.Global.Id == "" {
-    log.Critical("kendoDialog not have a html id for mount JavaScript code.")
-    return []byte{}
+    el.Html.Global.Id = getAutoId()
   }
 
   element := reflect.ValueOf(el).Elem()
@@ -418,12 +417,19 @@ func(el *KendoUiDialog) ToJavaScript() []byte {
   ret.Write( []byte(`$("#` + el.Html.Global.Id + `").kendoDialog({`) )
   ret.Write( data )
   ret.Write( []byte(`});`) )
+  ret.Write( []byte{ 0x0A } )
 
   return ret.Bytes()
 }
 
 func(el *KendoUiDialog) ToHtml() []byte{
   return el.Html.ToHtml()
+}
+func(el *KendoUiDialog) GetId() []byte{
+  if el.Html.Global.Id == "" {
+    el.Html.Global.Id = getAutoId()
+  }
+  return []byte( el.Html.Global.Id )
 }
 
 /*
@@ -627,4 +633,10 @@ func(el *KendoUiDialog) GetGlobalVar() []byte{
   el.GlobalVar = TRUE
 
   return []byte(`var KendoUiGlobalVarFromId` + el.Html.Global.Id + ` = $("#` + el.Html.Global.Id + `").data("kendoDialog");`)
+}
+func(el *KendoUiDialog) GetName() []byte{
+  if el.Html.Name == "" {
+    el.Html.Name = getAutoId()
+  }
+  return []byte( el.Html.Name )
 }

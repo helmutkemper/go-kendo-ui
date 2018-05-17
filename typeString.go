@@ -1,5 +1,5 @@
 package telerik
-
+/*
 type String string
 
 func(el String) ToAttr(name string) string {
@@ -14,3 +14,4 @@ func(el String) ToAttr(name string) string {
 func(el String) String() string {
   return string( el )
 }
+*/

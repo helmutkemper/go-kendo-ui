@@ -4,6 +4,7 @@ type KendoTimeDepth int
 
 var kendoTimeDepths = [...]string {
   "",
+  "day",
   "month",
   "year",
   "decade",

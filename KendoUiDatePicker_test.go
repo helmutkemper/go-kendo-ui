@@ -12,12 +12,12 @@ func ExampleKendoUiDatePicker_ToHtml() {
         Id: "datepicker",
       },
     },
-    Animation: &KendoAnimation{
-      Open: &KendoOpen{
+    Animation: KendoAnimation{
+      Open: KendoOpen{
         Duration: 300,
         Effects: EFFECT_EXPAND_OUT,
       },
-      Close: &KendoClose{
+      Close: KendoClose{
         Duration: 300,
         Effects: EFFECT_EXPAND_IN,
       },
@@ -48,5 +48,5 @@ func ExampleKendoUiDatePicker_ToHtml() {
   fmt.Printf( "%s", html.ToJavaScript() )
 
   // Output:
-  // $("#datepicker").kendoDatePicker({animation: { close: { effects: "expand:in",duration: 300,},open: { effects: "expand:out",duration: 300,},},ARIATemplate: "Date: #=kendo.toString(data.current, 'G')#",culture: "de-DE",dateInput: true,dates: [new Date(2000, 10, 10),new Date(2000, 10, 30)],depth: "year",disableDates: ["sa","su",],format: "yyyy/MM/dd",max: new Date(2012, 12, 1),min: new Date(2010, 12, 1),weekNumber: true,parseFormats: ["MMMM yyyy",],start: "decade",value: new Date(2011, 1, 1),});
+  // $("#datepicker").kendoDatePicker({animation: { close: { effects: "expand:in",duration: 300,},open: { effects: "expand:out",duration: 300,},},ARIATemplate: "Date: #=kendo.toString(data.current, 'G')#",culture: "de-DE",dateInput: true,dates: [new Date(2000, 10, 10),new Date(2000, 10, 30)],depth: "month",disableDates: ["sa","su",],format: "yyyy/MM/dd",max: new Date(2012, 12, 1),min: new Date(2010, 12, 1),weekNumber: true,parseFormats: ["MMMM yyyy",],start: "year",value: new Date(2011, 1, 1),});
 }

@@ -70,6 +70,9 @@ type KendoDataModel struct{
   */
   Dirty                                       Boolean                                             `jsObject:"dirty"`
 
+  // fixme:
+  Fields                                      map[string]KendoField                               `jsObject:"fields"`
+
   *ToJavaScriptConverter
 }
 func(el *KendoDataModel) ToJavaScript() ([]byte) {

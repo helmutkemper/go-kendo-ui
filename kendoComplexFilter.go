@@ -59,7 +59,7 @@ type KendoComplexFilter struct{
   });
   </script>
   */
-  Filters                                *[]KendoFilters                          `jsObject:"field"`
+  Filters                                []KendoFilters                           `jsObject:"field"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/filter#filter.logic

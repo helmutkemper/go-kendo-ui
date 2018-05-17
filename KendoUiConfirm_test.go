@@ -9,7 +9,7 @@ func ExampleKendoUiConfirm_ToHtml() {
         Id: "confirm",
       },
     },
-    Messages: &KendoConfirmMessages{
+    Messages: KendoConfirmMessages{
       OkText: "Ok",
       Cancel: "Cancel",
     },

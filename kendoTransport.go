@@ -94,7 +94,7 @@ type KendoTransport struct{
   });
   </script>
   */
-  Destroy                                         *KendoDestroy                                 `jsObject:"destroy" jsType:"*KendoDestroy,*JavaScript,string"`
+  Destroy                                         KendoDestroy                                  `jsObject:"destroy" jsType:"*KendoDestroy,*JavaScript,string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/transport.parametermap#transport.parameterMap
@@ -202,7 +202,7 @@ type KendoTransport struct{
   dataSource.sync();
   </script>
   */
-  ParameterMap                                    *JavaScript                                   `jsObject:"parameterMap"`
+  ParameterMap                                    JavaScript                                    `jsObject:"parameterMap"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/transport.create#transport.create
@@ -338,7 +338,7 @@ type KendoTransport struct{
   });
   </script>
   */
-  Push                                            *JavaScript                                   `jsObject:"push"`
+  Push                                            JavaScript                                    `jsObject:"push"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/transport.read#transport.read
@@ -413,7 +413,7 @@ type KendoTransport struct{
   });
   </script>
   */
-  Read                                            *KendoRead                                    `jsObject:"read"`
+  Read                                            KendoRead                                     `jsObject:"read"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/transport.signalr#transport.signalr
@@ -465,7 +465,7 @@ type KendoTransport struct{
       });
   </script>
   */
-  Signalr                                         *KendoSignalr                                 `jsObject:"signalr"`
+  Signalr                                         KendoSignalr                                  `jsObject:"signalr"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/transport.submit#transport.submit
@@ -537,7 +537,7 @@ type KendoTransport struct{
     });
   </script>
   */
-  Submit                                          *JavaScript                                   `jsObject:"submit"`
+  Submit                                          JavaScript                                    `jsObject:"submit"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/transport.update
@@ -615,7 +615,7 @@ type KendoTransport struct{
   });
   </script>
   */
-  Update                                          *KendoUpdate                                  `jsObject:"update"`
+  Update                                          KendoUpdate                                   `jsObject:"update"`
   *ToJavaScriptConverter
 }
 func(el *KendoTransport) ToJavaScript() []byte {

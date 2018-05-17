@@ -23,7 +23,9 @@ func ExampleHtmlElementForm_ToHtml() {
     },
   }
 
-  fmt.Printf( "%s\n", el.ToHtml() )
+  //fmt.Printf( "%s\n", el.ToHtml() )
+  fmt.Printf( "%s\n", el.ToJavaScript() )
+  //fmt.Printf( "%s\n", el.ToHtmlSupport() )
 
   // Output:
   // <form name="form" action="./index.cpp" method="get"><label form="name">label_1</label><input type="text" id="name" name="name"></form>
