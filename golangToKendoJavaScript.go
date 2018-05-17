@@ -202,6 +202,28 @@ func(el *ToJavaScriptConverter) ToTelerikHtml( element reflect.Value ) []byte {
   return buffer.Bytes()
 }
 
+func(el *ToJavaScriptConverter) ToAceJavaScript( element reflect.Value ) ([]byte, error) {
+  var buffer bytes.Buffer
+
+  //typeOfT := element.Type()
+
+  for i := 0; i < element.NumField(); i += 1 {
+    field := element.Field(i)
+    typeField := element.Type().Field(i)
+    tag := typeField.Tag
+
+    if tag.Get("jsSetFunction") == "-" {
+      continue
+    }
+
+    switch field.String() {
+
+    }
+  }
+
+  return buffer.Bytes(), nil
+}
+
 func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]byte, error) {
   var buffer bytes.Buffer
 

@@ -28,17 +28,17 @@ func CustomTemplate_Demo() {
               return false;
             }`,
           },
-        },
-        {
-          Text: `Add and close`,
-          Action: &JavaScript{
-            Code: `function(e){
+      },
+      {
+        Text: `Add and close`,
+        Action: &JavaScript{
+          Code: `function(e){
               ` + tmpl.Id + `CustomValueCheck();
             }`,
-          },
-          Primary: TRUE,
         },
+        Primary: TRUE,
       },
-    }
+    },
+  }
 }
 
