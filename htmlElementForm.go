@@ -140,6 +140,8 @@ func(el *HtmlElementForm)SetOmitHtml( value Boolean ) {
   el.Global.DoNotUseThisFieldOmitHtml = value
 }
 func(el *HtmlElementForm)ToJavaScript() []byte {
+  return []byte{}
+
   var ret bytes.Buffer
   if el.Global.Id == "" {
     el.Global.Id = GetAutoId()
@@ -152,7 +154,7 @@ func(el *HtmlElementForm)ToJavaScript() []byte {
   element := reflect.ValueOf(el).Elem()
   data, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
   if err != nil {
-    log.Criticalf( "kendoMultiSelect.Error: %v", err.Error() )
+    log.Criticalf( "HtmlElementForm.Error: %v", err.Error() )
     return []byte{}
   }
 

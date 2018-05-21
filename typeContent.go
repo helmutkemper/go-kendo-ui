@@ -92,6 +92,8 @@ func(el Content) ToHtml() []byte {
       buffer.Write( outConverted.ToHtml() )
     case *KendoUiDropDownList:
       buffer.Write( outConverted.ToHtml() )
+    case *KendoUiButton:
+      buffer.Write( outConverted.ToHtml() )
     case *KendoUiMultiSelect:
       buffer.Write( outConverted.ToHtml() )
 
@@ -420,6 +422,8 @@ func(el *Content)addToUnprocessedList( contentUnprocessedList, contentFoundList 
     *contentFoundList        =append( *contentFoundList, &converted )
   case *HtmlInputUrl:
     *contentFoundList        =append( *contentFoundList, &converted )
+  case *HtmlElementFormButton:
+    *contentFoundList        =append( *contentFoundList, &converted )
   case *HtmlInputWeek:
     *contentFoundList        =append( *contentFoundList, &converted )
   case *HtmlInputSubmit:
@@ -461,9 +465,9 @@ func (el *Content)GetNamesAndIds() []map[string][]byte {
       name = []byte( (*(*v.(**KendoUiAutoComplete))).Html.Name )
       id = (*(*v.(**KendoUiAutoComplete))).GetId()
     case **KendoUiButton:
-      pass = true
-      name = []byte( (*(*v.(**KendoUiButton))).Html.Name )
-      id = (*(*v.(**KendoUiButton))).GetId()
+      //pass = true
+      //name = []byte( (*(*v.(**KendoUiButton))).Html.Name )
+      //id = (*(*v.(**KendoUiButton))).GetId()
     case **KendoUiCalendar:
       pass = true
       name = []byte( (*(*v.(**KendoUiCalendar))).Html.Name )
@@ -605,9 +609,9 @@ func (el *Content)GetNamesAndIds() []map[string][]byte {
       name = []byte( converted.Html.Name )
       id = converted.GetId()
     case *KendoUiButton:
-      pass = true
-      name = []byte( converted.Html.Name )
-      id = converted.GetId()
+      //pass = true
+      //name = []byte( converted.Html.Name )
+      //id = converted.GetId()
     case *KendoUiCalendar:
       pass = true
       name = []byte( converted.Html.Name )
@@ -1019,9 +1023,9 @@ func (el *Content)MakeJsObject() []byte {
       key = []byte( (*(*(*v.(***KendoUiAutoComplete)))).Html.Name )
       jsCode = []byte( `$('#` + string( (*(*(*v.(***KendoUiAutoComplete)))).GetId() ) + `').data('kendoAutoComplete').value()` )
     case ***KendoUiButton:
-      pass = true
-      key = []byte( (*(*(*v.(***KendoUiButton)))).Html.Name )
-      jsCode = []byte( `$('#` + string( (*(*(*v.(***KendoUiButton)))).GetId() ) + `').data('kendoButton').value()` )
+      //pass = true
+      //key = []byte( (*(*(*v.(***KendoUiButton)))).Html.Name )
+      //jsCode = []byte( `$('#` + string( (*(*(*v.(***KendoUiButton)))).GetId() ) + `').data('kendoButton').value()` )
     case ***KendoUiCalendar:
       pass = true
       key = []byte( (*(*(*v.(***KendoUiCalendar)))).Html.Name )
@@ -1168,9 +1172,9 @@ func (el *Content)MakeJsObject() []byte {
       key = []byte( (*(*v.(**KendoUiAutoComplete))).Html.Name )
       jsCode = []byte( `$('#` + string( (*(*v.(**KendoUiAutoComplete))).GetId() ) + `').data('kendoAutoComplete').value()` )
     case **KendoUiButton:
-      pass = true
-      key = []byte( (*(*v.(**KendoUiButton))).Html.Name )
-      jsCode = []byte( `$('#` + string( (*(*v.(**KendoUiButton))).GetId() ) + `').data('kendoButton').value()` )
+      //pass = true
+      //key = []byte( (*(*v.(**KendoUiButton))).Html.Name )
+      //jsCode = []byte( `$('#` + string( (*(*v.(**KendoUiButton))).GetId() ) + `').data('kendoButton').value()` )
     case **KendoUiCalendar:
       pass = true
       key = []byte( (*(*v.(**KendoUiCalendar))).Html.Name )
@@ -1317,9 +1321,9 @@ func (el *Content)MakeJsObject() []byte {
       key = []byte( converted.Html.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').data('kendoAutoComplete').value()` )
     case *KendoUiButton:
-      pass = true
-      key = []byte( converted.Html.Name )
-      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').data('kendoButton').value()` )
+      //pass = true
+      //key = []byte( converted.Html.Name )
+      //jsCode = []byte( `$('#` + string( converted.GetId() ) + `').data('kendoButton').value()` )
     case *KendoUiCalendar:
       pass = true
       key = []byte( converted.Html.Name )
@@ -1503,9 +1507,9 @@ func (el *Content)MakeJsObject() []byte {
       key = []byte( (*(*(*v.(***KendoUiAutoComplete)))).Html.Name )
       jsCode = []byte( `$('#` + string( (*(*(*v.(***KendoUiAutoComplete)))).GetId() ) + `').data('kendoAutoComplete').value( value )` )
     case ***KendoUiButton:
-      pass = true
-      key = []byte( (*(*(*v.(***KendoUiButton)))).Html.Name )
-      jsCode = []byte( `$('#` + string( (*(*(*v.(***KendoUiButton)))).GetId() ) + `').data('kendoButton').value( value )` )
+      //pass = true
+      //key = []byte( (*(*(*v.(***KendoUiButton)))).Html.Name )
+      //jsCode = []byte( `$('#` + string( (*(*(*v.(***KendoUiButton)))).GetId() ) + `').data('kendoButton').value( value )` )
     case ***KendoUiCalendar:
       pass = true
       key = []byte( (*(*(*v.(***KendoUiCalendar)))).Html.Name )
@@ -1651,9 +1655,9 @@ func (el *Content)MakeJsObject() []byte {
       key = []byte( (*(*v.(**KendoUiAutoComplete))).Html.Name )
       jsCode = []byte( `$('#` + string( (*(*v.(**KendoUiAutoComplete))).GetId() ) + `').data('kendoAutoComplete').value( value )` )
     case **KendoUiButton:
-      pass = true
-      key = []byte( (*(*v.(**KendoUiButton))).Html.Name )
-      jsCode = []byte( `$('#` + string( (*(*v.(**KendoUiButton))).GetId() ) + `').data('kendoButton').value( value )` )
+      //pass = true
+      //key = []byte( (*(*v.(**KendoUiButton))).Html.Name )
+      //jsCode = []byte( `$('#` + string( (*(*v.(**KendoUiButton))).GetId() ) + `').data('kendoButton').value( value )` )
     case **KendoUiCalendar:
       pass = true
       key = []byte( (*(*v.(**KendoUiCalendar))).Html.Name )
@@ -1800,9 +1804,9 @@ func (el *Content)MakeJsObject() []byte {
       key = []byte( converted.Html.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').data('kendoAutoComplete').value( value )` )
     case *KendoUiButton:
-      pass = true
-      key = []byte( converted.Html.Name )
-      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').data('kendoButton').value( value )` )
+      //pass = true
+      //key = []byte( converted.Html.Name )
+      //jsCode = []byte( `$('#` + string( converted.GetId() ) + `').data('kendoButton').value( value )` )
     case *KendoUiCalendar:
       pass = true
       key = []byte( converted.Html.Name )
