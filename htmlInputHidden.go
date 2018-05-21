@@ -80,13 +80,13 @@ func(el *HtmlInputHidden)ToHtml() []byte {
 }
 func(el *HtmlInputHidden)GetId() []byte{
   if el.Global.Id == "" {
-    el.Global.Id = getAutoId()
+    el.Global.Id = GetAutoId()
   }
   return []byte( el.Global.Id )
 }
 func(el *HtmlInputHidden)GetName() []byte{
   if el.Name == "" {
-    el.Name = getAutoId()
+    el.Name = GetAutoId()
   }
   return []byte( el.Name )
 }

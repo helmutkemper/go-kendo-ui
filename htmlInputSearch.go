@@ -131,20 +131,20 @@ func(el *HtmlInputSearch)ToHtml() []byte {
 }
 func(el *HtmlInputSearch)GetId() []byte{
   if el.Global.Id == "" {
-    el.Global.Id = getAutoId()
+    el.Global.Id = GetAutoId()
   }
   return []byte( el.Global.Id )
 }
 func(el *HtmlInputSearch)GetName() []byte{
   if el.Name == "" {
-    el.Name = getAutoId()
+    el.Name = GetAutoId()
   }
   return []byte( el.Name )
 }
 func(el *HtmlInputSearch)ToJavaScript() []byte {
   var ret bytes.Buffer
   if el.Global.Id == "" {
-    el.Global.Id = getAutoId()
+    el.Global.Id = GetAutoId()
   }
 
   ret.Write( []byte(`$("#` + el.Global.Id + `").addClass('k-textbox');`) )

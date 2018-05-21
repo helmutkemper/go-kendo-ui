@@ -149,20 +149,20 @@ func(el *HtmlInputEmail)ToHtml() []byte {
 }
 func(el *HtmlInputEmail)GetId() []byte{
   if el.Global.Id == "" {
-    el.Global.Id = getAutoId()
+    el.Global.Id = GetAutoId()
   }
   return []byte( el.Global.Id )
 }
 func(el *HtmlInputEmail)GetName() []byte{
   if el.Name == "" {
-    el.Name = getAutoId()
+    el.Name = GetAutoId()
   }
   return []byte( el.Name )
 }
 func(el *HtmlInputEmail)ToJavaScript() []byte {
   var ret bytes.Buffer
   if el.Global.Id == "" {
-    el.Global.Id = getAutoId()
+    el.Global.Id = GetAutoId()
   }
 
   ret.Write( []byte(`$("#` + el.Global.Id + `").addClass('k-textbox');`) )

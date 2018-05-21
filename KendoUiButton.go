@@ -78,7 +78,7 @@ type KendoUiButton struct{
 func(el *KendoUiButton) ToJavaScript() []byte {
   var ret bytes.Buffer
   if el.Html.Global.Id == "" {
-    el.Html.Global.Id = getAutoId()
+    el.Html.Global.Id = GetAutoId()
   }
 
   element := reflect.ValueOf(el).Elem()
@@ -100,13 +100,13 @@ func(el *KendoUiButton) ToHtml() []byte{
 }
 func(el *KendoUiButton) GetId() []byte{
   if el.Html.Global.Id == "" {
-    el.Html.Global.Id = getAutoId()
+    el.Html.Global.Id = GetAutoId()
   }
   return []byte( el.Html.Global.Id )
 }
 func(el *KendoUiButton) GetName() []byte{
   if el.Html.Name == "" {
-    el.Html.Name = getAutoId()
+    el.Html.Name = GetAutoId()
   }
   return []byte( el.Html.Name )
 }

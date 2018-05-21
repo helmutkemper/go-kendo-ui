@@ -73,20 +73,20 @@ func(el *HtmlInputCheckBox)ToHtml() []byte {
 }
 func(el *HtmlInputCheckBox)GetId() []byte{
   if el.Global.Id == "" {
-    el.Global.Id = getAutoId()
+    el.Global.Id = GetAutoId()
   }
   return []byte( el.Global.Id )
 }
 func(el *HtmlInputCheckBox)GetName() []byte{
   if el.Name == "" {
-    el.Name = getAutoId()
+    el.Name = GetAutoId()
   }
   return []byte( el.Name )
 }
 func(el *HtmlInputCheckBox)ToJavaScript() []byte {
   var ret bytes.Buffer
   if el.Global.Id == "" {
-    el.Global.Id = getAutoId()
+    el.Global.Id = GetAutoId()
   }
 
   //ret.Write( []byte(`$("#` + el.Global.Id + `").addClass('k-textbox');`) )

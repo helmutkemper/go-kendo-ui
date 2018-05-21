@@ -893,7 +893,7 @@ type KendoUiMultiSelect struct {
 func(el *KendoUiMultiSelect) ToJavaScript() []byte {
   var ret bytes.Buffer
   if el.Html.Global.Id == "" {
-    el.Html.Global.Id = getAutoId()
+    el.Html.Global.Id = GetAutoId()
   }
 
   if reflect.DeepEqual( el.DataSource, KendoDataSource{} ) == false && reflect.DeepEqual( el.Dialog, KendoUiDialog{} ) == false {
@@ -964,13 +964,13 @@ func(el *KendoUiMultiSelect) ToHtml() []byte{
 }
 func(el *KendoUiMultiSelect) GetId() []byte{
   if el.Html.Global.Id == "" {
-    el.Html.Global.Id = getAutoId()
+    el.Html.Global.Id = GetAutoId()
   }
   return []byte( el.Html.Global.Id )
 }
 func(el *KendoUiMultiSelect) GetName() []byte{
   if el.Html.Name == "" {
-    el.Html.Name = getAutoId()
+    el.Html.Name = GetAutoId()
   }
   return []byte( el.Html.Name )
 }

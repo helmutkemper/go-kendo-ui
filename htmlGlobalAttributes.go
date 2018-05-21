@@ -246,7 +246,7 @@ func(el *HtmlGlobalAttributes)ToHtml() []byte {
   var buffer bytes.Buffer
 
   if el.Id == "" {
-    el.Id = getAutoId()
+    el.Id = GetAutoId()
   }
 
   element := reflect.ValueOf(el).Elem()
@@ -259,7 +259,7 @@ func(el *HtmlGlobalAttributes)GetId() []byte {
   var buffer bytes.Buffer
 
   if el.Id == "" {
-    el.Id = getAutoId()
+    el.Id = GetAutoId()
   }
 
   buffer.WriteString( el.Id )

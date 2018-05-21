@@ -8,7 +8,7 @@ import (
 var autoIdBase []rune
 var autoIdLength int
 
-func getAutoId() string {
+func GetAutoId() string {
   b := make([]rune, autoIdLength)
   for i := range b {
     b[i] = autoIdBase[rand.Intn(len(autoIdBase))]

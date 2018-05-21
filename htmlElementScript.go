@@ -81,7 +81,7 @@ func(el *HtmlElementScript)ToElementScriptTag() []byte {
   var buffer bytes.Buffer
 
   if el.Global.Id == "" {
-    el.Global.Id = getAutoId()
+    el.Global.Id = GetAutoId()
   }
 
   element := reflect.ValueOf(el).Elem()
@@ -113,7 +113,7 @@ func(el *HtmlElementScript)ToKendoTemplate() []byte {
   var buffer bytes.Buffer
 
   if el.Global.Id == "" {
-    el.Global.Id = getAutoId()
+    el.Global.Id = GetAutoId()
   }
 
   buffer.Write( []byte( `kendo.template($('#` ) )
@@ -124,7 +124,7 @@ func(el *HtmlElementScript)ToKendoTemplate() []byte {
 }
 func(el *HtmlElementScript)GetId() []byte{
   if el.Global.Id == "" {
-    el.Global.Id = getAutoId()
+    el.Global.Id = GetAutoId()
   }
   return []byte( el.Global.Id )
 }

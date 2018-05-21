@@ -275,7 +275,7 @@ type KendoUiNumericTextBox struct {
 func(el *KendoUiNumericTextBox) ToJavaScript() []byte {
   var ret bytes.Buffer
   if el.Html.Global.Id == "" {
-    el.Html.Global.Id = getAutoId()
+    el.Html.Global.Id = GetAutoId()
   }
 
   element := reflect.ValueOf(el).Elem()
@@ -297,7 +297,7 @@ func(el *KendoUiNumericTextBox) ToHtml() []byte{
 }
 func(el *KendoUiNumericTextBox) GetId() []byte{
   if el.Html.Global.Id == "" {
-    el.Html.Global.Id = getAutoId()
+    el.Html.Global.Id = GetAutoId()
   }
   return []byte( el.Html.Global.Id )
 }
