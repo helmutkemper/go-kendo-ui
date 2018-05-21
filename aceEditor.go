@@ -26,61 +26,59 @@ func(el *AceEditor) ToJavaScript() []byte {
     el.Html.Global.Id = GetAutoId()
   }
 
-  var name = el.GetName()
-
   ret.Write( []byte(` var `) )
-  ret.Write( name )
+  ret.WriteString( el.Html.Global.Id )
   ret.Write( []byte(` = `) )
   ret.Write( []byte(`ace.edit("` + el.Html.Global.Id + `");`) )
 
   if el.Theme != 0 {
-    ret.Write( name )
+    ret.WriteString( el.Html.Global.Id )
     ret.Write( []byte( `.setTheme("` + el.Theme.String() + `");` ) )
   }
 
   if el.Mode != 0 {
-    ret.Write( name )
+    ret.WriteString( el.Html.Global.Id )
     ret.Write( []byte( `.session.setMode("` + el.Mode.String() + `");` ) )
   }
 
   if len( el.Content ) != 0 {
-    ret.Write( name )
+    ret.WriteString( el.Html.Global.Id )
     ret.Write( []byte( `.setValue("` + el.Content + `");` ) )
   }
 
   if el.TabSoft != 0 {
-    ret.Write( name )
+    ret.WriteString( el.Html.Global.Id )
     ret.Write( []byte( `.getSession().setUseSoftTabs(` + el.TabSoft.String() + `);` ) )
   }
 
   if el.TabSize != 0 {
-    ret.Write( name )
+    ret.WriteString( el.Html.Global.Id )
     ret.Write( []byte( `.getSession().setTabSize(` + strconv.Itoa( el.TabSize ) + `);` ) )
   }
 
   if el.FontSize != 0 {
     ret.Write( []byte( `document.getElementById("` ) )
-    ret.Write( name )
+    ret.WriteString( el.Html.Global.Id )
     ret.Write( []byte( `").style.fontSize="` + strconv.Itoa( el.FontSize ) + `px";` ) )
   }
 
   if el.WarpMode != 0 {
-    ret.Write( name )
+    ret.WriteString( el.Html.Global.Id )
     ret.Write( []byte( `.getSession().setUseWrapMode(` + el.WarpMode.String() + `);` ) )
   }
 
   if el.HighlightActiveLine != 0 {
-    ret.Write( name )
+    ret.WriteString( el.Html.Global.Id )
     ret.Write( []byte( `.setHighlightActiveLine(` + el.HighlightActiveLine.String() + `);` ) )
   }
 
   if el.ShowPrintMargin != 0 {
-    ret.Write( name )
+    ret.WriteString( el.Html.Global.Id )
     ret.Write( []byte( `.setShowPrintMargin(` + el.ShowPrintMargin.String() + `);` ) )
   }
 
   if el.ReadOnly != 0 {
-    ret.Write( name )
+    ret.WriteString( el.Html.Global.Id )
     ret.Write( []byte( `.setReadOnly(` + el.ReadOnly.String() + `);` ) )
   }
 

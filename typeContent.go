@@ -44,6 +44,8 @@ func(el Content) ToHtml() []byte {
     switch outConverted := el[k].(type) {
     case string:
       buffer.WriteString( outConverted )
+    case *AceEditor:
+      buffer.Write( outConverted.ToHtml() )
     case *HtmlElementDiv:
       buffer.Write( outConverted.ToHtml() )
     case *HtmlInputHidden:
@@ -129,6 +131,8 @@ func(el *Content) ToJavaScript() []byte {
     case string:
       buffer.WriteString( outConverted )
       //buffer.WriteString( "\n" )
+    case *AceEditor:
+      buffer.Write( outConverted.ToJavaScript() )
     case *KendoUiDialog:
       buffer.Write( outConverted.ToJavaScript() )
       //buffer.WriteString( "\n" )
@@ -415,6 +419,8 @@ func(el *Content)addToUnprocessedList( contentUnprocessedList, contentFoundList 
   case *HtmlInputWeek:
     *contentFoundList        =append( *contentFoundList, &converted )
   case *KendoDataSource:
+    *contentFoundList        =append( *contentFoundList, &converted )
+  case *AceEditor:
     *contentFoundList        =append( *contentFoundList, &converted )
 
     // Elementos de formulário que necessitam de javascript - fim
@@ -970,6 +976,10 @@ func (el *Content)MakeJsObject() []byte {
   for _, v := range formElements {
     pass = false
     switch converted := v.(type) {
+    case ***AceEditor:
+      pass = true
+      key = []byte( (*(*(*v.(***AceEditor)))).Html.Name )
+      jsCode = []byte( `ace.edit("` + string( (*(*(*v.(***AceEditor)))).GetId() ) + `").getValue()` )
     case ***KendoUiComboBox:
       pass = true
       key = []byte( (*(*(*v.(***KendoUiComboBox)))).Html.Name )
@@ -1111,6 +1121,10 @@ func (el *Content)MakeJsObject() []byte {
       key = []byte( (*(*(*v.(***KendoUiMobileSwitch)))).Html.Name )
       jsCode = []byte( `$('#` + string( (*(*(*v.(***KendoUiMobileSwitch)))).GetId() ) + `').val()` )
 
+    case **AceEditor:
+      pass = true
+      key = []byte( (*(*v.(**AceEditor))).Html.Name )
+      jsCode = []byte( `ace.edit("` + string( (*(*v.(**AceEditor))).GetId() ) + `").getValue()` )
     case **KendoUiComboBox:
       pass = true
       key = []byte( (*(*v.(**KendoUiComboBox))).Html.Name )
@@ -1252,6 +1266,10 @@ func (el *Content)MakeJsObject() []byte {
       key = []byte( (*(*v.(**KendoUiMobileSwitch))).Html.Name )
       jsCode = []byte( `$('#` + string( (*(*v.(**KendoUiMobileSwitch))).GetId() ) + `').val()` )
 
+    case *AceEditor:
+      pass = true
+      key = []byte( converted.Html.Name )
+      jsCode = []byte( `ace.edit("` + string( converted.GetId() ) + `").getValue()` )
     case *KendoUiComboBox:
       pass = true
       key = []byte( converted.Html.Name )
@@ -1430,6 +1448,10 @@ func (el *Content)MakeJsObject() []byte {
   for _, v := range formElements {
     pass = false
     switch converted := v.(type) {
+    case ***AceEditor:
+      pass = true
+      key = []byte( (*(*(*v.(***AceEditor)))).Html.Name )
+      jsCode = []byte( `ace.edit("` + string( (*(*(*v.(***AceEditor)))).GetId() ) + `").setValue( value )` )
     case ***KendoUiComboBox:
       pass = true
       key = []byte( (*(*(*v.(***KendoUiComboBox)))).Html.Name )
@@ -1570,7 +1592,10 @@ func (el *Content)MakeJsObject() []byte {
       pass = true
       key = []byte( (*(*(*v.(***KendoUiMobileSwitch)))).Html.Name )
       jsCode = []byte( `$('#` + string( (*(*(*v.(***KendoUiMobileSwitch)))).GetId() ) + `').val( value )` )
-
+    case **AceEditor:
+      pass = true
+      key = []byte( (*(*v.(**AceEditor))).Html.Name )
+      jsCode = []byte( `ace.edit("` + string( (*(*v.(**AceEditor))).GetId() ) + `").setValue( value )` )
     case **KendoUiComboBox:
       pass = true
       key = []byte( (*(*v.(**KendoUiComboBox))).Html.Name )
@@ -1712,6 +1737,10 @@ func (el *Content)MakeJsObject() []byte {
       key = []byte( (*(*v.(**KendoUiMobileSwitch))).Html.Name )
       jsCode = []byte( `$('#` + string( (*(*v.(**KendoUiMobileSwitch))).GetId() ) + `').val( value )` )
 
+    case *AceEditor:
+      pass = true
+      key = []byte( converted.Html.Name )
+      jsCode = []byte( `ace.edit("` + string( converted.GetId() ) + `").setValue( value )` )
     case *KendoUiComboBox:
       pass = true
       key = []byte( converted.Html.Name )
