@@ -46,6 +46,8 @@ func(el Content) ToHtml() []byte {
       buffer.WriteString( outConverted )
     case *AceEditor:
       buffer.Write( outConverted.ToHtml() )
+    case *HtmlInputSubmit:
+      buffer.Write( outConverted.ToHtml() )
     case *HtmlElementDiv:
       buffer.Write( outConverted.ToHtml() )
     case *HtmlInputHidden:
@@ -226,6 +228,8 @@ func(el *Content) ToJavaScript() []byte {
     case *HtmlInputDateTimeLocal:
     case *HtmlInputEmail:
       buffer.Write( outConverted.ToJavaScript() )
+    case *HtmlInputSubmit:
+      buffer.Write( outConverted.ToJavaScript() )
     case *HtmlInputFile:
     case *HtmlInputGeneric:
       buffer.Write( outConverted.ToJavaScript() )
@@ -392,7 +396,7 @@ func(el *Content)addToUnprocessedList( contentUnprocessedList, contentFoundList 
     *contentFoundList        =append( *contentFoundList, &converted )
   case *HtmlInputHidden:
     *contentFoundList        =append( *contentFoundList, &converted )
-  case **HtmlInputHidden:
+  case **HtmlInputHidden: //fixme: isto está certo?
     *contentFoundList        =append( *contentFoundList, &converted )
   case *HtmlInputImage:
     *contentFoundList        =append( *contentFoundList, &converted )
@@ -417,6 +421,8 @@ func(el *Content)addToUnprocessedList( contentUnprocessedList, contentFoundList 
   case *HtmlInputUrl:
     *contentFoundList        =append( *contentFoundList, &converted )
   case *HtmlInputWeek:
+    *contentFoundList        =append( *contentFoundList, &converted )
+  case *HtmlInputSubmit:
     *contentFoundList        =append( *contentFoundList, &converted )
   case *KendoDataSource:
     *contentFoundList        =append( *contentFoundList, &converted )
@@ -574,6 +580,10 @@ func (el *Content)GetNamesAndIds() []map[string][]byte {
       pass = true
       name = []byte( (*(*v.(**HtmlInputWeek))).Name )
       id = (*(*v.(**HtmlInputWeek))).GetId()
+    case **HtmlInputSubmit:
+      pass = true
+      name = []byte( (*(*v.(**HtmlInputSubmit))).Name )
+      id = (*(*v.(**HtmlInputSubmit))).GetId()
     case **KendoUiMobileSwitch:
       pass = true
       name = []byte( (*(*v.(**KendoUiMobileSwitch))).Html.Name )
@@ -711,6 +721,10 @@ func (el *Content)GetNamesAndIds() []map[string][]byte {
       name = []byte( converted.Name )
       id = converted.GetId()
     case *HtmlInputWeek:
+      pass = true
+      name = []byte( converted.Name )
+      id = converted.GetId()
+    case *HtmlInputSubmit:
       pass = true
       name = []byte( converted.Name )
       id = converted.GetId()
@@ -1116,6 +1130,10 @@ func (el *Content)MakeJsObject() []byte {
       pass = true
       key = []byte( (*(*(*v.(***HtmlInputWeek)))).Name )
       jsCode = []byte( `$('#` + string( (*(*(*v.(***HtmlInputWeek)))).GetId() ) + `').val()` )
+    case ***HtmlInputSubmit:
+      pass = true
+      key = []byte( (*(*(*v.(***HtmlInputSubmit)))).Name )
+      jsCode = []byte( `$('#` + string( (*(*(*v.(***HtmlInputSubmit)))).GetId() ) + `').val()` )
     case ***KendoUiMobileSwitch:
       pass = true
       key = []byte( (*(*(*v.(***KendoUiMobileSwitch)))).Html.Name )
@@ -1261,6 +1279,10 @@ func (el *Content)MakeJsObject() []byte {
       pass = true
       key = []byte( (*(*v.(**HtmlInputWeek))).Name )
       jsCode = []byte( `$('#` + string( (*(*v.(**HtmlInputWeek))).GetId() ) + `').val()` )
+    case **HtmlInputSubmit:
+      pass = true
+      key = []byte( (*(*v.(**HtmlInputSubmit))).Name )
+      jsCode = []byte( `$('#` + string( (*(*v.(**HtmlInputSubmit))).GetId() ) + `').val()` )
     case **KendoUiMobileSwitch:
       pass = true
       key = []byte( (*(*v.(**KendoUiMobileSwitch))).Html.Name )
@@ -1403,6 +1425,10 @@ func (el *Content)MakeJsObject() []byte {
       key = []byte( converted.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val()` )
     case *HtmlInputWeek:
+      pass = true
+      key = []byte( converted.Name )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val()` )
+    case *HtmlInputSubmit:
       pass = true
       key = []byte( converted.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val()` )
@@ -1588,6 +1614,10 @@ func (el *Content)MakeJsObject() []byte {
       pass = true
       key = []byte( (*(*(*v.(***HtmlInputWeek)))).Name )
       jsCode = []byte( `$('#` + string( (*(*(*v.(***HtmlInputWeek)))).GetId() ) + `').val( value )` )
+    case ***HtmlInputSubmit:
+      pass = true
+      key = []byte( (*(*(*v.(***HtmlInputSubmit)))).Name )
+      jsCode = []byte( `$('#` + string( (*(*(*v.(***HtmlInputSubmit)))).GetId() ) + `').val( value )` )
     case ***KendoUiMobileSwitch:
       pass = true
       key = []byte( (*(*(*v.(***KendoUiMobileSwitch)))).Html.Name )
@@ -1732,6 +1762,10 @@ func (el *Content)MakeJsObject() []byte {
       pass = true
       key = []byte( (*(*v.(**HtmlInputWeek))).Name )
       jsCode = []byte( `$('#` + string( (*(*v.(**HtmlInputWeek))).GetId() ) + `').val( value )` )
+    case **HtmlInputSubmit:
+      pass = true
+      key = []byte( (*(*v.(**HtmlInputSubmit))).Name )
+      jsCode = []byte( `$('#` + string( (*(*v.(**HtmlInputSubmit))).GetId() ) + `').val( value )` )
     case **KendoUiMobileSwitch:
       pass = true
       key = []byte( (*(*v.(**KendoUiMobileSwitch))).Html.Name )
@@ -1874,6 +1908,10 @@ func (el *Content)MakeJsObject() []byte {
       key = []byte( converted.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val( value )` )
     case *HtmlInputWeek:
+      pass = true
+      key = []byte( converted.Name )
+      jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val( value )` )
+    case *HtmlInputSubmit:
       pass = true
       key = []byte( converted.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val( value )` )
