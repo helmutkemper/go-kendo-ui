@@ -88,13 +88,13 @@ func(el *HtmlInputFile)ToHtml() []byte {
 }
 func(el *HtmlInputFile)GetId() []byte{
   if el.Global.Id == "" {
-    el.Global.Id = getAutoId()
+    el.Global.Id = GetAutoId()
   }
   return []byte( el.Global.Id )
 }
 func(el *HtmlInputFile)GetName() []byte{
   if el.Name == "" {
-    el.Name = getAutoId()
+    el.Name = GetAutoId()
   }
   return []byte( el.Name )
 }

@@ -142,7 +142,7 @@ func(el *HtmlElementForm)SetOmitHtml( value Boolean ) {
 func(el *HtmlElementForm)ToJavaScript() []byte {
   var ret bytes.Buffer
   if el.Global.Id == "" {
-    el.Global.Id = getAutoId()
+    el.Global.Id = GetAutoId()
   }
 
   el.Content.FilterFormElements()

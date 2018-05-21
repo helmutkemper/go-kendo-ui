@@ -80,7 +80,7 @@ type KendoUiMobileSwitch struct {
 func(el *KendoUiMobileSwitch) ToJavaScript() []byte {
   var ret bytes.Buffer
   if el.Html.Global.Id == "" {
-    el.Html.Global.Id = getAutoId()
+    el.Html.Global.Id = GetAutoId()
   }
 
   element := reflect.ValueOf(el).Elem()
@@ -102,7 +102,7 @@ func(el *KendoUiMobileSwitch) ToHtml() []byte{
 }
 func(el *KendoUiMobileSwitch) GetId() []byte{
   if el.Html.Global.Id == "" {
-    el.Html.Global.Id = getAutoId()
+    el.Html.Global.Id = GetAutoId()
   }
   return []byte( el.Html.Global.Id )
 }

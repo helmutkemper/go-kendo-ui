@@ -142,20 +142,20 @@ func(el *HtmlInputPassword)ToHtml() []byte {
 }
 func(el *HtmlInputPassword)GetId() []byte{
   if el.Global.Id == "" {
-    el.Global.Id = getAutoId()
+    el.Global.Id = GetAutoId()
   }
   return []byte( el.Global.Id )
 }
 func(el *HtmlInputPassword)GetName() []byte{
   if el.Name == "" {
-    el.Name = getAutoId()
+    el.Name = GetAutoId()
   }
   return []byte( el.Name )
 }
 func(el *HtmlInputPassword)ToJavaScript() []byte {
   var ret bytes.Buffer
   if el.Global.Id == "" {
-    el.Global.Id = getAutoId()
+    el.Global.Id = GetAutoId()
   }
 
   ret.Write( []byte(`$("#` + el.Global.Id + `").addClass('k-textbox');`) )

@@ -102,13 +102,13 @@ func(el *HtmlInputWeek)ToHtml() []byte {
 }
 func(el *HtmlInputWeek)GetId() []byte{
   if el.Global.Id == "" {
-    el.Global.Id = getAutoId()
+    el.Global.Id = GetAutoId()
   }
   return []byte( el.Global.Id )
 }
 func(el *HtmlInputWeek)GetName() []byte{
   if el.Name == "" {
-    el.Name = getAutoId()
+    el.Name = GetAutoId()
   }
   return []byte( el.Name )
 }

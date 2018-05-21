@@ -92,7 +92,7 @@ type Kendo struct {
 func(el *Kendo) ToJavaScript() []byte {
   var ret bytes.Buffer
   if el.Id == "" {
-    el.Id = getAutoId()
+    el.Id = GetAutoId()
   }
 
   element := reflect.ValueOf(el).Elem()

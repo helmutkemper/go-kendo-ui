@@ -404,7 +404,7 @@ type KendoUiDialog struct{
 func(el *KendoUiDialog) ToJavaScript() []byte {
   var ret bytes.Buffer
   if el.Html.Global.Id == "" {
-    el.Html.Global.Id = getAutoId()
+    el.Html.Global.Id = GetAutoId()
   }
 
   element := reflect.ValueOf(el).Elem()
@@ -427,7 +427,7 @@ func(el *KendoUiDialog) ToHtml() []byte{
 }
 func(el *KendoUiDialog) GetId() []byte{
   if el.Html.Global.Id == "" {
-    el.Html.Global.Id = getAutoId()
+    el.Html.Global.Id = GetAutoId()
   }
   return []byte( el.Html.Global.Id )
 }
@@ -636,7 +636,7 @@ func(el *KendoUiDialog) GetGlobalVar() []byte{
 }
 func(el *KendoUiDialog) GetName() []byte{
   if el.Html.Name == "" {
-    el.Html.Name = getAutoId()
+    el.Html.Name = GetAutoId()
   }
   return []byte( el.Html.Name )
 }

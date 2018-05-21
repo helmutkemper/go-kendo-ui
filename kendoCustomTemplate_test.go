@@ -607,7 +607,7 @@ func ExampleSoUmTest() {
             Dialog: KendoUiDialog{
               Html: HtmlElementDiv{
                 Global: HtmlGlobalAttributes{
-                  Id: getAutoId(),
+                  Id: GetAutoId(),
                 },
               },
               Title: "Add new exposed port.",
@@ -720,7 +720,7 @@ func ExampleSoUmTest() {
             },
             NoDataTemplate: HtmlElementScript{
               Global: HtmlGlobalAttributes{
-                Id: getAutoId(),
+                Id: GetAutoId(),
               },
               Type: SCRIPT_TYPE_KENDO_TEMPLATE,
               Content: Content{
@@ -737,7 +737,7 @@ func ExampleSoUmTest() {
                 &HtmlElementFormButton{
                   ButtonType: BUTTON_TYPE_ADD_IN_TEMPLATE,
                   Global: HtmlGlobalAttributes{
-                    Id: getAutoId(),
+                    Id: GetAutoId(),
                     Class: "k-button",
                   },
                   Content: Content{

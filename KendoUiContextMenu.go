@@ -470,7 +470,7 @@ func(el *KendoUiContextMenu) ToJavaScript() []byte {
   var ret bytes.Buffer
 
   if el.Html.Global.Id == "" {
-    el.Html.Global.Id = getAutoId()
+    el.Html.Global.Id = GetAutoId()
   }
 
   element := reflect.ValueOf(el).Elem()
@@ -492,13 +492,13 @@ func(el *KendoUiContextMenu) ToHtml() []byte{
 }
 func(el *KendoUiContextMenu) GetId() []byte{
   if el.Html.Global.Id == "" {
-    el.Html.Global.Id = getAutoId()
+    el.Html.Global.Id = GetAutoId()
   }
   return []byte( el.Html.Global.Id )
 }
 func(el *KendoUiContextMenu) GetName() []byte{
   if el.Html.Name == "" {
-    el.Html.Name = getAutoId()
+    el.Html.Name = GetAutoId()
   }
   return []byte( el.Html.Name )
 }
