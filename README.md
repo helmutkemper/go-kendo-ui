@@ -2,6 +2,8 @@
 
 telerik kendo ui for golang
 
+https://godoc.org/github.com/helmutkemper/telerik
+
 #### this package is still under development, so it still contains bugs.
 
 For this example, I am have:
