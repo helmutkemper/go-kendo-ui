@@ -1,5 +1,10 @@
 package telerik
 
+import (
+  "reflect"
+  log "github.com/helmutkemper/seelog"
+)
+
 type KendoColumnSortable struct {
   // @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/columns.sortable#columns.sortable.allowUnsort
   //
@@ -101,4 +106,16 @@ type KendoColumnSortable struct {
   //      });
   //    </script>
   InitialDirection KendoDirection `jsObject:"initialDirection"`
+
+  *ToJavaScriptConverter
+}
+func(el *KendoColumnSortable) ToJavaScript() []byte {
+  element := reflect.ValueOf(el).Elem()
+  ret, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
+  if err != nil {
+    log.Criticalf( "KendoColumnSortable.Error: %v", err.Error() )
+    return []byte{}
+  }
+
+  return ret
 }

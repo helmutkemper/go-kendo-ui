@@ -164,6 +164,34 @@ type KendoUiGrid struct {
   //    </script>
   Columns KendoColumns `jsObject:"Columns"`
 
+  // @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/columnmenu
+  //
+  // If set to true the grid will display the column menu when the user clicks the chevron icon in the column headers.
+  // The column menu allows the user to show and hide columns, filter and sort (if filtering and sorting are enabled).
+  // By default the column menu is not enabled. (default: false)
+  //
+  // Can be set to a JavaScript object which represents the column menu configuration.
+  //
+  //    Example - enable the column menu
+  //
+  //    <div id="grid"></div>
+  //    <script>
+  //      $("#grid").kendoGrid({
+  //        columns: [
+  //          { field: "name" },
+  //          { field: "age" }
+  //        ],
+  //        columnMenu: true,
+  //        dataSource: [
+  //          { name: "Jane Doe", age: 30 },
+  //          { name: "John Doe", age: 33 }
+  //        ]
+  //      });
+  //    </script>
+  //
+  // @see https://demos.telerik.com/kendo-ui/grid/column-menu
+  ColumnMenu interface{} `jsObject:"columnmenu" jsType:"*KendoColumnMenu,Boolean"`
+
 	// @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/dataSource
 	//
 	// The data source of the widget which is used render table rows. Can be a JavaScript object which represents a valid
@@ -291,6 +319,86 @@ type KendoUiGrid struct {
 	//    </script>
 	//
 	DetailTemplate JavaScript `jsObject:"detailTemplate"`
+
+  // @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/editable
+  //
+  // If set to true the user would be able to edit the data to which the grid is bound. By default editing is disabled.
+  // (default: false)
+  //
+  // Can be set to a string ("inline", "incell" or "popup") to specify the editing mode. The default editing mode is
+  // "incell".
+  //
+  // Can be set to a JavaScript object which represents the editing configuration.
+  //
+  // Important:
+  //
+  // The "inline" and "popup" editing modes are triggered by the "edit" column command. Thus it is required to have a
+  // column with an "edit" command. The "incell" editing mode combined with DataSource autoSync: true setting is not
+  // supported when using server-side grouping in the Grid. To be able to save edited values on each change, you can
+  // disable server-side grouping or trigger a DataSource sync() manually inside the cellClose event.
+  //
+  //    Example - enable editing
+  //
+  //    <div id="grid"></div>
+  //    <script>
+  //      $("#grid").kendoGrid({
+  //        toolbar: ["save"],
+  //        columns: [
+  //          { field: "name" },
+  //          { field: "age" }
+  //        ],
+  //        dataSource: {
+  //          data: [
+  //            { id: 1, name: "Jane Doe", age: 30 },
+  //            { id: 2, name: "John Doe", age: 33 }
+  //          ],
+  //          schema:{
+  //            model: {
+  //              id: "id",
+  //              fields: {
+  //                age: { type: "number"}
+  //              }
+  //            }
+  //          }
+  //        },
+  //        editable: true
+  //      });
+  //    </script>
+  //
+  //
+  //
+  //    Example - enable popup editing
+  //
+  //    <div id="grid"></div>
+  //    <script>
+  //      $("#grid").kendoGrid({
+  //        columns: [
+  //          { field: "name" },
+  //          { field: "age" },
+  //          { command: "edit" }
+  //        ],
+  //        dataSource: {
+  //          data: [
+  //            { id: 1, name: "Jane Doe", age: 30 },
+  //            { id: 2, name: "John Doe", age: 33 }
+  //          ],
+  //          schema:{
+  //            model: {
+  //              id: "id",
+  //              fields: {
+  //                age: { type: "number"}
+  //              }
+  //            }
+  //          }
+  //        },
+  //        editable: "popup"
+  //      });
+  //    </script>
+  //
+  // @see https://demos.telerik.com/kendo-ui/grid/editing
+  // @see https://demos.telerik.com/kendo-ui/grid/editing-inline
+  // @see https://demos.telerik.com/kendo-ui/grid/editing-popup
+  Editable *KendoGridEditable `jsObject:"editable"`
 
 	// @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/height
   //

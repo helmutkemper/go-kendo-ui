@@ -1,5 +1,10 @@
 package telerik
 
+import (
+  "reflect"
+  log "github.com/helmutkemper/seelog"
+)
+
 type KendoColumns struct {
   // @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/columns.aggregates
   //
@@ -1066,4 +1071,16 @@ type KendoColumns struct {
   //      });
   //    </script>
   Menu Boolean `jsObject:"menu"`
+
+  *ToJavaScriptConverter
+}
+func(el *KendoColumns) ToJavaScript() []byte {
+  element := reflect.ValueOf(el).Elem()
+  ret, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
+  if err != nil {
+    log.Criticalf( "KendoColumns.Error: %v", err.Error() )
+    return []byte{}
+  }
+
+  return ret
 }
