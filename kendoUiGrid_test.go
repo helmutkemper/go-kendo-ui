@@ -2,7 +2,7 @@ package telerik
 
 import "fmt"
 
-func ExampleKendoUiGrid_AllowCopy() {
+func ExampleKendoUiGrid_ToHtml_AllowCopy() {
   el := KendoUiGrid{
     Html: HtmlElementDiv{
       Global: HtmlGlobalAttributes{
