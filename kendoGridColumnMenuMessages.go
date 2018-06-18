@@ -5,7 +5,7 @@ import (
   log "github.com/helmutkemper/seelog"
 )
 
-type KendoColumnMenuMessages struct {
+type KendoGridColumnMenuMessages struct {
   // @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/columnmenu.messages#columnMenu.messages.columns
   //
   // The text message displayed for the column selection menu item. (default: "Columns")
@@ -227,11 +227,11 @@ type KendoColumnMenuMessages struct {
 
   *ToJavaScriptConverter
 }
-func(el *KendoColumnMenuMessages) ToJavaScript() []byte {
+func(el *KendoGridColumnMenuMessages) ToJavaScript() []byte {
   element := reflect.ValueOf(el).Elem()
   ret, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
   if err != nil {
-    log.Criticalf( "KendoColumnMenuMessages.Error: %v", err.Error() )
+    log.Criticalf( "KendoGridColumnMenuMessages.Error: %v", err.Error() )
     return []byte{}
   }
 

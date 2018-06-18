@@ -1,6 +1,6 @@
 package telerik
 
-type Boolean int
+type Boolean int8
 
 func (el Boolean) IsSet() bool {
   if el != 0 {

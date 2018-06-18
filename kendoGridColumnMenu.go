@@ -5,7 +5,8 @@ import (
   log "github.com/helmutkemper/seelog"
 )
 
-type KendoColumnMenu struct {
+
+type KendoGridColumnMenu struct {
   // @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/columnmenu.columns
   //
   // If set to true the column menu would allow the user to select (show and hide) grid columns. By default the column
@@ -117,15 +118,15 @@ type KendoColumnMenu struct {
   //        ]
   //      });
   //    </script>
-  Messages KendoColumnMenuMessages `jsObject:"messages"`
+  Messages KendoGridColumnMenuMessages `jsObject:"messages"`
 
   *ToJavaScriptConverter
 }
-func(el *KendoColumnMenu) ToJavaScript() []byte {
+func(el *KendoGridColumnMenu) ToJavaScript() []byte {
   element := reflect.ValueOf(el).Elem()
   ret, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
   if err != nil {
-    log.Criticalf( "KendoColumnMenu.Error: %v", err.Error() )
+    log.Criticalf( "KendoGridColumnMenu.Error: %v", err.Error() )
     return []byte{}
   }
 

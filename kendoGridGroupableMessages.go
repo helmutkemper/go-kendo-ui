@@ -5,21 +5,17 @@ import (
   log "github.com/helmutkemper/seelog"
 )
 
-type KendoGridAllowCopy struct {
-  // @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/allowcopy#allowCopy.delimeter
+type KendoGridGroupableMessages struct {
+  // @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/groupable.messages.empty
   //
-  // Changes the delimeter between the items on the same row. Use this option if you want to change the default TSV
-  // format to CSV - set the delimeter to comma ','. (default: "\t")
+  // The text displayed in the grouping drop area. (default: "Drag a column header and drop it here to group by that
+  // column")
   //
-  //    Example - change the clipboard format from default TSV to CSV
+  //    Example - set the "empty" grouping message
   //
   //    <div id="grid"></div>
   //    <script>
   //      $("#grid").kendoGrid({
-  //        selectable: "multiple cell",
-  //        allowCopy: {
-  //          delimeter: ",",
-  //        },
   //        columns: [
   //          { field: "productName" },
   //          { field: "category" }
@@ -29,18 +25,23 @@ type KendoGridAllowCopy struct {
   //          { productName: "Coffee", category: "Beverages" },
   //          { productName: "Ham", category: "Food" },
   //          { productName: "Bread", category: "Food" }
-  //        ]
+  //        ],
+  //        groupable: {
+  //          messages: {
+  //            empty: "Drop columns here"
+  //          }
+  //        }
   //      });
-  //    </script>
-  Delimeter string `jsObject:"delimeter"`
+  //</script>
+  Empty string `jsObject:"empty"`
 
   *ToJavaScriptConverter
 }
-func(el *KendoGridAllowCopy) ToJavaScript() []byte {
+func(el *KendoGridGroupableMessages) ToJavaScript() []byte {
   element := reflect.ValueOf(el).Elem()
   ret, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
   if err != nil {
-    log.Criticalf( "KendoGridAllowCopy.Error: %v", err.Error() )
+    log.Criticalf( "KendoGridGroupableMessages.Error: %v", err.Error() )
     return []byte{}
   }
 

@@ -8,7 +8,7 @@ import (
 type KendoColumnsFields struct {
   Title string `jsObject:"title"`
 
-  Columns []*KendoColumnsFields `jsObject:"columns"`
+  Columns []KendoColumnsFields `jsObject:"columns"`
 
   Field string `jsObject:"field"`
 

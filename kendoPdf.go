@@ -1,6 +1,10 @@
 package telerik
 
-import "time"
+import (
+  "time"
+  "reflect"
+  log "github.com/helmutkemper/seelog"
+)
 
 type KendoPdf struct {
   /*
@@ -531,4 +535,16 @@ type KendoPdf struct {
   //    </script>
   //
   ProxyTarget interface{} `jsObject:"proxyTarget" jsType:"string,HtmlTarget"`
+
+  *ToJavaScriptConverter
+}
+func(el *KendoPdf) ToJavaScript() []byte {
+  element := reflect.ValueOf(el).Elem()
+  ret, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
+  if err != nil {
+    log.Criticalf( "KendoPdf.Error: %v", err.Error() )
+    return []byte{}
+  }
+
+  return ret
 }

@@ -6,6 +6,7 @@ import (
   "bytes"
   "strconv"
   "time"
+  "strings"
 )
 
 type ToJavaScriptConverter struct {}
@@ -512,6 +513,42 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
 
         buffer.WriteString("],")
 
+      case KendoExcel:
+        if reflect.DeepEqual(convertedFromInterface, KendoExcel{}) == true {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: {`)
+        buffer.Write( convertedFromInterface.ToJavaScript() )
+        buffer.WriteString(`},`)
+
+      case KendoPdf:
+        if reflect.DeepEqual(convertedFromInterface, KendoPdf{}) == true {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: {`)
+        buffer.Write( convertedFromInterface.ToJavaScript() )
+        buffer.WriteString(`},`)
+
+      case KendoGridAllowCopy:
+        if reflect.DeepEqual(convertedFromInterface, KendoGridAllowCopy{}) == true {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: {`)
+        buffer.Write( convertedFromInterface.ToJavaScript() )
+        buffer.WriteString(`},`)
+
+      case KendoGridMessages:
+        if reflect.DeepEqual(convertedFromInterface, KendoGridMessages{}) == true {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: {`)
+        buffer.Write( convertedFromInterface.ToJavaScript() )
+        buffer.WriteString(`},`)
+
       case KendoMessages:
         if reflect.DeepEqual(convertedFromInterface, KendoMessages{}) == true {
           continue
@@ -675,6 +712,58 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
         }
         buffer.WriteString(`],`)
 
+      case []KendoColumnsFields:
+        if len( convertedFromInterface ) == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: [`)
+        for _, v := range convertedFromInterface {
+          buffer.WriteString(`{`)
+          buffer.Write( v.ToJavaScript() )
+          buffer.WriteString(`},`)
+        }
+        buffer.WriteString(`],`)
+
+        //fixme: array de string?
+      case []KendoAggregate:
+        if len( convertedFromInterface ) == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: [`)
+        for _, v := range convertedFromInterface {
+          buffer.WriteString( v.String() )
+          buffer.WriteString(`,`)
+        }
+        buffer.WriteString(`],`)
+
+        //fixme: array de string?
+      case []kendoGridColumnsCommand:
+        if len( convertedFromInterface ) == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: [`)
+        for _, v := range convertedFromInterface {
+          buffer.WriteString( v.String() )
+          buffer.WriteString(`,`)
+        }
+        buffer.WriteString(`],`)
+
+      case []KendoGridColumns:
+        if len( convertedFromInterface ) == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: [`)
+        for _, v := range convertedFromInterface {
+          buffer.WriteString(`{`)
+          buffer.Write( v.ToJavaScript() )
+          buffer.WriteString(`},`)
+        }
+        buffer.WriteString(`],`)
+
       case KendoAggregate:
         if convertedFromInterface == 0 {
           continue
@@ -718,6 +807,13 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
         buffer.Write( convertedFromInterface.ToJavaScript() )
 
       case KendoPosition:
+        if convertedFromInterface == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: "` + convertedFromInterface.String() + `",` )
+
+      case KendoGridSelectable:
         if convertedFromInterface == 0 {
           continue
         }
@@ -859,12 +955,34 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
         }
         buffer.WriteString(`],`)
 
+      case Boolean:
+        if field.Interface().(Boolean) == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: ` + field.Interface().(Boolean).String() + `,`)
+
       case int:
         if convertedFromInterface == 0 {
           continue
         }
 
-        buffer.WriteString(tag.Get("jsObject") + `: ` + strconv.Itoa( convertedFromInterface ) + `,`)
+        if strings.Contains( tag.Get("jsType"), "Boolean" ) == true {
+          if convertedFromInterface == -1 || convertedFromInterface == 1 {
+            buffer.WriteString(tag.Get("jsObject") + `: `)
+
+            if convertedFromInterface == -1 {
+              buffer.WriteString( "false" )
+            } else {
+              buffer.WriteString( "true" )
+            }
+
+            buffer.WriteString(",")
+          }
+
+        } else {
+          buffer.WriteString(tag.Get("jsObject") + `: ` + strconv.Itoa( convertedFromInterface ) + `,`)
+        }
 
       case int64:
         if convertedFromInterface == 0 {
@@ -1043,13 +1161,6 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
           buffer.WriteString(`},`)
         }
         buffer.WriteString(`],`)
-
-      case Boolean:
-        if field.Interface().(Boolean) == 0 {
-          continue
-        }
-
-        buffer.WriteString(tag.Get("jsObject") + `: ` + field.Interface().(Boolean).String() + `,`)
 
       case *ToJavaScriptConverter:
 

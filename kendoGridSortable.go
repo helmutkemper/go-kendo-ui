@@ -1,5 +1,10 @@
 package telerik
 
+import (
+  "reflect"
+  log "github.com/helmutkemper/seelog"
+)
+
 type KendoGridSortable struct {
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/sortable.initialdirection
@@ -105,4 +110,15 @@ type KendoGridSortable struct {
   //
   Mode KendoTagMode `jsObject:"mode"`
 
+  *ToJavaScriptConverter
+}
+func(el *KendoGridSortable) ToJavaScript() []byte {
+  element := reflect.ValueOf(el).Elem()
+  ret, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
+  if err != nil {
+    log.Criticalf( "KendoGridSortable.Error: %v", err.Error() )
+    return []byte{}
+  }
+
+  return ret
 }

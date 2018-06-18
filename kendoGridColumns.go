@@ -5,7 +5,7 @@ import (
   log "github.com/helmutkemper/seelog"
 )
 
-type KendoColumns struct {
+type KendoGridColumns struct {
   // @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/columns.aggregates
   //
   // The aggregate(s) which are calculated when the grid is grouped by the columns field. The supported aggregates are
@@ -33,7 +33,7 @@ type KendoColumns struct {
   //        }
   //      });
   //    </script>
-  Aggregates KendoAggregate `jsObject:"aggregates"`
+  Aggregates []KendoAggregate `jsObject:"aggregates"`
 
   // @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/columns.attributes
   //
@@ -102,7 +102,7 @@ type KendoColumns struct {
   //        dataSource: [ { name: "Jane Doe", birthdate: new Date("1995/05/04"), city: "London", country: "UK", phone: "555-444-333" } ]
   //      });
   //    </script>
-  Columns []*KendoColumnsFields `jsObject:"columns"`
+  Columns []KendoColumnsFields `jsObject:"columns"`
 
   // @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/columns.command#columns.command
   //
@@ -148,7 +148,7 @@ type KendoColumns struct {
   //        dataSource: [ { name: "Jane Doe" } ]
   //      });
   //    </script>
-  Command []string `jsObject:"Command"`
+  Command []kendoGridColumnsCommand `jsObject:"Command"`
 
   // @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/columns.editable#columns.editable
   //
@@ -173,7 +173,7 @@ type KendoColumns struct {
   //        dataSource: [ { name: "Jane", salary: 2000 }, { name: "Bill", salary: 2000 } ]
   //      });
   //    </script>
-  Editable *JavaScript `jsObject:"Editable"`
+  Editable JavaScript `jsObject:"Editable"`
 
   // @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/columns.editor#columns.editor
   //
@@ -271,7 +271,7 @@ type KendoColumns struct {
   //        }
   //      });
   //    </script>
-  Editor *JavaScript `jsObject:"editor"`
+  Editor JavaScript `jsObject:"editor"`
 
   // @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/columns.encoded#columns.encoded
   //
@@ -1074,11 +1074,11 @@ type KendoColumns struct {
 
   *ToJavaScriptConverter
 }
-func(el *KendoColumns) ToJavaScript() []byte {
+func(el *KendoGridColumns) ToJavaScript() []byte {
   element := reflect.ValueOf(el).Elem()
   ret, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
   if err != nil {
-    log.Criticalf( "KendoColumns.Error: %v", err.Error() )
+    log.Criticalf( "KendoGridColumns.Error: %v", err.Error() )
     return []byte{}
   }
 

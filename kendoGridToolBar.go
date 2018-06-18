@@ -1,5 +1,10 @@
 package telerik
 
+import (
+  "reflect"
+  log "github.com/helmutkemper/seelog"
+)
+
 type KendoGridToolbar struct {
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/toolbar.text
@@ -169,4 +174,15 @@ type KendoGridToolbar struct {
   //
   Name KendoGridToolBarName `jsObject:"name"`
 
+  *ToJavaScriptConverter
+}
+func(el *KendoGridToolbar) ToJavaScript() []byte {
+  element := reflect.ValueOf(el).Elem()
+  ret, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
+  if err != nil {
+    log.Criticalf( "KendoGridToolbar.Error: %v", err.Error() )
+    return []byte{}
+  }
+
+  return ret
 }

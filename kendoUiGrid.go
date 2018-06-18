@@ -40,7 +40,7 @@ type KendoUiGrid struct {
   //    });
   //    </script>
   //
-  AllowCopy interface{} `jsObject:"allowCopy" jsType:"Boolean,*KendoGridAllowCopy"`
+  AllowCopy interface{} `jsObject:"allowCopy" jsType:"Boolean,KendoGridAllowCopy"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/altrowtemplate
@@ -217,7 +217,7 @@ type KendoUiGrid struct {
   //    });
   //    </script>
   //
-  Columns []string `jsObject:"columns"`
+  Columns interface{} `jsObject:"columns" jsType:"[]KendoGridColumns,[]string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/datasource
@@ -439,7 +439,7 @@ type KendoUiGrid struct {
 
   Configures the Kendo UI Grid Excel export settings.
   */
-  Excel *KendoExcel `jsObject:"excel"`
+  Excel KendoExcel `jsObject:"excel"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/filterable
@@ -593,7 +593,7 @@ type KendoUiGrid struct {
   //    });
   //    </script>
   //
-  Messages *KendoGridMessages `jsObject:"messages"`
+  Messages KendoGridMessages `jsObject:"messages"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/mobile
@@ -750,7 +750,7 @@ type KendoUiGrid struct {
   Configures the Kendo UI Grid PDF export settings.
 
   */
-  Pdf *KendoPdf `jsObject:"pdf"`
+  Pdf KendoPdf `jsObject:"pdf"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/persistselection
@@ -989,7 +989,7 @@ type KendoUiGrid struct {
   //    });
   //    </script>
   //
-  Selectable interface{} `jsObject:"selectable" jsType:"Boolean,*KendoGridSelectable"`
+  Selectable interface{} `jsObject:"selectable" jsType:"Boolean,KendoGridSelectable"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/sortable
@@ -1125,7 +1125,7 @@ type KendoUiGrid struct {
   //    });
   //    </script>
   //
-  Toolbar interface{} `jsObject:"toolbar"  jsType:"*JavaScript,[]string,string"`
+  Toolbar interface{} `jsObject:"toolbar"  jsType:"*JavaScript,[]string,string,*KendoGridToolbar"`
 
   *ToJavaScriptConverter
 }
