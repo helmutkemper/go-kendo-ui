@@ -432,7 +432,7 @@ type KendoUiGrid struct {
   //    });
   //    </script>
   //
-  Editable interface{} `jsObject:"editable" jsType:"Boolean,KendoGridEditorMode"`
+  Editable interface{} `jsObject:"editable" jsType:"Boolean,KendoGridEditorMode,KendoGridEditable,JavaScript"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/excel
