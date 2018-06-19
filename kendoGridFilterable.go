@@ -1,5 +1,10 @@
 package telerik
 
+import (
+  "reflect"
+  log "github.com/helmutkemper/seelog"
+)
+
 type KendoGridFilterable struct {
   // @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/filterable.extra
   //
@@ -202,4 +207,16 @@ type KendoGridFilterable struct {
   //      });
   //    </script>
   Operators KendoGridFilterableOperators `jsObject:"operators"`
+
+  *ToJavaScriptConverter
+}
+func(el *KendoGridFilterable) ToJavaScript() []byte {
+  element := reflect.ValueOf(el).Elem()
+  ret, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
+  if err != nil {
+    log.Criticalf( "KendoGridFilterable.Error: %v", err.Error() )
+    return []byte{}
+  }
+
+  return ret
 }

@@ -404,7 +404,6 @@ func ExampleKendoUiGrid_ToHtml_Columns_Command_3() {
         Id: "grid",
       },
     },
-
     Columns: []KendoGridColumns{
       { Field: "name", Title: "Name" },
       { Field: "age", Title: "Age" },
@@ -462,4 +461,88 @@ func ExampleKendoUiGrid_ToHtml_Columns_Command_3() {
   //Output:
   //<div id="grid"></div>
   //$("#grid").kendoGrid({columnMenu: true,columns: [{field: "name",title: "Name",},{field: "age",title: "Age",},{command: [{className: "btn-destroy",iconClass: {edit: "k-icon k-i-edit",update: "k-icon k-i-copy",cancel: "k-icon k-i-arrow-60-up",},name: "destroy",text: "remove",},{name: "edit",},],},],dataSource:  new kendo.data.DataSource({data: [{"name": "Jane Doe","age": 30,},{"name": "John Doe","age": 33,},],schema: {model: {id: "id",fields: {"age": {type: "number",}, },},},}),editable: "popup",excel: {allpages: true,},toolbar: [{iconClass: "k-icon k-i-copy",name: "save",},{name: "excel",},],});
+}
+
+func ExampleKendoUiGrid_ToHtml_Filterable_Cell() {
+  el := KendoUiGrid{
+    Html: HtmlElementDiv{
+      Global: HtmlGlobalAttributes{
+        Id: "grid",
+      },
+    },
+
+    Columns: []KendoGridColumns{
+      {
+        Field: "name",
+        Title: "Name",
+        Filterable: KendoGridColumnsFilterable{
+          Cell: KendoGridColumnsCell{
+            DataSource: KendoDataSource{
+              Data: []map[string]interface{}{
+                { "someField": "Jane" },
+                { "someField": "Jake" },
+                { "someField": "John" },
+              },
+            },
+            DataTextField: "someField",
+          },
+        },
+      },
+      {
+        Field: "age",
+        Title: "Age",
+      },
+      {
+        Command: []KendoGridColumnsCommand{
+        {
+          Name: COLUMNS_COMMAND_DESTROY,
+          Text: "remove",
+          ClassName: "btn-destroy",
+        },
+        {
+          Name: COLUMNS_COMMAND_EDIT,
+        },
+      } },
+    },
+    Filterable: KendoGridFilterable{
+      Mode: KENDO_GRID_FILTERABLE_MODE_ROW,
+    },
+    ColumnMenu: TRUE,
+    Toolbar: []KendoGridToolbar{
+      {
+        Name: GRID_TOOLBAR_NAME_SAVE,
+        IconClass: "k-icon k-i-copy",
+      },
+      {
+        Name: GRID_TOOLBAR_NAME_EXCEL,
+      },
+    },
+    Excel: KendoGridExcel{
+      AllPages: TRUE,
+    },
+    DataSource: KendoDataSource{
+      Data: []map[string]interface{}{
+        { "name": "Jane Doe", "age": 30 },
+        { "name": "John Doe", "age": 33 },
+      },
+      Schema: KendoSchema{
+        Model: KendoDataModel{
+          Id: "id",
+          Fields: map[string]KendoField{
+            "age": {
+              Type: JAVASCRIPT_NUMBER,
+            },
+          },
+        },
+      },
+    },
+    Editable: KENDO_GRID_EDITOR_MODE_POPUP,
+  }
+
+  fmt.Printf( "%s\n", el.ToHtml() )
+  fmt.Printf( "%s", el.ToJavaScript() )
+
+  //Output:
+  //<div id="grid"></div>
+  //$("#grid").kendoGrid({columnMenu: true,columns: [{field: "name",filterable: {cell: {dataSource:  new kendo.data.DataSource({data: [{"someField": "Jane",},{"someField": "Jake",},{"someField": "John",},],}),dataTextField: "someField",},},title: "Name",},{field: "age",title: "Age",},{command: [{className: "btn-destroy",name: "destroy",text: "remove",},{name: "edit",},],},],dataSource:  new kendo.data.DataSource({data: [{"name": "Jane Doe","age": 30,},{"name": "John Doe","age": 33,},],schema: {model: {id: "id",fields: {"age": {type: "number",}, },},},}),editable: "popup",excel: {allpages: true,},filterable: {mode: "row",},toolbar: [{iconClass: "k-icon k-i-copy",name: "save",},{name: "excel",},],});
 }

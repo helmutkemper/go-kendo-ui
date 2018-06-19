@@ -476,7 +476,7 @@ type KendoUiGrid struct {
   //          });
   //        </script>
   //
-  Filterable interface{} `jsObject:"filterable" jsType:"Boolean,*KendoGridFilterable"`
+  Filterable interface{} `jsObject:"filterable" jsType:"Boolean,KendoGridFilterable"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/groupable

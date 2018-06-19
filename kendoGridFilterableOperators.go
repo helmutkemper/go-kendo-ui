@@ -1,5 +1,10 @@
 package telerik
 
+import (
+  "reflect"
+  log "github.com/helmutkemper/seelog"
+)
+
 type KendoGridFilterableOperators struct {
   // @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/filterable.operators.enums
   //
@@ -37,4 +42,16 @@ type KendoGridFilterableOperators struct {
   //      });
   //    </script>
   Enums KendoGridFilterableEnums `jsObject:"enums"`
+
+  *ToJavaScriptConverter
+}
+func(el *KendoGridFilterableOperators) ToJavaScript() []byte {
+  element := reflect.ValueOf(el).Elem()
+  ret, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
+  if err != nil {
+    log.Criticalf( "KendoGridFilterableOperators.Error: %v", err.Error() )
+    return []byte{}
+  }
+
+  return ret
 }

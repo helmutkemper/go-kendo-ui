@@ -716,8 +716,26 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
         buffer.Write( convertedFromInterface.ToJavaScript() )
         buffer.WriteString(`},`)
 
+      case KendoGridColumnsCell:
+        if reflect.DeepEqual(convertedFromInterface, KendoGridColumnsCell{}) == true {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: {`)
+        buffer.Write( convertedFromInterface.ToJavaScript() )
+        buffer.WriteString(`},`)
+
       case KendoGridColumnMenuMessages:
         if reflect.DeepEqual(convertedFromInterface, KendoGridColumnMenuMessages{}) == true {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: {`)
+        buffer.Write( convertedFromInterface.ToJavaScript() )
+        buffer.WriteString(`},`)
+
+      case KendoGridColumnsFilterable:
+        if reflect.DeepEqual(convertedFromInterface, KendoGridColumnsFilterable{}) == true {
           continue
         }
 
@@ -733,6 +751,40 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
         buffer.WriteString(tag.Get("jsObject") + `: {`)
         buffer.Write( convertedFromInterface.ToJavaScript() )
         buffer.WriteString(`},`)
+
+      case KendoGridFilterable:
+        if reflect.DeepEqual(convertedFromInterface, KendoGridFilterable{}) == true {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: {`)
+        buffer.Write( convertedFromInterface.ToJavaScript() )
+        buffer.WriteString(`},`)
+
+      case KendoGridFilterableOperators:
+        if reflect.DeepEqual(convertedFromInterface, KendoGridFilterableOperators{}) == true {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: {`)
+        buffer.Write( convertedFromInterface.ToJavaScript() )
+        buffer.WriteString(`},`)
+
+      case KendoGridFilterableEnums:
+        if reflect.DeepEqual(convertedFromInterface, KendoGridFilterableEnums{}) == true {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: {`)
+        buffer.Write( convertedFromInterface.ToJavaScript() )
+        buffer.WriteString(`},`)
+
+      case KendoGridFilterableMode:
+        if convertedFromInterface == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: "` + convertedFromInterface.String() + `",` )
 
       case KendoOperator:
         if convertedFromInterface == 0 {

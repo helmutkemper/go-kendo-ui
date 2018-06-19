@@ -335,7 +335,7 @@ type KendoGridColumns struct {
   //        dataSource: [ { name: "Jane", age: 30 }, { name: "John", age: 33 }]
   //      });
   //    </script>
-  Filterable Boolean `jsObject:"filterable"`
+  Filterable KendoGridColumnsFilterable `jsObject:"filterable"`
 
   // @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/columns.footerattributes
   //
