@@ -5,7 +5,7 @@ import (
   log "github.com/helmutkemper/seelog"
 )
 
-type NoRecords struct {
+type KendoGridNoRecords struct {
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/norecords#noRecords.template
 
@@ -33,15 +33,15 @@ type NoRecords struct {
   //    });
   //    </script>
   //
-  Template interface{} `jsObject:"template" jsType:"*JavaScript,string"`
+  Template interface{} `jsObject:"template" jsType:"JavaScript,string"`
 
   *ToJavaScriptConverter
 }
-func(el *NoRecords) ToJavaScript() []byte {
+func(el *KendoGridNoRecords) ToJavaScript() []byte {
   element := reflect.ValueOf(el).Elem()
   ret, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
   if err != nil {
-    log.Criticalf( "NoRecords.Error: %v", err.Error() )
+    log.Criticalf( "KendoGridNoRecords.Error: %v", err.Error() )
     return []byte{}
   }
 

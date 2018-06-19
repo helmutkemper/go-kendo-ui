@@ -549,6 +549,24 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
         buffer.Write( convertedFromInterface.ToJavaScript() )
         buffer.WriteString(`},`)
 
+      case KendoGridFilterableMessages:
+        if reflect.DeepEqual(convertedFromInterface, KendoGridFilterableMessages{}) == true {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: {`)
+        buffer.Write( convertedFromInterface.ToJavaScript() )
+        buffer.WriteString(`},`)
+
+      case KendoGridMessagesCommands:
+        if reflect.DeepEqual(convertedFromInterface, KendoGridMessagesCommands{}) == true {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: {`)
+        buffer.Write( convertedFromInterface.ToJavaScript() )
+        buffer.WriteString(`},`)
+
       case KendoGridMessages:
         if reflect.DeepEqual(convertedFromInterface, KendoGridMessages{}) == true {
           continue
@@ -781,6 +799,24 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
 
       case KendoGridFilterableOperatorsString:
         if reflect.DeepEqual(convertedFromInterface, KendoGridFilterableOperatorsString{}) == true {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: {`)
+        buffer.Write( convertedFromInterface.ToJavaScript() )
+        buffer.WriteString(`},`)
+
+      case KendoGridGroupable:
+        if reflect.DeepEqual(convertedFromInterface, KendoGridGroupable{}) == true {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: {`)
+        buffer.Write( convertedFromInterface.ToJavaScript() )
+        buffer.WriteString(`},`)
+
+      case KendoGridGroupableMessages:
+        if reflect.DeepEqual(convertedFromInterface, KendoGridGroupableMessages{}) == true {
           continue
         }
 
@@ -1091,6 +1127,33 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
 
       case KendoOpen:
         if reflect.DeepEqual(convertedFromInterface, KendoOpen{}) == true {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: { `)
+        buffer.Write( convertedFromInterface.ToJavaScript() )
+        buffer.WriteString(`},`)
+
+      case KendoGridNoRecords:
+        if reflect.DeepEqual(convertedFromInterface, KendoGridNoRecords{}) == true {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: { `)
+        buffer.Write( convertedFromInterface.ToJavaScript() )
+        buffer.WriteString(`},`)
+
+      case KendoGridPageable:
+        if reflect.DeepEqual(convertedFromInterface, KendoGridPageable{}) == true {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: { `)
+        buffer.Write( convertedFromInterface.ToJavaScript() )
+        buffer.WriteString(`},`)
+
+      case KendoGridPageableMessages:
+        if reflect.DeepEqual(convertedFromInterface, KendoGridPageableMessages{}) == true {
           continue
         }
 

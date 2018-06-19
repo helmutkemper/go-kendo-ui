@@ -231,7 +231,7 @@ type KendoGridPageable struct {
 
   The text messages displayed in pager. Use this option to customize or localize the pager messages.
   */
-  Messages *KendoGridMessages `jsObject:"messages"`
+  Messages KendoGridPageableMessages `jsObject:"messages"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/pageable.buttoncount

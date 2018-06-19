@@ -77,7 +77,7 @@ type KendoGridFilterable struct {
   //        }
   //      });
   //    </script>
-  Messages KendoGridMessages `jsObject:"messages"`
+  Messages KendoGridFilterableMessages `jsObject:"messages"`
 
   // @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/filterable.mode
   //

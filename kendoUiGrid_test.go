@@ -917,7 +917,7 @@ func ExampleKendoUiGrid_ToHtml_Filterable_Messages() {
       Columns: FALSE,
     },
     Filterable: KendoGridFilterable{
-      Messages: KendoGridMessages{
+      Messages: KendoGridFilterableMessages{
         And: "and",
         Or: "or",
       },
@@ -1083,4 +1083,178 @@ func ExampleKendoUiGrid_ToHtml_Filterable_Operators() {
   //Output:
   //<div id="grid"></div>
   //$("#grid").kendoGrid({columnMenu: {columns: false,},columns: [{field: "name",title: "Name",},{field: "age",title: "Age",},{command: [{className: "btn-destroy",name: "destroy",text: "remove",},{className: "btn-edit",name: "edit",text: "edit",},],},],dataSource:  new kendo.data.DataSource({data: [{"name": "Jane Doe","age": 30,},{"name": "John Doe","age": 33,},],schema: {model: {id: "id",fields: {"age": {type: "number",}, },},},}),editable: {confirmation: function(e) { return  "Are you sure that you want to delete record for " + e.name + "?"; },mode: "popup",},excel: {allpages: true,},filterable: {operators: {enums: {eq: "Is equal to",isnull: "Is null",isnotnull: "Is not null",neq: "Is not equal to",},date: {gt: "Is after",lte: "Is before or equal to",neq: "Is not equal to",isnull: "Is null",lt: "Is before",gte: "Is after or equal to",eq: "Is equal to",},string: {isnotempty: "Is not empty",isnull: "Is null",isempty: "Is empty",doesnotcontain: "Does not contain",contains: "Contains",endswith: "Ends with",startswith: "Starts with",eq: "Is equal to",neq: "Is not equal to",},number: {neq: "Is not equal to",lt: "Is less than",eq: "Is equal to",isnull: "Is null",lte: "Is less than or equal to",gt: "Is greater than",gte: "Is greater than or equal to",isnotnull: "Is not null",},},},sortable: true,toolbar: [{iconClass: "k-icon k-i-copy",name: "save",},{name: "excel",},],});
+}
+
+func ExampleKendoUiGrid_ToHtml_Groupable_Object() {
+  el := KendoUiGrid{
+    Html: HtmlElementDiv{
+      Global: HtmlGlobalAttributes{
+        Id: "grid",
+      },
+    },
+    Columns: []KendoGridColumns{
+      { Field: "productName" },
+      { Field: "category" },
+    },
+    Sortable: TRUE,
+    Groupable: KendoGridGroupable{
+      ShowFooter: TRUE,
+      Enabled: TRUE,
+      Messages: KendoGridGroupableMessages{
+        Empty: "Drop columns here",
+      },
+    },
+    DataSource: []map[string]interface{}{
+      { "productName": "Tea", "category": "Beverages" },
+      { "productName": "Coffee", "category": "Beverages" },
+      { "productName": "Ham", "category": "Food" },
+      { "productName": "Bread", "category": "Food" },
+    },
+  }
+
+  fmt.Printf( "%s\n", el.ToHtml() )
+  fmt.Printf( "%s", el.ToJavaScript() )
+
+  //Output:
+  //<div id="grid"></div>
+  //$("#grid").kendoGrid({columns: [{field: "productName",},{field: "category",},],dataSource: [{"productName": "Tea","category": "Beverages",},{"productName": "Coffee","category": "Beverages",},{"productName": "Ham","category": "Food",},{"productName": "Bread","category": "Food",},],groupable: {showFooter: true,enabled: true,messages: {empty: "Drop columns here",},},sortable: true,});
+}
+
+func ExampleKendoUiGrid_ToHtml_Groupable_Boolean() {
+  el := KendoUiGrid{
+    Html: HtmlElementDiv{
+      Global: HtmlGlobalAttributes{
+        Id: "grid",
+      },
+    },
+    Columns: []KendoGridColumns{
+      { Field: "productName" },
+      { Field: "category" },
+    },
+    Sortable: TRUE,
+    Groupable: TRUE,
+    DataSource: []map[string]interface{}{
+      { "productName": "Tea", "category": "Beverages" },
+      { "productName": "Coffee", "category": "Beverages" },
+      { "productName": "Ham", "category": "Food" },
+      { "productName": "Bread", "category": "Food" },
+    },
+  }
+
+  fmt.Printf( "%s\n", el.ToHtml() )
+  fmt.Printf( "%s", el.ToJavaScript() )
+
+  //Output:
+  //<div id="grid"></div>
+  //$("#grid").kendoGrid({columns: [{field: "productName",},{field: "category",},],dataSource: [{"productName": "Tea","category": "Beverages",},{"category": "Beverages","productName": "Coffee",},{"productName": "Ham","category": "Food",},{"productName": "Bread","category": "Food",},],groupable: true,sortable: true,});
+}
+
+func ExampleKendoUiGrid_ToHtml_Groupable_Messages() {
+  el := KendoUiGrid{
+    Html: HtmlElementDiv{
+      Global: HtmlGlobalAttributes{
+        Id: "grid",
+      },
+    },
+    Columns: []KendoGridColumns{
+      { Field: "productName" },
+      { Field: "category" },
+    },
+    Sortable: TRUE,
+    Groupable: TRUE,
+    Toolbar: []KendoGridToolBarName{ GRID_TOOLBAR_NAME_CREATE, GRID_TOOLBAR_NAME_SAVE, GRID_TOOLBAR_NAME_CANCEL },
+    Messages: KendoGridMessages{
+      Commands:KendoGridMessagesCommands{
+        Cancel: "Cancel changes",
+        CancelEdit: "Cancel",
+        Create: "Add new record",
+        Destroy: "Delete",
+        Edit: "Edit",
+        Save: "Save changes",
+        Select: "Select",
+        Update: "Update",
+      },
+    },
+    DataSource: []map[string]interface{}{
+      { "productName": "Tea", "category": "Beverages" },
+      { "productName": "Coffee", "category": "Beverages" },
+      { "productName": "Ham", "category": "Food" },
+      { "productName": "Bread", "category": "Food" },
+    },
+  }
+
+  fmt.Printf( "%s\n", el.ToHtml() )
+  fmt.Printf( "%s", el.ToJavaScript() )
+
+  //Output:
+  //<div id="grid"></div>
+  //$("#grid").kendoGrid({columns: [{field: "productName",},{field: "category",},],dataSource: [{"productName": "Tea","category": "Beverages",},{"productName": "Coffee","category": "Beverages",},{"productName": "Ham","category": "Food",},{"productName": "Bread","category": "Food",},],groupable: true,messages: {commands: {select: "Select",save: "Save changes",destroy: "Delete",update: "Update",cancel: "Cancel changes",edit: "Edit",create: "Add new record",canceledit: "Cancel",},},sortable: true,toolbar: ["create","save","cancel",],});
+}
+
+func ExampleKendoUiGrid_ToHtml_NoRecords_1() {
+  el := KendoUiGrid{
+    Html: HtmlElementDiv{
+      Global: HtmlGlobalAttributes{
+        Id: "grid",
+      },
+    },
+    Columns: []KendoGridColumns{
+      { Field: "productName" },
+      { Field: "category" },
+    },
+    NoRecords: TRUE,
+  }
+
+  fmt.Printf( "%s\n", el.ToHtml() )
+  fmt.Printf( "%s", el.ToJavaScript() )
+
+  //Output:
+  //<div id="grid"></div>
+  //$("#grid").kendoGrid({columns: [{field: "productName",},{field: "category",},],dataSource: [{"productName": "Tea","category": "Beverages",},{"productName": "Coffee","category": "Beverages",},{"productName": "Ham","category": "Food",},{"productName": "Bread","category": "Food",},],groupable: true,messages: {commands: {select: "Select",save: "Save changes",destroy: "Delete",update: "Update",cancel: "Cancel changes",edit: "Edit",create: "Add new record",canceledit: "Cancel",},},sortable: true,toolbar: ["create","save","cancel",],});
+}
+
+
+func ExampleKendoUiGrid_ToHtml_NoRecords_2() {
+  el := KendoUiGrid{
+    Html: HtmlElementDiv{
+      Global: HtmlGlobalAttributes{
+        Id: "grid",
+      },
+    },
+    Columns: []KendoGridColumns{
+      { Field: "productName" },
+      { Field: "category" },
+    },
+    NoRecords: KendoGridNoRecords{
+      Template: "No data available on current page. Current page is: #=this.dataSource.page()#",
+    },
+    Pageable: KendoGridPageable{
+      PageSize: 10,
+      ButtonCount: 2,
+      Refresh: TRUE,
+      Numeric: TRUE,
+      AlwaysVisible: TRUE,
+      Info: FALSE,
+      Messages: KendoGridPageableMessages{
+        Display: "Showing {0}-{1} from {2} data items",
+        Empty: "No data",
+        Page: "Enter page",
+        Of: "from {0}",
+        ItemsPerPage: "data items per page",
+        First: "First page",
+        Last: "Last page",
+        Next: "Next page",
+        Previous: "Previous page",
+        Refresh: "Refresh the grid",
+        MorePages: "More pages",
+      },
+    },
+  }
+
+  fmt.Printf( "%s\n", el.ToHtml() )
+  fmt.Printf( "%s", el.ToJavaScript() )
+
+  //Output:
+  //<div id="grid"></div>
+  //$("#grid").kendoGrid({columns: [{field: "productName",},{field: "category",},],noRecords: { template: "No data available on current page. Current page is: #=this.dataSource.page()#",},pageable: { numeric: true,refresh: true,alwaysVisible: true,messages: { display: "Showing {0}-{1} from {2} data items",empty: "No data",page: "Enter page",of: "from {0}",itemsPerPage: "data items per page",first: "First page",last: "Last page",next: "Next page",previous: "Previous page",refresh: "Refresh the grid",morePages: "More pages",},buttonCount: 2,pageSize: 10,info: false,},});
 }

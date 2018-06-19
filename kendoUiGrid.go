@@ -700,7 +700,7 @@ type KendoUiGrid struct {
   //    });
   //    </script>
   //
-  NoRecords interface{} `jsObject:"noRecords" jsType:"Boolean,*KendoGridNoRecords"`
+  NoRecords interface{} `jsObject:"noRecords" jsType:"Boolean,KendoGridNoRecords"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/pageable
@@ -742,7 +742,7 @@ type KendoUiGrid struct {
   //    });
   //    </script>
   //
-  Pageable interface{} `jsObject:"pageable" jsType:"Boolean,*KendoGridPageable"`
+  Pageable interface{} `jsObject:"pageable" jsType:"Boolean,KendoGridPageable"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/pdf

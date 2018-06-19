@@ -1,5 +1,10 @@
 package telerik
 
+import (
+  "reflect"
+  log "github.com/helmutkemper/seelog"
+)
+
 type KendoGridGroupable struct {
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/groupable.showfooter
@@ -63,5 +68,17 @@ type KendoGridGroupable struct {
 
   The text messages displayed during grouping.
   */
-  Messages *KendoGridGroupableMessages `jsObject:"messages"`
+  Messages KendoGridGroupableMessages `jsObject:"messages"`
+
+  *ToJavaScriptConverter
+}
+func(el *KendoGridGroupable) ToJavaScript() []byte {
+  element := reflect.ValueOf(el).Elem()
+  ret, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
+  if err != nil {
+    log.Criticalf( "KendoGridGroupable.Error: %v", err.Error() )
+    return []byte{}
+  }
+
+  return ret
 }
