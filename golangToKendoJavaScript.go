@@ -513,8 +513,17 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
 
         buffer.WriteString("],")
 
-      case KendoExcel:
-        if reflect.DeepEqual(convertedFromInterface, KendoExcel{}) == true {
+      case KendoGridExcel:
+        if reflect.DeepEqual(convertedFromInterface, KendoGridExcel{}) == true {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: {`)
+        buffer.Write( convertedFromInterface.ToJavaScript() )
+        buffer.WriteString(`},`)
+
+      case KendoGridToolbar:
+        if reflect.DeepEqual(convertedFromInterface, KendoGridToolbar{}) == true {
           continue
         }
 
@@ -578,7 +587,27 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
         }
         buffer.WriteString(`],`)
 
+      case []KendoGridToolbar:
+        if len( convertedFromInterface ) == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: [`)
+        for _, v := range convertedFromInterface {
+          buffer.WriteString(`{`)
+          buffer.Write( v.ToJavaScript() )
+          buffer.WriteString(`},`)
+        }
+        buffer.WriteString(`],`)
+
       case KendoMapValueTo:
+        if convertedFromInterface == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: "` + convertedFromInterface.String() + `",` )
+
+      case KendoGridToolBarName:
         if convertedFromInterface == 0 {
           continue
         }
@@ -678,6 +707,24 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
         buffer.Write( convertedFromInterface.ToJavaScript() )
         buffer.WriteString(`},`)
 
+      case KendoGridColumnMenu:
+        if reflect.DeepEqual(convertedFromInterface, KendoDataModel{}) == true {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: {`)
+        buffer.Write( convertedFromInterface.ToJavaScript() )
+        buffer.WriteString(`},`)
+
+      case KendoGridColumnMenuMessages:
+        if reflect.DeepEqual(convertedFromInterface, KendoGridColumnMenuMessages{}) == true {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: {`)
+        buffer.Write( convertedFromInterface.ToJavaScript() )
+        buffer.WriteString(`},`)
+
       case KendoOperator:
         if convertedFromInterface == 0 {
           continue
@@ -693,6 +740,13 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
         buffer.WriteString(tag.Get("jsObject") + `: "` + convertedFromInterface.String() + `",` )
 
       case KendoType:
+        if convertedFromInterface == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: "` + convertedFromInterface.String() + `",` )
+
+      case KendoGridEditorMode:
         if convertedFromInterface == 0 {
           continue
         }
@@ -725,7 +779,20 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
         }
         buffer.WriteString(`],`)
 
-        //fixme: array de string?
+      case []KendoGridToolBarName:
+        if len( convertedFromInterface ) == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: [`)
+        for _, v := range convertedFromInterface {
+          buffer.WriteString(`"`)
+          buffer.WriteString( v.String() )
+          buffer.WriteString(`",`)
+        }
+        buffer.WriteString(`],`)
+
+
       case []KendoAggregate:
         if len( convertedFromInterface ) == 0 {
           continue
@@ -733,12 +800,12 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
 
         buffer.WriteString(tag.Get("jsObject") + `: [`)
         for _, v := range convertedFromInterface {
+          buffer.WriteString(`"`)
           buffer.WriteString( v.String() )
-          buffer.WriteString(`,`)
+          buffer.WriteString(`",`)
         }
         buffer.WriteString(`],`)
 
-        //fixme: array de string?
       case []kendoGridColumnsCommand:
         if len( convertedFromInterface ) == 0 {
           continue
@@ -746,8 +813,9 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
 
         buffer.WriteString(tag.Get("jsObject") + `: [`)
         for _, v := range convertedFromInterface {
+          buffer.WriteString(`"`)
           buffer.WriteString( v.String() )
-          buffer.WriteString(`,`)
+          buffer.WriteString(`",`)
         }
         buffer.WriteString(`],`)
 

@@ -90,7 +90,7 @@ type KendoUiGrid struct {
   //    });
   //    </script>
   //
-  AltRowTemplate interface{} `jsObject:"altRowTemplate" jsType:"*JavaScript,string"`
+  AltRowTemplate interface{} `jsObject:"altRowTemplate" jsType:"JavaScript,string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/autobind
@@ -154,7 +154,7 @@ type KendoUiGrid struct {
   //    });
   //    </script>
   //
-  ColumnMenu interface{} `jsObject:"columnMenu" jsType:"Boolean,*KendoGridColumnMenu"`
+  ColumnMenu interface{} `jsObject:"columnMenu" jsType:"Boolean,KendoGridColumnMenu"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/columnresizehandlewidth
@@ -432,14 +432,14 @@ type KendoUiGrid struct {
   //    });
   //    </script>
   //
-  Editable interface{} `jsObject:"editable" jsType:"Boolean,*KendoGridEditorMode"`
+  Editable interface{} `jsObject:"editable" jsType:"Boolean,KendoGridEditorMode"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/excel
 
   Configures the Kendo UI Grid Excel export settings.
   */
-  Excel KendoExcel `jsObject:"excel"`
+  Excel KendoGridExcel `jsObject:"excel"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/filterable
@@ -1125,7 +1125,7 @@ type KendoUiGrid struct {
   //    });
   //    </script>
   //
-  Toolbar interface{} `jsObject:"toolbar"  jsType:"*JavaScript,[]string,string,*KendoGridToolbar"`
+  Toolbar interface{} `jsObject:"toolbar"  jsType:"*JavaScript,[]string,string,[]KendoGridToolbar"`
 
   *ToJavaScriptConverter
 }

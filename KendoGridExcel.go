@@ -5,7 +5,7 @@ import (
   log "github.com/helmutkemper/seelog"
 )
 
-type KendoExcel struct {
+type KendoGridExcel struct {
   // @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/excel.allpages
   //
   // If set to true the grid will export all pages of data. By default the grid exports only the current page.
@@ -142,11 +142,11 @@ type KendoExcel struct {
 
   *ToJavaScriptConverter
 }
-func(el *KendoExcel) ToJavaScript() []byte {
+func(el *KendoGridExcel) ToJavaScript() []byte {
   element := reflect.ValueOf(el).Elem()
   ret, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
   if err != nil {
-    log.Criticalf( "KendoExcel.Error: %v", err.Error() )
+    log.Criticalf( "KendoGridExcel.Error: %v", err.Error() )
     return []byte{}
   }
 
