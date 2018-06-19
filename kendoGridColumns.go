@@ -148,7 +148,7 @@ type KendoGridColumns struct {
   //        dataSource: [ { name: "Jane Doe" } ]
   //      });
   //    </script>
-  Command []kendoGridColumnsCommand `jsObject:"Command"`
+  Command interface{} `jsObject:"command" jsType:"[]TypeKendoGridColumnsCommand,[]KendoGridColumnsCommand"`
 
   // @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/columns.editable#columns.editable
   //

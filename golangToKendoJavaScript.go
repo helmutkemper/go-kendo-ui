@@ -725,6 +725,15 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
         buffer.Write( convertedFromInterface.ToJavaScript() )
         buffer.WriteString(`},`)
 
+      case KendoGridColumnsIconClass:
+        if reflect.DeepEqual(convertedFromInterface, KendoGridColumnsIconClass{}) == true {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: {`)
+        buffer.Write( convertedFromInterface.ToJavaScript() )
+        buffer.WriteString(`},`)
+
       case KendoOperator:
         if convertedFromInterface == 0 {
           continue
@@ -740,6 +749,13 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
         buffer.WriteString(tag.Get("jsObject") + `: "` + convertedFromInterface.String() + `",` )
 
       case KendoType:
+        if convertedFromInterface == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: "` + convertedFromInterface.String() + `",` )
+
+      case TypeKendoGridColumnsCommand:
         if convertedFromInterface == 0 {
           continue
         }
@@ -806,7 +822,7 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
         }
         buffer.WriteString(`],`)
 
-      case []kendoGridColumnsCommand:
+      case []TypeKendoGridColumnsCommand:
         if len( convertedFromInterface ) == 0 {
           continue
         }
@@ -820,6 +836,19 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
         buffer.WriteString(`],`)
 
       case []KendoGridColumns:
+        if len( convertedFromInterface ) == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: [`)
+        for _, v := range convertedFromInterface {
+          buffer.WriteString(`{`)
+          buffer.Write( v.ToJavaScript() )
+          buffer.WriteString(`},`)
+        }
+        buffer.WriteString(`],`)
+
+      case []KendoGridColumnsCommand:
         if len( convertedFromInterface ) == 0 {
           continue
         }

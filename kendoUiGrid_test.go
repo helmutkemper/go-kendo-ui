@@ -28,7 +28,7 @@ func ExampleKendoUiGrid_ToHtml_AllowCopy() {
 
   //Output:
   //<div id="grid"></div>
-  //$("#grid").kendoGrid({allowCopy: true,columns: [{field: "productName",},{field: "category",},],dataSource: [{"productName": "Tea","category": "Beverages",},{"productName": "Coffee","category": "Beverages",},{"category": "Food","productName": "Ham",},{"productName": "Bread","category": "Food",},],selectable: "multiple, cell",});
+  //$("#grid").kendoGrid({allowCopy: true,columns: [{field: "productName",},{field: "category",},],dataSource: [{"category": "Beverages","productName": "Tea",},{"productName": "Coffee","category": "Beverages",},{"productName": "Ham","category": "Food",},{"productName": "Bread","category": "Food",},],selectable: "multiple, cell",});
 }
 
 func ExampleKendoUiGrid_ToHtml_ColumnMenu() {
@@ -83,7 +83,7 @@ func ExampleKendoUiGrid_ToHtml_ColumnMenu_sortable() {
 
   //Output:
   //<div id="grid"></div>
-  //$("#grid").kendoGrid({columnMenu: {columns: false,},columns: [{field: "name",},{field: "age",},],dataSource: [{"age": 30,"name": "Jane Doe",},{"name": "John Doe","age": 33,},],sortable: true,});
+  //$("#grid").kendoGrid({columnMenu: {columns: false,},columns: [{field: "name",},{field: "age",},],dataSource: [{"name": "Jane Doe","age": 30,},{"name": "John Doe","age": 33,},],sortable: true,});
 }
 
 func ExampleKendoUiGrid_ToHtml_ColumnMenu_messages() {
@@ -143,7 +143,7 @@ func ExampleKendoUiGrid_ToHtml_ColumnMenu_Columns() {
 
   //Output:
   //<div id="grid"></div>
-  //$("#grid").kendoGrid({columns: [{field: "name",title: "Name",},{field: "age",title: "Age",},],dataSource: [{"name": "Jane Doe","age": 30,},{"age": 33,"name": "John Doe",},],});
+  //$("#grid").kendoGrid({columns: [{field: "name",title: "Name",},{field: "age",title: "Age",},],dataSource: [{"name": "Jane Doe","age": 30,},{"name": "John Doe","age": 33,},],});
 }
 
 func ExampleKendoUiGrid_ToHtml_ColumnMenu_EditorMode() {
@@ -156,7 +156,7 @@ func ExampleKendoUiGrid_ToHtml_ColumnMenu_EditorMode() {
     Columns: []KendoGridColumns{
       { Field: "name", Title: "Name" },
       { Field: "age", Title: "Age" },
-      { Command: []kendoGridColumnsCommand{ COLUMNS_COMMAND_EDIT } },
+      { Command: []TypeKendoGridColumnsCommand{ COLUMNS_COMMAND_EDIT } },
     },
 
     DataSource: KendoDataSource{
@@ -183,7 +183,7 @@ func ExampleKendoUiGrid_ToHtml_ColumnMenu_EditorMode() {
 
   //Output:
   //<div id="grid"></div>
-  //$("#grid").kendoGrid({columns: [{field: "name",title: "Name",},{field: "age",title: "Age",},{Command: ["edit",],},],dataSource:  new kendo.data.DataSource({data: [{"age": 30,"name": "Jane Doe",},{"age": 33,"name": "John Doe",},],schema: {model: {id: "id",fields: {"age": {type: "number",}, },},},}),editable: "popup",});
+  //$("#grid").kendoGrid({columns: [{field: "name",title: "Name",},{field: "age",title: "Age",},{command: ["edit",],},],dataSource:  new kendo.data.DataSource({data: [{"age": 30,"name": "Jane Doe",},{"name": "John Doe","age": 33,},],schema: {model: {id: "id",fields: {"age": {type: "number",}, },},},}),editable: "popup",});
 }
 
 func ExampleKendoUiGrid_ToHtml_Excel_AllPages() {
@@ -196,7 +196,7 @@ func ExampleKendoUiGrid_ToHtml_Excel_AllPages() {
     Columns: []KendoGridColumns{
       { Field: "name", Title: "Name" },
       { Field: "age", Title: "Age" },
-      { Command: []kendoGridColumnsCommand{ COLUMNS_COMMAND_EDIT } },
+      { Command: []TypeKendoGridColumnsCommand{ COLUMNS_COMMAND_EDIT } },
     },
     ColumnMenu: TRUE,
     Toolbar: []KendoGridToolBarName{ GRID_TOOLBAR_NAME_SAVE, GRID_TOOLBAR_NAME_EXCEL },
@@ -227,7 +227,7 @@ func ExampleKendoUiGrid_ToHtml_Excel_AllPages() {
 
   //Output:
   //<div id="grid"></div>
-  //$("#grid").kendoGrid({columnMenu: true,columns: [{field: "name",title: "Name",},{field: "age",title: "Age",},{Command: ["edit",],},],dataSource:  new kendo.data.DataSource({data: [{"name": "Jane Doe","age": 30,},{"name": "John Doe","age": 33,},],schema: {model: {id: "id",fields: {"age": {type: "number",}, },},},}),editable: "popup",excel: {allpages: true,},toolbar: ["save","excel",],});
+  //$("#grid").kendoGrid({columnMenu: true,columns: [{field: "name",title: "Name",},{field: "age",title: "Age",},{command: ["edit",],},],dataSource:  new kendo.data.DataSource({data: [{"age": 30,"name": "Jane Doe",},{"name": "John Doe","age": 33,},],schema: {model: {id: "id",fields: {"age": {type: "number",}, },},},}),editable: "popup",excel: {allpages: true,},toolbar: ["save","excel",],});
 }
 
 func ExampleKendoUiGrid_ToHtml_Toolbar_Excel() {
@@ -240,7 +240,7 @@ func ExampleKendoUiGrid_ToHtml_Toolbar_Excel() {
     Columns: []KendoGridColumns{
       { Field: "name", Title: "Name" },
       { Field: "age", Title: "Age" },
-      { Command: []kendoGridColumnsCommand{ COLUMNS_COMMAND_EDIT } },
+      { Command: []TypeKendoGridColumnsCommand{ COLUMNS_COMMAND_EDIT } },
     },
     ColumnMenu: TRUE,
     Toolbar: []KendoGridToolbar{
@@ -279,5 +279,187 @@ func ExampleKendoUiGrid_ToHtml_Toolbar_Excel() {
 
   //Output:
   //<div id="grid"></div>
-  //$("#grid").kendoGrid({columnMenu: true,columns: [{field: "name",title: "Name",},{field: "age",title: "Age",},{Command: ["edit",],},],dataSource:  new kendo.data.DataSource({data: [{"name": "Jane Doe","age": 30,},{"name": "John Doe","age": 33,},],schema: {model: {id: "id",fields: {"age": {type: "number",}, },},},}),editable: "popup",excel: {allpages: true,},toolbar: [{iconClass: "k-icon k-i-copy",name: "save",},{name: "excel",},],});
+  //$("#grid").kendoGrid({columnMenu: true,columns: [{field: "name",title: "Name",},{field: "age",title: "Age",},{command: ["edit",],},],dataSource:  new kendo.data.DataSource({data: [{"name": "Jane Doe","age": 30,},{"age": 33,"name": "John Doe",},],schema: {model: {id: "id",fields: {"age": {type: "number",}, },},},}),editable: "popup",excel: {allpages: true,},toolbar: [{iconClass: "k-icon k-i-copy",name: "save",},{name: "excel",},],});
+}
+
+func ExampleKendoUiGrid_ToHtml_Columns_Command_Destroy() {
+  el := KendoUiGrid{
+    Html: HtmlElementDiv{
+      Global: HtmlGlobalAttributes{
+        Id: "grid",
+      },
+    },
+    Columns: []KendoGridColumns{
+      { Field: "name", Title: "Name" },
+      { Field: "age", Title: "Age" },
+      { Command: []TypeKendoGridColumnsCommand{ COLUMNS_COMMAND_EDIT } },
+    },
+    ColumnMenu: TRUE,
+    Toolbar: []KendoGridToolbar{
+      {
+        Name: GRID_TOOLBAR_NAME_SAVE,
+        IconClass: "k-icon k-i-copy",
+      },
+      {
+        Name: GRID_TOOLBAR_NAME_EXCEL,
+      },
+    },
+    Excel: KendoGridExcel{
+      AllPages: TRUE,
+    },
+    DataSource: KendoDataSource{
+      Data: []map[string]interface{}{
+        { "name": "Jane Doe", "age": 30 },
+        { "name": "John Doe", "age": 33 },
+      },
+      Schema: KendoSchema{
+        Model: KendoDataModel{
+          Id: "id",
+          Fields: map[string]KendoField{
+            "age": {
+              Type: JAVASCRIPT_NUMBER,
+            },
+          },
+        },
+      },
+    },
+    Editable: KENDO_GRID_EDITOR_MODE_POPUP,
+  }
+
+  fmt.Printf( "%s\n", el.ToHtml() )
+  fmt.Printf( "%s", el.ToJavaScript() )
+
+  //Output:
+  //<div id="grid"></div>
+  //$("#grid").kendoGrid({columnMenu: true,columns: [{field: "name",title: "Name",},{field: "age",title: "Age",},{command: ["edit",],},],dataSource:  new kendo.data.DataSource({data: [{"name": "Jane Doe","age": 30,},{"name": "John Doe","age": 33,},],schema: {model: {id: "id",fields: {"age": {type: "number",}, },},},}),editable: "popup",excel: {allpages: true,},toolbar: [{iconClass: "k-icon k-i-copy",name: "save",},{name: "excel",},],});
+}
+
+func ExampleKendoUiGrid_ToHtml_Columns_Command_2() {
+  el := KendoUiGrid{
+    Html: HtmlElementDiv{
+      Global: HtmlGlobalAttributes{
+        Id: "grid",
+      },
+    },
+    Columns: []KendoGridColumns{
+      { Field: "name", Title: "Name" },
+      { Field: "age", Title: "Age" },
+      { Command: []KendoGridColumnsCommand{
+        {
+          Name: COLUMNS_COMMAND_CUSTOM,
+          Text: "details",
+          Click: JavaScript{ Code: `function(e){ /* command button click handler */ }` },
+          ClassName: "btn-destroy",
+          IconClass: "k-icon k-i-copy",
+        },
+        {
+          Name: COLUMNS_COMMAND_DESTROY,
+        },
+      } },
+    },
+    ColumnMenu: TRUE,
+    Toolbar: []KendoGridToolbar{
+      {
+        Name: GRID_TOOLBAR_NAME_SAVE,
+        IconClass: "k-icon k-i-copy",
+      },
+      {
+        Name: GRID_TOOLBAR_NAME_EXCEL,
+      },
+    },
+    Excel: KendoGridExcel{
+      AllPages: TRUE,
+    },
+    DataSource: KendoDataSource{
+      Data: []map[string]interface{}{
+        { "name": "Jane Doe", "age": 30 },
+        { "name": "John Doe", "age": 33 },
+      },
+      Schema: KendoSchema{
+        Model: KendoDataModel{
+          Id: "id",
+          Fields: map[string]KendoField{
+            "age": {
+              Type: JAVASCRIPT_NUMBER,
+            },
+          },
+        },
+      },
+    },
+    Editable: KENDO_GRID_EDITOR_MODE_POPUP,
+  }
+
+  fmt.Printf( "%s\n", el.ToHtml() )
+  fmt.Printf( "%s", el.ToJavaScript() )
+
+  //Output:
+  //<div id="grid"></div>
+  //$("#grid").kendoGrid({columnMenu: true,columns: [{field: "name",title: "Name",},{field: "age",title: "Age",},{command: [{className: "btn-destroy",click: function(e){ /* command button click handler */ },iconClass: "k-icon k-i-copy",name: "custom",text: "details",},{name: "destroy",},],},],dataSource:  new kendo.data.DataSource({data: [{"name": "Jane Doe","age": 30,},{"name": "John Doe","age": 33,},],schema: {model: {id: "id",fields: {"age": {type: "number",}, },},},}),editable: "popup",excel: {allpages: true,},toolbar: [{iconClass: "k-icon k-i-copy",name: "save",},{name: "excel",},],});
+}
+
+func ExampleKendoUiGrid_ToHtml_Columns_Command_3() {
+  el := KendoUiGrid{
+    Html: HtmlElementDiv{
+      Global: HtmlGlobalAttributes{
+        Id: "grid",
+      },
+    },
+
+    Columns: []KendoGridColumns{
+      { Field: "name", Title: "Name" },
+      { Field: "age", Title: "Age" },
+      { Command: []KendoGridColumnsCommand{
+        {
+          Name: COLUMNS_COMMAND_DESTROY,
+          Text: "remove",
+          ClassName: "btn-destroy",
+          IconClass: KendoGridColumnsIconClass{
+            Edit: "k-icon k-i-edit",
+            Update: "k-icon k-i-copy",
+            Cancel: "k-icon k-i-arrow-60-up",
+          },
+        },
+        {
+          Name: COLUMNS_COMMAND_EDIT,
+        },
+      } },
+    },
+    ColumnMenu: TRUE,
+    Toolbar: []KendoGridToolbar{
+      {
+        Name: GRID_TOOLBAR_NAME_SAVE,
+        IconClass: "k-icon k-i-copy",
+      },
+      {
+        Name: GRID_TOOLBAR_NAME_EXCEL,
+      },
+    },
+    Excel: KendoGridExcel{
+      AllPages: TRUE,
+    },
+    DataSource: KendoDataSource{
+      Data: []map[string]interface{}{
+        { "name": "Jane Doe", "age": 30 },
+        { "name": "John Doe", "age": 33 },
+      },
+      Schema: KendoSchema{
+        Model: KendoDataModel{
+          Id: "id",
+          Fields: map[string]KendoField{
+            "age": {
+              Type: JAVASCRIPT_NUMBER,
+            },
+          },
+        },
+      },
+    },
+    Editable: KENDO_GRID_EDITOR_MODE_POPUP,
+  }
+
+  fmt.Printf( "%s\n", el.ToHtml() )
+  fmt.Printf( "%s", el.ToJavaScript() )
+
+  //Output:
+  //<div id="grid"></div>
+  //$("#grid").kendoGrid({columnMenu: true,columns: [{field: "name",title: "Name",},{field: "age",title: "Age",},{command: [{className: "btn-destroy",iconClass: {edit: "k-icon k-i-edit",update: "k-icon k-i-copy",cancel: "k-icon k-i-arrow-60-up",},name: "destroy",text: "remove",},{name: "edit",},],},],dataSource:  new kendo.data.DataSource({data: [{"name": "Jane Doe","age": 30,},{"name": "John Doe","age": 33,},],schema: {model: {id: "id",fields: {"age": {type: "number",}, },},},}),editable: "popup",excel: {allpages: true,},toolbar: [{iconClass: "k-icon k-i-copy",name: "save",},{name: "excel",},],});
 }
