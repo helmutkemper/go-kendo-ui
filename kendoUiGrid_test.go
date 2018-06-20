@@ -2,7 +2,7 @@ package telerik
 
 import "fmt"
 
-func ExampleKendoUiGrid_ToHtml_AllowCopy() {
+func ExampleKendoUiGrid_ToHtml_1() {
   el := KendoUiGrid{
     Html: HtmlElementDiv{
       Global: HtmlGlobalAttributes{
@@ -31,7 +31,7 @@ func ExampleKendoUiGrid_ToHtml_AllowCopy() {
   //$("#grid").kendoGrid({allowCopy: true,columns: [{field: "productName",},{field: "category",},],dataSource: [{"category": "Beverages","productName": "Tea",},{"productName": "Coffee","category": "Beverages",},{"productName": "Ham","category": "Food",},{"productName": "Bread","category": "Food",},],selectable: "multiple, cell",});
 }
 
-func ExampleKendoUiGrid_ToHtml_ColumnMenu() {
+func ExampleKendoUiGrid_ToHtml_2() {
   el := KendoUiGrid{
     Html: HtmlElementDiv{
       Global: HtmlGlobalAttributes{
@@ -57,7 +57,7 @@ func ExampleKendoUiGrid_ToHtml_ColumnMenu() {
   //$("#grid").kendoGrid({columnMenu: true,columns: [{field: "name",},{field: "age",},],dataSource: [{"name": "Jane Doe","age": 30,},{"name": "John Doe","age": 33,},],});
 }
 
-func ExampleKendoUiGrid_ToHtml_ColumnMenu_sortable() {
+func ExampleKendoUiGrid_ToHtml_3() {
   el := KendoUiGrid{
     Html: HtmlElementDiv{
       Global: HtmlGlobalAttributes{
@@ -86,7 +86,7 @@ func ExampleKendoUiGrid_ToHtml_ColumnMenu_sortable() {
   //$("#grid").kendoGrid({columnMenu: {columns: false,},columns: [{field: "name",},{field: "age",},],dataSource: [{"name": "Jane Doe","age": 30,},{"name": "John Doe","age": 33,},],sortable: true,});
 }
 
-func ExampleKendoUiGrid_ToHtml_ColumnMenu_messages() {
+func ExampleKendoUiGrid_ToHtml_4() {
   el := KendoUiGrid{
     Html: HtmlElementDiv{
       Global: HtmlGlobalAttributes{
@@ -121,7 +121,7 @@ func ExampleKendoUiGrid_ToHtml_ColumnMenu_messages() {
   //$("#grid").kendoGrid({columnMenu: {messages: {columns: "Choose columns",filter: "Apply filter",sortAscending: "Sort (asc)",sortDescending: "Sort (desc)",},},columns: [{field: "name",},{field: "age",},],dataSource: [{"name": "Jane Doe","age": 30,},{"name": "John Doe","age": 33,},],filterable: true,sortable: true,});
 }
 
-func ExampleKendoUiGrid_ToHtml_ColumnMenu_Columns() {
+func ExampleKendoUiGrid_ToHtml_5() {
   el := KendoUiGrid{
     Html: HtmlElementDiv{
       Global: HtmlGlobalAttributes{
@@ -146,7 +146,7 @@ func ExampleKendoUiGrid_ToHtml_ColumnMenu_Columns() {
   //$("#grid").kendoGrid({columns: [{field: "name",title: "Name",},{field: "age",title: "Age",},],dataSource: [{"name": "Jane Doe","age": 30,},{"name": "John Doe","age": 33,},],});
 }
 
-func ExampleKendoUiGrid_ToHtml_ColumnMenu_EditorMode() {
+func ExampleKendoUiGrid_ToHtml_6() {
   el := KendoUiGrid{
     Html: HtmlElementDiv{
       Global: HtmlGlobalAttributes{
@@ -186,7 +186,7 @@ func ExampleKendoUiGrid_ToHtml_ColumnMenu_EditorMode() {
   //$("#grid").kendoGrid({columns: [{field: "name",title: "Name",},{field: "age",title: "Age",},{command: ["edit",],},],dataSource:  new kendo.data.DataSource({data: [{"age": 30,"name": "Jane Doe",},{"name": "John Doe","age": 33,},],schema: {model: {id: "id",fields: {"age": {type: "number",}, },},},}),editable: "popup",});
 }
 
-func ExampleKendoUiGrid_ToHtml_Excel_AllPages() {
+func ExampleKendoUiGrid_ToHtml_7() {
   el := KendoUiGrid{
     Html: HtmlElementDiv{
       Global: HtmlGlobalAttributes{
@@ -230,7 +230,7 @@ func ExampleKendoUiGrid_ToHtml_Excel_AllPages() {
   //$("#grid").kendoGrid({columnMenu: true,columns: [{field: "name",title: "Name",},{field: "age",title: "Age",},{command: ["edit",],},],dataSource:  new kendo.data.DataSource({data: [{"age": 30,"name": "Jane Doe",},{"name": "John Doe","age": 33,},],schema: {model: {id: "id",fields: {"age": {type: "number",}, },},},}),editable: "popup",excel: {allpages: true,},toolbar: ["save","excel",],});
 }
 
-func ExampleKendoUiGrid_ToHtml_Toolbar_Excel() {
+func ExampleKendoUiGrid_ToHtml_8() {
   el := KendoUiGrid{
     Html: HtmlElementDiv{
       Global: HtmlGlobalAttributes{
@@ -282,7 +282,7 @@ func ExampleKendoUiGrid_ToHtml_Toolbar_Excel() {
   //$("#grid").kendoGrid({columnMenu: true,columns: [{field: "name",title: "Name",},{field: "age",title: "Age",},{command: ["edit",],},],dataSource:  new kendo.data.DataSource({data: [{"name": "Jane Doe","age": 30,},{"age": 33,"name": "John Doe",},],schema: {model: {id: "id",fields: {"age": {type: "number",}, },},},}),editable: "popup",excel: {allpages: true,},toolbar: [{iconClass: "k-icon k-i-copy",name: "save",},{name: "excel",},],});
 }
 
-func ExampleKendoUiGrid_ToHtml_Columns_Command_Destroy() {
+func ExampleKendoUiGrid_ToHtml_9() {
   el := KendoUiGrid{
     Html: HtmlElementDiv{
       Global: HtmlGlobalAttributes{
@@ -334,7 +334,7 @@ func ExampleKendoUiGrid_ToHtml_Columns_Command_Destroy() {
   //$("#grid").kendoGrid({columnMenu: true,columns: [{field: "name",title: "Name",},{field: "age",title: "Age",},{command: ["edit",],},],dataSource:  new kendo.data.DataSource({data: [{"name": "Jane Doe","age": 30,},{"name": "John Doe","age": 33,},],schema: {model: {id: "id",fields: {"age": {type: "number",}, },},},}),editable: "popup",excel: {allpages: true,},toolbar: [{iconClass: "k-icon k-i-copy",name: "save",},{name: "excel",},],});
 }
 
-func ExampleKendoUiGrid_ToHtml_Columns_Command_2() {
+func ExampleKendoUiGrid_ToHtml_10() {
   el := KendoUiGrid{
     Html: HtmlElementDiv{
       Global: HtmlGlobalAttributes{
@@ -397,7 +397,7 @@ func ExampleKendoUiGrid_ToHtml_Columns_Command_2() {
   //$("#grid").kendoGrid({columnMenu: true,columns: [{field: "name",title: "Name",},{field: "age",title: "Age",},{command: [{className: "btn-destroy",click: function(e){ /* command button click handler */ },iconClass: "k-icon k-i-copy",name: "custom",text: "details",},{name: "destroy",},],},],dataSource:  new kendo.data.DataSource({data: [{"name": "Jane Doe","age": 30,},{"name": "John Doe","age": 33,},],schema: {model: {id: "id",fields: {"age": {type: "number",}, },},},}),editable: "popup",excel: {allpages: true,},toolbar: [{iconClass: "k-icon k-i-copy",name: "save",},{name: "excel",},],});
 }
 
-func ExampleKendoUiGrid_ToHtml_Columns_Command_3() {
+func ExampleKendoUiGrid_ToHtml_11() {
   el := KendoUiGrid{
     Html: HtmlElementDiv{
       Global: HtmlGlobalAttributes{
@@ -463,7 +463,7 @@ func ExampleKendoUiGrid_ToHtml_Columns_Command_3() {
   //$("#grid").kendoGrid({columnMenu: true,columns: [{field: "name",title: "Name",},{field: "age",title: "Age",},{command: [{className: "btn-destroy",iconClass: {edit: "k-icon k-i-edit",update: "k-icon k-i-copy",cancel: "k-icon k-i-arrow-60-up",},name: "destroy",text: "remove",},{name: "edit",},],},],dataSource:  new kendo.data.DataSource({data: [{"name": "Jane Doe","age": 30,},{"name": "John Doe","age": 33,},],schema: {model: {id: "id",fields: {"age": {type: "number",}, },},},}),editable: "popup",excel: {allpages: true,},toolbar: [{iconClass: "k-icon k-i-copy",name: "save",},{name: "excel",},],});
 }
 
-func ExampleKendoUiGrid_ToHtml_Filterable_Cell() {
+func ExampleKendoUiGrid_ToHtml_12() {
   el := KendoUiGrid{
     Html: HtmlElementDiv{
       Global: HtmlGlobalAttributes{
@@ -547,7 +547,7 @@ func ExampleKendoUiGrid_ToHtml_Filterable_Cell() {
   //$("#grid").kendoGrid({columnMenu: true,columns: [{field: "name",filterable: {cell: {dataSource:  new kendo.data.DataSource({data: [{"someField": "Jane",},{"someField": "Jake",},{"someField": "John",},],}),dataTextField: "someField",},},title: "Name",},{field: "age",title: "Age",},{command: [{className: "btn-destroy",name: "destroy",text: "remove",},{name: "edit",},],},],dataSource:  new kendo.data.DataSource({data: [{"name": "Jane Doe","age": 30,},{"name": "John Doe","age": 33,},],schema: {model: {id: "id",fields: {"age": {type: "number",}, },},},}),editable: "popup",excel: {allpages: true,},filterable: {mode: "row",},toolbar: [{iconClass: "k-icon k-i-copy",name: "save",},{name: "excel",},],});
 }
 
-func ExampleKendoUiGrid_ToHtml_Filterable_Sortable() {
+func ExampleKendoUiGrid_ToHtml_13() {
   el := KendoUiGrid{
     Html: HtmlElementDiv{
       Global: HtmlGlobalAttributes{
@@ -619,7 +619,7 @@ func ExampleKendoUiGrid_ToHtml_Filterable_Sortable() {
   //$("#grid").kendoGrid({columnMenu: {columns: false,},columns: [{field: "name",title: "Name",},{field: "age",title: "Age",},{command: [{className: "btn-destroy",name: "destroy",text: "remove",},{name: "edit",},],},],dataSource:  new kendo.data.DataSource({data: [{"name": "Jane Doe","age": 30,},{"name": "John Doe","age": 33,},],schema: {model: {id: "id",fields: {"age": {type: "number",}, },},},}),editable: "popup",excel: {allpages: true,},sortable: true,toolbar: [{iconClass: "k-icon k-i-copy",name: "save",},{name: "excel",},],});
 }
 
-func ExampleKendoUiGrid_ToHtml_Filterable_Editable() {
+func ExampleKendoUiGrid_ToHtml_14() {
   el := KendoUiGrid{
     Html: HtmlElementDiv{
       Global: HtmlGlobalAttributes{
@@ -668,7 +668,7 @@ func ExampleKendoUiGrid_ToHtml_Filterable_Editable() {
   //$("#grid").kendoGrid({columnMenu: {columns: false,},columns: [{field: "name",title: "Name",},{field: "age",title: "Age",},],dataSource:  new kendo.data.DataSource({data: [{"name": "Jane Doe","age": 30,},{"name": "John Doe","age": 33,},],schema: {model: {id: "id",fields: {"age": {type: "number",}, },},},}),editable: true,sortable: true,});
 }
 
-func ExampleKendoUiGrid_ToHtml_Confirmation_1() {
+func ExampleKendoUiGrid_ToHtml_15() {
   el := KendoUiGrid{
     Html: HtmlElementDiv{
       Global: HtmlGlobalAttributes{
@@ -739,7 +739,7 @@ func ExampleKendoUiGrid_ToHtml_Confirmation_1() {
   //$("#grid").kendoGrid({columnMenu: {columns: false,},columns: [{field: "name",title: "Name",},{field: "age",title: "Age",},{command: [{className: "btn-destroy",name: "destroy",text: "remove",},],},],dataSource:  new kendo.data.DataSource({data: [{"name": "Jane Doe","age": 30,},{"age": 33,"name": "John Doe",},],schema: {model: {id: "id",fields: {"age": {type: "number",}, },},},}),editable: {confirmation: "Are you sure that you want to delete this record?",},excel: {allpages: true,},sortable: true,toolbar: [{iconClass: "k-icon k-i-copy",name: "save",},{name: "excel",},],});
 }
 
-func ExampleKendoUiGrid_ToHtml_Confirmation_2() {
+func ExampleKendoUiGrid_ToHtml_16() {
   el := KendoUiGrid{
     Html: HtmlElementDiv{
       Global: HtmlGlobalAttributes{
@@ -812,7 +812,7 @@ func ExampleKendoUiGrid_ToHtml_Confirmation_2() {
   //$("#grid").kendoGrid({columnMenu: {columns: false,},columns: [{field: "name",title: "Name",},{field: "age",title: "Age",},{command: [{className: "btn-destroy",name: "destroy",text: "remove",},],},],dataSource:  new kendo.data.DataSource({data: [{"name": "Jane Doe","age": 30,},{"name": "John Doe","age": 33,},],schema: {model: {id: "id",fields: {"age": {type: "number",}, },},},}),editable: {confirmation: function(e) { return  "Are you sure that you want to delete record for " + e.name + "?"; },},excel: {allpages: true,},sortable: true,toolbar: [{iconClass: "k-icon k-i-copy",name: "save",},{name: "excel",},],});
 }
 
-func ExampleKendoUiGrid_ToHtml_Filterable_Extra() {
+func ExampleKendoUiGrid_ToHtml_17() {
   el := KendoUiGrid{
     Html: HtmlElementDiv{
       Global: HtmlGlobalAttributes{
@@ -888,7 +888,7 @@ func ExampleKendoUiGrid_ToHtml_Filterable_Extra() {
   //$("#grid").kendoGrid({columnMenu: {columns: false,},columns: [{field: "name",title: "Name",},{field: "age",title: "Age",},{command: [{className: "btn-destroy",name: "destroy",text: "remove",},],},],dataSource:  new kendo.data.DataSource({data: [{"name": "Jane Doe","age": 30,},{"name": "John Doe","age": 33,},],schema: {model: {id: "id",fields: {"age": {type: "number",}, },},},}),editable: {confirmation: function(e) { return  "Are you sure that you want to delete record for " + e.name + "?"; },},excel: {allpages: true,},sortable: true,toolbar: [{iconClass: "k-icon k-i-copy",name: "save",},{name: "excel",},],});
 }
 
-func ExampleKendoUiGrid_ToHtml_Filterable_Messages() {
+func ExampleKendoUiGrid_ToHtml_18() {
   el := KendoUiGrid{
     Html: HtmlElementDiv{
       Global: HtmlGlobalAttributes{
@@ -966,7 +966,7 @@ func ExampleKendoUiGrid_ToHtml_Filterable_Messages() {
   //$("#grid").kendoGrid({columnMenu: {columns: false,},columns: [{field: "name",title: "Name",},{field: "age",title: "Age",},{command: [{className: "btn-destroy",name: "destroy",text: "remove",},],},],dataSource:  new kendo.data.DataSource({data: [{"name": "Jane Doe","age": 30,},{"name": "John Doe","age": 33,},],schema: {model: {id: "id",fields: {"age": {type: "number",}, },},},}),editable: {confirmation: function(e) { return  "Are you sure that you want to delete record for " + e.name + "?"; },},excel: {allpages: true,},filterable: {messages: {and: "and",or: "or",},},sortable: true,toolbar: [{iconClass: "k-icon k-i-copy",name: "save",},{name: "excel",},],});
 }
 
-func ExampleKendoUiGrid_ToHtml_Filterable_Operators() {
+func ExampleKendoUiGrid_ToHtml_19() {
   el := KendoUiGrid{
     Html: HtmlElementDiv{
       Global: HtmlGlobalAttributes{
@@ -1085,7 +1085,7 @@ func ExampleKendoUiGrid_ToHtml_Filterable_Operators() {
   //$("#grid").kendoGrid({columnMenu: {columns: false,},columns: [{field: "name",title: "Name",},{field: "age",title: "Age",},{command: [{className: "btn-destroy",name: "destroy",text: "remove",},{className: "btn-edit",name: "edit",text: "edit",},],},],dataSource:  new kendo.data.DataSource({data: [{"name": "Jane Doe","age": 30,},{"name": "John Doe","age": 33,},],schema: {model: {id: "id",fields: {"age": {type: "number",}, },},},}),editable: {confirmation: function(e) { return  "Are you sure that you want to delete record for " + e.name + "?"; },mode: "popup",},excel: {allpages: true,},filterable: {operators: {enums: {eq: "Is equal to",isnull: "Is null",isnotnull: "Is not null",neq: "Is not equal to",},date: {gt: "Is after",lte: "Is before or equal to",neq: "Is not equal to",isnull: "Is null",lt: "Is before",gte: "Is after or equal to",eq: "Is equal to",},string: {isnotempty: "Is not empty",isnull: "Is null",isempty: "Is empty",doesnotcontain: "Does not contain",contains: "Contains",endswith: "Ends with",startswith: "Starts with",eq: "Is equal to",neq: "Is not equal to",},number: {neq: "Is not equal to",lt: "Is less than",eq: "Is equal to",isnull: "Is null",lte: "Is less than or equal to",gt: "Is greater than",gte: "Is greater than or equal to",isnotnull: "Is not null",},},},sortable: true,toolbar: [{iconClass: "k-icon k-i-copy",name: "save",},{name: "excel",},],});
 }
 
-func ExampleKendoUiGrid_ToHtml_Groupable_Object() {
+func ExampleKendoUiGrid_ToHtml_20() {
   el := KendoUiGrid{
     Html: HtmlElementDiv{
       Global: HtmlGlobalAttributes{
@@ -1120,7 +1120,7 @@ func ExampleKendoUiGrid_ToHtml_Groupable_Object() {
   //$("#grid").kendoGrid({columns: [{field: "productName",},{field: "category",},],dataSource: [{"productName": "Tea","category": "Beverages",},{"productName": "Coffee","category": "Beverages",},{"productName": "Ham","category": "Food",},{"productName": "Bread","category": "Food",},],groupable: {showFooter: true,enabled: true,messages: {empty: "Drop columns here",},},sortable: true,});
 }
 
-func ExampleKendoUiGrid_ToHtml_Groupable_Boolean() {
+func ExampleKendoUiGrid_ToHtml_21() {
   el := KendoUiGrid{
     Html: HtmlElementDiv{
       Global: HtmlGlobalAttributes{
@@ -1149,7 +1149,7 @@ func ExampleKendoUiGrid_ToHtml_Groupable_Boolean() {
   //$("#grid").kendoGrid({columns: [{field: "productName",},{field: "category",},],dataSource: [{"productName": "Tea","category": "Beverages",},{"category": "Beverages","productName": "Coffee",},{"productName": "Ham","category": "Food",},{"productName": "Bread","category": "Food",},],groupable: true,sortable: true,});
 }
 
-func ExampleKendoUiGrid_ToHtml_Groupable_Messages() {
+func ExampleKendoUiGrid_ToHtml_22() {
   el := KendoUiGrid{
     Html: HtmlElementDiv{
       Global: HtmlGlobalAttributes{
@@ -1191,7 +1191,7 @@ func ExampleKendoUiGrid_ToHtml_Groupable_Messages() {
   //$("#grid").kendoGrid({columns: [{field: "productName",},{field: "category",},],dataSource: [{"productName": "Tea","category": "Beverages",},{"productName": "Coffee","category": "Beverages",},{"productName": "Ham","category": "Food",},{"productName": "Bread","category": "Food",},],groupable: true,messages: {commands: {select: "Select",save: "Save changes",destroy: "Delete",update: "Update",cancel: "Cancel changes",edit: "Edit",create: "Add new record",canceledit: "Cancel",},},sortable: true,toolbar: ["create","save","cancel",],});
 }
 
-func ExampleKendoUiGrid_ToHtml_NoRecords_1() {
+func ExampleKendoUiGrid_ToHtml_23() {
   el := KendoUiGrid{
     Html: HtmlElementDiv{
       Global: HtmlGlobalAttributes{
@@ -1213,7 +1213,7 @@ func ExampleKendoUiGrid_ToHtml_NoRecords_1() {
   //$("#grid").kendoGrid({columns: [{field: "productName",},{field: "category",},],dataSource: [{"productName": "Tea","category": "Beverages",},{"productName": "Coffee","category": "Beverages",},{"productName": "Ham","category": "Food",},{"productName": "Bread","category": "Food",},],groupable: true,messages: {commands: {select: "Select",save: "Save changes",destroy: "Delete",update: "Update",cancel: "Cancel changes",edit: "Edit",create: "Add new record",canceledit: "Cancel",},},sortable: true,toolbar: ["create","save","cancel",],});
 }
 
-func ExampleKendoUiGrid_ToHtml_NoRecords_2() {
+func ExampleKendoUiGrid_ToHtml_24() {
   el := KendoUiGrid{
     Html: HtmlElementDiv{
       Global: HtmlGlobalAttributes{
@@ -1258,7 +1258,7 @@ func ExampleKendoUiGrid_ToHtml_NoRecords_2() {
   //$("#grid").kendoGrid({columns: [{field: "productName",},{field: "category",},],noRecords: { template: "No data available on current page. Current page is: #=this.dataSource.page()#",},pageable: { numeric: true,refresh: true,alwaysVisible: true,messages: { display: "Showing {0}-{1} from {2} data items",empty: "No data",page: "Enter page",of: "from {0}",itemsPerPage: "data items per page",first: "First page",last: "Last page",next: "Next page",previous: "Previous page",refresh: "Refresh the grid",morePages: "More pages",},buttonCount: 2,pageSize: 10,info: false,},});
 }
 
-func ExampleKendoUiGrid_ToHtml_100() {
+func ExampleKendoUiGrid_ToHtml_25() {
   el := KendoUiGrid{
     Html: HtmlElementDiv{
       Global: HtmlGlobalAttributes{
