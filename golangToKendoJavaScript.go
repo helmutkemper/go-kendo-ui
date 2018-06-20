@@ -531,8 +531,8 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
         buffer.Write( convertedFromInterface.ToJavaScript() )
         buffer.WriteString(`},`)
 
-      case KendoPdf:
-        if reflect.DeepEqual(convertedFromInterface, KendoPdf{}) == true {
+      case KendoGridPdf:
+        if reflect.DeepEqual(convertedFromInterface, KendoGridPdf{}) == true {
           continue
         }
 
@@ -869,7 +869,23 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
         buffer.Write( convertedFromInterface.ToJavaScript() )
         buffer.WriteString(`},`)
 
+      case KendoPdfMargin:
+        if reflect.DeepEqual(convertedFromInterface, KendoPdfMargin{}) == true {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: {`)
+        buffer.Write( convertedFromInterface.ToJavaScript() )
+        buffer.WriteString(`},`)
+
       case KendoGridFilterableMode:
+        if convertedFromInterface == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: "` + convertedFromInterface.String() + `",` )
+
+      case KendoPdfTemplate:
         if convertedFromInterface == 0 {
           continue
         }

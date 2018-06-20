@@ -6,7 +6,7 @@ import (
   log "github.com/helmutkemper/seelog"
 )
 
-type KendoPdf struct {
+type KendoGridPdf struct {
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/pdf.avoidlinks
 
@@ -462,7 +462,7 @@ type KendoPdf struct {
   //    });
   //    </script>
   //
-  Margin *KendoPdfMargin `jsObject:"margin"`
+  Margin KendoPdfMargin `jsObject:"margin"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/pdf.repeatheaders
@@ -538,11 +538,11 @@ type KendoPdf struct {
 
   *ToJavaScriptConverter
 }
-func(el *KendoPdf) ToJavaScript() []byte {
+func(el *KendoGridPdf) ToJavaScript() []byte {
   element := reflect.ValueOf(el).Elem()
   ret, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
   if err != nil {
-    log.Criticalf( "KendoPdf.Error: %v", err.Error() )
+    log.Criticalf( "KendoGridPdf.Error: %v", err.Error() )
     return []byte{}
   }
 

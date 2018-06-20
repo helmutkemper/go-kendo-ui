@@ -1213,7 +1213,6 @@ func ExampleKendoUiGrid_ToHtml_NoRecords_1() {
   //$("#grid").kendoGrid({columns: [{field: "productName",},{field: "category",},],dataSource: [{"productName": "Tea","category": "Beverages",},{"productName": "Coffee","category": "Beverages",},{"productName": "Ham","category": "Food",},{"productName": "Bread","category": "Food",},],groupable: true,messages: {commands: {select: "Select",save: "Save changes",destroy: "Delete",update: "Update",cancel: "Cancel changes",edit: "Edit",create: "Add new record",canceledit: "Cancel",},},sortable: true,toolbar: ["create","save","cancel",],});
 }
 
-
 func ExampleKendoUiGrid_ToHtml_NoRecords_2() {
   el := KendoUiGrid{
     Html: HtmlElementDiv{
@@ -1227,6 +1226,61 @@ func ExampleKendoUiGrid_ToHtml_NoRecords_2() {
     },
     NoRecords: KendoGridNoRecords{
       Template: "No data available on current page. Current page is: #=this.dataSource.page()#",
+    },
+    Pageable: KendoGridPageable{
+      PageSize: 10,
+      ButtonCount: 2,
+      Refresh: TRUE,
+      Numeric: TRUE,
+      AlwaysVisible: TRUE,
+      Info: FALSE,
+      Messages: KendoGridPageableMessages{
+        Display: "Showing {0}-{1} from {2} data items",
+        Empty: "No data",
+        Page: "Enter page",
+        Of: "from {0}",
+        ItemsPerPage: "data items per page",
+        First: "First page",
+        Last: "Last page",
+        Next: "Next page",
+        Previous: "Previous page",
+        Refresh: "Refresh the grid",
+        MorePages: "More pages",
+      },
+    },
+  }
+
+  fmt.Printf( "%s\n", el.ToHtml() )
+  fmt.Printf( "%s", el.ToJavaScript() )
+
+  //Output:
+  //<div id="grid"></div>
+  //$("#grid").kendoGrid({columns: [{field: "productName",},{field: "category",},],noRecords: { template: "No data available on current page. Current page is: #=this.dataSource.page()#",},pageable: { numeric: true,refresh: true,alwaysVisible: true,messages: { display: "Showing {0}-{1} from {2} data items",empty: "No data",page: "Enter page",of: "from {0}",itemsPerPage: "data items per page",first: "First page",last: "Last page",next: "Next page",previous: "Previous page",refresh: "Refresh the grid",morePages: "More pages",},buttonCount: 2,pageSize: 10,info: false,},});
+}
+
+func ExampleKendoUiGrid_ToHtml_Pdf() {
+  el := KendoUiGrid{
+    Html: HtmlElementDiv{
+      Global: HtmlGlobalAttributes{
+        Id: "grid",
+      },
+    },
+    Columns: []KendoGridColumns{
+      { Field: "productName" },
+      { Field: "category" },
+    },
+    DataSource: []map[string]interface{}{
+      { "productName": "Tea", "category": "Beverages" },
+      { "productName": "Coffee", "category": "Beverages" },
+      { "productName": "Ham", "category": "Food" },
+      { "productName": "Bread", "category": "Food" },
+    },
+    Toolbar: []KendoGridToolBarName{ GRID_TOOLBAR_NAME_PDF },
+    NoRecords: KendoGridNoRecords{
+      Template: "No data available on current page. Current page is: #=this.dataSource.page()#",
+    },
+    Pdf: KendoGridPdf{
+      Title: "Drinks",
     },
     Pageable: KendoGridPageable{
       PageSize: 10,

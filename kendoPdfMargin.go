@@ -1,5 +1,10 @@
 package telerik
 
+import (
+  "reflect"
+  log "github.com/helmutkemper/seelog"
+)
+
 type KendoPdfMargin struct {
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/pdf.margin#pdf.margin.top
@@ -28,4 +33,16 @@ type KendoPdfMargin struct {
   The top margin. Numbers are considered as "pt" units. (default: 0)
   */
   Bottom interface{} `jsObject:"bottom" jsType:"int,string"`
+
+  *ToJavaScriptConverter
+}
+func(el *KendoPdfMargin) ToJavaScript() []byte {
+  element := reflect.ValueOf(el).Elem()
+  ret, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
+  if err != nil {
+    log.Criticalf( "KendoPdfMargin.Error: %v", err.Error() )
+    return []byte{}
+  }
+
+  return ret
 }

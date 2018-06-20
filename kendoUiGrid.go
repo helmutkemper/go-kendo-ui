@@ -750,7 +750,7 @@ type KendoUiGrid struct {
   Configures the Kendo UI Grid PDF export settings.
 
   */
-  Pdf KendoPdf `jsObject:"pdf"`
+  Pdf KendoGridPdf `jsObject:"pdf"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/persistselection
