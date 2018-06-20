@@ -1258,7 +1258,7 @@ func ExampleKendoUiGrid_ToHtml_NoRecords_2() {
   //$("#grid").kendoGrid({columns: [{field: "productName",},{field: "category",},],noRecords: { template: "No data available on current page. Current page is: #=this.dataSource.page()#",},pageable: { numeric: true,refresh: true,alwaysVisible: true,messages: { display: "Showing {0}-{1} from {2} data items",empty: "No data",page: "Enter page",of: "from {0}",itemsPerPage: "data items per page",first: "First page",last: "Last page",next: "Next page",previous: "Previous page",refresh: "Refresh the grid",morePages: "More pages",},buttonCount: 2,pageSize: 10,info: false,},});
 }
 
-func ExampleKendoUiGrid_ToHtml_Pdf() {
+func ExampleKendoUiGrid_ToHtml100() {
   el := KendoUiGrid{
     Html: HtmlElementDiv{
       Global: HtmlGlobalAttributes{
