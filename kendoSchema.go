@@ -338,7 +338,7 @@ type KendoSchema struct{
   });
   </script>
   */
-  Parser                                      JavaScript                                          `jsObject:"groups"`
+  Parser                                      JavaScript                                          `jsObject:"parse"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/data/datasource/configuration/schema#schema.total
