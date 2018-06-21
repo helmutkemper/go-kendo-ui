@@ -19,6 +19,7 @@ var JavaScriptTypes = [...]string{
   "string",
   "enums",
   "date",
+  "boolean",
 }
 
 const (
@@ -26,4 +27,5 @@ const (
   JAVASCRIPT_STRING
   JAVASCRIPT_ENUMS
   JAVASCRIPT_DATE
+  JAVASCRIPT_BOOLEAN
 )

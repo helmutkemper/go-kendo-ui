@@ -3,7 +3,7 @@ package telerik
 import (
   "reflect"
   log "github.com/helmutkemper/seelog"
-)
+  )
 
 type KendoGridMessagesCommands struct {
   // this field don't exist in documentation, but, exits in example
@@ -192,7 +192,7 @@ type KendoGridMessagesCommands struct {
   //    });
   //    </script>
   //
-  Edit string `jsObject:"edit"`
+  Edit string`jsObject:"edit"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/create
@@ -260,6 +260,19 @@ type KendoGridMessagesCommands struct {
 }
 func(el *KendoGridMessagesCommands) ToJavaScript() []byte {
   element := reflect.ValueOf(el).Elem()
+
+  /*
+  Select
+  Excel
+  Save
+  Destroy
+  Update
+  Cancel
+  Edit
+  Create
+  CancelEdit
+  */
+
   ret, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
   if err != nil {
     log.Criticalf( "KendoGridMessagesCommands.Error: %v", err.Error() )

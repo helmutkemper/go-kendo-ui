@@ -407,21 +407,23 @@ func ExampleKendoUiGrid_ToHtml_11() {
     Columns: []KendoGridColumns{
       { Field: "name", Title: "Name" },
       { Field: "age", Title: "Age" },
-      { Command: []KendoGridColumnsCommand{
-        {
-          Name: COLUMNS_COMMAND_DESTROY,
-          Text: "remove",
-          ClassName: "btn-destroy",
-          IconClass: KendoGridColumnsIconClass{
-            Edit: "k-icon k-i-edit",
-            Update: "k-icon k-i-copy",
-            Cancel: "k-icon k-i-arrow-60-up",
+      {
+        Command: []KendoGridColumnsCommand{
+          {
+            Name: COLUMNS_COMMAND_DESTROY,
+            Text: "remove",
+            ClassName: "btn-destroy",
+            IconClass: KendoGridColumnsIconClass{
+              Edit: "k-icon k-i-edit",
+              Update: "k-icon k-i-copy",
+              Cancel: "k-icon k-i-arrow-60-up",
+            },
+          },
+          {
+            Name: COLUMNS_COMMAND_EDIT,
           },
         },
-        {
-          Name: COLUMNS_COMMAND_EDIT,
-        },
-      } },
+      },
     },
     ColumnMenu: TRUE,
     Toolbar: []KendoGridToolbar{

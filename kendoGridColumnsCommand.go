@@ -169,7 +169,7 @@ type KendoGridColumnsCommand struct {
   //      });
   //    </script>
   //
-  Template interface{} `jsObject:"template" jsType:"*JavaScript,string"`
+  Template interface{} `jsObject:"template" jsType:"JavaScript,string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/columns.command#columns.command.name
@@ -242,7 +242,7 @@ type KendoGridColumnsCommand struct {
   //    });
   //    </script>
   //
-  Text string `jsObject:"text"`
+  Text interface{} `jsObject:"text"  jsType:"KendoGridMessagesCommands,string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/columns.command#columns.command.visible

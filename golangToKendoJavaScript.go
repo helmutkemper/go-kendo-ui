@@ -367,8 +367,6 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
         continue
       }
 
-
-
       switch convertedFromInterface := converted.(type) {
       case HtmlGlobalAttributes:
         //fixme: isto está correto?
@@ -1222,7 +1220,11 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
           continue
         }
 
-        buffer.WriteString(tag.Get("jsObject") + `: "` + convertedFromInterface + `",`)
+        if convertedFromInterface == "#force_empity#" {
+          buffer.WriteString(tag.Get("jsObject") + `: "",`)
+        } else {
+          buffer.WriteString(tag.Get("jsObject") + `: "` + convertedFromInterface + `",`)
+        }
 
       case []string:
         if len( convertedFromInterface ) == 0 {
