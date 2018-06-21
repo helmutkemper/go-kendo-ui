@@ -224,7 +224,7 @@ type KendoGridPageable struct {
   //    });
   //    </script>
   //
-  PageSizes interface{} `jsObject:"pageSizes" jsType:"Boolean,[]interface{}"`
+  PageSizes interface{} `jsObject:"pageSizes" jsType:"Boolean,[]interface{}"` //fixme: sizes?????????
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/pageable.messages

@@ -17,9 +17,13 @@ var JavaScriptTypes = [...]string{
   "",
   "number",
   "string",
+  "enums",
+  "date",
 }
 
 const (
   JAVASCRIPT_NUMBER JavaScriptType = iota + 1
   JAVASCRIPT_STRING
+  JAVASCRIPT_ENUMS
+  JAVASCRIPT_DATE
 )
