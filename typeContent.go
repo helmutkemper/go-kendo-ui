@@ -6,7 +6,7 @@ import (
   "bytes"
   "sort"
   "reflect"
-)
+  )
 
 type Content []interface{}
 
@@ -45,6 +45,10 @@ func(el Content) ToHtml() []byte {
     case string:
       buffer.WriteString( outConverted )
     case *AceEditor:
+      buffer.Write( outConverted.ToHtml() )
+    case *KendoUiWindow:
+      buffer.Write( outConverted.ToHtml() )
+    case *KendoUiGrid:
       buffer.Write( outConverted.ToHtml() )
     case *HtmlInputSubmit:
       buffer.Write( outConverted.ToHtml() )
@@ -135,6 +139,10 @@ func(el *Content) ToJavaScript() []byte {
     case string:
       buffer.WriteString( outConverted )
       //buffer.WriteString( "\n" )
+    case *KendoUiGrid:
+      buffer.Write( outConverted.ToJavaScript() )
+    case *KendoUiWindow:
+      buffer.Write( outConverted.ToJavaScript() )
     case *AceEditor:
       buffer.Write( outConverted.ToJavaScript() )
     case *KendoUiDialog:
@@ -306,6 +314,11 @@ func(el *Content)FilterFormElements() []interface{} {
     }
 
     popElement := contentUnprocessedList[0]
+    if popElement == nil { //fixme: nil bug??????
+      break
+    }
+
+
     contentUnprocessedList = contentUnprocessedList[1:]
 
     el.processContent(&contentProcessedList, &contentUnprocessedList, &contentFoundList, popElement.(Content))
@@ -326,8 +339,14 @@ func(el *Content)processContent( contentProcessedList, contentUnprocessedList, c
 }
 func(el *Content)addToUnprocessedList( contentUnprocessedList, contentFoundList *[]interface{}, content interface{} ) {
   switch converted := content.(type) {
+  case string:
   case *Content:
+  case *KendoUiGrid:
+  case *KendoUiWindow:
+    *contentUnprocessedList  =append( *contentUnprocessedList, converted.Content )
   case *HtmlElementSpan:
+    *contentUnprocessedList  =append( *contentUnprocessedList, converted.Content )
+  case *HtmlElementScript:
     *contentUnprocessedList  =append( *contentUnprocessedList, converted.Content )
   case *HtmlElementDiv:
     *contentUnprocessedList  =append( *contentUnprocessedList, converted.Content )
@@ -782,7 +801,8 @@ func (el *Content)MakeJsObject() []byte {
         }
       }
 
-    default: continue
+    default:
+      continue
     }
   }
 
@@ -933,7 +953,6 @@ func (el *Content)MakeJsObject() []byte {
 
   // fixme: isto está constante
   buffer.Write( []byte( "      function addNewItemToKendoDataSource( id ){\n" ) )
-  buffer.Write( []byte( "        console.log('id: ', id);\n" ) )
   buffer.Write( []byte( "        switch( id ){\n" ) )
   for _, v := range formElements {
     switch converted := v.(type) {

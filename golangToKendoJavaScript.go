@@ -9,6 +9,10 @@ import (
   "strings"
 )
 
+
+const FORCE_EMPITY_STRING string = "#force_empity#"
+
+
 type ToJavaScriptConverter struct {}
 
 /*
@@ -978,6 +982,19 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
         }
         buffer.WriteString(`],`)
 
+      case []KendoWindowAction:
+        if len( convertedFromInterface ) == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: [`)
+        for _, v := range convertedFromInterface {
+          buffer.WriteString(`"`)
+          buffer.WriteString( v.String() )
+          buffer.WriteString(`",`)
+        }
+        buffer.WriteString(`],`)
+
       case []TypeKendoGridColumnsCommand:
         if len( convertedFromInterface ) == 0 {
           continue
@@ -1220,7 +1237,7 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
           continue
         }
 
-        if convertedFromInterface == "#force_empity#" {
+        if convertedFromInterface == FORCE_EMPITY_STRING {
           buffer.WriteString(tag.Get("jsObject") + `: "",`)
         } else {
           buffer.WriteString(tag.Get("jsObject") + `: "` + convertedFromInterface + `",`)
@@ -1369,6 +1386,15 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
           buffer.WriteString(`},`)
         }
 
+
+      case KendoPositionObject:
+        if reflect.DeepEqual(convertedFromInterface, KendoPositionObject{}) == true {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: { `)
+        buffer.Write( convertedFromInterface.ToJavaScript() )
+        buffer.WriteString(`},`)
 
       case KendoCreate:
         if reflect.DeepEqual(convertedFromInterface, KendoCreate{}) == true {

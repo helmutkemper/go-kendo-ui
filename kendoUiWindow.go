@@ -95,7 +95,7 @@ type KendoUiWindow struct {
   //        content: "/details"
   //      });
   //    </script>
-  Content interface{} `jsObject:"content" jsType:"*JavaScript,string,Content"`
+  Content interface{} `jsObject:"content" jsType:"*JavaScript,JavaScript,string,Content"`
 
   // @see https://docs.telerik.com/kendo-ui/api/javascript/ui/window/configuration/draggable
   //
