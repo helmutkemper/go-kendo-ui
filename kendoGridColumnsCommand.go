@@ -191,7 +191,7 @@ type KendoGridColumnsCommand struct {
   //    });
   //    </script>
   //
-  Name TypeKendoGridColumnsCommand `jsObject:"name"`
+  Name interface{} `jsObject:"name" jsType:"TypeKendoGridColumnsCommand,string"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/columns.command#columns.command.text

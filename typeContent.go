@@ -273,6 +273,34 @@ func(el *Content) ToJavaScript() []byte {
   for _, v := range formElements {
     switch v.(type) {
 
+    case *KendoUiWindow:
+
+      if reflect.DeepEqual( (*v.(*KendoUiWindow)), KendoUiWindow{} ) {
+        continue
+      }
+
+      buffer.Write( []byte( "        " ) )
+      buffer.Write( []byte( (*v.(*KendoUiWindow)).Html.Global.GetId() ) )
+      buffer.Write( []byte( "Widget = $('#" ) )
+      buffer.Write( []byte( (*v.(*KendoUiWindow)).Html.Global.GetId() ) )
+      buffer.Write( []byte( "').data('kendoWindow');\n" ) )
+
+      //$("#dialog").data("kendoWindow")
+
+    case *KendoUiGrid:
+
+      if reflect.DeepEqual( (*v.(*KendoUiGrid)), KendoUiGrid{} ) {
+        continue
+      }
+
+      buffer.Write( []byte( "        " ) )
+      buffer.Write( []byte( (*v.(*KendoUiGrid)).Html.Global.GetId() ) )
+      buffer.Write( []byte( "Widget = $('#" ) )
+      buffer.Write( []byte( (*v.(*KendoUiGrid)).Html.Global.GetId() ) )
+      buffer.Write( []byte( "').data('kendoWindow');\n" ) )
+
+      //$("#dialog").data("kendoWindow")
+
     case **KendoUiMultiSelect:
 
       if !reflect.DeepEqual( (*(*v.(**KendoUiMultiSelect))).DataSource, KendoDataSource{} ) {
@@ -314,11 +342,6 @@ func(el *Content)FilterFormElements() []interface{} {
     }
 
     popElement := contentUnprocessedList[0]
-    if popElement == nil { //fixme: nil bug??????
-      break
-    }
-
-
     contentUnprocessedList = contentUnprocessedList[1:]
 
     el.processContent(&contentProcessedList, &contentUnprocessedList, &contentFoundList, popElement.(Content))
@@ -342,19 +365,38 @@ func(el *Content)addToUnprocessedList( contentUnprocessedList, contentFoundList 
   case string:
   case *Content:
   case *KendoUiGrid:
+    *contentFoundList        =append( *contentFoundList, converted )
   case *KendoUiWindow:
+    *contentFoundList        =append( *contentFoundList, converted )
+
+    if converted.Content == nil {
+      return
+    }
+
     *contentUnprocessedList  =append( *contentUnprocessedList, converted.Content )
   case *HtmlElementSpan:
-    *contentUnprocessedList  =append( *contentUnprocessedList, converted.Content )
-  case *HtmlElementScript:
+    if converted.Content == nil {
+      return
+    }
+
     *contentUnprocessedList  =append( *contentUnprocessedList, converted.Content )
   case *HtmlElementDiv:
+    if converted.Content == nil {
+      return
+    }
+
     *contentUnprocessedList  =append( *contentUnprocessedList, converted.Content )
   case *HtmlElementForm:
+    if converted.Content == nil {
+      return
+    }
+
     *contentUnprocessedList  =append( *contentUnprocessedList, converted.Content )
 
     // Elementos de formulário que necessitam de javascript - início
 
+  case *HtmlElementScript:
+    *contentFoundList        =append( *contentFoundList, converted )
   case *KendoUiNumericTextBox:
     *contentFoundList        =append( *contentFoundList, converted )
   case **KendoUiComboBox:
@@ -783,6 +825,24 @@ func (el *Content)MakeJsObject() []byte {
   for _, v := range formElements {
     switch v.(type) {
 
+    case *KendoUiGrid:
+      if reflect.DeepEqual( (*v.(*KendoUiGrid)), KendoUiGrid{} ) {
+        continue
+      }
+
+      buffer.Write( []byte( "      var " ) )
+      buffer.Write( []byte( (*v.(*KendoUiGrid)).Html.Global.GetId() ) )
+      buffer.Write( []byte( "Widget;\n" ) )
+
+    case *KendoUiWindow:
+      if reflect.DeepEqual( (*v.(*KendoUiWindow)), KendoUiWindow{} ) {
+        continue
+      }
+
+      buffer.Write( []byte( "      var " ) )
+      buffer.Write( []byte( (*v.(*KendoUiWindow)).Html.Global.GetId() ) )
+      buffer.Write( []byte( "Widget;\n" ) )
+
     case **KendoUiMultiSelect:
 
       if !reflect.DeepEqual( (*(*v.(**KendoUiMultiSelect))).DataSource, KendoDataSource{} ) {
@@ -1017,6 +1077,10 @@ func (el *Content)MakeJsObject() []byte {
       pass = true
       key = []byte( (*(*(*v.(***AceEditor)))).Html.Name )
       jsCode = []byte( `ace.edit("` + string( (*(*(*v.(***AceEditor)))).GetId() ) + `").getValue()` )
+    case ***HtmlElementScript:
+      pass = true
+      key = []byte( (*(*(*v.(***HtmlElementScript)))).GetId() )
+      jsCode = []byte( `kendo.template($("#` + string( (*(*(*v.(***HtmlElementScript)))).GetId() ) + `").html())` )
     case ***KendoUiComboBox:
       pass = true
       key = []byte( (*(*(*v.(***KendoUiComboBox)))).Html.Name )
@@ -1166,6 +1230,10 @@ func (el *Content)MakeJsObject() []byte {
       pass = true
       key = []byte( (*(*v.(**AceEditor))).Html.Name )
       jsCode = []byte( `ace.edit("` + string( (*(*v.(**AceEditor))).GetId() ) + `").getValue()` )
+    case **HtmlElementScript:
+      pass = true
+      key = []byte( (*(*v.(**HtmlElementScript))).GetId() )
+      jsCode = []byte( `kendo.template($("#` + string( (*(*v.(**HtmlElementScript))).GetId() ) + `").html())` )
     case **KendoUiComboBox:
       pass = true
       key = []byte( (*(*v.(**KendoUiComboBox))).Html.Name )
@@ -1315,6 +1383,10 @@ func (el *Content)MakeJsObject() []byte {
       pass = true
       key = []byte( converted.Html.Name )
       jsCode = []byte( `ace.edit("` + string( converted.GetId() ) + `").getValue()` )
+    case *HtmlElementScript:
+      pass = true
+      key = []byte( converted.GetId() )
+      jsCode = []byte( `kendo.template($("#` + string( converted.GetId() ) + `").html())` )
     case *KendoUiComboBox:
       pass = true
       key = []byte( converted.Html.Name )
@@ -1459,6 +1531,7 @@ func (el *Content)MakeJsObject() []byte {
       pass = true
       key = []byte( converted.Html.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val()` )
+
 
 
 
@@ -1942,6 +2015,14 @@ func (el *Content)MakeJsObject() []byte {
       pass = true
       key = []byte( converted.Html.Name )
       jsCode = []byte( `$('#` + string( converted.GetId() ) + `').val( value )` )
+
+
+      //fixme: set value - start
+    case *KendoUiGrid:
+    case *HtmlElementScript:
+    case *KendoUiWindow:
+      //fixme: set value - end
+
 
 
 
