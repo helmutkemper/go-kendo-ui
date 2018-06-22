@@ -826,7 +826,7 @@ func (el *Content)MakeJsObject() []byte {
     switch v.(type) {
 
     case *KendoUiGrid:
-      if reflect.DeepEqual( (*v.(*KendoUiGrid)), KendoUiGrid{} ) {
+      if reflect.DeepEqual( *v.(*KendoUiGrid), KendoUiGrid{} ) {
         continue
       }
 
@@ -835,7 +835,7 @@ func (el *Content)MakeJsObject() []byte {
       buffer.Write( []byte( "Widget;\n" ) )
 
     case *KendoUiWindow:
-      if reflect.DeepEqual( (*v.(*KendoUiWindow)), KendoUiWindow{} ) {
+      if reflect.DeepEqual( *v.(*KendoUiWindow), KendoUiWindow{} ) {
         continue
       }
 
