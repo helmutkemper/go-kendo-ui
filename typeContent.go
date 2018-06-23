@@ -50,6 +50,32 @@ func(el Content) ToHtml() []byte {
       buffer.Write( outConverted.ToHtml() )
     case *KendoUiGrid:
       buffer.Write( outConverted.ToHtml() )
+
+      switch convertedToLoop := outConverted.Columns.(type) {
+      case []KendoGridColumns:
+        for _, column := range convertedToLoop {
+          switch convertedColumn := column.Command.(type) {
+          case []KendoGridColumnsCommand:
+            for _, command := range convertedColumn {
+              if command.Name == COLUMNS_COMMAND_VIEW {
+
+                if command.ViewTemplate != nil {
+                  switch command.ViewTemplate.(type) {
+                  case *HtmlElementScript:
+                    buffer.Write( command.ViewTemplate.(*HtmlElementScript).ToHtml() )
+                  }
+                }
+
+                if command.ViewWindow != nil {
+                  buffer.Write( command.ViewWindow.ToHtml() )
+                }
+
+              }
+            }
+          }
+        }
+      }
+
     case *HtmlInputSubmit:
       buffer.Write( outConverted.ToHtml() )
     case *HtmlElementDiv:
@@ -140,7 +166,34 @@ func(el *Content) ToJavaScript() []byte {
       buffer.WriteString( outConverted )
       //buffer.WriteString( "\n" )
     case *KendoUiGrid:
+
+      switch convertedToLoop := outConverted.Columns.(type) {
+      case []KendoGridColumns:
+        for _, column := range convertedToLoop {
+          switch convertedColumn := column.Command.(type) {
+          case []KendoGridColumnsCommand:
+            for _, command := range convertedColumn {
+              if command.Name == COLUMNS_COMMAND_VIEW {
+
+                if command.ViewTemplate != nil {
+                  switch command.ViewTemplate.(type) {
+                  case *HtmlElementScript:
+                    buffer.Write( command.ViewTemplate.(*HtmlElementScript).ToJavaScript() )
+                  }
+                }
+
+                if command.ViewWindow != nil {
+                  buffer.Write( command.ViewWindow.ToJavaScript() )
+                }
+
+              }
+            }
+          }
+        }
+      }
+
       buffer.Write( outConverted.ToJavaScript() )
+
     case *KendoUiWindow:
       buffer.Write( outConverted.ToJavaScript() )
     case *AceEditor:
@@ -275,7 +328,7 @@ func(el *Content) ToJavaScript() []byte {
 
     case *KendoUiWindow:
 
-      if reflect.DeepEqual( (*v.(*KendoUiWindow)), KendoUiWindow{} ) {
+      if reflect.DeepEqual( *v.(*KendoUiWindow), KendoUiWindow{} ) {
         continue
       }
 
@@ -289,7 +342,7 @@ func(el *Content) ToJavaScript() []byte {
 
     case *KendoUiGrid:
 
-      if reflect.DeepEqual( (*v.(*KendoUiGrid)), KendoUiGrid{} ) {
+      if reflect.DeepEqual( *v.(*KendoUiGrid), KendoUiGrid{} ) {
         continue
       }
 
@@ -297,7 +350,7 @@ func(el *Content) ToJavaScript() []byte {
       buffer.Write( []byte( (*v.(*KendoUiGrid)).Html.Global.GetId() ) )
       buffer.Write( []byte( "Widget = $('#" ) )
       buffer.Write( []byte( (*v.(*KendoUiGrid)).Html.Global.GetId() ) )
-      buffer.Write( []byte( "').data('kendoWindow');\n" ) )
+      buffer.Write( []byte( "').data('kendoGrid');\n" ) )
 
       //$("#dialog").data("kendoWindow")
 
@@ -366,6 +419,29 @@ func(el *Content)addToUnprocessedList( contentUnprocessedList, contentFoundList 
   case *Content:
   case *KendoUiGrid:
     *contentFoundList        =append( *contentFoundList, converted )
+
+    switch convertedToLoop := converted.Columns.(type) {
+    case []KendoGridColumns:
+      for _, column := range convertedToLoop {
+        switch convertedColumn := column.Command.(type) {
+        case []KendoGridColumnsCommand:
+          for _, command := range convertedColumn {
+            if command.Name == COLUMNS_COMMAND_VIEW {
+
+              if command.ViewTemplate != nil {
+                *contentFoundList        =append( *contentFoundList, command.ViewTemplate )
+              }
+
+              if command.ViewWindow != nil {
+                *contentFoundList        =append( *contentFoundList, command.ViewWindow )
+              }
+
+            }
+          }
+        }
+      }
+    }
+
   case *KendoUiWindow:
     *contentFoundList        =append( *contentFoundList, converted )
 
@@ -2055,6 +2131,30 @@ func (el *Content)MakeJsScript() []byte {
     //  fmt.Printf( "%T\n\n\n\n", converted )
     //}
     switch elementList[ keyElementList ].(type) {
+
+    case *KendoUiGrid:
+
+      switch convertedToLoop := elementList[ keyElementList ].(*KendoUiGrid).Columns.(type) {
+      case []KendoGridColumns:
+        for _, column := range convertedToLoop {
+          switch convertedColumn := column.Command.(type) {
+          case []KendoGridColumnsCommand:
+            for _, command := range convertedColumn {
+              if command.Name == COLUMNS_COMMAND_VIEW {
+
+                if command.ViewTemplate != nil {
+                  switch command.ViewTemplate.(type) {
+                  case *HtmlElementScript:
+                    buffer.Write( command.ViewTemplate.(*HtmlElementScript).ToElementScriptTag() )
+                  }
+                }
+
+              }
+            }
+          }
+        }
+      }
+
     case **KendoUiMultiSelect:
 
       (*(*elementList[ keyElementList ].(**KendoUiMultiSelect))).Html.Global.Id = string( (*(*elementList[ keyElementList ].(**KendoUiMultiSelect))).GetId() )

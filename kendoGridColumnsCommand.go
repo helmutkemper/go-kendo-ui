@@ -6,6 +6,8 @@ import (
 )
 
 type KendoGridColumnsCommand struct {
+  ViewTemplate interface{} `jsObject:"-" jsType:"string,JavaScript,HtmlElementScript"`
+  ViewWindow *KendoUiWindow `jsObject:"-"`
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/columns.command#columns.command.classname
 
@@ -271,6 +273,31 @@ type KendoGridColumnsCommand struct {
   *ToJavaScriptConverter
 }
 func(el *KendoGridColumnsCommand) ToJavaScript() []byte {
+
+  var idWindow string
+  if el.Name == COLUMNS_COMMAND_VIEW {
+    if el.ViewWindow != nil {
+      idWindow = string( el.ViewWindow.Html.Global.GetId() ) + "Widget"
+    }
+
+    switch converted := el.ViewTemplate.(type) {
+    case *HtmlElementScript:
+      id := string( converted.Global.GetId() )
+
+      el.Click = JavaScript{
+        Code: `function(e){ 
+          var detailsTemplate = getValueById("id:` + id + `"); 
+          e.preventDefault();
+          var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+          var details = detailsTemplate(dataItem)
+          ` + idWindow + `.content(
+              details
+            ); 
+          ` + idWindow + `.center().open(); }`,
+      }
+    }
+  }
+
   element := reflect.ValueOf(el).Elem()
   ret, err := el.ToJavaScriptConverter.ToTelerikJavaScript(element)
   if err != nil {
