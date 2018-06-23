@@ -131,7 +131,7 @@ type KendoGridColumnsCommand struct {
   //    });
   //    </script>
   //
-  IconClass interface{} `jsObject:"iconClass" jsType:"string,KendoGridColumnsIconClass"`
+  IconClass interface{} `jsObject:"iconClass" jsType:"string,KendoGridColumnsIconClass,CssClassIcon"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/grid/configuration/columns.command#columns.command.template

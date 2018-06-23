@@ -399,6 +399,13 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
 
         buffer.WriteString(tag.Get("jsObject") + `: "` + convertedFromInterface.String() + `",`)
 
+      case CssClassIcon:
+        if convertedFromInterface == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: "` + convertedFromInterface.String() + `",`)
+
       case KendoContextMenuDirection:
         if convertedFromInterface == 0 {
           continue

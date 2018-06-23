@@ -6,9 +6,9 @@ import (
 )
 
 type KendoGridColumnsIconClass struct {
-  Edit string `jsObject:"edit"`
-  Update string `jsObject:"update"`
-  Cancel string `jsObject:"cancel"`
+  Edit interface{} `jsObject:"edit" jsType:"string,CssClassIcon"`
+  Update interface{} `jsObject:"update" jsType:"string,CssClassIcon"`
+  Cancel interface{} `jsObject:"cancel" jsType:"string,CssClassIcon"`
 
   *ToJavaScriptConverter
 }
