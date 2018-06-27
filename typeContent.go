@@ -107,6 +107,10 @@ func(el Content) ToHtml() []byte {
 
     case *HtmlScriptType:
       buffer.WriteString( outConverted.String() )
+    case *HtmlElementLi:
+      buffer.Write( outConverted.ToHtml() )
+    case *HtmlElementUl:
+      buffer.Write( outConverted.ToHtml() )
     case KendoDataSource:
       //do noting
 

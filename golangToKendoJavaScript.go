@@ -1217,6 +1217,24 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
         buffer.Write( convertedFromInterface.ToJavaScript() )
         buffer.WriteString(`},`)
 
+      case MenuOpenOnClick:
+        if reflect.DeepEqual(convertedFromInterface, MenuOpenOnClick{}) == true {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: { `)
+        buffer.Write( convertedFromInterface.ToJavaScript() )
+        buffer.WriteString(`},`)
+
+      case MenuScrollable:
+        if reflect.DeepEqual(convertedFromInterface, MenuScrollable{}) == true {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: { `)
+        buffer.Write( convertedFromInterface.ToJavaScript() )
+        buffer.WriteString(`},`)
+
       case KendoVirtual:
         if reflect.DeepEqual(convertedFromInterface, KendoVirtual{}) == true {
           continue
@@ -1327,6 +1345,27 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
 
         buffer.WriteString(tag.Get("jsObject") + `: "` + convertedFromInterface.String() + `",` )
 
+      case TypeMenuCollision:
+        if convertedFromInterface == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: "` + convertedFromInterface.String() + `",` )
+
+      case TypeMenuDirection:
+        if convertedFromInterface == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: "` + convertedFromInterface.String() + `",` )
+
+      case TypeMenuOrientation:
+        if convertedFromInterface == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: "` + convertedFromInterface.String() + `",` )
+
       case KendoComplexFilter:
         if reflect.DeepEqual(converted.(KendoComplexFilter), KendoComplexFilter{}) == true {
           continue
@@ -1411,6 +1450,37 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
         buffer.WriteString(tag.Get("jsObject") + `: { `)
         buffer.Write( convertedFromInterface.ToJavaScript() )
         buffer.WriteString(`},`)
+
+      case MenuObject:
+        if reflect.DeepEqual(convertedFromInterface, MenuObject{}) == true {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: { `)
+        buffer.Write( convertedFromInterface.ToJavaScript() )
+        buffer.WriteString(`},`)
+
+      case MenuImageAttr:
+        if reflect.DeepEqual(convertedFromInterface, MenuImageAttr{}) == true {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: { `)
+        buffer.Write( convertedFromInterface.ToJavaScript() )
+        buffer.WriteString(`},`)
+
+      case []MenuObject:
+        if len( convertedFromInterface ) == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: [`)
+        for _, v := range convertedFromInterface {
+          buffer.WriteString(`{`)
+          buffer.Write( v.ToJavaScript() )
+          buffer.WriteString(`},`)
+        }
+        buffer.WriteString(`],`)
 
       case []map[string]interface{}:
         if len( converted.([]map[string]interface{}) ) == 0 {
