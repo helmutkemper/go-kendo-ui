@@ -53,7 +53,7 @@ type KendoUiPanelBar struct {
   //           }
   //        });
   //    </script>
-  Animation interface{} `jsObject:"animation" jsType:"*KendoAnimationVertical,Boolean"`
+  Animation interface{} `jsObject:"animation" jsType:"KendoAnimationVertical,Boolean"`
 
   /*
   @see https://docs.telerik.com/kendo-ui/api/javascript/ui/panelbar/configuration/autobind

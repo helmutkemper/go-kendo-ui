@@ -1244,6 +1244,24 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
         buffer.Write( convertedFromInterface.ToJavaScript() )
         buffer.WriteString(`},`)
 
+      case KendoAnimationVertical:
+        if reflect.DeepEqual(convertedFromInterface, KendoAnimationVertical{}) == true {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: { `)
+        buffer.Write( convertedFromInterface.ToJavaScript() )
+        buffer.WriteString(`},`)
+
+      case PanelBarMessages:
+        if reflect.DeepEqual(convertedFromInterface, PanelBarMessages{}) == true {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: { `)
+        buffer.Write( convertedFromInterface.ToJavaScript() )
+        buffer.WriteString(`},`)
+
       case HtmlElementScript:
         if convertedFromInterface.Type == SCRIPT_TYPE_KENDO_TEMPLATE {
           buffer.WriteString(tag.Get("jsObject") + `: ` + `$("#` + string( convertedFromInterface.GetId() ) + `").html(),`)
@@ -1339,6 +1357,13 @@ func(el *ToJavaScriptConverter) ToTelerikJavaScript( element reflect.Value ) ([]
         buffer.WriteString(tag.Get("jsObject") + `: ` + convertedFromInterface.String() + `,`)
 
       case AutoCapitalize:
+        if convertedFromInterface == 0 {
+          continue
+        }
+
+        buffer.WriteString(tag.Get("jsObject") + `: "` + convertedFromInterface.String() + `",` )
+
+      case TypeExpandMode:
         if convertedFromInterface == 0 {
           continue
         }
