@@ -76,7 +76,7 @@ func ExampleGetTemplate() {
         display: inline-block;
         width: 32px;
         height: 32px;
-        border-radius: 50%;
+        border-radius: 50%%;
         background-size: 32px 35px;
         background-position: center center;
         vertical-align: middle;
