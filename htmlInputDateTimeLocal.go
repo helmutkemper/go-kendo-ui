@@ -1,8 +1,8 @@
 package telerik
 
 import (
-  "bytes"
-  "reflect"
+	"bytes"
+	"reflect"
 )
 
 // <input> elements of type datetime-local create input controls that let the user easily enter both a date and a time,
@@ -24,79 +24,80 @@ import (
 // <input id="datetime" type="datetime-local">
 //
 // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/datetime-local
-type HtmlInputDateTimeLocal struct{
-  /*
-  The name of the control, which is submitted with the form data.
-  @see typeNamesForAutocomplete.go
-  Ex.: const NAMES_FOR_AUTOCOMPLETE_NAME
-  */
-  Name                        string                      `htmlAttr:"name"`
+type HtmlInputDateTimeLocal struct {
+	/*
+	  The name of the control, which is submitted with the form data.
+	  @see typeNamesForAutocomplete.go
+	  Ex.: const NAMES_FOR_AUTOCOMPLETE_NAME
+	*/
+	Name string `htmlAttr:"name" description:"" enum:"['name', 'honorific-prefix', 'given-name', 'additional-name', 'family-name', 'honorific-suffix', 'nickname', 'email', 'username', 'new-password', 'current-password', 'organization-title', 'organization', 'street-address', 'address-line1', 'address-line2', 'address-line3', 'address-level4', 'address-level3', 'address-level2', 'address-level1', 'country', 'country-name', 'postal-code', 'cc-name', 'cc-given-name', 'cc-additional-name', 'cc-family-name', 'cc-number', 'cc-exp', 'cc-exp-month', 'cc-exp-year', 'cc-csc', 'cc-type', 'transaction-currency', 'transaction-amount', 'language', 'bday', 'bday-day', 'bday-month', 'bday-year', 'sex', 'tel', 'tel-country-code', 'tel-national', 'tel-area-code', 'tel-local', 'tel-local-prefix', 'tel-local-suffix', 'tel-extension', 'url', 'photo']"`
 
-  /*
-  The initial value of the control. This attribute is optional except when the value of the type attribute is radio or
-  checkbox.
-  Note that when reloading the page, Gecko and IE will ignore the value specified in the HTML source, if the value was
-  changed before the reload.
-  */
-  Value                       string                      `htmlAttr:"value"`
+	/*
+	  The initial value of the control. This attribute is optional except when the value of the type attribute is radio or
+	  checkbox.
+	  Note that when reloading the page, Gecko and IE will ignore the value specified in the HTML source, if the value was
+	  changed before the reload.
+	*/
+	Value string `htmlAttr:"value"`
 
-  /*
-  The form element that the input element is associated with (its form owner). The value of the attribute must be an id
-  of a <form> element in the same document. If this attribute is not specified, this <input> element must be a
-  descendant of a <form> element. This attribute enables you to place <input> elements anywhere within a document, not
-  just as descendants of their form elements. An input can only be associated with one form.
-  */
-  Form                        string                      `htmlAttr:"form"`
+	/*
+	  The form element that the input element is associated with (its form owner). The value of the attribute must be an id
+	  of a <form> element in the same document. If this attribute is not specified, this <input> element must be a
+	  descendant of a <form> element. This attribute enables you to place <input> elements anywhere within a document, not
+	  just as descendants of their form elements. An input can only be associated with one form.
+	*/
+	Form string `htmlAttr:"form"`
 
-  /*
-  This Boolean attribute indicates that the form control is not available for interaction. In particular, the click
-  event will not be dispatched on disabled controls. Also, a disabled control's value isn't submitted with the form.
-  Unlike other browsers, Firefox will by default persist the dynamic disabled state of an <input> across page loads. Use
-  the autocomplete attribute to control this feature.
-  */
-  Disabled                    Boolean                     `htmlAttrSet:"disabled"`
+	/*
+	  This Boolean attribute indicates that the form control is not available for interaction. In particular, the click
+	  event will not be dispatched on disabled controls. Also, a disabled control's value isn't submitted with the form.
+	  Unlike other browsers, Firefox will by default persist the dynamic disabled state of an <input> across page loads. Use
+	  the autocomplete attribute to control this feature.
+	*/
+	Disabled Boolean `htmlAttrSet:"disabled"`
 
-  /*
-  Identifies a list of pre-defined options to suggest to the user. The value must be the id of a <datalist> element in
-  the same document. The browser displays only options that are valid values for this input element. This attribute is
-  ignored when the type attribute's value is hidden, checkbox, radio, file, or a button type.
-  */
-  List                        string                      `htmlAttr:"list"`
+	/*
+	  Identifies a list of pre-defined options to suggest to the user. The value must be the id of a <datalist> element in
+	  the same document. The browser displays only options that are valid values for this input element. This attribute is
+	  ignored when the type attribute's value is hidden, checkbox, radio, file, or a button type.
+	*/
+	List string `htmlAttr:"list"`
 
-  ValueAsDate                 Boolean                     `htmlAttr:"valueasdate"`
-  
-  ValueAsNumber               Boolean                     `htmlAttr:"valueasnumber"`
-  
-  Global                      HtmlGlobalAttributes        `htmlAttr:"-"`
+	ValueAsDate Boolean `htmlAttr:"valueasdate"`
 
-  *ToJavaScriptConverter                                  `htmlAttr:"-"`
+	ValueAsNumber Boolean `htmlAttr:"valueasnumber"`
+
+	Global HtmlGlobalAttributes `htmlAttr:"-"`
+
+	*ToJavaScriptConverter `htmlAttr:"-"`
 }
-func(el *HtmlInputDateTimeLocal)ToHtml() []byte {
-  var buffer bytes.Buffer
 
-  if el.Global.DoNotUseThisFieldOmitHtml == TRUE {
-    return []byte{}
-  }
+func (el *HtmlInputDateTimeLocal) ToHtml() []byte {
+	var buffer bytes.Buffer
 
-  element := reflect.ValueOf(el).Elem()
-  data := el.ToJavaScriptConverter.ToTelerikHtml(element)
+	if el.Global.DoNotUseThisFieldOmitHtml == TRUE {
+		return []byte{}
+	}
 
-  buffer.Write( []byte( `<input type="datetime-local"` ) )
-  buffer.Write( el.Global.ToHtml() )
-  buffer.Write( data )
-  buffer.Write( []byte( `>` ) )
+	element := reflect.ValueOf(el).Elem()
+	data := el.ToJavaScriptConverter.ToTelerikHtml(element)
 
-  return buffer.Bytes()
+	buffer.Write([]byte(`<input type="datetime-local"`))
+	buffer.Write(el.Global.ToHtml())
+	buffer.Write(data)
+	buffer.Write([]byte(`>`))
+
+	return buffer.Bytes()
 }
-func(el *HtmlInputDateTimeLocal)GetId() []byte{
-  if el.Global.Id == "" {
-    el.Global.Id = GetAutoId()
-  }
-  return []byte( el.Global.Id )
+func (el *HtmlInputDateTimeLocal) GetId() []byte {
+	if el.Global.Id == "" {
+		el.Global.Id = GetAutoId()
+	}
+	return []byte(el.Global.Id)
 }
-func(el *HtmlInputDateTimeLocal)GetName() []byte{
-  if el.Name == "" {
-    el.Name = GetAutoId()
-  }
-  return []byte( el.Name )
+func (el *HtmlInputDateTimeLocal) GetName() []byte {
+	if el.Name == "" {
+		el.Name = GetAutoId()
+	}
+	return []byte(el.Name)
 }

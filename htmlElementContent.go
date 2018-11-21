@@ -1,26 +1,27 @@
 package telerik
 
 import (
-  "bytes"
+	"bytes"
 )
 
 type HtmlContent struct {
-  /*
-  Content
-  */
-  Content                     Content                     `htmlAttr:"-"`
+	/*
+	  Content
+	*/
+	Content Content `htmlAttr:"-" description:""`
 
-  *ToJavaScriptConverter                                  `htmlAttr:"-"`
+	*ToJavaScriptConverter `htmlAttr:"-" description:""`
 }
-func(el *HtmlContent)ToHtml() []byte {
-  var buffer bytes.Buffer
 
-  buffer.Write( el.Content.ToHtml() )
-  return buffer.Bytes()
+func (el *HtmlContent) ToHtml() []byte {
+	var buffer bytes.Buffer
+
+	buffer.Write(el.Content.ToHtml())
+	return buffer.Bytes()
 }
-func(el *HtmlContent)ToJavaScript() []byte {
-  var buffer bytes.Buffer
+func (el *HtmlContent) ToJavaScript() []byte {
+	var buffer bytes.Buffer
 
-  buffer.Write( el.Content.ToJavaScript() )
-  return buffer.Bytes()
+	buffer.Write(el.Content.ToJavaScript())
+	return buffer.Bytes()
 }
