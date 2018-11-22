@@ -6,6 +6,10 @@ import (
 )
 
 //@see https://json-schema.org/
+//@see https://tools.ietf.org/html/draft-handrews-json-schema-validation-01
+//@see https://stackoverflow.com/questions/38717933/jsonschema-attribute-conditionally-required
+//@see http://json-schema.org/draft-07/json-schema-release-notes.html
+//@see https://cswr.github.io/JsonSchema/spec/generic_keywords/
 
 // <input> elements of type "text" create basic single-line text fields.
 //
