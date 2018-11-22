@@ -16,18 +16,18 @@ type HtmlGlobalAttributes struct {
 	/*
 	  This field was created for internal use and should not be accessed directly
 	*/
-	DoNotUseThisFieldOmitHtml Boolean `htmlAttr:"-" description:""`
+	DoNotUseThisFieldOmitHtml Boolean `htmlAttr:"-" description:"-"`
 	/*
 	  Provides a hint for generating a keyboard shortcut for the current element. This attribute consists of a
 	  space-separated list of characters. The browser should use the first one that exists on the computer keyboard layout.
 	*/
-	AccessKey string `htmlAttr:"accesskey" description:""`
+	AccessKey string `htmlAttr:"accesskey" description:"Provides a hint for generating a keyboard shortcut for the current element. This attribute consists of a space-separated list of characters. The browser should use the first one that exists on the computer keyboard layout."`
 
 	/*
 	  Is a space-separated list of the classes of the element. Classes allows CSS and JavaScript to select and access
 	  specific elements via the class selectors or functions like the method Document.getElementsByClassName().
 	*/
-	Class string `htmlAttr:"class" description:""`
+	Class string `htmlAttr:"class" description:"Is a space-separated list of the classes of the element. Classes allows CSS and JavaScript to select and access specific elements via the class selectors or functions like the method Document.getElementsByClassName()."`
 
 	/*
 	  Is an enumerated attribute indicating if the element should be editable by the user. If so, the browser modifies its
@@ -35,19 +35,19 @@ type HtmlGlobalAttributes struct {
 	  true or the empty string, which indicates that the element must be editable;
 	  false, which indicates that the element must not be editable.
 	*/
-	ContentEditable Boolean `htmlAttr:"contenteditable" description:""`
+	ContentEditable Boolean `htmlAttr:"contenteditable" description:"Is an enumerated attribute indicating if the element should be editable by the user. If so, the browser modifies its widget to allow editing. The attribute must take one of the following values:\n true or the empty string, which indicates that the element must be editable;\nfalse, which indicates that the element must not be editable."`
 
 	/*
 	  Is the id of an <menu> to use as the contextual menu for this element.
 	*/
-	ContextMenu string `htmlAttr:"contextmenu" description:""`
+	ContextMenu string `htmlAttr:"contextmenu" description:"Is the id of an <menu> to use as the contextual menu for this element."`
 
 	/*
 	  Forms a class of attributes, called custom data attributes, that allow proprietary information to be exchanged between
 	  the HTML and its DOM representation that may be used by scripts. All such custom data are available via the
 	  HTMLElement interface of the element the attribute is set on. The HTMLElement.dataset property gives access to them.
 	*/
-	Data map[string]string `htmlAttr:"data" description:""`
+	Data map[string]string `htmlAttr:"data" description:"Forms a class of attributes, called custom data attributes, that allow proprietary information to be exchanged between the HTML and its DOM representation that may be used by scripts. All such custom data are available via the HTMLElement interface of the element the attribute is set on. The HTMLElement.dataset property gives access to them."`
 
 	/*
 	  Is an enumerated attribute indicating the directionality of the element's text. It can have the following values:
@@ -56,7 +56,7 @@ type HtmlGlobalAttributes struct {
 	  auto, which let the user agent decides. It uses a basic algorithm as it parses the characters inside the element until
 	  it finds a character with a strong directionality, then apply that directionality to the whole element.
 	*/
-	Dir string `htmlAttr:"dir" description:""`
+	Dir string `htmlAttr:"dir" description:"Is an enumerated attribute indicating the directionality of the element's text. It can have the following values:\nltr, which means left to right and is to be used for languages that are written from the left to the right (like English);\nrtl, which means right to left and is to be used for languages that are written from the right to the left (like Arabic);\nauto, which let the user agent decides. It uses a basic algorithm as it parses the characters inside the element until it finds a character with a strong directionality, then apply that directionality to the whole element." enum:"['ltr', 'rtl', 'auto']"`
 
 	/*
 	  Is an enumerated attribute indicating whether the element can be dragged, using the Drag and Drop API. It can have the
@@ -64,7 +64,7 @@ type HtmlGlobalAttributes struct {
 	  true, which indicates that the element may be dragged
 	  false, which indicates that the element may not be dragged.
 	*/
-	Draggable Boolean `htmlAttr:"draggable" description:""`
+	Draggable Boolean `htmlAttr:"draggable" description:"Is an enumerated attribute indicating whether the element can be dragged, using the Drag and Drop API. It can have the following values:\ntrue, which indicates that the element may be dragged\nfalse, which indicates that the element may not be dragged."`
 
 	/*
 	  Is an enumerated attribute indicating what types of content can be dropped on an element, using the Drag and Drop API.
@@ -73,63 +73,63 @@ type HtmlGlobalAttributes struct {
 	  move, which indicates that the element that was dragged will be moved to this new location.
 	  link, will create a link to the dragged data.
 	*/
-	DropZone TypeHtmlDropZone `htmlAttr:"dropzone" description:""`
+	DropZone TypeHtmlDropZone `htmlAttr:"dropzone" description:"Is an enumerated attribute indicating what types of content can be dropped on an element, using the Drag and Drop API.\nIt can have the following values:\ncopy, which indicates that dropping will create a copy of the element that was dragged\nmove, which indicates that the element that was dragged will be moved to this new location.\nlink, will create a link to the dragged data." enum:"['copy', 'move', 'link']"`
 
 	/*
 	  Is a Boolean attribute indicates that the element is not yet, or is no longer, relevant. For example, it can be used
 	  to hide elements of the page that can't be used until the login process has been completed. The browser won't render
 	  such elements. This attribute must not be used to hide content that could legitimately be shown.
 	*/
-	Hidden Boolean `htmlAttrSet:"draggable" description:""`
+	Hidden Boolean `htmlAttrSet:"draggable" description:"Is a Boolean attribute indicates that the element is not yet, or is no longer, relevant. For example, it can be used to hide elements of the page that can't be used until the login process has been completed. The browser won't render such elements. This attribute must not be used to hide content that could legitimately be shown."`
 
 	/*
 	  Defines a unique identifier (ID) which must be unique in the whole document. Its purpose is to identify the element
 	  when linking (using a fragment identifier), scripting, or styling (with CSS).
 	*/
-	Id string `htmlAttr:"id" description:""`
+	Id string `htmlAttr:"id" description:"Defines a unique identifier (ID) which must be unique in the whole document. Its purpose is to identify the element when linking (using a fragment identifier), scripting, or styling (with CSS)."`
 
 	/*
 	  The unique, global identifier of an item.
 	*/
-	ItemId string `htmlAttr:"itemid" description:""`
+	ItemId string `htmlAttr:"itemid" description:"The unique, global identifier of an item."`
 
 	/*
 	  Used to add properties to an item. Every HTML element may have an itemprop attribute specified, where an itemprop
 	  consists of a name and value pair.
 	*/
-	ItemDrop string `htmlAttr:"itemdrop" description:""`
+	ItemDrop string `htmlAttr:"itemdrop" description:"Used to add properties to an item. Every HTML element may have an itemprop attribute specified, where an itemprop consists of a name and value pair."`
 
 	/*
 	  Properties that are not descendants of an element with the itemscope attribute can be associated with the item using
 	  an itemref. It provides a list of element ids (not itemids) with additional properties elsewhere in the document.
 	*/
-	ItemRef string `htmlAttr:"itemref" description:""`
+	ItemRef string `htmlAttr:"itemref" description:"Properties that are not descendants of an element with the itemscope attribute can be associated with the item using an itemref. It provides a list of element ids (not itemids) with additional properties elsewhere in the document."`
 
 	/*
 	  itemscope (usually) works along with itemtype to specify that the HTML contained in a block is about a particular
 	  item. itemscope creates the Item and defines the scope of the itemtype associated with it. itemtype is a valid URL of
 	  a vocabulary (such as schema.org) that describes the item and its properties context.
 	*/
-	ItemScope string `htmlAttr:"itemscope" description:""`
+	ItemScope string `htmlAttr:"itemscope" description:"itemscope (usually) works along with itemtype to specify that the HTML contained in a block is about a particular item. itemscope creates the Item and defines the scope of the itemtype associated with it. itemtype is a valid URL of a vocabulary (such as schema.org) that describes the item and its properties context."`
 
 	/*
 	  Specifies the URL of the vocabulary that will be used to define itemprops (item properties) in the data structure.
 	  itemscope is used to set the scope of where in the data structure the vocabulary set by itemtype will be active.
 	*/
-	ItemType string `htmlAttr:"itemtype" description:""`
+	ItemType string `htmlAttr:"itemtype" description:"Specifies the URL of the vocabulary that will be used to define itemprops (item properties) in the data structure. itemscope is used to set the scope of where in the data structure the vocabulary set by itemtype will be active."`
 
 	/*
 	  Participates in defining the language of the element, the language that non-editable elements are written in or the
 	  language that editable elements should be written in. The tag contains one single entry value in the format defined in
 	  the Tags for Identifying Languages (BCP47) IETF document. xml:lang has priority over it.
 	*/
-	Lang string `htmlAttr:"lang" description:""`
+	Lang string `htmlAttr:"lang" description:"Participates in defining the language of the element, the language that non-editable elements are written in or the language that editable elements should be written in. The tag contains one single entry value in the format defined in the Tags for Identifying Languages (BCP47) IETF document. xml:lang has priority over it."`
 
 	/*
 	  Assigns a slot in a shadow DOM shadow tree to an element: An element with a slot attribute is assigned to the slot
 	  created by the <slot> element whose name attribute's value matches that slot attribute's value.
 	*/
-	Sort string `htmlAttr:"sort" description:""`
+	Sort string `htmlAttr:"sort" description:"Assigns a slot in a shadow DOM shadow tree to an element: An element with a slot attribute is assigned to the slot created by the <slot> element whose name attribute's value matches that slot attribute's value."`
 
 	/*
 	  Is an enumerated attribute defines whether the element may be checked for spelling errors. It may have the following
@@ -137,14 +137,14 @@ type HtmlGlobalAttributes struct {
 	  true, which indicates that the element should be, if possible, checked for spelling errors;
 	  false, which indicates that the element should not be checked for spelling errors.
 	*/
-	SpellCheck string `htmlAttr:"spellcheck" description:""`
+	SpellCheck Boolean `htmlAttrSet:"spellcheck" description:"Is an enumerated attribute defines whether the element may be checked for spelling errors. It may have the following values:\ntrue, which indicates that the element should be, if possible, checked for spelling errors;\nfalse, which indicates that the element should not be checked for spelling errors."`
 
 	/*
 	  Contains CSS styling declarations to be applied to the element. Note that it is recommended for styles to be defined
 	  in a separate file or files. This attribute and the <style> element have mainly the purpose of allowing for quick
 	  styling, for example for testing purposes.
 	*/
-	Style string `htmlAttr:"style" description:""`
+	Style string `htmlAttr:"style" description:"Contains CSS styling declarations to be applied to the element. Note that it is recommended for styles to be defined in a separate file or files. This attribute and the <style> element have mainly the purpose of allowing for quick styling, for example for testing purposes."`
 
 	/*
 	  Is an integer attribute indicating if the element can take input focus (is focusable), if it should participate to
@@ -157,13 +157,13 @@ type HtmlGlobalAttributes struct {
 	  order in which the elements are focused is the increasing value of the tabindex. If several elements share the same
 	  tabindex, their relative order follows their relative positions in the document.
 	*/
-	TabIndex int `htmlAttr:"tabindex" description:""`
+	TabIndex int `htmlAttr:"tabindex" description:"Is an integer attribute indicating if the element can take input focus (is focusable), if it should participate to sequential keyboard navigation, and if so, at what position. It can takes several values:\na negative value means that the element should be focusable, but should not be reachable via sequential keyboard navigation;\n0 means that the element should be focusable and reachable via sequential keyboard navigation, but its relative order is defined by the platform convention;\na positive value means that the element should be focusable and reachable via sequential keyboard navigation; the order in which the elements are focused is the increasing value of the tabindex. If several elements share the same tabindex, their relative order follows their relative positions in the document."`
 
 	/*
 	  Contains a text representing advisory information related to the element it belongs to. Such information can
 	  typically, but not necessarily, be presented to the user as a tooltip.
 	*/
-	Title string `htmlAttr:"title" description:""`
+	Title string `htmlAttr:"title" description:"Contains a text representing advisory information related to the element it belongs to. Such information can typically, but not necessarily, be presented to the user as a tooltip."`
 
 	/*
 	  Is an enumerated attribute that is used to specify whether an element's attribute values and the values of its Text
@@ -172,12 +172,23 @@ type HtmlGlobalAttributes struct {
 	  empty string and "yes", which indicates that the element will be translated.
 	  "no", which indicates that the element will not be translated.
 	*/
-	Translate Boolean `htmlAttr:"translate" description:""`
+	Translate Boolean `htmlAttr:"translate" description:"Is an enumerated attribute that is used to specify whether an element's attribute values and the values of its Text node children are to be translated when the page is localized, or whether to leave them unchanged. It can have the following values:\nempty string and 'yes', which indicates that the element will be translated.\n'no', which indicates that the element will not be translated."`
 
 	Extra map[string]interface{} `htmlAttr:"extra" description:""`
 
-	OnAbort             string `htmlAttr:"onabort" description:""`
-	OnAutoComplete      string `htmlAttr:"onautocomplete" description:""`
+	/*
+		  An event handler for abort events sent to the window. (Not available with Firefox 2 or Safari.)
+	    While the standard for aborting a document load is defined, HTML issue #3525 suggests that browsers do not currently fire the "abort" event on window that would trigger onabort to be called.
+	*/
+	OnAbort string `htmlAttr:"onabort" description:"An event handler for abort events sent to the window. (Not available with Firefox 2 or Safari.)\nWhile the standard for aborting a document load is defined, HTML issue #3525 suggests that browsers do not currently fire the 'abort' event on window that would trigger onabort to be called."`
+
+	/*
+		  The HTML autocomplete attribute is available on several kinds of <input> elements—those that take a text or numeric value as input. autocomplete lets web developers specify what if any permission the user agent has to provide automated assistance in filling out form field values, as well as guidance to the browser as to the type of information expected in the field.
+	    The source of the suggested values is generally up to the browser; typically values come from past values entered by the user, but they may also come from pre-configured values. For instance, a browser might let the user save their name, address, phone number, and email addresses for autocomplete purposes. Perhaps the browser offers the ability to save encrypted credit card information, for autocompletion following an authentication procedure.
+	    If an <input> element has no autocomplete attribute, then browsers use the autocomplete attribute of the element's form owner, which is either the <form> element that the <input> element is a descendant of, or the <form> whose id is specified by the form attribute of the <input> element.
+	*/
+	OnAutoComplete string `htmlAttr:"onautocomplete" description:"The HTML autocomplete attribute is available on several kinds of <input> elements—those that take a text or numeric value as input. autocomplete lets web developers specify what if any permission the user agent has to provide automated assistance in filling out form field values, as well as guidance to the browser as to the type of information expected in the field.\nThe source of the suggested values is generally up to the browser; typically values come from past values entered by the user, but they may also come from pre-configured values. For instance, a browser might let the user save their name, address, phone number, and email addresses for autocomplete purposes. Perhaps the browser offers the ability to save encrypted credit card information, for autocompletion following an authentication procedure.\nIf an <input> element has no autocomplete attribute, then browsers use the autocomplete attribute of the element's form owner, which is either the <form> element that the <input> element is a descendant of, or the <form> whose id is specified by the form attribute of the <input> element."`
+
 	OnAutoCompleteError string `htmlAttr:"onautocompleteerror" description:""`
 	OnBlur              string `htmlAttr:"onblur" description:""`
 	OnCancel            string `htmlAttr:"oncancel" description:""`
