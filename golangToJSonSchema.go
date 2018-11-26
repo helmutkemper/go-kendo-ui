@@ -7,7 +7,7 @@ import (
 )
 
 func (el *ToJavaScriptConverter) ToSJsonSchema(elementName, jsType string, element reflect.Value) []byte {
-	var fieldName, tagDescription, tagEnum, tagRequired, tagPattern, tagMinimum, tagMaximum, tagType string
+	var fieldName, tagDescription, tagEnum, tagRequired, tagPattern, tagMinimum, tagMaximum, tagType, tagComplex string
 
 	var required []string
 	var properties map[string]map[string]interface{}
@@ -30,19 +30,31 @@ func (el *ToJavaScriptConverter) ToSJsonSchema(elementName, jsType string, eleme
 			continue
 		}
 
-		_, tagDescription = el.getTagDataByName("description", tag)
+		_, tagDescription = el.getTagDataByName("jsonSchema_description", tag)
 
-		_, tagEnum = el.getTagDataByName("enum", tag)
+		_, tagEnum = el.getTagDataByName("jsonSchema_enum", tag)
 
-		_, tagRequired = el.getTagDataByName("required", tag)
+		_, tagRequired = el.getTagDataByName("jsonSchema_required", tag)
 
-		_, tagPattern = el.getTagDataByName("pattern", tag)
+		_, tagPattern = el.getTagDataByName("jsonSchema_pattern", tag)
 
-		_, tagMinimum = el.getTagDataByName("minimum", tag)
+		_, tagMinimum = el.getTagDataByName("jsonSchema_minimum", tag)
 
-		_, tagMaximum = el.getTagDataByName("maximum", tag)
+		_, tagMaximum = el.getTagDataByName("jsonSchema_minimum", tag)
 
-		_, tagType = el.getTagDataByName("type", tag)
+		_, tagType = el.getTagDataByName("jsonSchema_type", tag)
+
+		_, tagComplex = el.getTagDataByName("jsonSchema_complex", tag)
+		if tagComplex != "" {
+			var tagComplexMap map[string]interface{}
+			err := json.Unmarshal([]byte(tagComplex), &tagComplexMap)
+			if err != nil {
+				log.Panicf("error: %v", err.Error())
+			}
+
+			properties[fieldName] = tagComplexMap
+			continue
+		}
 
 		properties[fieldName] = make(map[string]interface{})
 
@@ -51,7 +63,14 @@ func (el *ToJavaScriptConverter) ToSJsonSchema(elementName, jsType string, eleme
 		}
 
 		if tagEnum != "" {
-			properties[fieldName]["enum"] = tagEnum
+
+			var tagEnumArr []string
+			err := json.Unmarshal([]byte(tagEnum), &tagEnumArr)
+			if err != nil {
+				log.Panicf("error: %v", err.Error())
+			}
+
+			properties[fieldName]["enum"] = tagEnumArr
 		}
 
 		if tagPattern != "" {

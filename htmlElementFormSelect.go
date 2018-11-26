@@ -13,7 +13,7 @@ type HtmlElementFormSelect struct {
 	/*
 	  The name of the control, which is submitted with the form data.
 	*/
-	Name string `htmlAttr:"name" description:"The name of the control, which is submitted with the form data."`
+	Name string `htmlAttr:"name" jsonSchema_description:"The name of the control, which is submitted with the form data."`
 
 	/*
 	  The form element that the input element is associated with (its form owner). The value of the attribute must be an id
@@ -21,7 +21,7 @@ type HtmlElementFormSelect struct {
 	  descendant of a <form> element. This attribute enables you to place <input> elements anywhere within a document, not
 	  just as descendants of their form elements. An input can only be associated with one form.
 	*/
-	Form string `htmlAttr:"form" description:"The form element that the input element is associated with (its form owner). The value of the attribute must be an id of a <form> element in the same document. If this attribute is not specified, this <input> element must be a descendant of a <form> element. This attribute enables you to place <input> elements anywhere within a document, not just as descendants of their form elements. An input can only be associated with one form."`
+	Form string `htmlAttr:"form" jsonSchema_description:"The form element that the input element is associated with (its form owner). The value of the attribute must be an id of a <form> element in the same document. If this attribute is not specified, this <input> element must be a descendant of a <form> element. This attribute enables you to place <input> elements anywhere within a document, not just as descendants of their form elements. An input can only be associated with one form."`
 
 	/*
 	  This Boolean attribute indicates that the form control is not available for interaction. In particular, the click
@@ -29,20 +29,20 @@ type HtmlElementFormSelect struct {
 	  Unlike other browsers, Firefox will by default persist the dynamic disabled state of an <input> across page loads. Use
 	  the autocomplete attribute to control this feature.
 	*/
-	Disabled Boolean `htmlAttrSet:"disabled" description:"This Boolean attribute indicates that the form control is not available for interaction. In particular, the click event will not be dispatched on disabled controls. Also, a disabled control's value isn't submitted with the form.\nUnlike other browsers, Firefox will by default persist the dynamic disabled state of an <input> across page loads. Use the autocomplete attribute to control this feature."`
+	Disabled Boolean `htmlAttrSet:"disabled" jsonSchema_description:"This Boolean attribute indicates that the form control is not available for interaction. In particular, the click event will not be dispatched on disabled controls. Also, a disabled control's value isn't submitted with the form.\nUnlike other browsers, Firefox will by default persist the dynamic disabled state of an <input> across page loads. Use the autocomplete attribute to control this feature."`
 
 	/*
 	  This Boolean attribute indicates whether the user can enter more than one value. This attribute applies when the type
 	  attribute is set to email or file, otherwise it is ignored.
 	*/
-	Multiple string `htmlAttr:"multiple" description:"This Boolean attribute indicates whether the user can enter more than one value. This attribute applies when the type attribute is set to email or file, otherwise it is ignored."`
+	Multiple string `htmlAttr:"multiple" jsonSchema_description:"This Boolean attribute indicates whether the user can enter more than one value. This attribute applies when the type attribute is set to email or file, otherwise it is ignored."`
 
 	/*
 	  This attribute specifies that the user must fill in a value before submitting a form. It cannot be used when the type
 	  attribute is hidden, image, or a button type (submit, reset, or button). The :optional and :required CSS
 	  pseudo-classes will be applied to the field as appropriate.
 	*/
-	Required Boolean `htmlAttrSet:"required" description:"This attribute specifies that the user must fill in a value before submitting a form. It cannot be used when the type attribute is hidden, image, or a button type (submit, reset, or button). The :optional and :required CSS pseudo-classes will be applied to the field as appropriate."`
+	Required Boolean `htmlAttrSet:"required" jsonSchema_description:"This attribute specifies that the user must fill in a value before submitting a form. It cannot be used when the type attribute is hidden, image, or a button type (submit, reset, or button). The :optional and :required CSS pseudo-classes will be applied to the field as appropriate."`
 
 	/*
 	  The initial size of the control. This value is in pixels unless the value of the type attribute is text or password,
@@ -53,7 +53,7 @@ type HtmlElementFormSelect struct {
 	  certain fonts. In some browsers, a certain string with x characters will not be entirely visible even if size is
 	  defined to at least x.
 	*/
-	Size int `htmlAttr:"size" description:"The initial size of the control. This value is in pixels unless the value of the type attribute is text or password, in which case it is an integer number of characters. Starting in HTML5, this attribute applies only when the type attribute is set to text, search, tel, url, email, or password, otherwise it is ignored. In addition, the size must be greater than zero. If you do not specify a size, a default value of 20 is used. HTML5 simply states 'the user agent should ensure that at least that many characters are visible', but different characters can have different widths in certain fonts. In some browsers, a certain string with x characters will not be entirely visible even if size is defined to at least x."`
+	Size int `htmlAttr:"size" jsonSchema_description:"The initial size of the control. This value is in pixels unless the value of the type attribute is text or password, in which case it is an integer number of characters. Starting in HTML5, this attribute applies only when the type attribute is set to text, search, tel, url, email, or password, otherwise it is ignored. In addition, the size must be greater than zero. If you do not specify a size, a default value of 20 is used. HTML5 simply states 'the user agent should ensure that at least that many characters are visible', but different characters can have different widths in certain fonts. In some browsers, a certain string with x characters will not be entirely visible even if size is defined to at least x."`
 
 	/*
 	  The initial value of the control. This attribute is optional except when the value of the type attribute is radio or
@@ -61,14 +61,14 @@ type HtmlElementFormSelect struct {
 	  Note that when reloading the page, Gecko and IE will ignore the value specified in the HTML source, if the value was
 	  changed before the reload.
 	*/
-	Value string `htmlAttr:"-" description:"The initial value of the control. This attribute is optional except when the value of the type attribute is radio or checkbox.\nNote that when reloading the page, Gecko and IE will ignore the value specified in the HTML source, if the value was changed before the reload."`
+	Value string `htmlAttr:"-" jsonSchema_description:"The initial value of the control. This attribute is optional except when the value of the type attribute is radio or checkbox.\nNote that when reloading the page, Gecko and IE will ignore the value specified in the HTML source, if the value was changed before the reload."`
 
-	Options []HtmlOptions `htmlAttr:"-" description:""`
+	Options []HtmlOptions `htmlAttr:"-" jsonSchema_description:""`
 	//OptionsGroup                           `htmlAttr:"options"`
 
-	Global HtmlGlobalAttributes `htmlAttr:"-" description:""`
+	Global HtmlGlobalAttributes `htmlAttr:"-" jsonSchema_description:""`
 
-	*ToJavaScriptConverter `htmlAttr:"-" description:""`
+	*ToJavaScriptConverter `htmlAttr:"-" jsonSchema_description:""`
 }
 
 func (el *HtmlElementFormSelect) SetOmitHtml(value Boolean) {

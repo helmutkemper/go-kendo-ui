@@ -9,15 +9,15 @@ import (
 //
 // @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul
 type HtmlElementUl struct {
-	Name string `htmlAttr:"-" description:""`
+	Name string `htmlAttr:"-" jsonSchema_description:""`
 	/*
 	  Content inside html tag
 	*/
-	Content Content `htmlAttr:"-" description:"Content inside html tag"`
+	Content Content `htmlAttr:"-" jsonSchema_description:"Content inside html tag"`
 
-	Global HtmlGlobalAttributes `htmlAttr:"-" description:""`
+	Global HtmlGlobalAttributes `htmlAttr:"-" jsonSchema_description:""`
 
-	*ToJavaScriptConverter `htmlAttr:"-" description:""`
+	*ToJavaScriptConverter `htmlAttr:"-" jsonSchema_description:""`
 }
 
 func (el *HtmlElementUl) SetOmitHtml(value Boolean) {

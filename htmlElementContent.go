@@ -8,9 +8,9 @@ type HtmlContent struct {
 	/*
 	  Content
 	*/
-	Content Content `htmlAttr:"-" description:""`
+	Content Content `htmlAttr:"-" jsonSchema_description:""`
 
-	*ToJavaScriptConverter `htmlAttr:"-" description:""`
+	*ToJavaScriptConverter `htmlAttr:"-" jsonSchema_description:""`
 }
 
 func (el *HtmlContent) ToHtml() []byte {
