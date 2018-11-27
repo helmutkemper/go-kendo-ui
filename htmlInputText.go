@@ -125,9 +125,9 @@ type HtmlInputText struct {
 
 	CheckCode string `htmlAttr:"checkcode" jsonSchema_description:""`
 
-	Global HtmlGlobalAttributes `htmlAttr:"-" jsonSchema_description:""`
+	Global HtmlGlobalAttributes `htmlAttr:"-" jsonSchema_description:"" jsonSchema_keyNewName:"global"`
 
-	*ToJavaScriptConverter `htmlAttr:"-" jsonSchema_description:""`
+	*ToJavaScriptConverter `htmlAttr:"-" jsonSchema_description:"-"`
 }
 
 func (el *HtmlInputText) ToJSonSchema() []byte {

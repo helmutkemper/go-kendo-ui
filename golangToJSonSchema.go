@@ -2,12 +2,13 @@ package telerik
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/dsoprea/go-logging"
 	"reflect"
 )
 
 func (el *ToJavaScriptConverter) ToSJsonSchema(elementName, jsType string, element reflect.Value) []byte {
-	var fieldName, tagDescription, tagEnum, tagRequired, tagPattern, tagMinimum, tagMaximum, tagType, tagComplex string
+	var fieldName, tagKeyNewName, tagDescription, tagEnum, tagRequired, tagPattern, tagMinimum, tagMaximum, tagType, tagComplex string
 
 	var required []string
 	var properties map[string]map[string]interface{}
@@ -26,11 +27,16 @@ func (el *ToJavaScriptConverter) ToSJsonSchema(elementName, jsType string, eleme
 		tag := typeField.Tag
 
 		_, fieldName = el.getTagData(tag)
-		if fieldName == "-" {
+
+		_, tagDescription = el.getTagDataByName("jsonSchema_description", tag)
+		if tagDescription == "-" {
 			continue
 		}
 
-		_, tagDescription = el.getTagDataByName("jsonSchema_description", tag)
+		_, tagKeyNewName = el.getTagDataByName("jsonSchema_keyNewName", tag)
+		if tagKeyNewName != "" {
+			fieldName = tagKeyNewName
+		}
 
 		_, tagEnum = el.getTagDataByName("jsonSchema_enum", tag)
 
@@ -89,7 +95,34 @@ func (el *ToJavaScriptConverter) ToSJsonSchema(elementName, jsType string, eleme
 			required = append(required, fieldName)
 		}
 
-		switch field.Interface().(type) {
+		switch converted := field.Interface().(type) {
+
+		case TypeHtmlDropZone:
+			properties[fieldName] = map[string]interface{}{
+				"type": "string",
+				"enum": TypeHtmlDropZones[1:],
+			}
+
+		case HtmlGlobalAttributes:
+
+			newTagMapStringInterface := make(map[string]interface{})
+			err := json.Unmarshal([]byte(el.ToSJsonSchema("", "object", reflect.ValueOf(converted))), &newTagMapStringInterface)
+			if err != nil {
+				log.Panicf("error: %v", err.Error())
+			}
+			properties[fieldName] = newTagMapStringInterface
+
+		case map[string]interface{}:
+
+			properties[fieldName] = map[string]interface{}{
+				"type": "object",
+			}
+
+		case map[string]string:
+
+			properties[fieldName] = map[string]interface{}{
+				"type": "object",
+			}
 
 		case string:
 			properties[fieldName]["type"] = "string"
@@ -97,6 +130,10 @@ func (el *ToJavaScriptConverter) ToSJsonSchema(elementName, jsType string, eleme
 			properties[fieldName]["type"] = "boolean"
 		case int:
 			properties[fieldName]["type"] = "number"
+
+		default:
+			fmt.Printf("\n\n%golangToSJsonSchema.go: T\n\n", converted)
+
 		}
 
 		if tagType != "" {
@@ -104,13 +141,23 @@ func (el *ToJavaScriptConverter) ToSJsonSchema(elementName, jsType string, eleme
 		}
 	}
 
-	ret, err := json.Marshal(map[string]interface{}{
-		elementName: map[string]interface{}{
+	var ret []byte
+	var err error
+	if elementName == "" {
+		ret, err = json.Marshal(map[string]interface{}{
 			"type":       jsType,
 			"properties": properties,
 			"required":   required,
-		},
-	})
+		})
+	} else {
+		ret, err = json.Marshal(map[string]interface{}{
+			elementName: map[string]interface{}{
+				"type":       jsType,
+				"properties": properties,
+				"required":   required,
+			},
+		})
+	}
 
 	if err != nil {
 		log.Panic(err)

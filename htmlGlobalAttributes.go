@@ -56,7 +56,7 @@ type HtmlGlobalAttributes struct {
 	  auto, which let the user agent decides. It uses a basic algorithm as it parses the characters inside the element until
 	  it finds a character with a strong directionality, then apply that directionality to the whole element.
 	*/
-	Dir string `htmlAttr:"dir" jsonSchema_description:"Is an enumerated attribute indicating the directionality of the element's text. It can have the following values:\nltr, which means left to right and is to be used for languages that are written from the left to the right (like English);\nrtl, which means right to left and is to be used for languages that are written from the right to the left (like Arabic);\nauto, which let the user agent decides. It uses a basic algorithm as it parses the characters inside the element until it finds a character with a strong directionality, then apply that directionality to the whole element." jsonSchema_enum:"['ltr', 'rtl', 'auto']"`
+	Dir string `htmlAttr:"dir" jsonSchema_description:"Is an enumerated attribute indicating the directionality of the element's text. It can have the following values:\nltr, which means left to right and is to be used for languages that are written from the left to the right (like English);\nrtl, which means right to left and is to be used for languages that are written from the right to the left (like Arabic);\nauto, which let the user agent decides. It uses a basic algorithm as it parses the characters inside the element until it finds a character with a strong directionality, then apply that directionality to the whole element." jsonSchema_enum:"[\"ltr\", \"rtl\", \"auto\"]"`
 
 	/*
 	  Is an enumerated attribute indicating whether the element can be dragged, using the Drag and Drop API. It can have the
@@ -73,7 +73,7 @@ type HtmlGlobalAttributes struct {
 	  move, which indicates that the element that was dragged will be moved to this new location.
 	  link, will create a link to the dragged data.
 	*/
-	DropZone TypeHtmlDropZone `htmlAttr:"dropzone" jsonSchema_description:"Is an enumerated attribute indicating what types of content can be dropped on an element, using the Drag and Drop API.\nIt can have the following values:\ncopy, which indicates that dropping will create a copy of the element that was dragged\nmove, which indicates that the element that was dragged will be moved to this new location.\nlink, will create a link to the dragged data." jsonSchema_enum:"['copy', 'move', 'link']"`
+	DropZone TypeHtmlDropZone `htmlAttr:"dropzone" jsonSchema_description:"Is an enumerated attribute indicating what types of content can be dropped on an element, using the Drag and Drop API.\nIt can have the following values:\ncopy, which indicates that dropping will create a copy of the element that was dragged\nmove, which indicates that the element that was dragged will be moved to this new location.\nlink, will create a link to the dragged data." jsonSchema_enum:"[\"copy\", \"move\", \"link\"]"`
 
 	/*
 	  Is a Boolean attribute indicates that the element is not yet, or is no longer, relevant. For example, it can be used
@@ -251,7 +251,7 @@ type HtmlGlobalAttributes struct {
 	OnVolumeChange      string `htmlAttr:"onvolumechange" jsonSchema_description:""`
 	OnWaiting           string `htmlAttr:"onwaiting" jsonSchema_description:""`
 
-	*ToJavaScriptConverter `htmlAttr:"-" jsonSchema_description:""`
+	*ToJavaScriptConverter `htmlAttr:"-" jsonSchema_description:"-"`
 }
 
 func (el *HtmlGlobalAttributes) ToHtml() []byte {
