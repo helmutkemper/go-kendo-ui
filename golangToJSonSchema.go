@@ -58,7 +58,7 @@ func (el *ToJavaScriptConverter) ToSJsonSchema(elementName, jsType string, eleme
 				log.Panicf("error: %v", err.Error())
 			}
 
-			properties[fieldName] = tagComplexMap
+			properties[fieldName] = map[string]interface{}{"properties": tagComplexMap}
 			continue
 		}
 
