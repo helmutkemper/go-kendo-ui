@@ -2,17 +2,17 @@ package telerik
 
 type KendoAxis int
 
-var kendoAxes = [...]string {
-  "",
-  "x",
-  "y",
+var KendoAxes = [...]string{
+	"",
+	"x",
+	"y",
 }
 
 func (el KendoAxis) String() string {
-  return kendoAxes[el]
+	return KendoAxes[el]
 }
 
 const (
-  AXIS_X KendoAxis = iota + 1
-  AXIS_Y
+	AXIS_X KendoAxis = iota + 1
+	AXIS_Y
 )

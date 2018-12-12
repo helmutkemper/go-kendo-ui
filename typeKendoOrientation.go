@@ -2,17 +2,17 @@ package telerik
 
 type KendoOrientation int
 
-var kendoOrientations = [...]string {
-  "",
-  "horizontal",
-  "vertical",
+var KendoOrientations = [...]string{
+	"",
+	"horizontal",
+	"vertical",
 }
 
 func (el KendoOrientation) String() string {
-  return kendoOrientations[el]
+	return KendoOrientations[el]
 }
 
 const (
-  ORIENTATION_HORIZONTAL KendoOrientation = iota + 1
-  ORIENTATION_VERTICAL
+	ORIENTATION_HORIZONTAL KendoOrientation = iota + 1
+	ORIENTATION_VERTICAL
 )
