@@ -1144,7 +1144,7 @@ func (el *ToJavaScriptConverter) ToTelerikJavaScript(element reflect.Value) ([]b
 
 				buffer.WriteString(tag.Get("jsObject") + `: "` + convertedFromInterface.String() + `",`)
 
-			case []KendoFilters:
+			case []kendoFilters:
 				if len(convertedFromInterface) == 0 {
 					continue
 				}
